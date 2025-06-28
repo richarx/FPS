@@ -1,0 +1,198 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+namespace Tools_and_Scripts
+{
+    public static class PlayerInputs
+    {
+        public static Vector2 GetMoveDirection()
+        {
+            if (Gamepad.current == null)
+                return Vector2.zero;
+        
+            Vector2 input = new Vector2(Gamepad.current.leftStick.x.ReadValue(), Gamepad.current.leftStick.y.ReadValue());
+
+            if (Mathf.Abs(input.x) <= 0.15f)
+                input.x = 0.0f;
+        
+            if (Mathf.Abs(input.y) <= 0.15f)
+                input.y = 0.0f;
+
+            return input;
+        }
+    
+        public static Vector2 GetAimingDirection()
+        {
+            if (Gamepad.current == null)
+                return Vector2.zero;
+        
+            Vector2 input = new Vector2(Gamepad.current.rightStick.x.ReadValue(), Gamepad.current.rightStick.y.ReadValue());
+
+            return input.magnitude >= 0.15f ? input : Vector2.zero;
+        }
+
+        public static bool GetNorthButton(bool isHeld = false, bool withBuffer = true)
+        {
+            if (Gamepad.current == null)
+                return false;
+        
+            if (isHeld)
+                return Gamepad.current.buttonNorth.isPressed;
+
+            if (withBuffer && Time.time <= throwBufferTimeStamp)
+            {
+                throwBufferTimeStamp = -1.0f;
+                return true;
+            }
+
+            return Gamepad.current.buttonNorth.wasPressedThisFrame;
+        }
+    
+        public static bool GetEastButton(bool withBuffer = true)
+        {
+            if (Gamepad.current == null)
+                return false;
+
+            if (withBuffer && Time.time <= dashBufferTimeStamp)
+            {
+                dashBufferTimeStamp = -1.0f;
+                return true;
+            }
+            
+            return Gamepad.current.buttonEast.wasPressedThisFrame;
+        }
+    
+        public static bool GetWestButton(bool withBuffer = true)
+        {
+            if (Gamepad.current == null)
+                return false;
+
+            if (withBuffer && Time.time <= attackBufferTimeStamp)
+            {
+                attackBufferTimeStamp = -1.0f;
+                return true;
+            }
+        
+            return Gamepad.current.buttonWest.wasPressedThisFrame;
+        }
+    
+        public static bool GetSouthButton(bool isHeld = false, bool withBuffer = true)
+        {
+            if (Gamepad.current == null)
+                return false;
+
+            if (isHeld)
+                return Gamepad.current.buttonSouth.isPressed;
+
+            if (withBuffer && Time.time <= jumpBufferTimeStamp)
+            {
+                jumpBufferTimeStamp = -1.0f;
+                return true;
+            }
+        
+            return Gamepad.current.buttonSouth.wasPressedThisFrame;
+        }
+
+        public static bool GetWestButtonIsPressed()
+        {
+            if (Gamepad.current == null)
+                return false;
+        
+            return Gamepad.current.buttonWest.isPressed;
+        }
+    
+        public static bool GetWestButtonUp()
+        {
+            if (Gamepad.current == null)
+                return false;
+        
+            return Gamepad.current.buttonWest.wasReleasedThisFrame;
+        }
+    
+        public static bool GetLeftShoulder(bool isHeld = false, bool withBuffer = true)
+        {
+            if (Gamepad.current == null)
+                return false;
+        
+            if (isHeld)
+                return Gamepad.current.leftShoulder.isPressed;
+        
+            if (withBuffer && Time.time <= guardBufferTimeStamp)
+            {
+                guardBufferTimeStamp = -1.0f;
+                return true;
+            }
+        
+            return Gamepad.current.leftShoulder.wasPressedThisFrame;
+        }
+    
+        public static bool GetRightShoulder(bool isHeld = false)
+        {
+            if (Gamepad.current == null)
+                return false;
+        
+            if (isHeld)
+                return Gamepad.current.rightShoulder.isPressed;
+        
+            return Gamepad.current.rightShoulder.wasPressedThisFrame;
+        }
+
+        public static bool GetLeftTrigger(bool isHeld = false)
+        {
+            if (Gamepad.current == null)
+                return false;
+        
+            return isHeld ? Gamepad.current.leftTrigger.isPressed : Gamepad.current.leftTrigger.wasPressedThisFrame;
+        }
+    
+        public static bool GetRightTrigger(bool isHeld = false, bool withBuffer = true)
+        {
+            if (Gamepad.current == null)
+                return false;
+            
+            if (withBuffer && Time.time <= shootBufferTimeStamp)
+            {
+                shootBufferTimeStamp = -1.0f;
+                return true;
+            }
+        
+            return isHeld ? Gamepad.current.rightTrigger.isPressed : Gamepad.current.rightTrigger.wasPressedThisFrame;
+        }
+
+        public static bool GetSelectButton()
+        {
+            if (Gamepad.current == null)
+                return false;
+        
+            return Gamepad.current.selectButton.wasPressedThisFrame;
+        }
+
+        private static float dashBufferTimeStamp = -1.0f;
+        private static float attackBufferTimeStamp = -1.0f;
+        private static float jumpBufferTimeStamp = -1.0f;
+        private static float guardBufferTimeStamp = -1.0f;
+        private static float throwBufferTimeStamp = -1.0f;
+        private static float shootBufferTimeStamp = -1.0f;
+    
+        public static void UpdateInputBuffers()
+        {
+            if (GetEastButton(false))
+                dashBufferTimeStamp = Time.time + 0.2f;
+
+            if (GetWestButton(false))
+                attackBufferTimeStamp = Time.time + 0.2f;
+        
+            if (GetSouthButton(false, false))
+                jumpBufferTimeStamp = Time.time + 0.2f;
+        
+            if (GetLeftShoulder(true, false))
+                guardBufferTimeStamp = Time.time + 0.2f;
+        
+            if (GetNorthButton(false, false))
+                throwBufferTimeStamp = Time.time + 0.2f;
+            
+            if (GetRightTrigger(false, false))
+                shootBufferTimeStamp = Time.time + 0.2f;
+        }
+    }
+}
