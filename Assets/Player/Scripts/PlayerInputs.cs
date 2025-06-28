@@ -1,3 +1,4 @@
+using Data;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,21 +20,24 @@ namespace Tools_and_Scripts
         
                 if (Mathf.Abs(gamepadInput.y) <= 0.15f)
                     gamepadInput.y = 0.0f;
+                
+                if (gamepadInput.magnitude > 0.15f)
+                    return gamepadInput;
             }
 
-            if (Keyboard.current.zKey.wasPressedThisFrame || Keyboard.current.wKey.wasPressedThisFrame)
+            if (Keyboard.current.zKey.isPressed || Keyboard.current.wKey.isPressed)
                 keyBoardInput.y += 1;
             
-            if (Keyboard.current.sKey.wasPressedThisFrame)
+            if (Keyboard.current.sKey.isPressed)
                 keyBoardInput.y -= 1;
             
-            if (Keyboard.current.qKey.wasPressedThisFrame || Keyboard.current.aKey.wasPressedThisFrame)
+            if (Keyboard.current.qKey.isPressed || Keyboard.current.aKey.isPressed)
                 keyBoardInput.x -= 1;
             
-            if (Keyboard.current.dKey.wasPressedThisFrame)
+            if (Keyboard.current.dKey.isPressed)
                 keyBoardInput.x += 1;
 
-            return (gamepadInput + keyBoardInput).normalized;
+            return keyBoardInput.normalized;
         }
     
         public static Vector2 GetAimingDirection()
@@ -56,6 +60,38 @@ namespace Tools_and_Scripts
             keyBoardInput.y = Input.GetAxisRaw("Mouse Y") * Time.deltaTime;
 
             return (gamepadInput + keyBoardInput).normalized;
+        }
+        
+        public static Vector2 GetAimingDirectionWithSensibility(PlayerData playerData)
+        {
+            Vector2 gamepad = Vector2.zero;
+            Vector2 mouse = Vector2.zero;
+
+            if (Gamepad.current != null)
+            {
+                gamepad = new Vector2(Gamepad.current.rightStick.x.ReadValue(), Gamepad.current.rightStick.y.ReadValue());
+                
+                if (Mathf.Abs(gamepad.x) <= 0.15f)
+                    gamepad.x = 0.0f;
+        
+                if (Mathf.Abs(gamepad.y) <= 0.15f)
+                    gamepad.y = 0.0f;
+
+                if (gamepad.magnitude > 0.15f)
+                {
+                    gamepad.x *= playerData.joystickSensitivityX * Time.deltaTime;
+                    gamepad.y *= playerData.joystickSensitivityY * Time.deltaTime;
+                    return gamepad;
+                }
+            }
+            
+            mouse.x = Input.GetAxisRaw("Mouse X");
+            mouse.y = Input.GetAxisRaw("Mouse Y");
+
+            if (mouse.magnitude > 0.0f)
+                mouse *= playerData.mouseSensitivity * Time.deltaTime;
+
+            return mouse;
         }
 
         public static bool GetNorthButton(bool isHeld = false, bool withBuffer = true)
@@ -174,16 +210,21 @@ namespace Tools_and_Scripts
     
         public static bool GetRightTrigger(bool isHeld = false, bool withBuffer = true)
         {
-            if (Gamepad.current == null)
-                return false;
-            
+            bool gamepad = false;
+            bool mouse = false;
+
             if (withBuffer && Time.time <= shootBufferTimeStamp)
             {
                 shootBufferTimeStamp = -1.0f;
                 return true;
             }
-        
-            return isHeld ? Gamepad.current.rightTrigger.isPressed : Gamepad.current.rightTrigger.wasPressedThisFrame;
+            
+            if (Gamepad.current != null)
+                gamepad = isHeld ? Gamepad.current.rightTrigger.isPressed : Gamepad.current.rightTrigger.wasPressedThisFrame;
+
+            mouse = isHeld ? Mouse.current.leftButton.isPressed : Mouse.current.leftButton.wasPressedThisFrame;
+
+            return gamepad || mouse;
         }
 
         public static bool GetSelectButton()

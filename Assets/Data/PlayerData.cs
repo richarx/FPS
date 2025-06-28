@@ -13,5 +13,13 @@ namespace Data
         
         [Header("Gun")]
         public float fireRate;
+        
+        
+        [Header("Camera")]
+        public float joystickSensitivityX;
+        public float joystickSensitivityY;
+        
+        [Space]
+        public float mouseSensitivity;
     }
 }
