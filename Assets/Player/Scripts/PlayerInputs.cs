@@ -7,28 +7,55 @@ namespace Tools_and_Scripts
     {
         public static Vector2 GetMoveDirection()
         {
-            if (Gamepad.current == null)
-                return Vector2.zero;
-        
-            Vector2 input = new Vector2(Gamepad.current.leftStick.x.ReadValue(), Gamepad.current.leftStick.y.ReadValue());
+            Vector2 gamepadInput = Vector2.zero;
+            Vector2 keyBoardInput = Vector2.zero;
+            
+            if (Gamepad.current != null)
+            {
+                gamepadInput = new Vector2(Gamepad.current.leftStick.x.ReadValue(), Gamepad.current.leftStick.y.ReadValue());
 
-            if (Mathf.Abs(input.x) <= 0.15f)
-                input.x = 0.0f;
+                if (Mathf.Abs(gamepadInput.x) <= 0.15f)
+                    gamepadInput.x = 0.0f;
         
-            if (Mathf.Abs(input.y) <= 0.15f)
-                input.y = 0.0f;
+                if (Mathf.Abs(gamepadInput.y) <= 0.15f)
+                    gamepadInput.y = 0.0f;
+            }
 
-            return input;
+            if (Keyboard.current.zKey.wasPressedThisFrame || Keyboard.current.wKey.wasPressedThisFrame)
+                keyBoardInput.y += 1;
+            
+            if (Keyboard.current.sKey.wasPressedThisFrame)
+                keyBoardInput.y -= 1;
+            
+            if (Keyboard.current.qKey.wasPressedThisFrame || Keyboard.current.aKey.wasPressedThisFrame)
+                keyBoardInput.x -= 1;
+            
+            if (Keyboard.current.dKey.wasPressedThisFrame)
+                keyBoardInput.x += 1;
+
+            return (gamepadInput + keyBoardInput).normalized;
         }
     
         public static Vector2 GetAimingDirection()
         {
-            if (Gamepad.current == null)
-                return Vector2.zero;
-        
-            Vector2 input = new Vector2(Gamepad.current.rightStick.x.ReadValue(), Gamepad.current.rightStick.y.ReadValue());
+            Vector2 gamepadInput = Vector2.zero;
+            Vector2 keyBoardInput = Vector2.zero;
 
-            return input.magnitude >= 0.15f ? input : Vector2.zero;
+            if (Gamepad.current != null)
+            {
+                gamepadInput = new Vector2(Gamepad.current.rightStick.x.ReadValue(), Gamepad.current.rightStick.y.ReadValue());
+                
+                if (Mathf.Abs(gamepadInput.x) <= 0.15f)
+                    gamepadInput.x = 0.0f;
+        
+                if (Mathf.Abs(gamepadInput.y) <= 0.15f)
+                    gamepadInput.y = 0.0f;
+            }
+            
+            keyBoardInput.x = Input.GetAxisRaw("Mouse X") * Time.deltaTime;
+            keyBoardInput.y = Input.GetAxisRaw("Mouse Y") * Time.deltaTime;
+
+            return (gamepadInput + keyBoardInput).normalized;
         }
 
         public static bool GetNorthButton(bool isHeld = false, bool withBuffer = true)

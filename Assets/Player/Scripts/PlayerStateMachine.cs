@@ -1,3 +1,4 @@
+using Data;
 using Tools_and_Scripts;
 using UnityEngine;
 
@@ -5,6 +6,10 @@ namespace Player.Scripts
 {
     public class PlayerStateMachine : MonoBehaviour
     {
+        public Transform orientationPivot;
+        
+        public PlayerData playerData;
+        
         public static PlayerStateMachine instance;
 
         private PlayerRun playerGroundMovement = new PlayerRun();
