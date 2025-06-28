@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa567a41976bbc84b83f96482f2eda96, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  groundMaxSpeed: 10
-  groundAcceleration: 60
-  groundDeceleration: 50
+  groundMaxSpeed: 25
+  groundAcceleration: 100
+  groundDeceleration: 100
   fireRate: 4
   joystickSensitivityX: 500
   joystickSensitivityY: 200
-  mouseSensitivity: 360
+  mouseSensitivity: 500
