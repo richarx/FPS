@@ -803,7 +803,11 @@ GameObject:
   - component: {fileID: 1177895037}
   - component: {fileID: 1177895039}
   - component: {fileID: 1177895040}
-  m_Layer: 0
+  - component: {fileID: 1177895042}
+  - component: {fileID: 1177895041}
+  - component: {fileID: 1177895043}
+  - component: {fileID: 1177895044}
+  m_Layer: 6
   m_Name: Shroom_Knight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -910,6 +914,74 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3c2c18e587ed64cad2aaed87cf85a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1177895041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177895036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf52d2efa4844ac45bc336ce18ea8496, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0.05
+  blinkMaterial: {fileID: 2100000, guid: 2099ffd3c1b4a0d40bcc28a2eef57b41, type: 2}
+--- !u!114 &1177895042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177895036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480786b50094e354fb0747e357eb1d59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnTakeDamage:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!136 &1177895043
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177895036}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.45
+  m_Height: 1.85
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.9109545, z: 0}
+--- !u!114 &1177895044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177895036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2df3111a12cd05740968133aaa1d9fd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xSqueeze: 1.1
+  ySqueeze: 0.9
+  duration: 0.15
+  GraphicsObject: {fileID: 1177895038}
 --- !u!1 &1221602910
 GameObject:
   m_ObjectHideFlags: 0
@@ -1393,6 +1465,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 989528b061ca06241906e387d8eb82e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shootingPivot: {fileID: 445102581}
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 64
   OnShoot:
     m_PersistentCalls:
       m_Calls: []
@@ -1432,8 +1508,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e724c8501e151894ab980580ac0c9630, type: 3}
   - {fileID: 8300000, guid: aeb9122820daac843a9900b65c6f181d, type: 3}
   gunShotTail: {fileID: 8300000, guid: d7d7f8dead084ac4e9c417d69c660b77, type: 3}
-  shotVolume: 0.15
-  tailVolume: 0.1
+  shotVolume: 0.07
+  tailVolume: 0.03
   tailFadeDuration: 0.05
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
