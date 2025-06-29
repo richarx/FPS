@@ -126,6 +126,11 @@ public static class Tools
     {
         return RadianToVector2(degree * Mathf.Deg2Rad).normalized * length;
     }
+    
+    public static float DegreeToRadian(float degrees)
+    {
+        return (Mathf.PI / 180.0f) * degrees;
+    }
 
     public static float RandomPositiveOrNegative(float number = 1.0f)
     {

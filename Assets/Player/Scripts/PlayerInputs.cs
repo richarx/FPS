@@ -66,6 +66,7 @@ namespace Tools_and_Scripts
         {
             Vector2 gamepad = Vector2.zero;
             Vector2 mouse = Vector2.zero;
+            float sensibilityMultiplier = Application.isEditor ? 5.0f : 1.0f;
 
             if (Gamepad.current != null)
             {
@@ -79,8 +80,8 @@ namespace Tools_and_Scripts
 
                 if (gamepad.magnitude > 0.15f)
                 {
-                    gamepad.x *= playerData.joystickSensitivityX * Time.deltaTime;
-                    gamepad.y *= playerData.joystickSensitivityY * Time.deltaTime;
+                    gamepad.x *= playerData.joystickSensitivityX * sensibilityMultiplier * Time.deltaTime;
+                    gamepad.y *= playerData.joystickSensitivityY * sensibilityMultiplier * Time.deltaTime;
                     return gamepad;
                 }
             }
@@ -89,7 +90,7 @@ namespace Tools_and_Scripts
             mouse.y = Input.GetAxisRaw("Mouse Y");
 
             if (mouse.magnitude > 0.0f)
-                mouse *= playerData.mouseSensitivity * Time.deltaTime;
+                mouse *= playerData.mouseSensitivity * sensibilityMultiplier * Time.deltaTime;
 
             return mouse;
         }

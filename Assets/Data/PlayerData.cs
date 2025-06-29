@@ -11,10 +11,20 @@ namespace Data
         public float groundDeceleration;
         
         
+        [Space]
         [Header("Gun")]
         public float fireRate;
         
+        [Space]
+        [Header("Gun Animation")]
+        public float gunAnimationDistance;
+        public float gunAnimationLateralDistance;
+        public float gunAnimationCosSpeed;
+        public float gunAnimationSinSpeed;
+        public float gunAnimationSmoothTime;
+        public float gunAnimationLateralSmoothTime;
         
+        [Space]
         [Header("Camera")]
         public float joystickSensitivityX;
         public float joystickSensitivityY;

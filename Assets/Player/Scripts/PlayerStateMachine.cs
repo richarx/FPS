@@ -7,7 +7,6 @@ namespace Player.Scripts
     public class PlayerStateMachine : MonoBehaviour
     {
         public Transform orientationPivot;
-        
         public PlayerData playerData;
         
         public static PlayerStateMachine instance;
@@ -17,20 +16,23 @@ namespace Player.Scripts
         public IPlayerBehaviour currentBehaviour;
         
         public Vector2 position => transform.position;
+        public bool isShooting => playerGun.isShooting;
+        public bool isMoving => moveVelocity.magnitude >= 0.01f;
         
         [HideInInspector] public Vector2 moveInput;
         [HideInInspector] public Vector3 moveVelocity;
         
         [HideInInspector] public bool canBeInterruptedByLanding = true;
-        
         [HideInInspector] public bool isLocked;
 
         [HideInInspector] public Rigidbody rb;
+        [HideInInspector] public PlayerGun playerGun;
         
         private void Awake()
         {
             instance = this;
             rb = GetComponent<Rigidbody>();
+            playerGun = GetComponent<PlayerGun>();
         }
 
         private void Start()

@@ -20,6 +20,8 @@ namespace Player.Scripts
 
         [HideInInspector] public UnityEvent OnShoot = new UnityEvent();
 
+        public bool isShooting => !CanShoot();
+        
         private float lastShotTimestamp;
         
         private void Start()

@@ -16,6 +16,12 @@ MonoBehaviour:
   groundAcceleration: 100
   groundDeceleration: 100
   fireRate: 8
+  gunAnimationDistance: 80
+  gunAnimationLateralDistance: 250
+  gunAnimationCosSpeed: 800
+  gunAnimationSinSpeed: 400
+  gunAnimationSmoothTime: 0.1
+  gunAnimationLateralSmoothTime: 0.2
   joystickSensitivityX: 10000
   joystickSensitivityY: 5000
   mouseSensitivity: 7500
