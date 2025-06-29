@@ -15,7 +15,7 @@ MonoBehaviour:
   groundMaxSpeed: 25
   groundAcceleration: 100
   groundDeceleration: 100
-  fireRate: 4
+  fireRate: 8
   joystickSensitivityX: 500
   joystickSensitivityY: 200
   mouseSensitivity: 500

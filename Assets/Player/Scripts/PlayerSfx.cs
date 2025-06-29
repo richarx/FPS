@@ -1,0 +1,40 @@
+using System.Collections.Generic;
+using SFX;
+using UnityEngine;
+
+namespace Player.Scripts
+{
+    public class PlayerSfx : MonoBehaviour
+    {
+        [SerializeField] private AudioClip gunShotFirst;
+        [SerializeField] private List<AudioClip> gunShot;
+        [SerializeField] private AudioClip gunShotTail;
+        [SerializeField] private float shotVolume;
+        [SerializeField] private float tailVolume;
+        [SerializeField] private float tailFadeDuration;
+        
+        private PlayerGun playerGun;
+        private float lastShotTimestamp = -1.0f;
+        private AudioSource lastTail = null;
+
+        private void Start()
+        {
+            playerGun = GetComponent<PlayerGun>();
+            playerGun.OnShoot.AddListener(PlayGunShotSound);
+        }
+
+        private void PlayGunShotSound()
+        {
+            if (Time.time - lastShotTimestamp >= 0.5f)
+                SFXManager.instance.PlaySFX(gunShotFirst, shotVolume);
+            else
+                SFXManager.instance.PlayRandomSFX(gunShot, shotVolume);
+            
+            if (lastTail != null)
+                lastTail.GetComponent<FadeSound>().Trigger(tailFadeDuration);
+            lastTail = SFXManager.instance.PlaySFX(gunShotTail, tailVolume);
+            
+            lastShotTimestamp = Time.time;
+        }
+    }
+}
