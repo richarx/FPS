@@ -9,7 +9,7 @@ namespace Player.Scripts
     public class PlayerGun : MonoBehaviour
     {
         [SerializeField] private Transform shootingPivot;
-        [SerializeField] private PlayerLook playerLook;
+        [SerializeField] private PlayerRecoil playerRecoil;
         [SerializeField] private float xRecoil;
         [SerializeField] private float yRecoil;
         [SerializeField] private GameObject mainImpact;
@@ -45,9 +45,9 @@ namespace Player.Scripts
 
         private void Kickback()
         {
-            float xKickBack = Random.Range(-xRecoil, xRecoil);
-            float yKickBack = Random.Range(0.0f, yRecoil);
-            playerLook.KickBack(xKickBack, yKickBack);
+            float xKickBack = Tools.RandomPositiveOrNegative(Tools.RandomAround(xRecoil, 0.3f));
+            float yKickBack = Tools.RandomAround(yRecoil, 0.15f);
+            playerRecoil.KickBack(xKickBack, yKickBack);
         }
         
         private void ShootRaycast()

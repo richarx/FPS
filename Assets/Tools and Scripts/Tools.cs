@@ -138,6 +138,11 @@ public static class Tools
         return random * number;
     }
 
+    public static float RandomAround(float number, float perOne)
+    {
+        return number + RandomPositiveOrNegative(number * perOne);
+    }
+
     public static bool RandomBool()
     {
         return RandomPositiveOrNegative() > 0;

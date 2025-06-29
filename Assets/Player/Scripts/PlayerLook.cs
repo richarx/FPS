@@ -10,8 +10,8 @@ namespace Player.Scripts
 
         private PlayerStateMachine player;
         
-        private float xRotation;
-        private float yRotation;
+        [HideInInspector] public float xRotation;
+        [HideInInspector] public float yRotation;
 
         private void Start()
         {
@@ -21,7 +21,7 @@ namespace Player.Scripts
             Cursor.visible = false;
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             Vector2 lookDirection = PlayerInputs.GetAimingDirectionWithSensibility(player.playerData);
             lookDirection *= Time.deltaTime;
@@ -34,10 +34,11 @@ namespace Player.Scripts
             orientation.rotation = Quaternion.Euler(0, yRotation, 0);
         }
 
-        public void KickBack(float xKickback, float yKickback)
+        public void ApplyKickBack(float x, float y)
         {
-            yRotation += xKickback;
-            xRotation -= yKickback;
+            xRotation -= y;
+            yRotation += x;
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
         }
     }
 }

@@ -10,6 +10,7 @@ namespace Player.Scripts
         
         private float sinTimer = 0.0f;
         private float cosTimer = 0.0f;
+        private float idleTimer = 0.0f;
 
         private Vector3 basePosition;
         private Vector3 targetPosition;
@@ -21,7 +22,7 @@ namespace Player.Scripts
         
         private void Start()
         {
-            basePosition = gun.position;
+            basePosition = gun.localPosition;
             player = GetComponent<PlayerStateMachine>();
         }
 
@@ -44,22 +45,27 @@ namespace Player.Scripts
         {
             sinTimer += Time.deltaTime * player.playerData.gunAnimationSinSpeed;
             cosTimer += Time.deltaTime * player.playerData.gunAnimationCosSpeed;
+            idleTimer += Time.deltaTime * player.playerData.gunAnimationIdleSpeed;
             
             if (sinTimer >= 360.0f)
                 sinTimer -= 360.0f;
 
             if (cosTimer >= 360.0f)
                 cosTimer -= 360.0f;
+            
+            if (idleTimer >= 360.0f)
+                idleTimer -= 360.0f;
         }
 
         private void ApplyMovement()
         {
-            gun.position = Vector3.SmoothDamp(gun.position, targetPosition, ref velocity, player.playerData.gunAnimationSmoothTime);
+            gun.localPosition = Vector3.SmoothDamp(gun.localPosition, targetPosition, ref velocity, player.playerData.gunAnimationSmoothTime);
         }
 
         private void IdleGun()
         {
-            targetPosition = basePosition;
+            float y = Mathf.Cos(Tools.DegreeToRadian(idleTimer)) * player.playerData.gunAnimationIdleDistance;
+            targetPosition = basePosition + new Vector3(0.0f, y, 0.0f);
         }
         
         private void ShootingGun()
