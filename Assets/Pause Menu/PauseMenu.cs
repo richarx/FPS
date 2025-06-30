@@ -50,16 +50,16 @@ namespace Pause_Menu
         {
             player = PlayerStateMachine.instance;
             mouseSensitivity = player.playerData.mouseSensitivity;
-            mouseMin = mouseSensitivity - (mouseSensitivity * 5.0f);
-            mouseMax = mouseSensitivity + (mouseSensitivity * 5.0f);
+            mouseMin = 0.0f;
+            mouseMax = mouseSensitivity * 2.0f;
             
             joystickXSensitivity = player.playerData.joystickSensitivityX;
-            joystickXMin = joystickXSensitivity - (joystickXSensitivity * 5.0f);
-            joystickXMax = joystickXSensitivity + (joystickXSensitivity * 5.0f);
+            joystickXMin = 0.0f;
+            joystickXMax = joystickXSensitivity * 2.0f;
             
             joystickYSensitivity = player.playerData.joystickSensitivityY;
-            joystickYMin = joystickXSensitivity - (joystickXSensitivity * 5.0f);
-            joystickYMax = joystickXSensitivity + (joystickXSensitivity * 5.0f);
+            joystickYMin = 0.0f;
+            joystickYMax = joystickYSensitivity * 2.0f;
 
             currentFov = mainCamera.fieldOfView;
             fovSlider.onValueChanged.AddListener((value) => mainCamera.fieldOfView = Tools.NormalizeValueInRange(value, 0.0f, 1.0f, minFov, maxFov));
@@ -85,15 +85,17 @@ namespace Pause_Menu
         private IEnumerator PauseGame()
         {
             Time.timeScale = 0.0f;
-            yield return Tools.Fade(blackScreen, 0.3f, true, 0.8f, false);
+            yield return Tools.Fade(blackScreen, 0.15f, true, 0.8f, false);
             SetupParameters();
             pausePanel.SetActive(true);
             
             Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
         }
 
         private IEnumerator ResumeGame()
         {
+            Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             
             pausePanel.SetActive(false);
