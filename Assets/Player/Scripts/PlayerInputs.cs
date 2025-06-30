@@ -63,7 +63,7 @@ namespace Tools_and_Scripts
             return (gamepadInput + keyBoardInput).normalized;
         }
         
-        public static Vector2 GetAimingDirectionWithSensibility(PlayerData playerData)
+        public static Vector2 GetAimingDirectionWithSensibility()
         {
             Vector2 gamepad = Vector2.zero;
             Vector2 mouse = Vector2.zero;
@@ -75,14 +75,14 @@ namespace Tools_and_Scripts
                 
                 if (Mathf.Abs(gamepad.x) <= 0.15f)
                     gamepad.x = 0.0f;
-        
+            
                 if (Mathf.Abs(gamepad.y) <= 0.15f)
                     gamepad.y = 0.0f;
-
+            
                 if (gamepad.magnitude > 0.15f)
                 {
-                    gamepad.x *= playerData.joystickSensitivityX * sensibilityMultiplier * Time.deltaTime;
-                    gamepad.y *= playerData.joystickSensitivityY * sensibilityMultiplier * Time.deltaTime;
+                    gamepad.x *= PauseMenu.instance.joystickXSensitivity * sensibilityMultiplier * Time.deltaTime;
+                    gamepad.y *= PauseMenu.instance.joystickYSensitivity * sensibilityMultiplier * Time.deltaTime;
                     return gamepad;
                 }
             }
@@ -140,22 +140,24 @@ namespace Tools_and_Scripts
         
             return Gamepad.current.buttonWest.wasPressedThisFrame;
         }
-    
+
         public static bool GetSouthButton(bool isHeld = false, bool withBuffer = true)
         {
-            if (Gamepad.current == null)
-                return false;
-
-            if (isHeld)
-                return Gamepad.current.buttonSouth.isPressed;
+            bool gamepad = false;
+            bool mouse = false;
 
             if (withBuffer && Time.time <= jumpBufferTimeStamp)
             {
                 jumpBufferTimeStamp = -1.0f;
                 return true;
             }
-        
-            return Gamepad.current.buttonSouth.wasPressedThisFrame;
+            
+            if (Gamepad.current != null)
+                gamepad = isHeld ? Gamepad.current.buttonSouth.isPressed : Gamepad.current.buttonSouth.wasPressedThisFrame;
+
+            mouse = isHeld ? Keyboard.current.spaceKey.isPressed : Keyboard.current.spaceKey.wasPressedThisFrame;
+
+            return gamepad || mouse;
         }
 
         public static bool GetWestButtonIsPressed()

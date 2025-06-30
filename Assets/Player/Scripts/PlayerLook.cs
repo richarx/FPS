@@ -23,7 +23,7 @@ namespace Player.Scripts
 
         private void LateUpdate()
         {
-            Vector2 lookDirection = PlayerInputs.GetAimingDirectionWithSensibility(player.playerData);
+            Vector2 lookDirection = PlayerInputs.GetAimingDirectionWithSensibility();
             lookDirection *= Time.deltaTime;
         
             yRotation += lookDirection.x;

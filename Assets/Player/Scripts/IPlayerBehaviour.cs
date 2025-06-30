@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Player.Scripts
 {
     public enum BehaviourType 

@@ -12,14 +12,14 @@ namespace Player.Scripts
         
         public static PlayerStateMachine instance;
 
-        private PlayerRun playerGroundMovement = new PlayerRun();
+        public PlayerRun playerGroundMovement = new PlayerRun();
+        public PlayerJump playerJump;
         
         public IPlayerBehaviour currentBehaviour;
         
-        public Vector2 position => transform.position;
+        public Vector3 position => transform.position;
         public bool isShooting => playerGun.isShooting;
-        public bool isMoving => moveVelocity.magnitude >= 0.01f;
-        
+
         [HideInInspector] public Vector2 moveInput;
         [HideInInspector] public Vector3 moveVelocity;
         
@@ -27,13 +27,17 @@ namespace Player.Scripts
         [HideInInspector] public bool isLocked;
 
         [HideInInspector] public Rigidbody rb;
+        [HideInInspector] public CapsuleCollider capsuleCollider;
         [HideInInspector] public PlayerGun playerGun;
         
         private void Awake()
         {
             instance = this;
             rb = GetComponent<Rigidbody>();
+            capsuleCollider = GetComponent<CapsuleCollider>();
             playerGun = GetComponent<PlayerGun>();
+
+            playerJump = new PlayerJump(this);
         }
 
         private void Start()
@@ -82,6 +86,14 @@ namespace Player.Scripts
         public void ApplyMovement()
         {
             rb.velocity = moveVelocity;
+        }
+
+        public bool IsMoving()
+        {
+            Vector3 velocity = moveVelocity;
+            velocity.y = 0.0f;
+
+            return velocity.magnitude >= 0.01f;
         }
     }
 }

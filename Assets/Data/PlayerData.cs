@@ -9,7 +9,17 @@ namespace Data
         public float groundMaxSpeed;
         public float groundAcceleration;
         public float groundDeceleration;
-        
+
+        [Space] [Header("Jump")] 
+        public int maxJumpCount;
+        public float groundingForce;
+        public float coyoteTime;
+        public float jumpForce;
+        public float jumpEndEarlyGravityModifier;
+        public float fallMaxSpeed;
+        public float fallAcceleration;
+        public float airDeceleration;
+
         [Space]
         [Header("Gun")]
         public float fireRate;        
@@ -41,5 +51,9 @@ namespace Data
         
         [Space]
         public float mouseSensitivity;
+
+        [Space]
+        [Header("Layers")] 
+        public LayerMask layersToIgnoreForGroundCheck;
     }
 }

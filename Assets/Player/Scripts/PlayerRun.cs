@@ -1,3 +1,4 @@
+using Tools_and_Scripts;
 using UnityEngine;
 
 namespace Player.Scripts
@@ -6,17 +7,30 @@ namespace Player.Scripts
     {
         public void StartBehaviour(PlayerStateMachine player, BehaviourType previous)
         {
+            Debug.Log("RUN");
         }
 
         public void UpdateBehaviour(PlayerStateMachine player)
         {
+            if (player.playerJump.CanJump() && PlayerInputs.GetSouthButton())
+            {
+                player.playerJump.StartJump(player);
+                return;
+            }
         }
 
         public void FixedUpdateBehaviour(PlayerStateMachine player)
         {
+            player.playerJump.CheckCollisions(player, player.playerData, player.capsuleCollider);
+            
             HandleDirection(player);
             
+            player.playerJump.HandleGravity(player);
+            
             player.ApplyMovement();
+            
+            if (!player.playerJump.isGrounded)
+                player.ChangeBehaviour(player.playerJump);
         }
         
         public void HandleDirection(PlayerStateMachine player)

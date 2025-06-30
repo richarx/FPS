@@ -32,7 +32,7 @@ namespace Player.Scripts
             
             if (player.isShooting)
                 ShootingGun();
-            else if (player.isMoving)
+            else if (player.IsMoving())
                 RunningGun();
             else
                 IdleGun();
@@ -85,7 +85,7 @@ namespace Player.Scripts
         {
             float target = 0.0f;
             
-            if (!player.isShooting && player.isMoving)
+            if (!player.isShooting && player.IsMoving())
             {
                 float dot = Vector3.Dot(player.orientationPivot.forward, player.moveVelocity);
                 if (Mathf.Abs(dot) <= 0.9f)
