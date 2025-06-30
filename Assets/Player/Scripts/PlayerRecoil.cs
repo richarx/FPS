@@ -1,14 +1,14 @@
 using System;
+using Data;
 using UnityEngine;
 
 namespace Player.Scripts
 {
     public class PlayerRecoil : MonoBehaviour
     {
-        [SerializeField] private float snappiness;
-
         private PlayerLook playerLook;
-
+        private PlayerData playerData;
+        
         private Vector2 currentRecoil;
         private Vector2 targetRecoil;
         private Vector2 velocity;
@@ -16,6 +16,7 @@ namespace Player.Scripts
         private void Start()
         {
             playerLook = GetComponent<PlayerLook>();
+            playerData = PlayerStateMachine.instance.playerData;
         }
 
         private void Update()
@@ -23,7 +24,7 @@ namespace Player.Scripts
             if (currentRecoil.Distance(targetRecoil) >= 0.01f)
             {
                 Vector2 previousRecoil = currentRecoil;
-                currentRecoil = Vector2.SmoothDamp(currentRecoil, targetRecoil, ref velocity, snappiness);
+                currentRecoil = Vector2.SmoothDamp(currentRecoil, targetRecoil, ref velocity, playerData.recoilSnappiness);
                 Vector2 deltaRecoil = currentRecoil - previousRecoil;
                 playerLook.ApplyKickBack(deltaRecoil.x, deltaRecoil.y);
             }

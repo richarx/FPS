@@ -10,8 +10,6 @@ namespace Player.Scripts
     {
         [SerializeField] private Transform shootingPivot;
         [SerializeField] private PlayerRecoil playerRecoil;
-        [SerializeField] private float xRecoil;
-        [SerializeField] private float yRecoil;
         [SerializeField] private GameObject mainImpact;
         [SerializeField] private List<GameObject> secondaryImpacts;
         [SerializeField] private LayerMask targetLayer;
@@ -45,8 +43,8 @@ namespace Player.Scripts
 
         private void Kickback()
         {
-            float xKickBack = Tools.RandomPositiveOrNegative(Tools.RandomAround(xRecoil, 0.3f));
-            float yKickBack = Tools.RandomAround(yRecoil, 0.15f);
+            float xKickBack = Tools.RandomPositiveOrNegative(Tools.RandomAround(player.playerData.xRecoil, 0.3f));
+            float yKickBack = Tools.RandomAround(player.playerData.yRecoil, 0.15f);
             playerRecoil.KickBack(xKickBack, yKickBack);
         }
         

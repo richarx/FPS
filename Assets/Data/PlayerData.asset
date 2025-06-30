@@ -16,6 +16,9 @@ MonoBehaviour:
   groundAcceleration: 100
   groundDeceleration: 100
   fireRate: 8
+  xRecoil: 1
+  yRecoil: 3
+  recoilSnappiness: 0.05
   gunAnimationCosSpeed: 800
   gunAnimationSinSpeed: 400
   gunAnimationDistance: 80

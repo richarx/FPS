@@ -12,7 +12,10 @@ namespace Data
         
         [Space]
         [Header("Gun")]
-        public float fireRate;
+        public float fireRate;        
+        public float xRecoil;
+        public float yRecoil;
+        public float recoilSnappiness;
         
         [Space]
         [Header("Gun Animation")]
