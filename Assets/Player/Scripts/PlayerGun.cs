@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Enemies;
+using Pause_Menu;
 using Tools_and_Scripts;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,13 +11,12 @@ namespace Player.Scripts
     {
         [SerializeField] private Transform shootingPivot;
         [SerializeField] private PlayerRecoil playerRecoil;
-        [SerializeField] private GameObject mainImpact;
-        [SerializeField] private List<GameObject> secondaryImpacts;
         [SerializeField] private LayerMask targetLayer;
         
         private PlayerStateMachine player;
 
         [HideInInspector] public UnityEvent OnShoot = new UnityEvent();
+        [HideInInspector] public UnityEvent<Vector3> OnHit = new UnityEvent<Vector3>();
 
         public bool isShooting => !CanShoot();
         
@@ -29,7 +29,7 @@ namespace Player.Scripts
 
         private void Update()
         {
-            if (CanShoot() && PlayerInputs.GetRightTrigger(isHeld: true))
+            if (CanShoot() && !PauseMenu.instance.IsPaused && PlayerInputs.GetRightTrigger(isHeld: true))
                 Shoot();
         }
 
@@ -60,18 +60,9 @@ namespace Player.Scripts
                 if (damageable != null)
                 {
                     damageable.TakeDamage(1.0f);
-                    SpawnImpact(position, direction, hit[i].distance);
+                    OnHit?.Invoke(position + (direction.normalized * hit[i].distance));
                 }
             }
-        }
-
-        private void SpawnImpact(Vector3 position, Vector3 direction, float distance)
-        {
-            Vector3 impactPosition = position + (direction.normalized * distance);
-            
-            int randomIndex = Random.Range(0, secondaryImpacts.Count);
-            Instantiate(secondaryImpacts[randomIndex], impactPosition + (Random.insideUnitSphere * 0.5f), Quaternion.identity);
-            Instantiate(mainImpact, impactPosition, Quaternion.identity);
         }
 
         private bool CanShoot()

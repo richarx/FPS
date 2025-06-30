@@ -17,7 +17,7 @@ namespace Player.Scripts
         {
             player = PlayerStateMachine.instance;
             Mouse.current.WarpCursorPosition(new Vector2(Screen.width / 2, Screen.height / 2));
-            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = false;
         }
 

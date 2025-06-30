@@ -1,4 +1,5 @@
 using Data;
+using Pause_Menu;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -90,7 +91,7 @@ namespace Tools_and_Scripts
             mouse.y = Input.GetAxisRaw("Mouse Y");
 
             if (mouse.magnitude > 0.0f)
-                mouse *= playerData.mouseSensitivity * sensibilityMultiplier * Time.deltaTime;
+                mouse *= PauseMenu.instance.mouseSensitivity * sensibilityMultiplier * Time.deltaTime;
 
             return mouse;
         }
@@ -234,6 +235,17 @@ namespace Tools_and_Scripts
                 return false;
         
             return Gamepad.current.selectButton.wasPressedThisFrame;
+        }
+        
+        public static bool GetStartButton()
+        {
+            bool gamepad = false;
+            bool keyBoard = Keyboard.current.tabKey.wasPressedThisFrame || Keyboard.current.escapeKey.wasPressedThisFrame;
+
+            if (Gamepad.current != null)
+                gamepad = Gamepad.current.selectButton.wasPressedThisFrame;
+        
+            return gamepad || keyBoard;
         }
 
         private static float dashBufferTimeStamp = -1.0f;
