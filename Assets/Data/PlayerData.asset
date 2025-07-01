@@ -15,13 +15,13 @@ MonoBehaviour:
   groundMaxSpeed: 25
   groundAcceleration: 100
   groundDeceleration: 100
-  maxJumpCount: 2
+  maxJumpCount: 3
   groundingForce: -1.5
   coyoteTime: 0.12
-  jumpForce: 20
-  jumpEndEarlyGravityModifier: 1.5
-  fallMaxSpeed: 25
-  fallAcceleration: 55
+  jumpForce: 25
+  jumpEndEarlyGravityModifier: 2.5
+  fallMaxSpeed: 27
+  fallAcceleration: 65
   airDeceleration: 45
   fireRate: 8
   xRecoil: 1
@@ -35,6 +35,7 @@ MonoBehaviour:
   gunAnimationLateralSmoothTime: 0.5
   gunAnimationIdleDistance: 40
   gunAnimationIdleSpeed: 100
+  gunAnimationSizeSpeed: 0.1
   joystickSensitivityX: 10000
   joystickSensitivityY: 5000
   mouseSensitivity: 7500

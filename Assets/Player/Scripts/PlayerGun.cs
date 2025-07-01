@@ -18,6 +18,7 @@ namespace Player.Scripts
         [HideInInspector] public UnityEvent OnShoot = new UnityEvent();
         [HideInInspector] public UnityEvent<Vector3> OnHit = new UnityEvent<Vector3>();
 
+        [HideInInspector] public bool isAiming;
         public bool isShooting => !CanShoot();
         
         private float lastShotTimestamp;
@@ -29,6 +30,9 @@ namespace Player.Scripts
 
         private void Update()
         {
+            if (isAiming != PlayerInputs.GetLeftTrigger(isHeld: true))
+                isAiming = !isAiming;
+
             if (CanShoot() && !PauseMenu.instance.IsPaused && PlayerInputs.GetRightTrigger(isHeld: true))
                 Shoot();
         }
@@ -45,6 +49,13 @@ namespace Player.Scripts
         {
             float xKickBack = Tools.RandomPositiveOrNegative(Tools.RandomAround(player.playerData.xRecoil, 0.3f));
             float yKickBack = Tools.RandomAround(player.playerData.yRecoil, 0.15f);
+
+            if (isAiming)
+            {
+                xKickBack *= 0.3f;
+                yKickBack *= 0.3f;
+            }
+            
             playerRecoil.KickBack(xKickBack, yKickBack);
         }
         

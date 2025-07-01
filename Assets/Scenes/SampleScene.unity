@@ -345,7 +345,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 880.0448, y: 638.3762}
+  m_SizeDelta: {x: 880, y: 640}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &125759941
 MonoBehaviour:
@@ -3817,7 +3817,6 @@ GameObject:
   - component: {fileID: 2097679325}
   - component: {fileID: 2097679326}
   - component: {fileID: 2097679327}
-  - component: {fileID: 2097679328}
   - component: {fileID: 2097679329}
   - component: {fileID: 2097679330}
   - component: {fileID: 2097679331}
@@ -3917,19 +3916,7 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2097679328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2097679323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6280b89246e2384d80d6096f24bb863, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  graphics: {fileID: 125759943}
+  isAiming: 0
 --- !u!114 &2097679329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3969,6 +3956,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gun: {fileID: 125759940}
+  graphics: {fileID: 125759943}
+  adsPosition: {x: -480, y: 90, z: 0}
 --- !u!114 &2097679331
 MonoBehaviour:
   m_ObjectHideFlags: 0

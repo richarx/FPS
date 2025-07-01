@@ -153,7 +153,7 @@ namespace Tools_and_Scripts
             }
             
             if (Gamepad.current != null)
-                gamepad = isHeld ? Gamepad.current.buttonSouth.isPressed : Gamepad.current.buttonSouth.wasPressedThisFrame;
+                gamepad = isHeld ? Gamepad.current.buttonSouth.isPressed || Gamepad.current.leftShoulder.isPressed : Gamepad.current.buttonSouth.wasPressedThisFrame || Gamepad.current.leftShoulder.wasPressedThisFrame;
 
             mouse = isHeld ? Keyboard.current.spaceKey.isPressed : Keyboard.current.spaceKey.wasPressedThisFrame;
 

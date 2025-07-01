@@ -4,10 +4,14 @@ namespace Player.Scripts
 {
     public class PlayerAnimateGun : MonoBehaviour
     {
-        [SerializeField] private Transform gun;
+        [SerializeField] private RectTransform gun;
+        [SerializeField] private Vector3 adsPosition;
+        [SerializeField] private Vector2 adsSize;
+        [SerializeField] private float transitionFalloff;
 
+        private Animator graphics;
         private PlayerStateMachine player;
-        
+
         private float sinTimer = 0.0f;
         private float cosTimer = 0.0f;
         private float idleTimer = 0.0f;
@@ -15,22 +19,31 @@ namespace Player.Scripts
         private Vector3 basePosition;
         private Vector3 targetPosition;
         private Vector3 velocity;
+        private Vector2 sizeVelocity;
 
         private float baseLateralPosition;
         private float targetLateralPosition;
         private float lateralVelocity;
-        
+
         private void Start()
         {
+            graphics = gun.GetComponent<Animator>();
             basePosition = gun.localPosition;
             player = GetComponent<PlayerStateMachine>();
+            player.playerGun.OnShoot.AddListener(() =>
+            {
+                if (!player.isAiming)
+                    graphics.Play("Shoot", 0, 0.0f);
+            });
         }
 
         private void Update()
         {
             UpdateTimers();
-            
-            if (player.isShooting)
+
+            if (player.isAiming)
+                AimDownSight();
+            else if (player.isShooting)
                 ShootingGun();
             else if (player.IsMoving())
                 RunningGun();
@@ -39,6 +52,20 @@ namespace Player.Scripts
 
             UpdateLateralPosition();
             ApplyMovement();
+            UpdateAnimator();
+        }
+
+        private void UpdateAnimator()
+        {
+            Vector2 target = player.isAiming ? adsSize : new Vector2(880.0f, 640.0f);
+            Vector2 newSize = Vector2.SmoothDamp(gun.sizeDelta, target, ref sizeVelocity, player.playerData.gunAnimationSizeSpeed);
+            gun.sizeDelta = newSize;
+            
+            if (!graphics.GetCurrentAnimatorStateInfo(0).IsName("Shoot"))
+                graphics.Play(player.isAiming || newSize.x >= transitionFalloff ? "Idle_ADS" : "Idle");
+            
+            //1200 900
+           
         }
 
         private void UpdateTimers()
@@ -71,6 +98,11 @@ namespace Player.Scripts
         private void ShootingGun()
         {
             targetPosition = basePosition;
+        }
+        
+        private void AimDownSight()
+        {
+            targetPosition = adsPosition;
         }
 
         private void RunningGun()

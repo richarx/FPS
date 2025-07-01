@@ -45,6 +45,9 @@ namespace Data
         public float gunAnimationIdleSpeed;
         
         [Space]
+        public float gunAnimationSizeSpeed;
+
+        [Space]
         [Header("Camera")]
         public float joystickSensitivityX;
         public float joystickSensitivityY;
