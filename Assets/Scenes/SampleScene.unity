@@ -995,6 +995,7 @@ MonoBehaviour:
   mouseSensitivity: 0
   joystickXSensitivity: 0
   joystickYSensitivity: 0
+  currentFov: 60
 --- !u!1 &445102580
 GameObject:
   m_ObjectHideFlags: 0
@@ -3821,6 +3822,8 @@ GameObject:
   - component: {fileID: 2097679330}
   - component: {fileID: 2097679331}
   - component: {fileID: 2097679332}
+  - component: {fileID: 2097679333}
+  - component: {fileID: 2097679334}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -3956,8 +3959,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gun: {fileID: 125759940}
-  graphics: {fileID: 125759943}
-  adsPosition: {x: -480, y: 90, z: 0}
+  adsPosition: {x: -501, y: 300, z: 0}
+  adsSize: {x: 1600, y: 1300}
+  transitionFalloff: 1200
 --- !u!114 &2097679331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4004,6 +4008,35 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &2097679333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097679323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b9ebc0e0db94b942be4e983aab68c7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 330585545}
+  fovReduction: 20
+  smoothTime: 0.1
+--- !u!114 &2097679334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097679323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a57fa6deaf99b24aa90044f6de72232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crosshair: {fileID: 1221602912}
+  fadeDuration: 0.1
 --- !u!1 &2140302557
 GameObject:
   m_ObjectHideFlags: 0

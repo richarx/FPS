@@ -32,8 +32,7 @@ namespace Player.Scripts
             player = GetComponent<PlayerStateMachine>();
             player.playerGun.OnShoot.AddListener(() =>
             {
-                if (!player.isAiming)
-                    graphics.Play("Shoot", 0, 0.0f);
+                graphics.Play(player.isAiming ? "Shoot_ADS" : "Shoot", 0, 0.0f);
             });
         }
 
@@ -61,11 +60,8 @@ namespace Player.Scripts
             Vector2 newSize = Vector2.SmoothDamp(gun.sizeDelta, target, ref sizeVelocity, player.playerData.gunAnimationSizeSpeed);
             gun.sizeDelta = newSize;
             
-            if (!graphics.GetCurrentAnimatorStateInfo(0).IsName("Shoot"))
+            if (!graphics.GetCurrentAnimatorStateInfo(0).IsName("Shoot") && !graphics.GetCurrentAnimatorStateInfo(0).IsName("Shoot_ADS"))
                 graphics.Play(player.isAiming || newSize.x >= transitionFalloff ? "Idle_ADS" : "Idle");
-            
-            //1200 900
-           
         }
 
         private void UpdateTimers()

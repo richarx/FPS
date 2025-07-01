@@ -28,7 +28,7 @@ namespace Pause_Menu
         private float joystickYMin;
         private float joystickYMax;
 
-        private float currentFov = 60.0f;
+        [HideInInspector] public float currentFov = 60.0f;
         private float minFov = 20.0f;
         private float maxFov = 120.0f;
 

@@ -206,10 +206,15 @@ namespace Tools_and_Scripts
 
         public static bool GetLeftTrigger(bool isHeld = false)
         {
-            if (Gamepad.current == null)
-                return false;
-        
-            return isHeld ? Gamepad.current.leftTrigger.isPressed : Gamepad.current.leftTrigger.wasPressedThisFrame;
+            bool gamepad = false;
+            bool mouse = false;
+
+            if (Gamepad.current != null)
+                gamepad = isHeld ? Gamepad.current.leftTrigger.isPressed : Gamepad.current.leftTrigger.wasPressedThisFrame;
+
+            mouse = isHeld ? Mouse.current.rightButton.isPressed : Mouse.current.rightButton.wasPressedThisFrame;
+
+            return gamepad || mouse;
         }
     
         public static bool GetRightTrigger(bool isHeld = false, bool withBuffer = true)

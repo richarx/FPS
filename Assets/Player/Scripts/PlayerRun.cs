@@ -36,7 +36,7 @@ namespace Player.Scripts
         public void HandleDirection(PlayerStateMachine player)
         {
             Vector3 move = (player.moveInput.x * player.orientationPivot.right + player.moveInput.y * player.orientationPivot.forward).normalized;
-            move *= player.playerData.groundMaxSpeed;
+            move *= player.isAiming ? player.playerData.groundMaxSpeedAiming : player.playerData.groundMaxSpeed;
             
             if (player.moveInput.magnitude <= 0.05f)
             {

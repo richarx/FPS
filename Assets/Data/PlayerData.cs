@@ -7,6 +7,7 @@ namespace Data
     {
         [Header("Movement - Ground")]
         public float groundMaxSpeed;
+        public float groundMaxSpeedAiming;
         public float groundAcceleration;
         public float groundDeceleration;
 

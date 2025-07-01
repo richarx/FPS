@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   groundMaxSpeed: 25
+  groundMaxSpeedAiming: 15
   groundAcceleration: 100
   groundDeceleration: 100
   maxJumpCount: 3
