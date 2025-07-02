@@ -15,13 +15,14 @@ namespace Player.Scripts
         [SerializeField] private List<AudioClip> cockGun;
         [SerializeField] private AudioClip adsInWoosh;
         [SerializeField] private AudioClip adsOutWoosh;
-        [SerializeField] private float wooshVolume;
         [SerializeField] private List<AudioClip> adsClick;
-        [SerializeField] private float insertDelay;
-        [SerializeField] private float cockDelay;
-        [SerializeField] private float shotVolume;
-        [SerializeField] private float tailVolume;
-        [SerializeField] private float tailFadeDuration;
+
+        private const float wooshVolume = 0.03f;
+        private const float insertDelay = 0.6f;
+        private const float cockDelay = 1.4f;
+        private const float shotVolume = 0.07f;
+        private const float tailVolume = 0.03f;
+        private const float tailFadeDuration = 0.05f;
         
         private PlayerGun playerGun;
         private float lastShotTimestamp = -1.0f;
