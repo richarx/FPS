@@ -15,16 +15,16 @@ MonoBehaviour:
   groundMaxSpeed: 25
   groundMaxSpeedAiming: 15
   groundAcceleration: 100
-  groundDeceleration: 100
+  groundDeceleration: 200
   maxSlopeAngle: 40
-  steepSlopeFallSpeed: 15
+  steepSlopeFallSpeed: 35
   maxJumpCount: 3
   groundingForce: -1.5
   coyoteTime: 0.12
-  jumpForce: 25
+  jumpForce: 35
   jumpEndEarlyGravityModifier: 2.5
-  fallMaxSpeed: 27
-  fallAcceleration: 65
+  fallMaxSpeed: 45
+  fallAcceleration: 80
   airDeceleration: 45
   bulletDistance: 250
   startingAmmo: 32

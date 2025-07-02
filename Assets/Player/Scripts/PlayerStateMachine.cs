@@ -13,7 +13,7 @@ namespace Player.Scripts
         
         public static PlayerStateMachine instance;
 
-        public PlayerRun playerGroundMovement = new PlayerRun();
+        public PlayerRun playerRun = new PlayerRun();
         public PlayerJump playerJump;
         
         public IPlayerBehaviour currentBehaviour;
@@ -30,14 +30,12 @@ namespace Player.Scripts
         [HideInInspector] public bool isLocked;
 
         [HideInInspector] public Rigidbody rb;
-        [HideInInspector] public CapsuleCollider capsuleCollider;
         [HideInInspector] public PlayerGun playerGun;
         
         private void Awake()
         {
             instance = this;
             rb = GetComponent<Rigidbody>();
-            capsuleCollider = GetComponent<CapsuleCollider>();
             playerGun = GetComponent<PlayerGun>();
 
             playerJump = new PlayerJump(this);
@@ -48,7 +46,7 @@ namespace Player.Scripts
             if (!Application.isEditor)
                 Cursor.visible = false;
             
-            currentBehaviour = playerGroundMovement;
+            currentBehaviour = playerRun;
             currentBehaviour.StartBehaviour(this, BehaviourType.Run);
         }
         

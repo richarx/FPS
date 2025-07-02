@@ -4310,7 +4310,6 @@ MonoBehaviour:
   canBeInterruptedByLanding: 1
   isLocked: 0
   rb: {fileID: 0}
-  capsuleCollider: {fileID: 0}
   playerGun: {fileID: 0}
 --- !u!54 &2097679326
 Rigidbody:
@@ -4437,6 +4436,8 @@ MonoBehaviour:
   adsPosition: {x: -501, y: 300, z: 0}
   adsSize: {x: 1600, y: 1300}
   transitionFalloff: 1200
+  jumpImpulsePower: 400
+  fallOffsetPower: 300
 --- !u!114 &2097679331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4539,7 +4540,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3d27d18a11f1f440b14cbea7ff0a1ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  metersBetweenSteps: 3
+  metersBetweenSteps: 6
+  volume: 0.05
   stepSounds:
   - {fileID: 8300000, guid: dd9b95f57d2b74b4ea1ddf5e5c215f4b, type: 3}
   - {fileID: 8300000, guid: d5efc72beff9c214b83c666622a9d032, type: 3}

@@ -18,10 +18,13 @@ namespace Player.Scripts
         private bool coyoteUsable;
         
         public int remainingJumps;
-        
+
+        public float lastJumpTimeStamp = float.MinValue;
+        public float lastLandingTimeStamp = float.MinValue;
+
         public UnityEvent<bool, float> OnGroundedChanged = new UnityEvent<bool, float>();
         public UnityEvent OnJump = new UnityEvent();
-        
+
         public PlayerJump(PlayerStateMachine player)
         {
             remainingJumps = player.playerData.maxJumpCount;
@@ -67,15 +70,15 @@ namespace Player.Scripts
             player.ApplyMovement();
             
             if (landed)
-                player.ChangeBehaviour(player.playerGroundMovement);
+                player.ChangeBehaviour(player.playerRun);
         }
         
         public bool CheckCollisions(PlayerStateMachine player, PlayerData data)
         {
             bool groundHit = Physics.Raycast(player.position + (Vector3.up * 0.1f), Vector3.down, 0.2f, ~player.playerData.layersToIgnoreForGroundCheck);
             bool ceilingHit = Physics.Raycast(player.position + (Vector3.up * 1.9f), Vector3.up, 0.2f, ~player.playerData.layersToIgnoreForGroundCheck);
-            player.playerGroundMovement.isOnSlope = player.playerGroundMovement.CheckIsOnSlope(player);
-            bool isWalkableSlope = player.playerGroundMovement.IsSlopeWalkable(player);
+            player.playerRun.isOnSlope = player.playerRun.CheckIsOnSlope(player);
+            bool isWalkableSlope = player.playerRun.IsSlopeWalkable(player);
             
             if (ceilingHit) 
                 player.moveVelocity.y = Mathf.Min(0, player.moveVelocity.y);
@@ -88,6 +91,7 @@ namespace Player.Scripts
                 coyoteUsable = true;
                 endedJumpEarly = false;
                 RefillRemainingJumps(data);
+                lastLandingTimeStamp = Time.time;
                 OnGroundedChanged?.Invoke(true, Mathf.Abs(player.moveVelocity.y));
             }
             else if (isGrounded && !groundHit && !isWalkableSlope)
@@ -134,6 +138,8 @@ namespace Player.Scripts
             endedJumpEarly = false;
             canBeEndedEarly = true;
             coyoteUsable = false;
+
+            lastJumpTimeStamp = Time.time;
             
             player.moveVelocity.y = player.playerData.jumpForce;
             OnJump?.Invoke();
@@ -158,10 +164,10 @@ namespace Player.Scripts
 
         public void HandleGravity(PlayerStateMachine player)
         {
-            if (player.playerGroundMovement.isOnSlope)
+            if (player.playerRun.isOnSlope)
             {
-                if (!player.playerGroundMovement.IsSlopeWalkable(player))
-                    player.moveVelocity = player.playerGroundMovement.ComputeSlopeFallDirection() * player.playerData.steepSlopeFallSpeed;
+                if (!player.playerRun.IsSlopeWalkable(player))
+                    player.moveVelocity = player.playerRun.ComputeSlopeFallDirection() * player.playerData.steepSlopeFallSpeed;
                 return;
             }
 
