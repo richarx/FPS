@@ -58,7 +58,7 @@ namespace Player.Scripts
 
         public void FixedUpdateBehaviour(PlayerStateMachine player)
         {
-            bool landed = CheckCollisions(player, player.playerData, player.capsuleCollider);
+            bool landed = CheckCollisions(player, player.playerData);
 
             HandleJump(player);
             HandleDirection(player);
@@ -70,16 +70,17 @@ namespace Player.Scripts
                 player.ChangeBehaviour(player.playerGroundMovement);
         }
         
-        public bool CheckCollisions(PlayerStateMachine player, PlayerData data, CapsuleCollider capsuleCollider)
+        public bool CheckCollisions(PlayerStateMachine player, PlayerData data)
         {
             bool groundHit = Physics.Raycast(player.position + (Vector3.up * 0.1f), Vector3.down, 0.2f, ~player.playerData.layersToIgnoreForGroundCheck);
             bool ceilingHit = Physics.Raycast(player.position + (Vector3.up * 1.9f), Vector3.up, 0.2f, ~player.playerData.layersToIgnoreForGroundCheck);
+            player.playerGroundMovement.isOnSlope = player.playerGroundMovement.CheckIsOnSlope(player);
             
             if (ceilingHit) 
                 player.moveVelocity.y = Mathf.Min(0, player.moveVelocity.y);
 
             bool landed = false;
-            if (!isGrounded && groundHit)
+            if (!isGrounded && (groundHit || player.playerGroundMovement.isOnSlope))
             {
                 landed = true;
                 isGrounded = true;
@@ -88,7 +89,7 @@ namespace Player.Scripts
                 RefillRemainingJumps(data);
                 OnGroundedChanged?.Invoke(true, Mathf.Abs(player.moveVelocity.y));
             }
-            else if (isGrounded && !groundHit)
+            else if (isGrounded && !groundHit && !player.playerGroundMovement.isOnSlope)
             {
                 isGrounded = false;
                 frameLeftGrounded = Time.time;
@@ -156,6 +157,9 @@ namespace Player.Scripts
 
         public void HandleGravity(PlayerStateMachine player)
         {
+            if (player.playerGroundMovement.isOnSlope)
+                return;
+            
             if (isGrounded && player.moveVelocity.y <= 0f)
             {
                 player.moveVelocity.y = player.playerData.groundingForce;

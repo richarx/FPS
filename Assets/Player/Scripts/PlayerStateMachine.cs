@@ -1,3 +1,4 @@
+using System;
 using Data;
 using Pause_Menu;
 using Tools_and_Scripts;
@@ -96,6 +97,15 @@ namespace Player.Scripts
             velocity.y = 0.0f;
 
             return velocity.magnitude >= 0.01f;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.green;
+            Vector3 from = position + (Vector3.up * 0.1f);
+            Vector3 to = from + (Vector3.down * 0.3f);
+            
+            Gizmos.DrawLine(from, to);
         }
     }
 }

@@ -6,9 +6,11 @@ namespace Player.Scripts
     public class PlayerRun : IPlayerBehaviour
     {
         private RaycastHit slopeHit;
-        
+        public bool isOnSlope;
+
         public void StartBehaviour(PlayerStateMachine player, BehaviourType previous)
         {
+            Debug.Log("RUN");
         }
 
         public void UpdateBehaviour(PlayerStateMachine player)
@@ -22,7 +24,7 @@ namespace Player.Scripts
 
         public void FixedUpdateBehaviour(PlayerStateMachine player)
         {
-            player.playerJump.CheckCollisions(player, player.playerData, player.capsuleCollider);
+            player.playerJump.CheckCollisions(player, player.playerData);
             
             HandleDirection(player);
             
@@ -34,7 +36,7 @@ namespace Player.Scripts
                 player.ChangeBehaviour(player.playerJump);
         }
 
-        private bool CheckIsOnSlope(PlayerStateMachine player)
+        public bool CheckIsOnSlope(PlayerStateMachine player)
         {
             if (Physics.Raycast(player.position + (Vector3.up * 0.1f), Vector3.down, out slopeHit, 0.3f, ~player.playerData.layersToIgnoreForGroundCheck))
             {
@@ -54,8 +56,6 @@ namespace Player.Scripts
         {
             Vector3 move = (player.moveInput.x * player.orientationPivot.right + player.moveInput.y * player.orientationPivot.forward).normalized;
             move *= player.isAiming ? player.playerData.groundMaxSpeedAiming : player.playerData.groundMaxSpeed;
-
-            bool isOnSLope = CheckIsOnSlope(player);
             
             if (player.moveInput.magnitude <= 0.05f)
             {
@@ -64,11 +64,16 @@ namespace Player.Scripts
             }
             else
             {
-                if (isOnSLope)
-                    move = ComputeSlopeMoveDirection(move);       
                 player.moveVelocity.x = Mathf.MoveTowards(player.moveVelocity.x, move.x, player.playerData.groundAcceleration * Time.fixedDeltaTime);
                 player.moveVelocity.z = Mathf.MoveTowards(player.moveVelocity.z, move.z, player.playerData.groundAcceleration * Time.fixedDeltaTime);
             }
+            
+            if (isOnSlope)
+            {
+                Debug.Log("Slooooooope");
+                float magnitude = player.moveVelocity.magnitude;
+                player.moveVelocity = ComputeSlopeMoveDirection(player.moveVelocity) * magnitude;
+            }    
         }
 
         public void StopBehaviour(PlayerStateMachine player, BehaviourType next)
