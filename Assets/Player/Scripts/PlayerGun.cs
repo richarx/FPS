@@ -14,35 +14,78 @@ namespace Player.Scripts
         [SerializeField] private LayerMask targetLayer;
         
         private PlayerStateMachine player;
+        private PlayerAmmo playerAmmo;
 
         [HideInInspector] public UnityEvent OnShoot = new UnityEvent();
+        [HideInInspector] public UnityEvent OnShootEmptyMag = new UnityEvent();
+        [HideInInspector] public UnityEvent OnStartReloading = new UnityEvent();
+        [HideInInspector] public UnityEvent OnStopReloading = new UnityEvent();
+        [HideInInspector] public UnityEvent<bool> OnChangeAimState = new UnityEvent<bool>();
         [HideInInspector] public UnityEvent<Vector3> OnHit = new UnityEvent<Vector3>();
 
         [HideInInspector] public bool isAiming;
+        [HideInInspector] public bool isReloading;
         public bool isShooting => !CanShoot();
         
         private float lastShotTimestamp;
+        private float startReloadTimestamp;
         
         private void Start()
         {
             player = GetComponent<PlayerStateMachine>();
+            playerAmmo = GetComponent<PlayerAmmo>();
         }
 
         private void Update()
         {
-            if (isAiming != PlayerInputs.GetLeftTrigger(isHeld: true))
-                isAiming = !isAiming;
+            if (PauseMenu.instance.IsPaused)
+                return;
 
-            if (CanShoot() && !PauseMenu.instance.IsPaused && PlayerInputs.GetRightTrigger(isHeld: true))
+            if (isReloading && Time.time - startReloadTimestamp >= player.playerData.reloadDuration)
+            {
+                isReloading = false;
+                playerAmmo.RefillAmmo();
+                OnStopReloading?.Invoke();
+            }
+            
+            if (isAiming != PlayerInputs.GetLeftTrigger(isHeld: true))
+            {
+                isAiming = !isAiming;
+                OnChangeAimState?.Invoke(isAiming);
+            }
+            
+            if (isReloading)
+                return;
+
+            if (CanShoot() && PlayerInputs.GetRightTrigger(isHeld: true))
                 Shoot();
+            else if (PlayerInputs.GetWestButton())
+                ReloadGun();
+        }
+
+        private void ReloadGun()
+        {
+            isReloading = true;
+            startReloadTimestamp = Time.time;
+            OnStartReloading?.Invoke();
         }
 
         private void Shoot()
         {
-            OnShoot?.Invoke();
-            ShootRaycast();
-            Kickback();
             lastShotTimestamp = Time.time;
+            
+            if (playerAmmo.IsEmpty)
+            {
+                if (PlayerInputs.GetRightTrigger())
+                    OnShootEmptyMag?.Invoke();
+            }
+            else
+            {
+                ShootRaycast();
+                Kickback();
+                playerAmmo.ConsumeAmmo();
+                OnShoot?.Invoke();
+            }
         }
 
         private void Kickback()
@@ -63,7 +106,7 @@ namespace Player.Scripts
         {
             Vector3 position = shootingPivot.position;
             Vector3 direction = shootingPivot.forward;
-            RaycastHit[] hit = Physics.RaycastAll(position, direction, 50.0f, targetLayer);
+            RaycastHit[] hit = Physics.RaycastAll(position, direction, player.playerData.bulletDistance, targetLayer);
 
             for (int i = 0; i < hit.Length; i++)
             {

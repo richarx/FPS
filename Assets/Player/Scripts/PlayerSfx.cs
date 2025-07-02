@@ -9,6 +9,16 @@ namespace Player.Scripts
         [SerializeField] private AudioClip gunShotFirst;
         [SerializeField] private List<AudioClip> gunShot;
         [SerializeField] private AudioClip gunShotTail;
+        [SerializeField] private List<AudioClip> emptyMag;
+        [SerializeField] private List<AudioClip> ejectMag;
+        [SerializeField] private List<AudioClip> insertMag;
+        [SerializeField] private List<AudioClip> cockGun;
+        [SerializeField] private AudioClip adsInWoosh;
+        [SerializeField] private AudioClip adsOutWoosh;
+        [SerializeField] private float wooshVolume;
+        [SerializeField] private List<AudioClip> adsClick;
+        [SerializeField] private float insertDelay;
+        [SerializeField] private float cockDelay;
         [SerializeField] private float shotVolume;
         [SerializeField] private float tailVolume;
         [SerializeField] private float tailFadeDuration;
@@ -21,6 +31,20 @@ namespace Player.Scripts
         {
             playerGun = GetComponent<PlayerGun>();
             playerGun.OnShoot.AddListener(PlayGunShotSound);
+            playerGun.OnShootEmptyMag.AddListener(() => SFXManager.instance.PlayRandomSFX(emptyMag));
+            playerGun.OnStartReloading.AddListener(() =>
+            {
+                SFXManager.instance.PlayRandomSFX(ejectMag);
+                SFXManager.instance.PlayRandomSFX(insertMag, delay:insertDelay);
+                SFXManager.instance.PlayRandomSFX(cockGun, delay:cockDelay);
+            });
+            playerGun.OnChangeAimState.AddListener((isAiming) =>
+            {
+                SFXManager.instance.PlaySFX(isAiming ? adsInWoosh : adsOutWoosh, wooshVolume);
+                
+                if (isAiming)
+                    SFXManager.instance.PlayRandomSFX(adsClick);
+            });
         }
 
         private void PlayGunShotSound()

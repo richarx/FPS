@@ -9,23 +9,15 @@ namespace Player.Scripts
         [SerializeField] private float fadeDuration;
         
         private PlayerStateMachine player;
-
-        private bool isAiming;
         
         private void Start()
         {
             player = PlayerStateMachine.instance;
-        }
-
-        private void Update()
-        {
-            if (isAiming != player.isAiming)
+            player.playerGun.OnChangeAimState.AddListener((isAiming) =>
             {
-                isAiming = !isAiming;
-                
                 StopAllCoroutines();
                 StartCoroutine(Tools.Fade(crosshair, fadeDuration, !isAiming));
-            }
+            });
         }
     }
 }

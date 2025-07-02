@@ -20,6 +20,7 @@ namespace Player.Scripts
         public Vector3 position => transform.position;
         public bool isShooting => playerGun.isShooting;
         public bool isAiming => playerGun.isAiming;
+        public bool isReloading => playerGun.isReloading;
 
         [HideInInspector] public Vector2 moveInput;
         [HideInInspector] public Vector3 moveVelocity;

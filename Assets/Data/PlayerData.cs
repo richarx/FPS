@@ -10,6 +10,7 @@ namespace Data
         public float groundMaxSpeedAiming;
         public float groundAcceleration;
         public float groundDeceleration;
+        public float maxSlopeAngle;
 
         [Space] [Header("Jump")] 
         public int maxJumpCount;
@@ -21,8 +22,10 @@ namespace Data
         public float fallAcceleration;
         public float airDeceleration;
 
-        [Space]
-        [Header("Gun")]
+        [Space] [Header("Gun")] 
+        public float bulletDistance;
+        public int startingAmmo;
+        public float reloadDuration;
         public float fireRate;        
         public float xRecoil;
         public float yRecoil;

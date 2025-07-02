@@ -129,16 +129,21 @@ namespace Tools_and_Scripts
     
         public static bool GetWestButton(bool withBuffer = true)
         {
-            if (Gamepad.current == null)
-                return false;
+            bool gamepad = false;
+            bool mouse = false;
 
             if (withBuffer && Time.time <= attackBufferTimeStamp)
             {
                 attackBufferTimeStamp = -1.0f;
                 return true;
             }
+            
+            if (Gamepad.current != null)
+                gamepad = Gamepad.current.buttonWest.wasPressedThisFrame;
+
+            mouse = Keyboard.current.rKey.wasPressedThisFrame;
         
-            return Gamepad.current.buttonWest.wasPressedThisFrame;
+            return gamepad || mouse;
         }
 
         public static bool GetSouthButton(bool isHeld = false, bool withBuffer = true)

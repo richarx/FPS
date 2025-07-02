@@ -24,6 +24,9 @@ MonoBehaviour:
   fallMaxSpeed: 27
   fallAcceleration: 65
   airDeceleration: 45
+  bulletDistance: 250
+  startingAmmo: 32
+  reloadDuration: 1.5
   fireRate: 8
   xRecoil: 1
   yRecoil: 3

@@ -5,6 +5,7 @@ namespace Player.Scripts
     public class PlayerAnimateGun : MonoBehaviour
     {
         [SerializeField] private RectTransform gun;
+        [SerializeField] private Vector3 reloadPosition;
         [SerializeField] private Vector3 adsPosition;
         [SerializeField] private Vector2 adsSize;
         [SerializeField] private float transitionFalloff;
@@ -40,7 +41,9 @@ namespace Player.Scripts
         {
             UpdateTimers();
 
-            if (player.isAiming)
+            if (player.isReloading)
+                ReloadGun();
+            else if (player.isAiming)
                 AimDownSight();
             else if (player.isShooting)
                 ShootingGun();
@@ -89,6 +92,12 @@ namespace Player.Scripts
         {
             float y = Mathf.Cos(Tools.DegreeToRadian(idleTimer)) * player.playerData.gunAnimationIdleDistance;
             targetPosition = basePosition + new Vector3(0.0f, y, 0.0f);
+        }
+        
+        private void ReloadGun()
+        {
+            Vector3 position = player.isAiming ? adsPosition : basePosition;
+            targetPosition = position + reloadPosition;
         }
         
         private void ShootingGun()
