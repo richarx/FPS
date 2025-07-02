@@ -75,12 +75,13 @@ namespace Player.Scripts
             bool groundHit = Physics.Raycast(player.position + (Vector3.up * 0.1f), Vector3.down, 0.2f, ~player.playerData.layersToIgnoreForGroundCheck);
             bool ceilingHit = Physics.Raycast(player.position + (Vector3.up * 1.9f), Vector3.up, 0.2f, ~player.playerData.layersToIgnoreForGroundCheck);
             player.playerGroundMovement.isOnSlope = player.playerGroundMovement.CheckIsOnSlope(player);
+            bool isWalkableSlope = player.playerGroundMovement.IsSlopeWalkable(player);
             
             if (ceilingHit) 
                 player.moveVelocity.y = Mathf.Min(0, player.moveVelocity.y);
 
             bool landed = false;
-            if (!isGrounded && (groundHit || player.playerGroundMovement.isOnSlope))
+            if (!isGrounded && (groundHit || isWalkableSlope))
             {
                 landed = true;
                 isGrounded = true;
@@ -89,7 +90,7 @@ namespace Player.Scripts
                 RefillRemainingJumps(data);
                 OnGroundedChanged?.Invoke(true, Mathf.Abs(player.moveVelocity.y));
             }
-            else if (isGrounded && !groundHit && !player.playerGroundMovement.isOnSlope)
+            else if (isGrounded && !groundHit && !isWalkableSlope)
             {
                 isGrounded = false;
                 frameLeftGrounded = Time.time;
@@ -158,8 +159,12 @@ namespace Player.Scripts
         public void HandleGravity(PlayerStateMachine player)
         {
             if (player.playerGroundMovement.isOnSlope)
+            {
+                if (!player.playerGroundMovement.IsSlopeWalkable(player))
+                    player.moveVelocity = player.playerGroundMovement.ComputeSlopeFallDirection() * player.playerData.steepSlopeFallSpeed;
                 return;
-            
+            }
+
             if (isGrounded && player.moveVelocity.y <= 0f)
             {
                 player.moveVelocity.y = player.playerData.groundingForce;

@@ -17,6 +17,7 @@ MonoBehaviour:
   groundAcceleration: 100
   groundDeceleration: 100
   maxSlopeAngle: 40
+  steepSlopeFallSpeed: 15
   maxJumpCount: 3
   groundingForce: -1.5
   coyoteTime: 0.12

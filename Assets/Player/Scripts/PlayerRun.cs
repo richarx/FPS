@@ -41,19 +41,49 @@ namespace Player.Scripts
             if (Physics.Raycast(player.position + (Vector3.up * 0.1f), Vector3.down, out slopeHit, 0.3f, ~player.playerData.layersToIgnoreForGroundCheck))
             {
                 float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
-                return angle < player.playerData.maxSlopeAngle && angle != 0.0f;
+                return angle != 0;
             }
 
             return false;
         }
 
+        public bool IsSlopeWalkable(PlayerStateMachine player)
+        {
+            if (!isOnSlope)
+                return false;
+            
+            float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+            return angle < player.playerData.maxSlopeAngle && angle != 0.0f;
+        }
+
         private Vector3 ComputeSlopeMoveDirection(Vector3 moveDirection)
         {
+            if (!isOnSlope)
+                return moveDirection.normalized;
+            
             return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
+        }
+        
+        public Vector3 ComputeSlopeFallDirection()
+        {
+            if (!isOnSlope)
+                return Vector3.down;
+            
+            Vector3 acrossSlope = Vector3.Cross(Vector3.up, slopeHit.normal);
+            Vector3 downSlope = Vector3.Cross(acrossSlope, slopeHit.normal);
+            
+            return downSlope.normalized;
         }
 
         public void HandleDirection(PlayerStateMachine player)
         {
+            bool isSlopeWalkable = IsSlopeWalkable(player);
+            if (isOnSlope && !isSlopeWalkable)
+            {
+                
+                return;
+            }
+                
             Vector3 move = (player.moveInput.x * player.orientationPivot.right + player.moveInput.y * player.orientationPivot.forward).normalized;
             move *= player.isAiming ? player.playerData.groundMaxSpeedAiming : player.playerData.groundMaxSpeed;
             
@@ -68,9 +98,8 @@ namespace Player.Scripts
                 player.moveVelocity.z = Mathf.MoveTowards(player.moveVelocity.z, move.z, player.playerData.groundAcceleration * Time.fixedDeltaTime);
             }
             
-            if (isOnSlope)
+            if (isOnSlope && isSlopeWalkable)
             {
-                Debug.Log("Slooooooope");
                 float magnitude = player.moveVelocity.magnitude;
                 player.moveVelocity = ComputeSlopeMoveDirection(player.moveVelocity) * magnitude;
             }    
@@ -78,6 +107,8 @@ namespace Player.Scripts
 
         public void StopBehaviour(PlayerStateMachine player, BehaviourType next)
         {
+            slopeHit = new RaycastHit();
+            isOnSlope = false;
         }
 
         public BehaviourType GetBehaviourType()

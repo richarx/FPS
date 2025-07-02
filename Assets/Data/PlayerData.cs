@@ -11,6 +11,7 @@ namespace Data
         public float groundAcceleration;
         public float groundDeceleration;
         public float maxSlopeAngle;
+        public float steepSlopeFallSpeed;
 
         [Space] [Header("Jump")] 
         public int maxJumpCount;
