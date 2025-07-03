@@ -93,6 +93,7 @@ namespace Player.Scripts
                 RefillRemainingJumps(data);
                 lastLandingTimeStamp = Time.time;
                 OnGroundedChanged?.Invoke(true, Mathf.Abs(player.moveVelocity.y));
+                player.moveVelocity.y = player.playerData.groundingForce;
             }
             else if (isGrounded && !groundHit && !isWalkableSlope)
             {
