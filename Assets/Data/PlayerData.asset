@@ -24,7 +24,7 @@ MonoBehaviour:
   jumpForce: 35
   jumpEndEarlyGravityModifier: 2.5
   fallMaxSpeed: 45
-  fallAcceleration: 80
+  fallAcceleration: 100
   airDeceleration: 45
   bulletDistance: 250
   startingAmmo: 32

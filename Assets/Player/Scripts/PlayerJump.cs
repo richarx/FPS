@@ -61,7 +61,7 @@ namespace Player.Scripts
 
         public void FixedUpdateBehaviour(PlayerStateMachine player)
         {
-            bool landed = CheckCollisions(player, player.playerData);
+            bool landed = CheckCollisions(player);
 
             HandleJump(player);
             HandleDirection(player);
@@ -73,11 +73,11 @@ namespace Player.Scripts
                 player.ChangeBehaviour(player.playerRun);
         }
         
-        public bool CheckCollisions(PlayerStateMachine player, PlayerData data)
+        public bool CheckCollisions(PlayerStateMachine player)
         {
-            bool groundHit = Physics.Raycast(player.position + (Vector3.up * 0.1f), Vector3.down, 0.2f, ~player.playerData.layersToIgnoreForGroundCheck);
+            bool groundHit = ShootDownRaycasts(player);
             bool ceilingHit = Physics.Raycast(player.position + (Vector3.up * 1.9f), Vector3.up, 0.2f, ~player.playerData.layersToIgnoreForGroundCheck);
-            player.playerRun.isOnSlope = player.playerRun.CheckIsOnSlope(player);
+            player.playerRun.isOnSlope = isGrounded && player.playerRun.CheckIsOnSlope(player);
             bool isWalkableSlope = player.playerRun.IsSlopeWalkable(player);
             
             if (ceilingHit) 
@@ -90,7 +90,7 @@ namespace Player.Scripts
                 isGrounded = true;
                 coyoteUsable = true;
                 endedJumpEarly = false;
-                RefillRemainingJumps(data);
+                RefillRemainingJumps(player.playerData);
                 lastLandingTimeStamp = Time.time;
                 OnGroundedChanged?.Invoke(true, Mathf.Abs(player.moveVelocity.y));
                 player.moveVelocity.y = player.playerData.groundingForce;
@@ -103,6 +103,24 @@ namespace Player.Scripts
             }
 
             return landed;
+        }
+
+        private bool ShootDownRaycasts(PlayerStateMachine player)
+        {
+            Vector3 position = player.position + (Vector3.up * 0.1f);
+            
+            if (Physics.Raycast(position, Vector3.down, 0.2f, ~player.playerData.layersToIgnoreForGroundCheck))
+                return true;
+
+            Vector3 forward = player.orientationPivot.forward * 0.25f;
+            
+            if (Physics.Raycast(position + forward, Vector3.down, 0.2f, ~player.playerData.layersToIgnoreForGroundCheck))
+                return true;
+
+            if (Physics.Raycast(position - forward, Vector3.down, 0.2f, ~player.playerData.layersToIgnoreForGroundCheck))
+                return true;
+
+            return false;
         }
 
         public void RefillRemainingJumps(PlayerData data)

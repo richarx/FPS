@@ -24,7 +24,7 @@ namespace Player.Scripts
 
         public void FixedUpdateBehaviour(PlayerStateMachine player)
         {
-            player.playerJump.CheckCollisions(player, player.playerData);
+            player.playerJump.CheckCollisions(player);
             
             HandleDirection(player);
             
@@ -38,7 +38,7 @@ namespace Player.Scripts
 
         public bool CheckIsOnSlope(PlayerStateMachine player)
         {
-            if (Physics.Raycast(player.position + (Vector3.up * 0.1f), Vector3.down, out slopeHit, 0.3f, ~player.playerData.layersToIgnoreForGroundCheck))
+            if (Physics.Raycast(player.position + (Vector3.up * 0.1f), Vector3.down, out slopeHit, 0.5f, ~player.playerData.layersToIgnoreForGroundCheck))
             {
                 float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
                 return angle != 0;
