@@ -4419,6 +4419,15 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 94ee927b497fe27478924f0b96e5460d, type: 3}
   - {fileID: 8300000, guid: 61bed5dfe385d154384abc6dae2ab481, type: 3}
   - {fileID: 8300000, guid: 73d31a293a1e39f4683d2d4d2bd5dee8, type: 3}
+  jumpWoosh:
+  - {fileID: 8300000, guid: d4eedb43b8557074b88449d6a85033ec, type: 3}
+  - {fileID: 8300000, guid: 5b6b10963b2c147469609dede2b708f2, type: 3}
+  - {fileID: 8300000, guid: b012084955fbe60459d51c37299a8326, type: 3}
+  - {fileID: 8300000, guid: 6ae7df4c033c7ae449b4df338b280cc5, type: 3}
+  landingLight:
+  - {fileID: 8300000, guid: 831026bfba1c05942a334b4ec5a2fcd3, type: 3}
+  - {fileID: 8300000, guid: 6d5da479223c6ee41b95906cf7214bad, type: 3}
+  - {fileID: 8300000, guid: 11fcbcf770952d04fa99e127bd6c95a2, type: 3}
 --- !u!114 &2097679330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4437,7 +4446,8 @@ MonoBehaviour:
   adsSize: {x: 1600, y: 1300}
   transitionFalloff: 1200
   jumpImpulsePower: 400
-  fallOffsetPower: 300
+  landingImpulsePower: 15
+  fallOffsetPower: 100
 --- !u!114 &2097679331
 MonoBehaviour:
   m_ObjectHideFlags: 0

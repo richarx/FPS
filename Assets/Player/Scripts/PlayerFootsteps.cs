@@ -17,6 +17,7 @@ namespace Player.Scripts
         private void Start()
         {
             player = GetComponent<PlayerStateMachine>();
+            player.playerJump.OnJump.AddListener(PlayStepSound);
         }
 
         private void LateUpdate()
