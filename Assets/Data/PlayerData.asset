@@ -19,13 +19,15 @@ MonoBehaviour:
   maxSlopeAngle: 40
   steepSlopeFallSpeed: 35
   maxJumpCount: 3
-  groundingForce: -1.5
+  groundingForce: -10
   coyoteTime: 0.12
   jumpForce: 35
   jumpEndEarlyGravityModifier: 2.5
   fallMaxSpeed: 45
   fallAcceleration: 100
-  airDeceleration: 45
+  airMaxSpeed: 25
+  airAcceleration: 50
+  airDeceleration: 60
   bulletDistance: 250
   startingAmmo: 32
   reloadDuration: 1.5
@@ -33,6 +35,7 @@ MonoBehaviour:
   xRecoil: 1
   yRecoil: 3
   recoilSnappiness: 0.05
+  fovReductionOnAim: 20
   gunAnimationCosSpeed: 800
   gunAnimationSinSpeed: 400
   gunAnimationDistance: 80

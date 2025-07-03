@@ -21,6 +21,8 @@ namespace Data
         public float jumpEndEarlyGravityModifier;
         public float fallMaxSpeed;
         public float fallAcceleration;
+        public float airMaxSpeed;
+        public float airAcceleration;
         public float airDeceleration;
 
         [Space] [Header("Gun")] 
@@ -34,6 +36,8 @@ namespace Data
         
         [Space]
         [Header("Gun Animation")]
+        public float fovReductionOnAim;
+
         public float gunAnimationCosSpeed;
         public float gunAnimationSinSpeed;
         

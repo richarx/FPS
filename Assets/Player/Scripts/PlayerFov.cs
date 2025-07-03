@@ -7,7 +7,6 @@ namespace Player.Scripts
     public class PlayerFov : MonoBehaviour
     {
         [SerializeField] private Camera mainCamera;
-        [SerializeField] private float fovReduction;
         [SerializeField] private float smoothTime;
         
         private PlayerStateMachine player;
@@ -27,7 +26,7 @@ namespace Player.Scripts
         private IEnumerator UpdateFov(bool isAiming)
         {
             float currentFov = PauseMenu.instance.currentFov;
-            float target = isAiming ? currentFov - fovReduction : currentFov;
+            float target = isAiming ? currentFov - player.playerData.fovReductionOnAim : currentFov;
 
             while (Mathf.Abs(mainCamera.fieldOfView - target) >= 0.1f)
             {

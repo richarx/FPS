@@ -112,14 +112,24 @@ namespace Player.Scripts
             if (Physics.Raycast(position, Vector3.down, 0.2f, ~player.playerData.layersToIgnoreForGroundCheck))
                 return true;
 
+            position += Vector3.up * 0.505f;
+            
             Vector3 forward = player.orientationPivot.forward * 0.25f;
             
-            if (Physics.Raycast(position + forward, Vector3.down, 0.2f, ~player.playerData.layersToIgnoreForGroundCheck))
+            if (Physics.Raycast(position + forward, Vector3.down, 0.705f, ~player.playerData.layersToIgnoreForGroundCheck))
                 return true;
 
-            if (Physics.Raycast(position - forward, Vector3.down, 0.2f, ~player.playerData.layersToIgnoreForGroundCheck))
+            if (Physics.Raycast(position - forward, Vector3.down, 0.705f, ~player.playerData.layersToIgnoreForGroundCheck))
+                return true;
+            
+            Vector3 right = player.orientationPivot.right * 0.25f;
+
+            if (Physics.Raycast(position + right, Vector3.down, 0.705f, ~player.playerData.layersToIgnoreForGroundCheck))
                 return true;
 
+            if (Physics.Raycast(position - right, Vector3.down, 0.705f, ~player.playerData.layersToIgnoreForGroundCheck))
+                return true;
+            
             return false;
         }
 
@@ -167,7 +177,7 @@ namespace Player.Scripts
         public void HandleDirection(PlayerStateMachine player)
         {
             Vector3 move = (player.moveInput.x * player.orientationPivot.right + player.moveInput.y * player.orientationPivot.forward).normalized;
-            move *= player.playerData.groundMaxSpeed;
+            move *= player.playerData.airMaxSpeed;
             
             if (player.moveInput.magnitude <= 0.05f)
             {
@@ -176,8 +186,8 @@ namespace Player.Scripts
             }
             else
             {
-                player.moveVelocity.x = Mathf.MoveTowards(player.moveVelocity.x, move.x, player.playerData.groundAcceleration * Time.fixedDeltaTime);
-                player.moveVelocity.z = Mathf.MoveTowards(player.moveVelocity.z, move.z, player.playerData.groundAcceleration * Time.fixedDeltaTime);
+                player.moveVelocity.x = Mathf.MoveTowards(player.moveVelocity.x, move.x, player.playerData.airAcceleration * Time.fixedDeltaTime);
+                player.moveVelocity.z = Mathf.MoveTowards(player.moveVelocity.z, move.z, player.playerData.airAcceleration * Time.fixedDeltaTime);
             }
         }
 
