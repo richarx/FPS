@@ -8,15 +8,14 @@ namespace VFX.Blink_on_Damage
     {
         [SerializeField] private float duration;
         [SerializeField] private Material blinkMaterial;
+        [SerializeField] private SpriteRenderer spriteRenderer;
 
-        private SpriteRenderer spriteRenderer;
         private Material baseMaterial;
         
         private Coroutine blinkCoroutine = null;
         
         private void Start()
         {
-            spriteRenderer = GetComponent<SpriteRenderer>();
             baseMaterial = spriteRenderer.material;
             GetComponent<Damageable>().OnTakeDamage.AddListener(Blink);
         }

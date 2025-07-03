@@ -449,4 +449,29 @@ public static class Tools
     {
         return new Quaternion(input.x * scalar, input.y * scalar, input.z * scalar, input.w * scalar);
     }
+    
+    public enum MoveDirection
+    {
+        Right,
+        RightBack,
+        Back,
+        LeftBack,
+        Left,
+        LeftFront,
+        Front,
+        RightFront,
+    }
+    
+    public static int GetCardinalDirection(Vector2 currentDirection)
+    {
+        float angle = Mathf.Atan2(currentDirection.y, currentDirection.x);
+        int direction = Mathf.RoundToInt(8 * angle / (2 * Mathf.PI) + 8) % 8;
+
+        return direction;
+    }
+
+    public static Vector2 GetDirectionFromCardinal(int direction)
+    {
+        return Vector2.right.AddAngleToDirection(45 * direction);
+    }
 }
