@@ -109,22 +109,23 @@ namespace Player.Scripts
             Vector3 direction = shootingPivot.forward;
             RaycastHit[] hit = Physics.RaycastAll(position, direction, player.playerData.bulletDistance, targetLayer);
 
+            SurfaceData.SurfaceType surfaceType = SurfaceData.SurfaceType.None;
             for (int i = 0; i < hit.Length; i++)
             {
-                SurfaceData.SurfaceType surfaceType;
                 
                 Damageable damageable = hit[i].collider.GetComponent<Damageable>();
                 if (damageable != null)
                 {
                     damageable.TakeDamage(1.0f);
-                    surfaceType = SurfaceData.SurfaceType.Enemy;
+                    OnHit?.Invoke(position + (direction.normalized * hit[i].distance), SurfaceData.SurfaceType.Enemy);
+                    return;
                 }
                 else
                     surfaceType = SurfaceData.SurfaceType.Wall;
-
-                OnHit?.Invoke(position + (direction.normalized * hit[i].distance), surfaceType);
-                return;
             }
+            
+            if (surfaceType != SurfaceData.SurfaceType.None)
+                OnHit?.Invoke(position + (direction.normalized * hit[0].distance), surfaceType);
         }
 
         private bool CanShoot()

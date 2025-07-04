@@ -281,7 +281,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e24a6ec280c2c5b42800d1a5330d100d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onHit: []
+  onHit:
+  - {fileID: 8300000, guid: 7b6fb8096f5ea8842a3856d6547969f5, type: 3}
+  - {fileID: 8300000, guid: 99a43cbbd14cac146be682151aa43c8a, type: 3}
   onDeath:
   - {fileID: 8300000, guid: 794dd1df202e06f4bb13484c9e67d7e1, type: 3}
   - {fileID: 8300000, guid: 74a13dcb436a8994fa04d5c7704c1887, type: 3}

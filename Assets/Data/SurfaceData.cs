@@ -12,7 +12,8 @@ namespace Data
         {
             Ground,
             Wall,
-            Enemy
+            Enemy,
+            None
         }
 
         public List<GameObject> wallImpactPrefabs;

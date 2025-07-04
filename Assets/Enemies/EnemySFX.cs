@@ -13,8 +13,8 @@ namespace Enemies
         {
             Damageable damageable = GetComponent<Damageable>();
             
+            damageable.OnTakeDamage.AddListener(() => SFXManager.instance.PlayRandomSFXInChannel("Hit", 1.5f, onHit, null));
             damageable.OnDeath.AddListener(() => SFXManager.instance.PlayRandomSFXInChannel("Death", 0.5f, onDeath, null));
-            damageable.OnTakeDamage.AddListener(() => SFXManager.instance.PlayRandomSFXInChannel("Hit", 0.5f, onHit, null));
         }
     }
 }
