@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7ace3941d435ba4a8f7f286ed1c5ec7, type: 3}
+  m_Name: SurfaceData
+  m_EditorClassIdentifier: 
+  wallImpactPrefabs:
+  - {fileID: 3499346714438105121, guid: 21fd495688e8c504eab2a74abe629af1, type: 3}
+  enemyImpactPrefabs:
+  - {fileID: 5395586774617663003, guid: a6e8db85dc827e0489b5c90759eec070, type: 3}

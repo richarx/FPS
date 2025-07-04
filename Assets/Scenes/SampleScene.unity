@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 15648427}
   - component: {fileID: 15648426}
   - component: {fileID: 15648425}
+  - component: {fileID: 15648436}
   m_Layer: 6
   m_Name: Fongimancien (2)
   m_TagString: Untagged
@@ -375,6 +376,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &15648436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15648424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bb79bd7b15f7da44afdabd31bebb194, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  corpsePrefab: {fileID: 2852191077214485454, guid: c4a5ef34fbef7ed4bb842e45b3958036,
+    type: 3}
 --- !u!1 &15837477
 GameObject:
   m_ObjectHideFlags: 0
@@ -689,7 +704,7 @@ GameObject:
   - component: {fileID: 18142176}
   - component: {fileID: 18142175}
   - component: {fileID: 18142174}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -906,6 +921,7 @@ GameObject:
   - component: {fileID: 56727529}
   - component: {fileID: 56727528}
   - component: {fileID: 56727527}
+  - component: {fileID: 56727538}
   m_Layer: 6
   m_Name: Fongimancien (3)
   m_TagString: Untagged
@@ -1140,6 +1156,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &56727538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56727526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bb79bd7b15f7da44afdabd31bebb194, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  corpsePrefab: {fileID: 2852191077214485454, guid: c4a5ef34fbef7ed4bb842e45b3958036,
+    type: 3}
 --- !u!1 &70665110
 GameObject:
   m_ObjectHideFlags: 0
@@ -1442,6 +1472,7 @@ GameObject:
   - component: {fileID: 136538727}
   - component: {fileID: 136538726}
   - component: {fileID: 136538725}
+  - component: {fileID: 136538736}
   m_Layer: 6
   m_Name: Fongimancien (1)
   m_TagString: Untagged
@@ -1676,6 +1707,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &136538736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136538724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bb79bd7b15f7da44afdabd31bebb194, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  corpsePrefab: {fileID: 2852191077214485454, guid: c4a5ef34fbef7ed4bb842e45b3958036,
+    type: 3}
 --- !u!1 &141241588
 GameObject:
   m_ObjectHideFlags: 0
@@ -1770,7 +1815,7 @@ GameObject:
   - component: {fileID: 227986090}
   - component: {fileID: 227986089}
   - component: {fileID: 227986088}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2175,7 +2220,7 @@ GameObject:
   - component: {fileID: 397176993}
   - component: {fileID: 397176992}
   - component: {fileID: 397176991}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3344,7 +3389,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   corpsePrefab: {fileID: 2664928143919887818, guid: a948ce2d259f28c4ab9334615e7b2a2d,
     type: 3}
-  damageable: {fileID: 16060551}
 --- !u!1 &762218112
 GameObject:
   m_ObjectHideFlags: 0
@@ -3737,7 +3781,7 @@ GameObject:
   - component: {fileID: 909026538}
   - component: {fileID: 909026537}
   - component: {fileID: 909026536}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4238,7 +4282,7 @@ GameObject:
   - component: {fileID: 1113474695}
   - component: {fileID: 1113474694}
   - component: {fileID: 1113474693}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4541,6 +4585,7 @@ GameObject:
   - component: {fileID: 1177895044}
   - component: {fileID: 1177895045}
   - component: {fileID: 1177895046}
+  - component: {fileID: 1177895048}
   m_Layer: 6
   m_Name: Shroom_Knight
   m_TagString: Untagged
@@ -4775,6 +4820,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &1177895048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177895036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bb79bd7b15f7da44afdabd31bebb194, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  corpsePrefab: {fileID: 2852191077214485454, guid: c4a5ef34fbef7ed4bb842e45b3958036,
+    type: 3}
 --- !u!1 &1221602910
 GameObject:
   m_ObjectHideFlags: 0
@@ -4862,7 +4921,7 @@ GameObject:
   - component: {fileID: 1317219901}
   - component: {fileID: 1317219900}
   - component: {fileID: 1317219899}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5557,6 +5616,7 @@ GameObject:
   - component: {fileID: 1762404667}
   - component: {fileID: 1762404666}
   - component: {fileID: 1762404665}
+  - component: {fileID: 1762404676}
   m_Layer: 6
   m_Name: Fongimancien (5)
   m_TagString: Untagged
@@ -5791,6 +5851,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1762404676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1762404664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bb79bd7b15f7da44afdabd31bebb194, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  corpsePrefab: {fileID: 2852191077214485454, guid: c4a5ef34fbef7ed4bb842e45b3958036,
+    type: 3}
 --- !u!1 &1790113085
 GameObject:
   m_ObjectHideFlags: 0
@@ -5953,7 +6027,7 @@ GameObject:
   - component: {fileID: 1820611796}
   - component: {fileID: 1820611795}
   - component: {fileID: 1820611794}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6199,6 +6273,7 @@ GameObject:
   - component: {fileID: 1905627152}
   - component: {fileID: 1905627151}
   - component: {fileID: 1905627150}
+  - component: {fileID: 1905627161}
   m_Layer: 6
   m_Name: Fongimancien (4)
   m_TagString: Untagged
@@ -6433,6 +6508,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1905627161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905627149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bb79bd7b15f7da44afdabd31bebb194, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  corpsePrefab: {fileID: 2852191077214485454, guid: c4a5ef34fbef7ed4bb842e45b3958036,
+    type: 3}
 --- !u!1 &1924272860
 GameObject:
   m_ObjectHideFlags: 0
@@ -6741,7 +6830,7 @@ GameObject:
   - component: {fileID: 1976067453}
   - component: {fileID: 1976067452}
   - component: {fileID: 1976067451}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6883,7 +6972,7 @@ GameObject:
   - component: {fileID: 2032566173}
   - component: {fileID: 2032566172}
   - component: {fileID: 2032566171}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6995,6 +7084,7 @@ GameObject:
   - component: {fileID: 2043541317}
   - component: {fileID: 2043541316}
   - component: {fileID: 2043541325}
+  - component: {fileID: 2043541327}
   m_Layer: 6
   m_Name: Fongimancien
   m_TagString: Untagged
@@ -7229,6 +7319,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &2043541327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2043541315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bb79bd7b15f7da44afdabd31bebb194, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  corpsePrefab: {fileID: 2852191077214485454, guid: c4a5ef34fbef7ed4bb842e45b3958036,
+    type: 3}
 --- !u!1 &2097679323
 GameObject:
   m_ObjectHideFlags: 0
@@ -7287,6 +7391,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientationPivot: {fileID: 445102581}
   playerData: {fileID: 11400000, guid: 6881bad086a3fdc4dbe206af7da465a4, type: 2}
+  surfaceData: {fileID: 11400000, guid: 6d8b74fb2f3d5c24bbc099b7b3269f91, type: 2}
   moveInput: {x: 0, y: 0}
   moveVelocity: {x: 0, y: 0, z: 0}
   canBeInterruptedByLanding: 1
@@ -7336,7 +7441,7 @@ MonoBehaviour:
   playerRecoil: {fileID: 832805394}
   targetLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 192
   OnShoot:
     m_PersistentCalls:
       m_Calls: []
@@ -7442,8 +7547,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e4778060be52474dbd23c817778beaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainGunImpact: {fileID: 1938508365058218346, guid: 992853bb213445a498f42bf0fedcaf4e,
-    type: 3}
   secondaryGunImpacts:
   - {fileID: 5069143262147700891, guid: 68779bf296435464a8105ee3a53575d6, type: 3}
   - {fileID: 7259989365948300311, guid: 7e32bd10da4a1334591a1871cbf85156, type: 3}
@@ -7453,6 +7556,7 @@ MonoBehaviour:
   - {fileID: 8130165704439340640, guid: 9aabd2f3d4e70c0419c47fa414cf236e, type: 3}
   - {fileID: 7492719039021353942, guid: 35593fa994c0177419f14e81a21e1ed7, type: 3}
   - {fileID: 5343398588388544243, guid: 35e35c40e39657748b4d273b4fd9a6f3, type: 3}
+  distanceTowardsPlayer: 1.3
 --- !u!136 &2097679332
 CapsuleCollider:
   m_ObjectHideFlags: 0

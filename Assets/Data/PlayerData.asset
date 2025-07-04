@@ -35,7 +35,7 @@ MonoBehaviour:
   xRecoil: 1
   yRecoil: 3
   recoilSnappiness: 0.05
-  recoilCancelSnappiness: 0.2
+  recoilCancelSnappiness: 0.3
   recoilCancelPower: 1.3
   fovReductionOnAim: 20
   gunAnimationCosSpeed: 800

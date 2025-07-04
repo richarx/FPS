@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Data;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -6,9 +7,9 @@ namespace Player.Scripts
 {
     public class PlayerVfx : MonoBehaviour
     {
-        [SerializeField] private GameObject mainGunImpact;
         [SerializeField] private List<GameObject> secondaryGunImpacts;
         [SerializeField] private List<GameObject> bloodSplats;
+        [SerializeField] private float distanceTowardsPlayer;
 
         private PlayerStateMachine player;
         
@@ -18,13 +19,21 @@ namespace Player.Scripts
             player.playerGun.OnHit.AddListener(SpawnImpact);
         }
 
-        private void SpawnImpact(Vector3 position)
+        private void SpawnImpact(Vector3 position, SurfaceData.SurfaceType surfaceType)
         {
+            Vector3 directionToPlayer = (player.position - position).normalized;
+            position += directionToPlayer * distanceTowardsPlayer;
+            
             int randomImpact = Random.Range(0, secondaryGunImpacts.Count);
-            int randomBlood = Random.Range(0, bloodSplats.Count);
-            Instantiate(secondaryGunImpacts[randomImpact], position + (Random.insideUnitSphere * 0.5f), Quaternion.identity);
-            Instantiate(bloodSplats[randomBlood], position + (Random.insideUnitSphere * 0.5f), Quaternion.identity);
-            //Instantiate(mainGunImpact, position, Quaternion.identity);
+            Instantiate(secondaryGunImpacts[randomImpact], position + (Random.insideUnitSphere), Quaternion.identity);
+
+            if (surfaceType == SurfaceData.SurfaceType.Enemy)
+            {
+                int randomBlood = Random.Range(0, bloodSplats.Count);
+                Instantiate(bloodSplats[randomBlood], position + (Random.insideUnitSphere * 0.5f), Quaternion.identity);
+            }
+            
+            Instantiate(player.surfaceData.GetRandomImpactFromSurface(surfaceType), position, Quaternion.identity);
         }
     }
 }

@@ -5,13 +5,16 @@ namespace Enemies
     public class SpawnCorpse : MonoBehaviour
     {
         [SerializeField] private GameObject corpsePrefab;
-        [SerializeField] private Damageable damageable;
+
+        private void Start()
+        {
+            GetComponent<Damageable>().OnDeath.AddListener(SpawnCorpseAndDelete);
+        }
 
         public void SpawnCorpseAndDelete()
         {
-            Debug.Log("Spawn Corpse !");
             Instantiate(corpsePrefab, transform.position, Quaternion.identity);
-            Destroy(damageable.gameObject);
+            Destroy(gameObject);
         }
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Data;
 using Enemies;
 using Pause_Menu;
 using Tools_and_Scripts;
@@ -21,7 +22,7 @@ namespace Player.Scripts
         [HideInInspector] public UnityEvent OnStartReloading = new UnityEvent();
         [HideInInspector] public UnityEvent OnStopReloading = new UnityEvent();
         [HideInInspector] public UnityEvent<bool> OnChangeAimState = new UnityEvent<bool>();
-        [HideInInspector] public UnityEvent<Vector3> OnHit = new UnityEvent<Vector3>();
+        [HideInInspector] public UnityEvent<Vector3, SurfaceData.SurfaceType> OnHit = new UnityEvent<Vector3, SurfaceData.SurfaceType>();
 
         [HideInInspector] public bool isAiming;
         [HideInInspector] public bool isReloading;
@@ -110,12 +111,19 @@ namespace Player.Scripts
 
             for (int i = 0; i < hit.Length; i++)
             {
+                SurfaceData.SurfaceType surfaceType;
+                
                 Damageable damageable = hit[i].collider.GetComponent<Damageable>();
                 if (damageable != null)
                 {
                     damageable.TakeDamage(1.0f);
-                    OnHit?.Invoke(position + (direction.normalized * hit[i].distance));
+                    surfaceType = SurfaceData.SurfaceType.Enemy;
                 }
+                else
+                    surfaceType = SurfaceData.SurfaceType.Wall;
+
+                OnHit?.Invoke(position + (direction.normalized * hit[i].distance), surfaceType);
+                return;
             }
         }
 
