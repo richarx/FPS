@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using SFX;
 using UnityEngine;
 
 namespace Player.Scripts
