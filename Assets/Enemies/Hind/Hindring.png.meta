@@ -529,6 +529,132 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Hindring_22
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 0
+        width: 73
+        height: 77
+      alignment: 9
+      pivot: {x: 0.25, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1316c7eb3949914c93b9be95b348fff
+      internalID: -1811378467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hindring_23
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 73
+        height: 77
+      alignment: 9
+      pivot: {x: 0.2, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48d9a74b0bda90740b75e25604aada7c
+      internalID: 1437580276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hindring_20
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 0
+        width: 73
+        height: 77
+      alignment: 9
+      pivot: {x: 0.4, y: 0.052}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4312f97a20bdb4439381487f6500176
+      internalID: 126825840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hindring_21
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 0
+        width: 73
+        height: 77
+      alignment: 9
+      pivot: {x: 0.4, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 234cdf7adf8973647a2a7597c4d3dc03
+      internalID: 568060528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hindring_25
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 0
+        width: 78
+        height: 77
+      alignment: 9
+      pivot: {x: 0.1, y: 0.104}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6145309d3f4774e449d68c917443a104
+      internalID: 1511384254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hindring_24
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 0
+        width: 78
+        height: 77
+      alignment: 9
+      pivot: {x: 0.1, y: 0.142}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71fc216a47fe777409b5c38763094d81
+      internalID: 1356703953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -553,6 +679,12 @@ TextureImporter:
       Hindring_18: 238238004
       Hindring_19: -524654090
       Hindring_2: 226191617
+      Hindring_20: 126825840
+      Hindring_21: 568060528
+      Hindring_22: -1811378467
+      Hindring_23: 1437580276
+      Hindring_24: 1356703953
+      Hindring_25: 1511384254
       Hindring_3: -306223791
       Hindring_4: 1119617516
       Hindring_5: 1874144030

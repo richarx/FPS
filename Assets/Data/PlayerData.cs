@@ -33,6 +33,8 @@ namespace Data
         public float xRecoil;
         public float yRecoil;
         public float recoilSnappiness;
+        public float recoilCancelSnappiness;
+        public float recoilCancelPower;
         
         [Space]
         [Header("Gun Animation")]

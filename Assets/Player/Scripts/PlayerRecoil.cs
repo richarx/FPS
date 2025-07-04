@@ -7,15 +7,20 @@ namespace Player.Scripts
     public class PlayerRecoil : MonoBehaviour
     {
         private PlayerLook playerLook;
+        private PlayerGun playerGun;
         private PlayerData playerData;
         
         private Vector2 currentRecoil;
         private Vector2 targetRecoil;
         private Vector2 velocity;
 
+        private float startingHeight;
+        private bool isReturning;
+
         private void Start()
         {
             playerLook = GetComponent<PlayerLook>();
+            playerGun = PlayerStateMachine.instance.playerGun;
             playerData = PlayerStateMachine.instance.playerData;
         }
 
@@ -24,17 +29,34 @@ namespace Player.Scripts
             if (currentRecoil.Distance(targetRecoil) >= 0.01f)
             {
                 Vector2 previousRecoil = currentRecoil;
-                currentRecoil = Vector2.SmoothDamp(currentRecoil, targetRecoil, ref velocity, playerData.recoilSnappiness);
+                currentRecoil = Vector2.SmoothDamp(currentRecoil, targetRecoil, ref velocity, isReturning ? playerData.recoilCancelSnappiness : playerData.recoilSnappiness);
+                
                 Vector2 deltaRecoil = currentRecoil - previousRecoil;
                 playerLook.ApplyKickBack(deltaRecoil.x, deltaRecoil.y);
+            }
+            else if (!playerGun.isShooting && !isReturning)
+            {
+                if (targetRecoil.y <= startingHeight)
+                    targetRecoil.y -= (startingHeight - targetRecoil.y) * playerData.recoilCancelPower;
+                else
+                    targetRecoil.y -= (startingHeight - targetRecoil.y) * playerData.recoilCancelPower * 0.5f;  
+                
+                startingHeight = 0.0f;
+                isReturning = true;
             }
         }
 
         public void KickBack(float xKickback, float yKickback)
         {
-            currentRecoil.x = playerLook.xRotation;
-            currentRecoil.y = playerLook.yRotation;
+            currentRecoil.x = playerLook.yRotation;
+            currentRecoil.y = playerLook.xRotation;
 
+            if (isReturning)
+            {
+                startingHeight = currentRecoil.y;
+                isReturning = false;
+            }
+            
             targetRecoil = currentRecoil;
 
             targetRecoil.x += xKickback;

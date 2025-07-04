@@ -35,6 +35,8 @@ MonoBehaviour:
   xRecoil: 1
   yRecoil: 3
   recoilSnappiness: 0.05
+  recoilCancelSnappiness: 0.2
+  recoilCancelPower: 1.3
   fovReductionOnAim: 20
   gunAnimationCosSpeed: 800
   gunAnimationSinSpeed: 400
@@ -45,8 +47,8 @@ MonoBehaviour:
   gunAnimationIdleDistance: 40
   gunAnimationIdleSpeed: 100
   gunAnimationSizeSpeed: 0.1
-  joystickSensitivityX: 10000
-  joystickSensitivityY: 5000
+  joystickSensitivityX: 15000
+  joystickSensitivityY: 10000
   mouseSensitivity: 7500
   layersToIgnoreForGroundCheck:
     serializedVersion: 2
