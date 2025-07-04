@@ -26,7 +26,7 @@ namespace Player.Scripts
 
         private void Update()
         {
-            if (currentRecoil.Distance(targetRecoil) >= 0.01f)
+            if (currentRecoil.Distance(targetRecoil) >= 0.001f)
             {
                 Vector2 previousRecoil = currentRecoil;
                 currentRecoil = Vector2.SmoothDamp(currentRecoil, targetRecoil, ref velocity, isReturning ? playerData.recoilCancelSnappiness : playerData.recoilSnappiness);
@@ -36,11 +36,7 @@ namespace Player.Scripts
             }
             else if (!playerGun.isShooting && !isReturning)
             {
-                if (targetRecoil.y <= startingHeight)
-                    targetRecoil.y -= (startingHeight - targetRecoil.y) * playerData.recoilCancelPower;
-                else
-                    targetRecoil.y -= (startingHeight - targetRecoil.y) * playerData.recoilCancelPower * 0.5f;  
-                
+                targetRecoil.y += (startingHeight - targetRecoil.y) * playerData.recoilCancelPower;
                 startingHeight = 0.0f;
                 isReturning = true;
             }
@@ -49,7 +45,7 @@ namespace Player.Scripts
         public void KickBack(float xKickback, float yKickback)
         {
             currentRecoil.x = playerLook.yRotation;
-            currentRecoil.y = playerLook.xRotation;
+            currentRecoil.y = -playerLook.xRotation;
 
             if (isReturning)
             {
