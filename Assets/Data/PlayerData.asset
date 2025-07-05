@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa567a41976bbc84b83f96482f2eda96, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  groundMaxSpeed: 25
-  groundMaxSpeedAiming: 15
+  walkMaxSpeed: 20
+  sprintMaxSpeed: 30
+  groundMaxSpeedAiming: 10
   groundAcceleration: 100
   groundDeceleration: 200
   maxSlopeAngle: 40
@@ -39,8 +40,11 @@ MonoBehaviour:
   recoilCancelPower: 1
   fovReductionOnAim: 20
   gunAnimationCosSpeed: 800
+  gunAnimationCosSpeedSprinting: 2
   gunAnimationSinSpeed: 400
+  gunAnimationSinSpeedSprinting: 2
   gunAnimationDistance: 80
+  gunAnimationDistanceSprinting: 3
   gunAnimationSmoothTime: 0.1
   gunAnimationLateralDistance: 150
   gunAnimationLateralSmoothTime: 0.5

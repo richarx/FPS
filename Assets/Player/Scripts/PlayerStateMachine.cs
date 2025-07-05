@@ -14,7 +14,7 @@ namespace Player.Scripts
         
         public static PlayerStateMachine instance;
 
-        public PlayerRun playerRun = new PlayerRun();
+        public PlayerRun playerRun;
         public PlayerJump playerJump;
         
         public IPlayerBehaviour currentBehaviour;
@@ -39,6 +39,7 @@ namespace Player.Scripts
             rb = GetComponent<Rigidbody>();
             playerGun = GetComponent<PlayerGun>();
 
+            playerRun = new PlayerRun(this);
             playerJump = new PlayerJump(this);
         }
 

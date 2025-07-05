@@ -6,7 +6,8 @@ namespace Data
     public class PlayerData : ScriptableObject
     {
         [Header("Movement - Ground")]
-        public float groundMaxSpeed;
+        public float walkMaxSpeed;
+        public float sprintMaxSpeed;
         public float groundMaxSpeedAiming;
         public float groundAcceleration;
         public float groundDeceleration;
@@ -41,10 +42,13 @@ namespace Data
         public float fovReductionOnAim;
 
         public float gunAnimationCosSpeed;
+        public float gunAnimationCosSpeedSprinting;
         public float gunAnimationSinSpeed;
+        public float gunAnimationSinSpeedSprinting;
         
         [Space]
         public float gunAnimationDistance;
+        public float gunAnimationDistanceSprinting;
         public float gunAnimationSmoothTime;
         
         [Space]

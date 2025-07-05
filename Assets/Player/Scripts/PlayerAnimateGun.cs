@@ -107,8 +107,8 @@ namespace Player.Scripts
 
         private void UpdateTimers()
         {
-            sinTimer += Time.deltaTime * player.playerData.gunAnimationSinSpeed;
-            cosTimer += Time.deltaTime * player.playerData.gunAnimationCosSpeed;
+            sinTimer += Time.deltaTime * player.playerData.gunAnimationSinSpeed * (player.playerRun.isSprinting ? player.playerData.gunAnimationSinSpeedSprinting : 1.0f);
+            cosTimer += Time.deltaTime * player.playerData.gunAnimationCosSpeed * (player.playerRun.isSprinting ? player.playerData.gunAnimationCosSpeedSprinting : 1.0f);
             idleTimer += Time.deltaTime * player.playerData.gunAnimationIdleSpeed;
             
             if (sinTimer >= 360.0f)
@@ -152,6 +152,12 @@ namespace Player.Scripts
         {
             float x = Mathf.Sin(Tools.DegreeToRadian(sinTimer)) * player.playerData.gunAnimationDistance;
             float y = Mathf.Cos(Tools.DegreeToRadian(cosTimer)) * player.playerData.gunAnimationDistance;
+
+            if (player.playerRun.isSprinting)
+            {
+                x *= player.playerData.gunAnimationDistanceSprinting;
+                y *= player.playerData.gunAnimationDistanceSprinting;
+            }
 
             targetPosition = basePosition + new Vector3(x, y, 0.0f);
         }

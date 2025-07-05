@@ -1,13 +1,27 @@
 using Tools_and_Scripts;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Player.Scripts
 {
     public class PlayerRun : IPlayerBehaviour
     {
+        public UnityEvent OnStartSprinting = new UnityEvent();
+        public UnityEvent OnStopSprinting = new UnityEvent();
+        
         private RaycastHit slopeHit;
         public bool isOnSlope;
+        public bool isSprinting;
 
+        public PlayerRun(PlayerStateMachine player)
+        {
+            player.playerGun.OnChangeAimState.AddListener((isAiming) =>
+            {
+                if (isAiming && isSprinting)
+                    CancelSprint();
+            });
+        }
+        
         public void StartBehaviour(PlayerStateMachine player, BehaviourType previous)
         {
             Debug.Log("RUN");
@@ -19,6 +33,48 @@ namespace Player.Scripts
             {
                 player.playerJump.StartJump(player);
                 return;
+            }
+
+            HandleSprint(player);
+        }
+
+        private bool isJoystickSprint;
+        private void HandleSprint(PlayerStateMachine player)
+        {
+            bool sprintInputJoystick = PlayerInputs.GetLeftStickClick();
+            bool sprintInputKeyboard = PlayerInputs.GetLeftShift(true);
+
+            bool sprintInput = (sprintInputJoystick || isJoystickSprint) || sprintInputKeyboard;
+
+            if (isSprinting && isJoystickSprint && sprintInputJoystick)
+                sprintInput = false;
+
+            if (player.moveInput.y <= 0.5f)
+            {
+                sprintInput = false;
+                isJoystickSprint = false;
+            }
+
+            if (isSprinting != sprintInput && !player.playerGun.isAiming)
+            {
+                isSprinting = sprintInput;
+
+                isJoystickSprint = isSprinting && sprintInputJoystick;
+                
+                if (isSprinting)
+                    OnStartSprinting?.Invoke();
+                else
+                    OnStopSprinting?.Invoke();
+            }
+        }
+
+        public void CancelSprint()
+        {
+            if (isSprinting)
+            {
+                isSprinting = false;
+                isJoystickSprint = false;
+                OnStopSprinting?.Invoke();
             }
         }
 
@@ -79,13 +135,12 @@ namespace Player.Scripts
         {
             bool isSlopeWalkable = IsSlopeWalkable(player);
             if (isOnSlope && !isSlopeWalkable)
-            {
-                
                 return;
-            }
-                
+
+            
             Vector3 move = (player.moveInput.x * player.orientationPivot.right + player.moveInput.y * player.orientationPivot.forward).normalized;
-            move *= player.isAiming ? player.playerData.groundMaxSpeedAiming : player.playerData.groundMaxSpeed;
+            float speed = ComputeMoveSpeed(player);
+            move *= speed;
             
             if (player.moveInput.magnitude <= 0.05f)
             {
@@ -105,10 +160,21 @@ namespace Player.Scripts
             }    
         }
 
+        private float ComputeMoveSpeed(PlayerStateMachine player)
+        {
+            if (player.isAiming)
+                return player.playerData.groundMaxSpeedAiming;
+
+            return isSprinting ? player.playerData.sprintMaxSpeed : player.playerData.walkMaxSpeed;
+        }
+
         public void StopBehaviour(PlayerStateMachine player, BehaviourType next)
         {
             slopeHit = new RaycastHit();
             isOnSlope = false;
+            
+            if (isSprinting)
+                CancelSprint();
         }
 
         public BehaviourType GetBehaviourType()

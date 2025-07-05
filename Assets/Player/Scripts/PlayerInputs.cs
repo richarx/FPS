@@ -241,6 +241,22 @@ namespace Tools_and_Scripts
             return gamepad || mouse;
         }
 
+        public static bool GetLeftStickClick(bool isHeld = false)
+        {
+            bool gamepad = false;
+
+            if (Gamepad.current != null)
+                gamepad = isHeld ? Gamepad.current.leftStickButton.isPressed : Gamepad.current.leftStickButton.wasPressedThisFrame;
+            
+            return gamepad;
+        }
+
+        public static bool GetLeftShift(bool isHeld = false)
+        {
+            bool keyboard = isHeld ? Keyboard.current.leftShiftKey.isPressed : Keyboard.current.leftShiftKey.wasPressedThisFrame;
+            return keyboard;
+        }
+
         public static bool GetSelectButton()
         {
             if (Gamepad.current == null)
