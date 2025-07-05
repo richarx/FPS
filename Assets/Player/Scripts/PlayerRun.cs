@@ -17,9 +17,11 @@ namespace Player.Scripts
         {
             player.playerGun.OnChangeAimState.AddListener((isAiming) =>
             {
-                if (isAiming && isSprinting)
+                if (isAiming)
                     CancelSprint();
             });
+            player.playerGun.OnShoot.AddListener(CancelSprint);
+            player.playerGun.OnStartReloading.AddListener(CancelSprint);
         }
         
         public void StartBehaviour(PlayerStateMachine player, BehaviourType previous)
@@ -55,7 +57,7 @@ namespace Player.Scripts
                 isJoystickSprint = false;
             }
 
-            if (isSprinting != sprintInput && !player.playerGun.isAiming)
+            if (isSprinting != sprintInput && !player.isAiming && !player.isReloading && !player.isShooting)
             {
                 isSprinting = sprintInput;
 
