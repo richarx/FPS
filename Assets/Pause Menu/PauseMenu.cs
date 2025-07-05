@@ -10,28 +10,19 @@ namespace Pause_Menu
     {
         [SerializeField] private Image blackScreen;
         [SerializeField] private GameObject pausePanel;
-        [SerializeField] private Slider mouseSlider;
-        [SerializeField] private Slider joystickXSlider;
-        [SerializeField] private Slider joystickYSlider;
-        [SerializeField] private Slider fovSlider;
+        [SerializeField] private SettingSlider mouseSlider;
+        [SerializeField] private SettingSlider joystickXSlider;
+        [SerializeField] private SettingSlider joystickYSlider;
+        [SerializeField] private SettingSlider aimSlider;
+        [SerializeField] private SettingSlider fovSlider;
         [SerializeField] private Camera mainCamera;
 
-        [HideInInspector] public float mouseSensitivity;
-        private float mouseMin;
-        private float mouseMax;
+        public float mouseSensitivity => mouseSlider.GetSliderValue();
+        public float joystickXSensitivity => joystickXSlider.GetSliderValue();
+        public float joystickYSensitivity => joystickYSlider.GetSliderValue();
+        public float aimSensitivityMultiplier => aimSlider.GetSliderValue();
+        public float currentFov => fovSlider.GetSliderValue();
         
-        [HideInInspector] public float joystickXSensitivity;
-        private float joystickXMin;
-        private float joystickXMax;
-        
-        [HideInInspector] public float joystickYSensitivity;
-        private float joystickYMin;
-        private float joystickYMax;
-
-        [HideInInspector] public float currentFov;
-        private float minFov = 30.0f;
-        private float maxFov = 170.0f;
-
         public static PauseMenu instance;
 
         private PlayerStateMachine player;
@@ -49,20 +40,14 @@ namespace Pause_Menu
         private void Start()
         {
             player = PlayerStateMachine.instance;
-            mouseSensitivity = player.playerData.mouseSensitivity;
-            mouseMin = 0.0f;
-            mouseMax = mouseSensitivity * 2.0f;
             
-            joystickXSensitivity = player.playerData.joystickSensitivityX;
-            joystickXMin = 0.0f;
-            joystickXMax = joystickXSensitivity * 2.0f;
+            mouseSlider.Initialize(player.playerData.mouseSensitivity, 0.0f, player.playerData.mouseSensitivity * 3.0f);
+            joystickXSlider.Initialize(player.playerData.joystickSensitivityX, 0.0f, player.playerData.joystickSensitivityX * 2.0f);
+            joystickYSlider.Initialize(player.playerData.joystickSensitivityY, 0.0f, player.playerData.joystickSensitivityY * 2.0f);
+            aimSlider.Initialize(player.playerData.aimSensitivityMultiplier, 0.1f, 2.0f);
+            fovSlider.Initialize(mainCamera.fieldOfView, 30.0f, 170.0f);
             
-            joystickYSensitivity = player.playerData.joystickSensitivityY;
-            joystickYMin = 0.0f;
-            joystickYMax = joystickYSensitivity * 2.0f;
-
-            currentFov = mainCamera.fieldOfView;
-            fovSlider.onValueChanged.AddListener((value) => mainCamera.fieldOfView = Tools.NormalizeValueInRange(value, 0.0f, 1.0f, minFov, maxFov));
+            fovSlider.slider.onValueChanged.AddListener((value) => mainCamera.fieldOfView = fovSlider.GetSliderValue());
         }
 
         private void Update()
@@ -75,10 +60,7 @@ namespace Pause_Menu
                 if (isPaused)
                     StartCoroutine(PauseGame());
                 else
-                {
-                    ApplyNewParameters();
                     StartCoroutine(ResumeGame());
-                }
             }
         }
 
@@ -86,7 +68,6 @@ namespace Pause_Menu
         {
             Time.timeScale = 0.0f;
             yield return Tools.Fade(blackScreen, 0.15f, true, 0.8f, false);
-            SetupParameters();
             pausePanel.SetActive(true);
             
             Cursor.visible = true;
@@ -101,22 +82,6 @@ namespace Pause_Menu
             pausePanel.SetActive(false);
             yield return Tools.Fade(blackScreen, 0.3f, false, 0.8f, false);
             Time.timeScale = 1.0f;
-        }
-        
-        private void SetupParameters()
-        {
-            mouseSlider.value = Tools.NormalizeValue(mouseSensitivity, mouseMin, mouseMax);
-            joystickXSlider.value = Tools.NormalizeValue(joystickXSensitivity, joystickXMin, joystickXMax);
-            joystickYSlider.value = Tools.NormalizeValue(joystickYSensitivity, joystickYMin, joystickYMax);
-            fovSlider.value = Tools.NormalizeValue(currentFov, minFov, maxFov);
-        }
-
-        private void ApplyNewParameters()
-        {
-            mouseSensitivity = Tools.NormalizeValueInRange(mouseSlider.value, 0.0f, 1.0f, mouseMin, mouseMax);
-            joystickXSensitivity = Tools.NormalizeValueInRange(joystickXSlider.value, 0.0f, 1.0f, joystickXMin, joystickXMax);
-            joystickYSensitivity = Tools.NormalizeValueInRange(joystickYSlider.value, 0.0f, 1.0f, joystickYMin, joystickYMax);
-            currentFov = Tools.NormalizeValueInRange(fovSlider.value, 0.0f, 1.0f, minFov, maxFov);
         }
     }
 }

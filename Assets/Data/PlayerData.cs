@@ -69,6 +69,9 @@ namespace Data
         
         [Space]
         public float mouseSensitivity;
+        
+        [Space]
+        public float aimSensitivityMultiplier;
 
         [Space]
         [Header("Layers")] 

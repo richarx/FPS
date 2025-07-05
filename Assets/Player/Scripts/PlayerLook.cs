@@ -1,3 +1,4 @@
+using Pause_Menu;
 using Tools_and_Scripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -25,6 +26,9 @@ namespace Player.Scripts
         {
             Vector2 lookDirection = PlayerInputs.GetAimingDirectionWithSensibility();
             lookDirection *= Time.deltaTime;
+
+            if (player.isAiming)
+                lookDirection *= PauseMenu.instance.aimSensitivityMultiplier;
         
             yRotation += lookDirection.x;
             xRotation -= lookDirection.y;

@@ -54,6 +54,7 @@ MonoBehaviour:
   joystickSensitivityX: 15000
   joystickSensitivityY: 10000
   mouseSensitivity: 7500
+  aimSensitivityMultiplier: 0.3
   layersToIgnoreForGroundCheck:
     serializedVersion: 2
     m_Bits: 126
