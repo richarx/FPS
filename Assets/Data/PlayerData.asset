@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa567a41976bbc84b83f96482f2eda96, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
+  standingCameraHeight: 2.5
+  crouchedCameraHeight: 0.75
   walkMaxSpeed: 20
   sprintMaxSpeed: 30
   groundMaxSpeedAiming: 10
@@ -19,6 +21,11 @@ MonoBehaviour:
   groundDeceleration: 200
   maxSlopeAngle: 40
   steepSlopeFallSpeed: 35
+  crouchTransitionSpeed: 0.2
+  crouchMaxSpeed: 7
+  crouchMaxSpeedAiming: 5
+  crouchAcceleration: 80
+  crouchDeceleration: 150
   maxJumpCount: 3
   groundingForce: -10
   coyoteTime: 0.12

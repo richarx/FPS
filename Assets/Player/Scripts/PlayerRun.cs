@@ -11,7 +11,10 @@ namespace Player.Scripts
         
         private RaycastHit slopeHit;
         public bool isOnSlope;
+        public bool isSlopeWalkable;
         public bool isSprinting;
+
+        private bool isCrouchInputReset;
 
         public PlayerRun(PlayerStateMachine player)
         {
@@ -27,6 +30,9 @@ namespace Player.Scripts
         public void StartBehaviour(PlayerStateMachine player, BehaviourType previous)
         {
             Debug.Log("RUN");
+
+            if (previous == BehaviourType.Crouch || previous == BehaviourType.Slide)
+                isCrouchInputReset = false;
         }
 
         public void UpdateBehaviour(PlayerStateMachine player)
@@ -37,11 +43,19 @@ namespace Player.Scripts
                 return;
             }
 
+            if (isCrouchInputReset && PlayerInputs.GetEastButton(isHeld:true))
+            {
+                player.ChangeBehaviour(player.playerCrouch);
+                return;
+            }
+
             HandleSprint(player);
+
+            isCrouchInputReset = isCrouchInputReset || !PlayerInputs.GetEastButton(isHeld:true);
         }
 
         private bool isJoystickSprint;
-        private void HandleSprint(PlayerStateMachine player)
+        public void HandleSprint(PlayerStateMachine player)
         {
             bool sprintInputJoystick = PlayerInputs.GetLeftStickClick();
             bool sprintInputKeyboard = PlayerInputs.GetLeftShift(true);
@@ -84,7 +98,12 @@ namespace Player.Scripts
         {
             player.playerJump.CheckCollisions(player);
             
-            HandleDirection(player);
+            HandleSlop(player);
+            
+            if (CanPlayerControlDirection())
+                HandleDirection(player);
+            
+            UpdateMoveVelocityOnSlope(player);
             
             player.playerJump.HandleGravity(player);
 
@@ -133,13 +152,18 @@ namespace Player.Scripts
             return downSlope.normalized;
         }
 
+        public void HandleSlop(PlayerStateMachine player)
+        {
+            isSlopeWalkable = isOnSlope && IsSlopeWalkable(player);
+        }
+
+        public bool CanPlayerControlDirection()
+        {
+            return !isOnSlope || isSlopeWalkable;
+        }
+
         public void HandleDirection(PlayerStateMachine player)
         {
-            bool isSlopeWalkable = IsSlopeWalkable(player);
-            if (isOnSlope && !isSlopeWalkable)
-                return;
-
-            
             Vector3 move = (player.moveInput.x * player.orientationPivot.right + player.moveInput.y * player.orientationPivot.forward).normalized;
             float speed = ComputeMoveSpeed(player);
             move *= speed;
@@ -154,12 +178,15 @@ namespace Player.Scripts
                 player.moveVelocity.x = Mathf.MoveTowards(player.moveVelocity.x, move.x, player.playerData.groundAcceleration * Time.fixedDeltaTime);
                 player.moveVelocity.z = Mathf.MoveTowards(player.moveVelocity.z, move.z, player.playerData.groundAcceleration * Time.fixedDeltaTime);
             }
-            
+        }
+
+        public void UpdateMoveVelocityOnSlope(PlayerStateMachine player)
+        {
             if (isOnSlope && isSlopeWalkable)
             {
                 float magnitude = player.moveVelocity.magnitude;
                 player.moveVelocity = ComputeSlopeMoveDirection(player.moveVelocity) * magnitude;
-            }    
+            }
         }
 
         private float ComputeMoveSpeed(PlayerStateMachine player)

@@ -5,7 +5,11 @@ namespace Data
     [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/PlayerData")]
     public class PlayerData : ScriptableObject
     {
-        [Header("Movement - Ground")]
+        [Header("Camera Height")]
+        public float standingCameraHeight;
+        public float crouchedCameraHeight;
+        
+        [Space] [Header("Movement - Ground")]
         public float walkMaxSpeed;
         public float sprintMaxSpeed;
         public float groundMaxSpeedAiming;
@@ -13,6 +17,13 @@ namespace Data
         public float groundDeceleration;
         public float maxSlopeAngle;
         public float steepSlopeFallSpeed;
+        
+        [Space] [Header("Crouch")] 
+        public float crouchTransitionSpeed;
+        public float crouchMaxSpeed;
+        public float crouchMaxSpeedAiming;
+        public float crouchAcceleration;
+        public float crouchDeceleration;
 
         [Space] [Header("Jump")] 
         public int maxJumpCount;

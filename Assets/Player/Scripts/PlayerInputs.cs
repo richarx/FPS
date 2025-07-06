@@ -113,10 +113,10 @@ namespace Tools_and_Scripts
             return Gamepad.current.buttonNorth.wasPressedThisFrame;
         }
     
-        public static bool GetEastButton(bool withBuffer = true)
+        public static bool GetEastButton(bool withBuffer = true, bool isHeld = false)
         {
-            if (Gamepad.current == null)
-                return false;
+            bool gamepad = false;
+            bool mouse = false;
 
             if (withBuffer && Time.time <= dashBufferTimeStamp)
             {
@@ -124,7 +124,12 @@ namespace Tools_and_Scripts
                 return true;
             }
             
-            return Gamepad.current.buttonEast.wasPressedThisFrame;
+            if (Gamepad.current != null)
+                gamepad = isHeld ? Gamepad.current.buttonEast.isPressed : Gamepad.current.buttonEast.wasPressedThisFrame;
+
+            mouse = isHeld ? Keyboard.current.leftCtrlKey.isPressed : Keyboard.current.leftCtrlKey.wasPressedThisFrame;
+        
+            return gamepad || mouse;
         }
     
         public static bool GetWestButton(bool withBuffer = true)

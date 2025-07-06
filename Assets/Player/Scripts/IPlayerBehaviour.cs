@@ -3,7 +3,9 @@ namespace Player.Scripts
     public enum BehaviourType 
     {
         Run,
-        Jump
+        Jump,
+        Crouch,
+        Slide
     }
     
     public interface IPlayerBehaviour

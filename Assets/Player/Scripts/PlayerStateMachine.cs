@@ -1,4 +1,3 @@
-using System;
 using Data;
 using Pause_Menu;
 using Tools_and_Scripts;
@@ -16,7 +15,8 @@ namespace Player.Scripts
 
         public PlayerRun playerRun;
         public PlayerJump playerJump;
-        
+        public PlayerCrouch playerCrouch = new PlayerCrouch();
+
         public IPlayerBehaviour currentBehaviour;
         
         public Vector3 position => transform.position;
