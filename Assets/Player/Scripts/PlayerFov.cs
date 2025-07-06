@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Pause_Menu;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace Player.Scripts
         
         private PlayerStateMachine player;
 
+        private float currentTarget;
         private float velocity;
 
         private void Start()
@@ -18,23 +20,23 @@ namespace Player.Scripts
             player = PlayerStateMachine.instance;
             player.playerGun.OnChangeAimState.AddListener((isAiming) =>
             {
-                StopAllCoroutines();
-                StartCoroutine(UpdateFov(isAiming));
+                currentTarget = PauseMenu.instance.currentFov - (isAiming ? player.playerData.fovReductionOnAim : 0.0f);
             });
+            player.playerRun.OnStartSprinting.AddListener(() =>
+            {
+                currentTarget = PauseMenu.instance.currentFov - player.playerData.fovReductionOnSprint;
+            });
+            player.playerRun.OnStopSprinting.AddListener(() =>
+            {
+                currentTarget = PauseMenu.instance.currentFov;
+            });
+            currentTarget = PauseMenu.instance.currentFov;
         }
 
-        private IEnumerator UpdateFov(bool isAiming)
+        private void Update()
         {
-            float currentFov = PauseMenu.instance.currentFov;
-            float target = isAiming ? currentFov - player.playerData.fovReductionOnAim : currentFov;
-
-            while (Mathf.Abs(mainCamera.fieldOfView - target) >= 0.1f)
-            {
-                mainCamera.fieldOfView = Mathf.SmoothDamp(mainCamera.fieldOfView, target, ref velocity, smoothTime);
-                yield return null;
-            }
-
-            mainCamera.fieldOfView = target;
+            if (Mathf.Abs(mainCamera.fieldOfView - currentTarget) >= 0.001f)
+                mainCamera.fieldOfView = Mathf.SmoothDamp(mainCamera.fieldOfView, currentTarget, ref velocity, smoothTime);
         }
     }
 }

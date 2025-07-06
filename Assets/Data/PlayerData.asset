@@ -46,6 +46,7 @@ MonoBehaviour:
   recoilCancelSnappiness: 0.15
   recoilCancelPower: 1
   fovReductionOnAim: 20
+  fovReductionOnSprint: -10
   gunAnimationCosSpeed: 800
   gunAnimationCosSpeedSprinting: 2
   gunAnimationSinSpeed: 400

@@ -51,6 +51,7 @@ namespace Data
         [Space]
         [Header("Gun Animation")]
         public float fovReductionOnAim;
+        public float fovReductionOnSprint;
 
         public float gunAnimationCosSpeed;
         public float gunAnimationCosSpeedSprinting;
