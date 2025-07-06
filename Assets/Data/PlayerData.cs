@@ -5,11 +5,8 @@ namespace Data
     [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/PlayerData")]
     public class PlayerData : ScriptableObject
     {
-        [Header("Camera Height")]
-        public float standingCameraHeight;
-        public float crouchedCameraHeight;
-        
-        [Space] [Header("Movement - Ground")]
+        [Header("Movement - Ground")]
+        public float stickToGroundHeight;
         public float walkMaxSpeed;
         public float sprintMaxSpeed;
         public float groundMaxSpeedAiming;
@@ -58,8 +55,7 @@ namespace Data
         public float recoilCancelSnappiness;
         public float recoilCancelPower;
         
-        [Space]
-        [Header("Gun Animation")]
+        [Space] [Header("Gun Animation")]
         public float fovReductionOnAim;
         public float fovReductionOnSprint;
         public float fovReductionOnSlide;
@@ -85,8 +81,11 @@ namespace Data
         [Space]
         public float gunAnimationSizeSpeed;
 
-        [Space]
-        [Header("Camera")]
+        [Space] [Header("Camera Height")]
+        public float standingCameraHeight;
+        public float crouchedCameraHeight;
+        
+        [Space] [Header("Camera Default Sensitivity")]
         public float joystickSensitivityX;
         public float joystickSensitivityY;
         
@@ -96,8 +95,7 @@ namespace Data
         [Space]
         public float aimSensitivityMultiplier;
 
-        [Space]
-        [Header("Layers")] 
+        [Space] [Header("Layers")] 
         public LayerMask layersToIgnoreForGroundCheck;
     }
 }

@@ -83,8 +83,9 @@ namespace Player.Scripts
             if (ceilingHit) 
                 player.moveVelocity.y = Mathf.Min(0, player.moveVelocity.y);
 
-            bool landed = false;
-            if (!isGrounded && (groundHit || isWalkableSlope))
+            bool landed = !isGrounded && (groundHit || isWalkableSlope);
+            bool startsBeingInTheAir = isGrounded && !groundHit && !isWalkableSlope;
+            if (landed)
             {
                 landed = true;
                 isGrounded = true;
@@ -95,14 +96,41 @@ namespace Player.Scripts
                 OnGroundedChanged?.Invoke(true, Mathf.Abs(player.moveVelocity.y));
                 player.moveVelocity.y = player.playerData.groundingForce;
             }
-            else if (isGrounded && !groundHit && !isWalkableSlope)
+            else if (startsBeingInTheAir)
             {
-                isGrounded = false;
-                frameLeftGrounded = Time.time;
-                OnGroundedChanged?.Invoke(false, 0);
+                bool isStickingToGround = IsAllowedToStickToTheGround(player) && IsStickingToGround(player);
+                if (!isStickingToGround)
+                {
+                    isGrounded = false;
+                    frameLeftGrounded = Time.time;
+                    OnGroundedChanged?.Invoke(false, 0);
+                }
             }
 
             return landed;
+        }
+
+        private bool IsAllowedToStickToTheGround(PlayerStateMachine player)
+        {
+            BehaviourType type = player.currentBehaviour.GetBehaviourType();
+
+            return type != BehaviourType.Jump;
+        }
+        
+        private bool IsStickingToGround(PlayerStateMachine player)
+        {
+            Vector3 position = player.position + (Vector3.up * 0.1f);
+            RaycastHit hitInfo;
+            
+            bool hasHit = Physics.Raycast(position, Vector3.down, out hitInfo, player.playerData.stickToGroundHeight + 0.1f, ~player.playerData.layersToIgnoreForGroundCheck);
+
+            if (!hasHit)
+                return false;
+
+            Vector3 newPosition = position + Vector3.down * hitInfo.distance;
+            player.rb.MovePosition(newPosition);
+
+            return true;
         }
 
         private bool ShootDownRaycasts(PlayerStateMachine player)
