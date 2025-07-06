@@ -7919,11 +7919,11 @@ MonoBehaviour:
   jumpImpulsePower: 400
   landingImpulsePower: 15
   fallOffsetPower: 100
-  tiltRotationAmount: -50
+  tiltRotationAmount: -10
   tiltSmoothTime: 5
   tiltSnapBackTime: 10
-  minTilt: -15
-  maxTilt: 15
+  minTilt: -10
+  maxTilt: 10
 --- !u!114 &2097679331
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -94,13 +94,10 @@ namespace Player.Scripts
             {
                 float input = player.moveInput.x;
 
-                if (Mathf.Abs(input) > player.moveInput.y)
-                {
-                    tilt = Mathf.Clamp(input * tiltRotationAmount, minTilt, maxTilt);
-                 
-                    if (Mathf.Abs(input) >= 0.15f)
-                        time = tiltSmoothTime;
-                }
+                tilt = Mathf.Clamp(input * tiltRotationAmount, minTilt, maxTilt);
+             
+                if (Mathf.Abs(input) >= 0.15f)
+                    time = tiltSmoothTime;
             }
             
             Quaternion finalRotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, tilt));
