@@ -13,6 +13,12 @@ namespace Player.Scripts
         [SerializeField] private float landingImpulsePower;
         [SerializeField] private float fallOffsetPower;
 
+        [SerializeField] private float tiltRotationAmount;
+        [SerializeField] private float tiltSmoothTime;
+        [SerializeField] private float tiltSnapBackTime;
+        [SerializeField] private float minTilt;
+        [SerializeField] private float maxTilt;
+
         private Animator graphics;
         private PlayerStateMachine player;
 
@@ -31,6 +37,8 @@ namespace Player.Scripts
         private float targetLateralPosition;
         private float lateralVelocity;
 
+        private Quaternion initialRotation;
+
         private void Start()
         {
             graphics = gun.GetComponent<Animator>();
@@ -47,6 +55,7 @@ namespace Player.Scripts
                 if (isGrounded)
                     offsetPosition.y = -landingImpulsePower * impactPower;
             });
+            initialRotation = gun.localRotation;
         }
 
         private void Update()
@@ -70,9 +79,33 @@ namespace Player.Scripts
             
             Jump(isGrounded);
 
+            UpdateTilt();
             UpdateLateralPosition();
             ApplyMovement();
             UpdateAnimator();
+        }
+
+        private void UpdateTilt()
+        {
+            float tilt = 0.0f;
+            float time = tiltSnapBackTime;
+
+            if (player.isAiming)
+            {
+                float input = player.moveInput.x;
+
+                if (Mathf.Abs(input) > player.moveInput.y)
+                {
+                    tilt = Mathf.Clamp(input * tiltRotationAmount, minTilt, maxTilt);
+                 
+                    if (Mathf.Abs(input) >= 0.15f)
+                        time = tiltSmoothTime;
+                }
+            }
+            
+            Quaternion finalRotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, tilt));
+
+            gun.localRotation = Quaternion.Slerp(gun.localRotation, finalRotation * initialRotation, time * Time.deltaTime);
         }
 
         private void Jump(bool isGrounded)
@@ -166,7 +199,7 @@ namespace Player.Scripts
         {
             float target = 0.0f;
             
-            if (!player.isShooting && player.IsMoving())
+            if (!player.isShooting && !player.isAiming && player.IsMoving())
             {
                 float dot = Vector3.Dot(player.orientationPivot.forward, player.moveVelocity);
                 if (Mathf.Abs(dot) <= 0.9f)
