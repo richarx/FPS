@@ -18,6 +18,16 @@ namespace Data
         public float maxSlopeAngle;
         public float steepSlopeFallSpeed;
         
+        [Space] [Header("Slide")] 
+        public float slideTransitionSpeed;
+        public float slideVelocityThresholdToCrouch;
+        public float slidePower;
+        public float slideMaxSpeed;
+        public float slideSlopeAcceleration;
+        public float slideSlopeDeceleration;
+        public float slideDeceleration;
+        public float slideSlopeAngleMultiplier;
+
         [Space] [Header("Crouch")] 
         public float crouchTransitionSpeed;
         public float crouchMaxSpeed;
@@ -52,6 +62,7 @@ namespace Data
         [Header("Gun Animation")]
         public float fovReductionOnAim;
         public float fovReductionOnSprint;
+        public float fovReductionOnSlide;
 
         public float gunAnimationCosSpeed;
         public float gunAnimationCosSpeedSprinting;

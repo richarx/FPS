@@ -18,18 +18,23 @@ namespace Player.Scripts
         private void Start()
         {
             player = PlayerStateMachine.instance;
-            player.playerGun.OnChangeAimState.AddListener((isAiming) =>
-            {
-                currentTarget = PauseMenu.instance.currentFov - (isAiming ? player.playerData.fovReductionOnAim : 0.0f);
-            });
-            player.playerRun.OnStartSprinting.AddListener(() =>
-            {
-                currentTarget = PauseMenu.instance.currentFov - player.playerData.fovReductionOnSprint;
-            });
-            player.playerRun.OnStopSprinting.AddListener(() =>
-            {
-                currentTarget = PauseMenu.instance.currentFov;
-            });
+            player.playerGun.OnChangeAimState.AddListener((isAiming) => ChangeFov(isAiming ? player.playerData.fovReductionOnAim : 0.0f));
+            
+            player.playerRun.OnStartSprinting.AddListener(() => ChangeFov(player.playerData.fovReductionOnSprint));
+            player.playerRun.OnStopSprinting.AddListener(ResetFov);
+            
+            player.playerSlide.OnStartSLide.AddListener((fromCrouch) => ChangeFov(player.playerData.fovReductionOnSlide));
+            player.playerSlide.OnStopSlide.AddListener((toCrouch) => ResetFov());
+            currentTarget = PauseMenu.instance.currentFov;
+        }
+
+        private void ChangeFov(float newValue)
+        {
+            currentTarget = PauseMenu.instance.currentFov - newValue;
+        }
+        
+        private void ResetFov()
+        {
             currentTarget = PauseMenu.instance.currentFov;
         }
 

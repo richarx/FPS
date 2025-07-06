@@ -16,6 +16,7 @@ namespace Player.Scripts
         public PlayerRun playerRun;
         public PlayerJump playerJump;
         public PlayerCrouch playerCrouch = new PlayerCrouch();
+        public PlayerSlide playerSlide = new PlayerSlide();
 
         public IPlayerBehaviour currentBehaviour;
         
@@ -91,12 +92,12 @@ namespace Player.Scripts
             rb.velocity = moveVelocity;
         }
 
-        public bool IsMoving()
+        public bool IsMoving(float maxVelocity = 0.01f)
         {
             Vector3 velocity = moveVelocity;
             velocity.y = 0.0f;
 
-            return velocity.magnitude >= 0.01f;
+            return velocity.magnitude >= maxVelocity;
         }
     }
 }

@@ -46,7 +46,7 @@ namespace Player.Scripts
 
         private bool IsTimeToTakeStep()
         {
-            if (!player.playerJump.isGrounded)
+            if (!player.playerJump.isGrounded || player.currentBehaviour.GetBehaviourType() == BehaviourType.Slide)
                 return false;
                 
             Vector3 horizontalVelocity = player.moveVelocity;

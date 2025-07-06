@@ -9,7 +9,7 @@ namespace Player.Scripts
         public UnityEvent OnStartSprinting = new UnityEvent();
         public UnityEvent OnStopSprinting = new UnityEvent();
         
-        private RaycastHit slopeHit;
+        public RaycastHit slopeHit;
         public bool isOnSlope;
         public bool isSlopeWalkable;
         public bool isSprinting;
@@ -45,13 +45,17 @@ namespace Player.Scripts
 
             if (isCrouchInputReset && PlayerInputs.GetEastButton(isHeld:true))
             {
-                player.ChangeBehaviour(player.playerCrouch);
+                if (player.IsMoving(player.playerData.slideVelocityThresholdToCrouch))
+                    player.ChangeBehaviour(player.playerSlide);
+                else
+                    player.ChangeBehaviour(player.playerCrouch);
+                    
                 return;
             }
 
             HandleSprint(player);
 
-            isCrouchInputReset = isCrouchInputReset || !PlayerInputs.GetEastButton(isHeld:true);
+            isCrouchInputReset = isCrouchInputReset || !PlayerInputs.GetEastButton(withBuffer:false, isHeld:true);
         }
 
         private bool isJoystickSprint;
@@ -133,7 +137,7 @@ namespace Player.Scripts
             return angle < player.playerData.maxSlopeAngle && angle != 0.0f;
         }
 
-        private Vector3 ComputeSlopeMoveDirection(Vector3 moveDirection)
+        public Vector3 ComputeSlopeMoveDirection(Vector3 moveDirection)
         {
             if (!isOnSlope)
                 return moveDirection.normalized;

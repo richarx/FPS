@@ -6,16 +6,15 @@ namespace Player.Scripts
 {
     public class PlayerCrouch : IPlayerBehaviour
     {
-        public UnityEvent OnStartCrouch = new UnityEvent();
-        public UnityEvent OnStopCrouch = new UnityEvent();
+        public UnityEvent<bool> OnStartCrouch = new UnityEvent<bool>();
+        public UnityEvent<bool> OnStopCrouch = new UnityEvent<bool>();
 
         private bool wasInputReset;
         
         public void StartBehaviour(PlayerStateMachine player, BehaviourType previous)
         {
             Debug.Log("CROUCH");
-            if (previous != BehaviourType.Slide)
-                OnStartCrouch?.Invoke();
+            OnStartCrouch?.Invoke(previous == BehaviourType.Slide);
 
             wasInputReset = false;
         }
@@ -89,8 +88,7 @@ namespace Player.Scripts
 
         public void StopBehaviour(PlayerStateMachine player, BehaviourType next)
         {
-            if (next != BehaviourType.Slide)
-                OnStopCrouch?.Invoke();
+            OnStopCrouch?.Invoke(next == BehaviourType.Slide);
         }
 
         public BehaviourType GetBehaviourType()

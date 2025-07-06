@@ -21,6 +21,14 @@ MonoBehaviour:
   groundDeceleration: 200
   maxSlopeAngle: 40
   steepSlopeFallSpeed: 35
+  slideTransitionSpeed: 0.1
+  slideVelocityThresholdToCrouch: 0.3
+  slidePower: 6
+  slideMaxSpeed: 45
+  slideSlopeAcceleration: 10
+  slideSlopeDeceleration: 80
+  slideDeceleration: 20
+  slideSlopeAngleMultiplier: 0.1
   crouchTransitionSpeed: 0.2
   crouchMaxSpeed: 7
   crouchMaxSpeedAiming: 5
@@ -47,6 +55,7 @@ MonoBehaviour:
   recoilCancelPower: 1
   fovReductionOnAim: 20
   fovReductionOnSprint: -10
+  fovReductionOnSlide: 0
   gunAnimationCosSpeed: 800
   gunAnimationCosSpeedSprinting: 2
   gunAnimationSinSpeed: 400
