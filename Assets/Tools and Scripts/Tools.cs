@@ -240,13 +240,16 @@ public static class Tools
         line.endColor = color;
     }
     
-    public static IEnumerator Fade(Image sprite, float duration, bool fadeIn, float maxFade = 1.0f, bool scaledTime = true)
+    public static IEnumerator Fade(Image sprite, float duration, bool fadeIn, float maxFade = 1.0f, bool scaledTime = true, float delay = -1.0f)
     {
         float fade = fadeIn ? 0.0f : maxFade;
         float timer = duration;
         float increment = maxFade / timer;
         Color color = sprite.color;
-        
+
+        if (delay > 0.0f)
+            yield return new WaitForSeconds(delay);
+            
         sprite.gameObject.SetActive(true);
         
         while (timer > 0.0f)

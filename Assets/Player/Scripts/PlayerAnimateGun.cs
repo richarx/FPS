@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Player.Scripts
 {
     public class PlayerAnimateGun : MonoBehaviour
     {
         [SerializeField] private RectTransform gun;
+        [SerializeField] private Image blurredGun;
         [SerializeField] private Vector3 reloadPosition;
         [SerializeField] private Vector3 adsPosition;
         [SerializeField] private Vector2 adsSize;
@@ -13,11 +15,16 @@ namespace Player.Scripts
         [SerializeField] private float landingImpulsePower;
         [SerializeField] private float fallOffsetPower;
 
+        [Space]
         [SerializeField] private float tiltRotationAmount;
         [SerializeField] private float tiltSmoothTime;
         [SerializeField] private float tiltSnapBackTime;
         [SerializeField] private float minTilt;
         [SerializeField] private float maxTilt;
+        
+        [Space]
+        [SerializeField] private float aimBlurDelay;
+        [SerializeField] private float aimBlurFadeDuration;
 
         private Animator graphics;
         private PlayerStateMachine player;
@@ -49,6 +56,7 @@ namespace Player.Scripts
             {
                 graphics.Play(player.isAiming ? "Shoot_ADS" : "Shoot", 0, 0.0f);
             });
+            player.playerGun.OnChangeAimState.AddListener((isAiming) => blurredGun.gameObject.SetActive(isAiming));
             player.playerJump.OnJump.AddListener(() => { offsetPosition.y = -jumpImpulsePower; });
             player.playerJump.OnGroundedChanged.AddListener((isGrounded, impactPower) =>
             {

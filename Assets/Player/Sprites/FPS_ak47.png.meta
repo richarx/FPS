@@ -118,7 +118,7 @@ TextureImporter:
         width: 112
         height: 80
       alignment: 9
-      pivot: {x: 0.52233255, y: 0.51867217}
+      pivot: {x: 0.5223325, y: 0.51867217}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -256,6 +256,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: FPS_ak47_7
+      rect:
+        serializedVersion: 2
+        x: 784
+        y: 0
+        width: 112
+        height: 80
+      alignment: 9
+      pivot: {x: 0.5223325, y: 0.5186722}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5e5f9df9a7420441bf1993c6f1a35e8
+      internalID: -1538274507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -274,6 +295,7 @@ TextureImporter:
       FPS_ak47_4: -1143950896
       FPS_ak47_5: 2073103088
       FPS_ak47_6: 1618247869
+      FPS_ak47_7: -1538274507
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
