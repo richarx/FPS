@@ -168,7 +168,7 @@ namespace Player.Scripts
 
         public void HandleDirection(PlayerStateMachine player)
         {
-            Vector3 move = player.ComputeGroundMoveDirection();
+            Vector3 move = player.ComputeGroundMoveInputDirection();
             float speed = ComputeMoveSpeed(player);
             move *= speed;
             

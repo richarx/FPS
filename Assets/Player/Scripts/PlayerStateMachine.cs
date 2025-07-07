@@ -94,15 +94,20 @@ namespace Player.Scripts
 
         public bool IsMoving(float maxVelocity = 0.01f)
         {
+            return ComputeGroundMoveVelocity().magnitude >= maxVelocity;
+        }
+
+        public Vector3 ComputeGroundMoveInputDirection()
+        {
+            return (moveInput.x * orientationPivot.right + moveInput.y * orientationPivot.forward).normalized;
+        }
+
+        public Vector3 ComputeGroundMoveVelocity()
+        {
             Vector3 velocity = moveVelocity;
             velocity.y = 0.0f;
 
-            return velocity.magnitude >= maxVelocity;
-        }
-
-        public Vector3 ComputeGroundMoveDirection()
-        {
-            return (moveInput.x * orientationPivot.right + moveInput.y * orientationPivot.forward).normalized;
+            return velocity;
         }
 
         public Vector3 ComputeGroundNormal()

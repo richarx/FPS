@@ -10,16 +10,14 @@ namespace Player.Scripts
         public UnityEvent<bool> OnStopSlide = new UnityEvent<bool>();
         
         private bool wasInputReset;
-        private Vector2 slideDirection;
         
         public void StartBehaviour(PlayerStateMachine player, BehaviourType previous)
         {
             Debug.Log("SLIDE");
 
-            slideDirection = new Vector2(player.moveVelocity.x, player.moveVelocity.z).normalized;
-
-            player.moveVelocity.x += slideDirection.x * player.playerData.slidePower;
-            player.moveVelocity.z += slideDirection.y * player.playerData.slidePower;
+            Vector3 groundMoveVelocity = player.ComputeGroundMoveVelocity();
+            float slideSpeed = Mathf.Max(player.playerData.slidePower, groundMoveVelocity.magnitude);
+            player.moveVelocity = groundMoveVelocity.normalized * slideSpeed;
             player.ApplyMovement();
             
             wasInputReset = false;
@@ -93,37 +91,13 @@ namespace Player.Scripts
         public void HandleDirection(PlayerStateMachine player)
         {
             float currentSpeed = player.moveVelocity.magnitude;
-            Vector3 targetVelocity = player.ComputeGroundMoveDirection() * currentSpeed;
+            Vector3 targetVelocity = player.ComputeGroundMoveInputDirection() * currentSpeed;
             Vector3 steerForce = (targetVelocity - player.moveVelocity) * (player.playerData.slideSteerAcceleration * Time.fixedDeltaTime);
 
             player.moveVelocity += steerForce;
             player.moveVelocity = Vector3.ClampMagnitude(player.moveVelocity, currentSpeed);
         }
         
-        // public void HandleDirection(PlayerStateMachine player)
-        // {
-        //     if (!player.playerRun.isOnSlope)
-        //     {
-        //         player.moveVelocity.x = Mathf.MoveTowards(player.moveVelocity.x, 0.0f, player.playerData.slideDeceleration * Time.fixedDeltaTime);
-        //         player.moveVelocity.z = Mathf.MoveTowards(player.moveVelocity.z, 0.0f, player.playerData.slideDeceleration * Time.fixedDeltaTime);
-        //         return;
-        //     }
-        //     
-        //     float direction = player.playerRun.ComputeSlopeMoveDirection(slideDirection * 10.0f).y;
-        //
-        //     if (direction >= 0.0f)
-        //     {
-        //         player.moveVelocity.x = Mathf.MoveTowards(player.moveVelocity.x, 0.0f, player.playerData.slideSlopeDeceleration * Time.fixedDeltaTime);
-        //         player.moveVelocity.z = Mathf.MoveTowards(player.moveVelocity.z, 0.0f, player.playerData.slideSlopeDeceleration * Time.fixedDeltaTime);
-        //     }
-        //     else
-        //     {
-        //         float speed = Vector3.Angle(Vector3.up, player.playerRun.slopeHit.normal) * player.playerData.slideSlopeAngleMultiplier;
-        //         player.moveVelocity.x = Mathf.MoveTowards(player.moveVelocity.x, slideDirection.x * player.playerData.slideMaxSpeed * speed, player.playerData.slideSlopeAcceleration * Time.fixedDeltaTime);
-        //         player.moveVelocity.z = Mathf.MoveTowards(player.moveVelocity.z, slideDirection.y * player.playerData.slideMaxSpeed * speed, player.playerData.slideSlopeAcceleration * Time.fixedDeltaTime);
-        //     }
-        // }
-
         public void StopBehaviour(PlayerStateMachine player, BehaviourType next)
         {
             OnStopSlide?.Invoke(next == BehaviourType.Crouch);
