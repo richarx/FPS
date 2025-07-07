@@ -10,6 +10,7 @@ namespace Player.Scripts
         [SerializeField] private List<GameObject> secondaryGunImpacts;
         [SerializeField] private List<GameObject> bloodSplats;
         [SerializeField] private float distanceTowardsPlayer;
+        [SerializeField] private GameObject slideSpeedLines;
 
         private PlayerStateMachine player;
         
@@ -17,6 +18,8 @@ namespace Player.Scripts
         {
             player = GetComponent<PlayerStateMachine>();
             player.playerGun.OnHit.AddListener(SpawnImpact);
+            player.playerSlide.OnStartSLide.AddListener((_) => slideSpeedLines.SetActive(true));
+            player.playerSlide.OnStopSlide.AddListener((_) => slideSpeedLines.SetActive(false));
         }
 
         private void SpawnImpact(Vector3 position, SurfaceData.SurfaceType surfaceType)
