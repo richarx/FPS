@@ -237,6 +237,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 831026bfba1c05942a334b4ec5a2fcd3, type: 3}
   - {fileID: 8300000, guid: 6d5da479223c6ee41b95906cf7214bad, type: 3}
   - {fileID: 8300000, guid: 11fcbcf770952d04fa99e127bd6c95a2, type: 3}
+  slideStart:
+  - {fileID: 8300000, guid: 69fb33e26271eaf4b9652d0ac1d7f0d8, type: 3}
+  - {fileID: 8300000, guid: 7b0d7fde47e594144aa851071feb4a7f, type: 3}
+  - {fileID: 8300000, guid: 43c7b5263e099ec47916d35acfbc4248, type: 3}
+  - {fileID: 8300000, guid: b50a5a178f2bdfd449384faabeca339a, type: 3}
+  - {fileID: 8300000, guid: 7d28ef20f56758143a1c9cbde1a76377, type: 3}
 --- !u!114 &2012337775130988211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,6 +293,7 @@ MonoBehaviour:
   - {fileID: 7492719039021353942, guid: 35593fa994c0177419f14e81a21e1ed7, type: 3}
   - {fileID: 5343398588388544243, guid: 35e35c40e39657748b4d273b4fd9a6f3, type: 3}
   distanceTowardsPlayer: 1.3
+  slideSpeedLines: {fileID: 0}
 --- !u!114 &2671848171592036358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,6 +350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   metersBetweenSteps: 6
+  metersBetweenSlides: 2.5
   volume: 0.05
   stepSounds:
   - {fileID: 8300000, guid: dd9b95f57d2b74b4ea1ddf5e5c215f4b, type: 3}
@@ -353,6 +361,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e5b6cab9bfb17e74ba8541cab8dbdc27, type: 3}
   - {fileID: 8300000, guid: 0e558ae0f56fc8f40b497b8756fda35b, type: 3}
   - {fileID: 8300000, guid: 20d2d1b50fbd19d40a7a09e2541ecf02, type: 3}
+  slideSounds:
+  - {fileID: 8300000, guid: 8eceb841d8abf98468cbaaf82f5f5cc6, type: 3}
 --- !u!114 &2595828784349185395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,7 +392,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8693388277317400942
 Transform:
   m_ObjectHideFlags: 0

@@ -16,7 +16,7 @@ namespace Player.Scripts
             Debug.Log("SLIDE");
 
             Vector3 groundMoveVelocity = player.ComputeGroundMoveVelocity();
-            float slideSpeed = Mathf.Max(player.playerData.slidePower, groundMoveVelocity.magnitude);
+            float slideSpeed = Mathf.Max(player.playerData.slidePower, player.moveVelocity.magnitude);
             player.moveVelocity = groundMoveVelocity.normalized * slideSpeed;
             player.ApplyMovement();
             
@@ -90,6 +90,9 @@ namespace Player.Scripts
 
         public void HandleDirection(PlayerStateMachine player)
         {
+            if (player.moveInput.magnitude <= 0.8f)
+                return;
+            
             float currentSpeed = player.moveVelocity.magnitude;
             Vector3 targetVelocity = player.ComputeGroundMoveInputDirection() * currentSpeed;
             Vector3 steerForce = (targetVelocity - player.moveVelocity) * (player.playerData.slideSteerAcceleration * Time.fixedDeltaTime);

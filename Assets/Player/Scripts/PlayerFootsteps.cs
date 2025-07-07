@@ -7,46 +7,62 @@ namespace Player.Scripts
     public class PlayerFootsteps : MonoBehaviour
     {
         [SerializeField] private float metersBetweenSteps;
+        [SerializeField] private float metersBetweenSlides;
         [SerializeField] private float volume;
         [SerializeField] private List<AudioClip> stepSounds;
+        [SerializeField] private List<AudioClip> slideSounds;
         
         private PlayerStateMachine player;
 
         private float currentMeters;
         private int lastStepSoundPlayed;
-        
+        private int lastSlideSoundPlayed;
+
         private void Start()
         {
             player = GetComponent<PlayerStateMachine>();
-            player.playerJump.OnJump.AddListener(PlayStepSound);
+            player.playerJump.OnJump.AddListener(() => PlayStepSound(stepSounds, false));
         }
 
         private void LateUpdate()
         {
-            if (IsTimeToTakeStep())
-                PlayStepSound();
+            bool isSlide = IsSlide();
+            if (IsTimeToTakeStep(isSlide))
+                PlayStepSound(SelectSoundList(isSlide), isSlide);
         }
 
-        private void PlayStepSound()
+        private List<AudioClip> SelectSoundList(bool isSlide)
         {
-            if (stepSounds.Count < 2)
+            return isSlide ? slideSounds : stepSounds;
+        }
+
+        private void PlayStepSound(List<AudioClip> soundList, bool isSlide)
+        {
+            if (soundList.Count < 2)
             {
-                SFXManager.instance.PlaySFX(stepSounds[0], volume);
+                if (soundList.Count > 0)
+                    SFXManager.instance.PlaySFX(soundList[0], 0.03f);
+                return;
             }
 
-            int randomIndex = Random.Range(0, stepSounds.Count);
+            int previousSoundIndex = GetLastStepIndex(isSlide);
 
-            if (randomIndex == lastStepSoundPlayed)
-                randomIndex = randomIndex == stepSounds.Count - 1 ? 0 : randomIndex + 1;
+            int randomIndex = Random.Range(0, soundList.Count);
 
-            SFXManager.instance.PlaySFX(stepSounds[randomIndex], volume);
+            if (randomIndex == previousSoundIndex)
+                randomIndex = randomIndex == soundList.Count - 1 ? 0 : randomIndex + 1;
 
-            lastStepSoundPlayed = randomIndex;
+            SFXManager.instance.PlaySFX(soundList[randomIndex], volume);
+
+            if (isSlide)
+                lastSlideSoundPlayed = randomIndex;
+            else
+                lastStepSoundPlayed = randomIndex;
         }
 
-        private bool IsTimeToTakeStep()
+        private bool IsTimeToTakeStep(bool isSlide)
         {
-            if (!player.playerJump.isGrounded || player.currentBehaviour.GetBehaviourType() == BehaviourType.Slide)
+            if (!player.playerJump.isGrounded)
                 return false;
                 
             Vector3 horizontalVelocity = player.moveVelocity;
@@ -54,13 +70,25 @@ namespace Player.Scripts
 
             currentMeters += horizontalVelocity.magnitude * Time.deltaTime;
 
-            if (currentMeters >= metersBetweenSteps)
+            float distance = isSlide ? metersBetweenSlides : metersBetweenSteps;
+            
+            if (currentMeters >= distance)
             {
-                currentMeters -= metersBetweenSteps;
+                currentMeters -= distance;
                 return true;
             }
 
             return false;
+        }
+
+        private bool IsSlide()
+        {
+            return player.currentBehaviour.GetBehaviourType() == BehaviourType.Slide;
+        }
+
+        private int GetLastStepIndex(bool isSlide)
+        {
+            return isSlide ? lastSlideSoundPlayed : lastStepSoundPlayed;
         }
     }
 }

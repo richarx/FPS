@@ -25,7 +25,7 @@ namespace Player.Scripts
             
             player.playerSlide.OnStartSLide.AddListener((fromCrouch) => ChangeFov(player.playerData.fovReductionOnSlide));
             player.playerSlide.OnStopSlide.AddListener((toCrouch) => ResetFov());
-            currentTarget = PauseMenu.instance.currentFov;
+            currentTarget = mainCamera.fieldOfView;
         }
 
         private void ChangeFov(float newValue)

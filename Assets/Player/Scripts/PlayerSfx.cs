@@ -18,6 +18,7 @@ namespace Player.Scripts
         [SerializeField] private List<AudioClip> adsClick;
         [SerializeField] private List<AudioClip> jumpWoosh;
         [SerializeField] private List<AudioClip> landingLight;
+        [SerializeField] private List<AudioClip> slideStart;
 
         private const float wooshVolume = 0.01f;
         private const float insertDelay = 0.6f;
@@ -54,6 +55,7 @@ namespace Player.Scripts
                 if (isGrounded)
                     SFXManager.instance.PlayRandomSFX(landingLight);
             });
+            player.playerSlide.OnStartSLide.AddListener((_) => SFXManager.instance.PlayRandomSFX(slideStart, 0.03f));
         }
 
         private void PlayGunShotSound()
