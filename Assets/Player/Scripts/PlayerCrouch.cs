@@ -48,7 +48,7 @@ namespace Player.Scripts
         {
             player.playerJump.CheckCollisions(player);
             
-            player.playerRun.HandleSlop(player);
+            player.playerRun.CheckIfSlopeIsWalkable(player);
             
             if (player.playerRun.CanPlayerControlDirection())
                 HandleDirection(player);

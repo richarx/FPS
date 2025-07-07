@@ -27,7 +27,7 @@ namespace Player.Scripts
 
         [HideInInspector] public Vector2 moveInput;
         [HideInInspector] public Vector3 moveVelocity;
-        
+
         [HideInInspector] public bool canBeInterruptedByLanding = true;
         [HideInInspector] public bool isLocked;
 
@@ -98,6 +98,16 @@ namespace Player.Scripts
             velocity.y = 0.0f;
 
             return velocity.magnitude >= maxVelocity;
+        }
+
+        public Vector3 ComputeGroundMoveDirection()
+        {
+            return (moveInput.x * orientationPivot.right + moveInput.y * orientationPivot.forward).normalized;
+        }
+
+        public Vector3 ComputeGroundNormal()
+        {
+            return playerRun.isOnSlope ? playerRun.slopeHit.normal : Vector3.up;
         }
     }
 }

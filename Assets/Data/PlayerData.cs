@@ -19,11 +19,9 @@ namespace Data
         public float slideTransitionSpeed;
         public float slideVelocityThresholdToCrouch;
         public float slidePower;
-        public float slideMaxSpeed;
-        public float slideSlopeAcceleration;
-        public float slideSlopeDeceleration;
-        public float slideDeceleration;
-        public float slideSlopeAngleMultiplier;
+        public float slideFriction;
+        public float slideSteerAcceleration;
+        public float slideGravity;
 
         [Space] [Header("Crouch")] 
         public float crouchTransitionSpeed;

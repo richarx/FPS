@@ -102,7 +102,7 @@ namespace Player.Scripts
         {
             player.playerJump.CheckCollisions(player);
             
-            HandleSlop(player);
+            CheckIfSlopeIsWalkable(player);
             
             if (CanPlayerControlDirection())
                 HandleDirection(player);
@@ -156,7 +156,7 @@ namespace Player.Scripts
             return downSlope.normalized;
         }
 
-        public void HandleSlop(PlayerStateMachine player)
+        public void CheckIfSlopeIsWalkable(PlayerStateMachine player)
         {
             isSlopeWalkable = isOnSlope && IsSlopeWalkable(player);
         }
@@ -168,7 +168,7 @@ namespace Player.Scripts
 
         public void HandleDirection(PlayerStateMachine player)
         {
-            Vector3 move = (player.moveInput.x * player.orientationPivot.right + player.moveInput.y * player.orientationPivot.forward).normalized;
+            Vector3 move = player.ComputeGroundMoveDirection();
             float speed = ComputeMoveSpeed(player);
             move *= speed;
             

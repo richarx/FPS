@@ -54,15 +54,13 @@ namespace Player.Scripts
         public void FixedUpdateBehaviour(PlayerStateMachine player)
         {
             player.playerJump.CheckCollisions(player);
-            
-            player.playerRun.HandleSlop(player);
+            player.playerRun.CheckIfSlopeIsWalkable(player);
 
+            HandleFriction(player);
             HandleDirection(player);
             
             player.playerRun.UpdateMoveVelocityOnSlope(player);
-            
-            player.playerJump.HandleGravity(player);
-
+            HandleGravity(player);
             player.ApplyMovement();
 
             if (!player.playerJump.isGrounded)
@@ -77,30 +75,54 @@ namespace Player.Scripts
                 return;
             }
         }
-        
+
+        private void HandleFriction(PlayerStateMachine player)
+        {
+            player.moveVelocity -= player.moveVelocity * (player.playerData.slideFriction * Time.fixedDeltaTime);
+        }
+
+        private void HandleGravity(PlayerStateMachine player)
+        {
+            Vector3 groundNormal = player.ComputeGroundNormal();
+
+            Vector3 force = Vector3.ProjectOnPlane(Vector3.down, groundNormal) * player.playerData.slideGravity;
+
+            player.moveVelocity -= force * Time.fixedDeltaTime;
+        }
+
         public void HandleDirection(PlayerStateMachine player)
         {
-            if (!player.playerRun.isOnSlope)
-            {
-               player.moveVelocity.x = Mathf.MoveTowards(player.moveVelocity.x, 0.0f, player.playerData.slideDeceleration * Time.fixedDeltaTime);
-                player.moveVelocity.z = Mathf.MoveTowards(player.moveVelocity.z, 0.0f, player.playerData.slideDeceleration * Time.fixedDeltaTime);
-                return;
-            }
-            
-            float direction = player.playerRun.ComputeSlopeMoveDirection(slideDirection * 10.0f).y;
+            float currentSpeed = player.moveVelocity.magnitude;
+            Vector3 targetVelocity = player.ComputeGroundMoveDirection() * currentSpeed;
+            Vector3 steerForce = (targetVelocity - player.moveVelocity) * (player.playerData.slideSteerAcceleration * Time.fixedDeltaTime);
 
-            if (direction >= 0.0f)
-            {
-                player.moveVelocity.x = Mathf.MoveTowards(player.moveVelocity.x, 0.0f, player.playerData.slideSlopeDeceleration * Time.fixedDeltaTime);
-                player.moveVelocity.z = Mathf.MoveTowards(player.moveVelocity.z, 0.0f, player.playerData.slideSlopeDeceleration * Time.fixedDeltaTime);
-            }
-            else
-            {
-                float speed = Vector3.Angle(Vector3.up, player.playerRun.slopeHit.normal) * player.playerData.slideSlopeAngleMultiplier;
-                player.moveVelocity.x = Mathf.MoveTowards(player.moveVelocity.x, slideDirection.x * player.playerData.slideMaxSpeed * speed, player.playerData.slideSlopeAcceleration * Time.fixedDeltaTime);
-                player.moveVelocity.z = Mathf.MoveTowards(player.moveVelocity.z, slideDirection.y * player.playerData.slideMaxSpeed * speed, player.playerData.slideSlopeAcceleration * Time.fixedDeltaTime);
-            }
+            player.moveVelocity += steerForce;
+            player.moveVelocity = Vector3.ClampMagnitude(player.moveVelocity, currentSpeed);
         }
+        
+        // public void HandleDirection(PlayerStateMachine player)
+        // {
+        //     if (!player.playerRun.isOnSlope)
+        //     {
+        //         player.moveVelocity.x = Mathf.MoveTowards(player.moveVelocity.x, 0.0f, player.playerData.slideDeceleration * Time.fixedDeltaTime);
+        //         player.moveVelocity.z = Mathf.MoveTowards(player.moveVelocity.z, 0.0f, player.playerData.slideDeceleration * Time.fixedDeltaTime);
+        //         return;
+        //     }
+        //     
+        //     float direction = player.playerRun.ComputeSlopeMoveDirection(slideDirection * 10.0f).y;
+        //
+        //     if (direction >= 0.0f)
+        //     {
+        //         player.moveVelocity.x = Mathf.MoveTowards(player.moveVelocity.x, 0.0f, player.playerData.slideSlopeDeceleration * Time.fixedDeltaTime);
+        //         player.moveVelocity.z = Mathf.MoveTowards(player.moveVelocity.z, 0.0f, player.playerData.slideSlopeDeceleration * Time.fixedDeltaTime);
+        //     }
+        //     else
+        //     {
+        //         float speed = Vector3.Angle(Vector3.up, player.playerRun.slopeHit.normal) * player.playerData.slideSlopeAngleMultiplier;
+        //         player.moveVelocity.x = Mathf.MoveTowards(player.moveVelocity.x, slideDirection.x * player.playerData.slideMaxSpeed * speed, player.playerData.slideSlopeAcceleration * Time.fixedDeltaTime);
+        //         player.moveVelocity.z = Mathf.MoveTowards(player.moveVelocity.z, slideDirection.y * player.playerData.slideMaxSpeed * speed, player.playerData.slideSlopeAcceleration * Time.fixedDeltaTime);
+        //     }
+        // }
 
         public void StopBehaviour(PlayerStateMachine player, BehaviourType next)
         {
