@@ -41,7 +41,7 @@ namespace Tools_and_Scripts
 
                 transform.localPosition = newPosition;
 
-                yield return null;
+                yield return new WaitForSeconds(0.05f);
             }
             transform.localPosition = startingPosition;
         }

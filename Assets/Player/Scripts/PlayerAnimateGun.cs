@@ -23,8 +23,8 @@ namespace Player.Scripts
         [SerializeField] private float maxTilt;
         
         [Space]
-        [SerializeField] private float aimBlurDelay;
-        [SerializeField] private float aimBlurFadeDuration;
+        [SerializeField] private float slideShakePowerX;
+        [SerializeField] private float slideShakePowerY;
 
         private Animator graphics;
         private PlayerStateMachine player;
@@ -78,6 +78,8 @@ namespace Player.Scripts
                 AimDownSight();
             else if (player.isShooting)
                 ShootingGun();
+            else if (player.isSliding)
+                Slide();
             else if (player.IsMoving() && isGrounded)
                 RunningGun();
             else if (isGrounded)
@@ -91,6 +93,15 @@ namespace Player.Scripts
             UpdateLateralPosition();
             ApplyMovement();
             UpdateAnimator();
+        }
+
+        private void Slide()
+        {
+            Vector3 position = Random.insideUnitCircle.ToVector3();
+            position.x *= slideShakePowerX;
+            position.y *= slideShakePowerY;
+            
+            targetPosition = basePosition + position;
         }
 
         private void UpdateTilt()
