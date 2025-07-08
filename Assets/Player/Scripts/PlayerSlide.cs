@@ -51,7 +51,9 @@ namespace Player.Scripts
 
         public void FixedUpdateBehaviour(PlayerStateMachine player)
         {
-            player.playerJump.CheckCollisions(player);
+            bool isStickingToGround = player.playerRun.IsAllowedToStickToTheGround(player) && player.playerRun.IsStickingToGround(player);
+            
+            player.playerJump.CheckCollisions(player, isStickingToGround);
             player.playerRun.CheckIfSlopeIsWalkable(player);
 
             HandleFriction(player);

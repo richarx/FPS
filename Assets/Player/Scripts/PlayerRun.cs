@@ -100,7 +100,9 @@ namespace Player.Scripts
 
         public void FixedUpdateBehaviour(PlayerStateMachine player)
         {
-            player.playerJump.CheckCollisions(player);
+            bool isStickingToGround = IsAllowedToStickToTheGround(player) && IsStickingToGround(player);
+            
+            player.playerJump.CheckCollisions(player, isStickingToGround);
             
             CheckIfSlopeIsWalkable(player);
             
@@ -109,12 +111,35 @@ namespace Player.Scripts
             
             UpdateMoveVelocityOnSlope(player);
             
-            player.playerJump.HandleGravity(player);
+            player.playerJump.HandleGravity(player, isStickingToGround);
 
             player.ApplyMovement();
             
             if (!player.playerJump.isGrounded)
                 player.ChangeBehaviour(player.playerJump);
+        }
+        
+        public bool IsAllowedToStickToTheGround(PlayerStateMachine player)
+        {
+            BehaviourType type = player.currentBehaviour.GetBehaviourType();
+
+            return type != BehaviourType.Jump;
+        }
+        
+        public bool IsStickingToGround(PlayerStateMachine player)
+        {
+            Vector3 position = player.position + (Vector3.up * 1.5f);
+            RaycastHit hitInfo;
+            
+            bool hasHit = Physics.Raycast(position, Vector3.down, out hitInfo, player.playerData.stickToGroundHeight + 1.5f, ~player.playerData.layersToIgnoreForGroundCheck);
+
+            if (!hasHit)
+                return false;
+
+            Vector3 newPosition = position + Vector3.down * hitInfo.distance;
+            player.rb.MovePosition(newPosition);
+
+            return true;
         }
 
         public bool CheckIsOnSlope(PlayerStateMachine player)

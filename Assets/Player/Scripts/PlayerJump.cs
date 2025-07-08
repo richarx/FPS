@@ -65,7 +65,7 @@ namespace Player.Scripts
 
             HandleJump(player);
             HandleDirection(player);
-            HandleGravity(player);
+            HandleGravity(player, false);
 
             player.ApplyMovement();
             
@@ -73,7 +73,7 @@ namespace Player.Scripts
                 player.ChangeBehaviour(player.playerRun);
         }
         
-        public bool CheckCollisions(PlayerStateMachine player)
+        public bool CheckCollisions(PlayerStateMachine player, bool isStickingToGround = false)
         {
             bool groundHit = ShootDownRaycasts(player);
             bool ceilingHit = Physics.Raycast(player.position + (Vector3.up * 1.9f), Vector3.up, 0.2f, ~player.playerData.layersToIgnoreForGroundCheck);
@@ -87,7 +87,6 @@ namespace Player.Scripts
             bool startsBeingInTheAir = isGrounded && !groundHit && !isWalkableSlope;
             if (landed)
             {
-                landed = true;
                 isGrounded = true;
                 coyoteUsable = true;
                 endedJumpEarly = false;
@@ -98,7 +97,6 @@ namespace Player.Scripts
             }
             else if (startsBeingInTheAir)
             {
-                bool isStickingToGround = IsAllowedToStickToTheGround(player) && IsStickingToGround(player);
                 if (!isStickingToGround)
                 {
                     isGrounded = false;
@@ -108,29 +106,6 @@ namespace Player.Scripts
             }
 
             return landed;
-        }
-
-        private bool IsAllowedToStickToTheGround(PlayerStateMachine player)
-        {
-            BehaviourType type = player.currentBehaviour.GetBehaviourType();
-
-            return type != BehaviourType.Jump;
-        }
-        
-        private bool IsStickingToGround(PlayerStateMachine player)
-        {
-            Vector3 position = player.position + (Vector3.up * 0.1f);
-            RaycastHit hitInfo;
-            
-            bool hasHit = Physics.Raycast(position, Vector3.down, out hitInfo, player.playerData.stickToGroundHeight + 0.1f, ~player.playerData.layersToIgnoreForGroundCheck);
-
-            if (!hasHit)
-                return false;
-
-            Vector3 newPosition = position + Vector3.down * hitInfo.distance;
-            player.rb.MovePosition(newPosition);
-
-            return true;
         }
 
         private bool ShootDownRaycasts(PlayerStateMachine player)
@@ -220,7 +195,7 @@ namespace Player.Scripts
             }
         }
 
-        public void HandleGravity(PlayerStateMachine player)
+        public void HandleGravity(PlayerStateMachine player, bool isStickingToGround)
         {
             if (player.playerRun.isOnSlope)
             {
@@ -229,7 +204,11 @@ namespace Player.Scripts
                 return;
             }
 
-            if (isGrounded && player.moveVelocity.y <= 0f)
+            if (isStickingToGround)
+            {
+                player.moveVelocity.y = 0.0f;
+            }
+            else if (isGrounded && player.moveVelocity.y <= 0f)
             {
                 player.moveVelocity.y = player.playerData.groundingForce;
             }

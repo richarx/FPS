@@ -11,7 +11,7 @@ namespace Player.Scripts
         private PlayerStateMachine player;
         
         private Vector3 basePosition;
-        private Vector3 slidePosition = new Vector3(-50.0f, -400.0f, 0.0f);
+        private Vector3 slidePosition = new Vector3(-150.0f, -400.0f, 0.0f);
         private Vector3 offset;
 
         private Vector3 targetPosition => isSliding ? slidePosition + offset : basePosition;
