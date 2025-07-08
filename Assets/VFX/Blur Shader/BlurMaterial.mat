@@ -42,7 +42,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BlurAmount: 0.0006
+    - _BlurAmount: 0.0012
     m_Colors: []
   m_BuildTextureStacks: []
 --- !u!114 &830567310186961541

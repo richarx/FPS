@@ -20,7 +20,7 @@ namespace Tools_and_Scripts
         {
             startingPosition = transform.localPosition;
             player = PlayerStateMachine.instance;
-            player.playerSlide.OnStartSLide.AddListener((_) => StartSlide());
+            player.playerSlide.OnStartSlide.AddListener((_) => StartSlide());
             player.playerSlide.OnStopSlide.AddListener((_) => StopSlide());
         }
 

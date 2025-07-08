@@ -25,7 +25,7 @@ namespace Player.Scripts
                 isSlide = false;
                 currentTarget = ComputeTargetPosition();
             });
-            PlayerStateMachine.instance.playerSlide.OnStartSLide.AddListener((fromCrouch) =>
+            PlayerStateMachine.instance.playerSlide.OnStartSlide.AddListener((fromCrouch) =>
             {
                 isCrouched = true;
                 isSlide = true;
@@ -49,7 +49,14 @@ namespace Player.Scripts
 
         private Vector3 ComputeTargetPosition()
         {
-            return new Vector3(0.0f, isCrouched ? playerData.crouchedCameraHeight : playerData.standingCameraHeight, 0.0f);
+            float height = playerData.standingCameraHeight;
+
+            if (isSlide)
+                height = playerData.slideCameraHeight;
+            else if (isCrouched)
+                height = playerData.crouchedCameraHeight;
+            
+            return new Vector3(0.0f, height, 0.0f);
         }
 
         private float ComputeTransitionSpeed()

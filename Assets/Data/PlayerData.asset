@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa567a41976bbc84b83f96482f2eda96, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  stickToGroundHeight: 0.5
+  stickToGroundHeight: 1.5
   walkMaxSpeed: 20
   sprintMaxSpeed: 30
   groundMaxSpeedAiming: 10
@@ -52,7 +52,7 @@ MonoBehaviour:
   recoilCancelPower: 1
   fovReductionOnAim: 20
   fovReductionOnSprint: -10
-  fovReductionOnSlide: -10
+  fovReductionOnSlide: -30
   gunAnimationCosSpeed: 800
   gunAnimationCosSpeedSprinting: 2
   gunAnimationSinSpeed: 400
@@ -67,6 +67,7 @@ MonoBehaviour:
   gunAnimationSizeSpeed: 0.1
   standingCameraHeight: 2.5
   crouchedCameraHeight: 0.75
+  slideCameraHeight: 0.25
   joystickSensitivityX: 15000
   joystickSensitivityY: 10000
   mouseSensitivity: 7500

@@ -6,7 +6,7 @@ namespace Player.Scripts
 {
     public class PlayerSlide : IPlayerBehaviour
     {
-        public UnityEvent<bool> OnStartSLide = new UnityEvent<bool>();
+        public UnityEvent<bool> OnStartSlide = new UnityEvent<bool>();
         public UnityEvent<bool> OnStopSlide = new UnityEvent<bool>();
         
         private bool wasInputReset;
@@ -21,7 +21,7 @@ namespace Player.Scripts
             player.ApplyMovement();
             
             wasInputReset = false;
-            OnStartSLide?.Invoke(previous == BehaviourType.Crouch);
+            OnStartSlide?.Invoke(previous == BehaviourType.Crouch);
         }
 
         public void UpdateBehaviour(PlayerStateMachine player)

@@ -10,5 +10,11 @@ namespace Player.Scripts
         {
             transform.position = target.position;
         }
+
+        [ContextMenu("Go To Target")]
+        public void GoToTarget()
+        {
+            transform.position = target.position;
+        }
     }
 }

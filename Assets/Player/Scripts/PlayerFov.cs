@@ -23,7 +23,7 @@ namespace Player.Scripts
             player.playerRun.OnStartSprinting.AddListener(() => ChangeFov(player.playerData.fovReductionOnSprint));
             player.playerRun.OnStopSprinting.AddListener(ResetFov);
             
-            player.playerSlide.OnStartSLide.AddListener((fromCrouch) => ChangeFov(player.playerData.fovReductionOnSlide));
+            player.playerSlide.OnStartSlide.AddListener((fromCrouch) => ChangeFov(player.playerData.fovReductionOnSlide));
             player.playerSlide.OnStopSlide.AddListener((toCrouch) => ResetFov());
             currentTarget = mainCamera.fieldOfView;
         }

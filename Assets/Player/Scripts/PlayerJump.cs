@@ -206,7 +206,7 @@ namespace Player.Scripts
         {
             Vector3 move = (player.moveInput.x * player.orientationPivot.right + player.moveInput.y * player.orientationPivot.forward).normalized;
             float speed = Mathf.Max(player.playerData.airMaxSpeed, player.ComputeGroundMoveVelocity().magnitude);
-            move *= player.playerData.airMaxSpeed;
+            move *= speed;
             
             if (player.moveInput.magnitude <= 0.05f)
             {

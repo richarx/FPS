@@ -55,7 +55,7 @@ namespace Player.Scripts
                 if (isGrounded)
                     SFXManager.instance.PlayRandomSFX(landingLight);
             });
-            player.playerSlide.OnStartSLide.AddListener((_) => SFXManager.instance.PlayRandomSFX(slideStart, 0.03f));
+            player.playerSlide.OnStartSlide.AddListener((_) => SFXManager.instance.PlayRandomSFX(slideStart, 0.03f));
         }
 
         private void PlayGunShotSound()
