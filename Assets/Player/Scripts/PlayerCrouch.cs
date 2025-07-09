@@ -46,9 +46,8 @@ namespace Player.Scripts
 
         public void FixedUpdateBehaviour(PlayerStateMachine player)
         {
-            bool isStickingToGround = player.playerRun.IsAllowedToStickToTheGround(player) && player.playerRun.IsStickingToGround(player);
+            player.playerJump.CheckCollisions(player);
             
-            player.playerJump.CheckCollisions(player, isStickingToGround);
             player.playerRun.CheckIfSlopeIsWalkable(player);
             
             if (player.playerRun.CanPlayerControlDirection())
@@ -56,7 +55,7 @@ namespace Player.Scripts
             
             player.playerRun.UpdateMoveVelocityOnSlope(player);
             
-            player.playerJump.HandleGravity(player, isStickingToGround);
+            player.playerJump.HandleGravity(player);
 
             player.ApplyMovement();
             
