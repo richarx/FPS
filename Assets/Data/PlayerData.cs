@@ -83,6 +83,11 @@ namespace Data
         public float standingCameraHeight;
         public float crouchedCameraHeight;
         public float slideCameraHeight;
+
+        [Space] [Header("Camera Vignette")] 
+        public float crouchVignetteIntensity;
+        public float standingVignetteIntensity;
+        public float vignetteIntensityTransitionDuration;
         
         [Space] [Header("Camera Default Sensitivity")]
         public float joystickSensitivityX;
