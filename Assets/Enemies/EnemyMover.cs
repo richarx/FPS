@@ -71,10 +71,10 @@ namespace Enemies
 
         private float ComputeGroundHeight()
         {
-            Vector3 position = transform.position + (Vector3.up * 5.0f);
+            Vector3 position = transform.position + (Vector3.up * 100.0f);
             
             RaycastHit hit;
-            bool hasHit = Physics.Raycast(position, Vector3.down, out hit, (hoverHeight * 3.0f) + 5.0f, ~ignoreForGroundCollision);
+            bool hasHit = Physics.Raycast(position, Vector3.down, out hit, 150.0f, ~ignoreForGroundCollision);
 
             if (hasHit)
                 return position.y - hit.distance;

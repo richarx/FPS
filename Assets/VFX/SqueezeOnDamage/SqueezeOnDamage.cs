@@ -10,7 +10,7 @@ namespace VFX.SqueezeOnDamage
         private void Start()
         {
             squeezeAndStretch = GetComponent<SqueezeAndStretch>();
-            GetComponent<Damageable>().OnTakeDamage.AddListener(() => squeezeAndStretch.Trigger());
+            GetComponent<Damageable>().OnTakeDamage.AddListener((position) => squeezeAndStretch.Trigger());
         }
     }
 }

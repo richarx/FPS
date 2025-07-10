@@ -7,7 +7,7 @@ namespace Enemies
     {
         [SerializeField] private float startingHealth;
         
-        [HideInInspector] public UnityEvent OnTakeDamage = new UnityEvent();
+        [HideInInspector] public UnityEvent<Vector3> OnTakeDamage = new UnityEvent<Vector3>();
         [HideInInspector] public UnityEvent OnDeath = new UnityEvent();
 
         private float currentHealth = 1;
@@ -19,14 +19,14 @@ namespace Enemies
             currentHealth = startingHealth;
         }
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(float damage, Vector3 hitPosition)
         {
             if (isDead)
                 return;
             
             currentHealth -= damage;
             
-            OnTakeDamage?.Invoke();
+            OnTakeDamage?.Invoke(hitPosition);
             
             if (isDead)
                 OnDeath?.Invoke();

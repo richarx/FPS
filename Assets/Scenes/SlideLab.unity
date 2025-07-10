@@ -1750,6 +1750,23 @@ PrefabInstance:
       propertyPath: slideSpeedLines
       value: 
       objectReference: {fileID: 59727703}
+    - target: {fileID: 7423804947677619923, guid: 8a6f8961280e07d4fab5f58377389c05,
+        type: 3}
+      propertyPath: bloodSplats.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7423804947677619923, guid: 8a6f8961280e07d4fab5f58377389c05,
+        type: 3}
+      propertyPath: bloodSplats.Array.data[0]
+      value: 
+      objectReference: {fileID: 8081877286867634132, guid: e118683233431094d934e350c2525fd4,
+        type: 3}
+    - target: {fileID: 7423804947677619923, guid: 8a6f8961280e07d4fab5f58377389c05,
+        type: 3}
+      propertyPath: bloodSplats.Array.data[3]
+      value: 
+      objectReference: {fileID: 5343398588388544243, guid: 35e35c40e39657748b4d273b4fd9a6f3,
+        type: 3}
     - target: {fileID: 7869767745396318090, guid: 8a6f8961280e07d4fab5f58377389c05,
         type: 3}
       propertyPath: playerRecoil
@@ -1783,16 +1800,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1599873750426905784, guid: 9a157bf8d60c43b4a9215eabf1a24948,
-        type: 3}
-      propertyPath: aggroRange
-      value: 150
-      objectReference: {fileID: 0}
-    - target: {fileID: 1599873750426905784, guid: 9a157bf8d60c43b4a9215eabf1a24948,
-        type: 3}
-      propertyPath: stopMovingRange
-      value: 17
-      objectReference: {fileID: 0}
     - target: {fileID: 2020983453304985982, guid: 9a157bf8d60c43b4a9215eabf1a24948,
         type: 3}
       propertyPath: m_Name
@@ -1847,21 +1854,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4745446105674049377, guid: 9a157bf8d60c43b4a9215eabf1a24948,
-        type: 3}
-      propertyPath: m_CastShadows
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4745446105674049377, guid: 9a157bf8d60c43b4a9215eabf1a24948,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 4ea3736e76468cc4d840917120002123, type: 2}
-    - target: {fileID: 8079088445418074005, guid: 9a157bf8d60c43b4a9215eabf1a24948,
-        type: 3}
-      propertyPath: hoverHeight
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

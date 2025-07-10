@@ -115,8 +115,9 @@ namespace Player.Scripts
                 Damageable damageable = hit[i].collider.GetComponent<Damageable>();
                 if (damageable != null)
                 {
-                    damageable.TakeDamage(1.0f);
-                    OnHit?.Invoke(position + (direction.normalized * hit[i].distance), SurfaceData.SurfaceType.Enemy);
+                    Vector3 hitPosition = position + (direction.normalized * hit[i].distance);
+                    damageable.TakeDamage(1.0f, hitPosition);
+                    OnHit?.Invoke(hitPosition, SurfaceData.SurfaceType.Enemy);
                     return;
                 }
                 else

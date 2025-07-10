@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 617117484197503380}
   - component: {fileID: 5322064640064116295}
   - component: {fileID: 1708138919763306899}
+  - component: {fileID: 3907590639452446328}
   - component: {fileID: 8129043686605612853}
   - component: {fileID: 4441535896110767548}
   - component: {fileID: 8318542441220227151}
@@ -255,6 +256,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   corpsePrefab: {fileID: 3792171214130656878, guid: 250bf73ce18af04498189fcfccce5284,
     type: 3}
+--- !u!114 &3907590639452446328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2898402158565811358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eddc0bccf62610a4c9cebb08076568d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particlePrefabs:
+  - {fileID: 7173474509315729231, guid: 0742ea66f767fb64885cca23dbc58c87, type: 3}
+  - {fileID: 247202278176408517, guid: 2af08023e1d66c74cb830e64302f619c, type: 3}
+  - {fileID: 2815922470689716145, guid: 9ada41887bc3a7743a3c0cf747e5da3b, type: 3}
+  - {fileID: 9007263838461233187, guid: ffd19d0eef0a7ef429340d9f0938f649, type: 3}
+  - {fileID: 8081877286867634132, guid: e118683233431094d934e350c2525fd4, type: 3}
 --- !u!114 &8129043686605612853
 MonoBehaviour:
   m_ObjectHideFlags: 0

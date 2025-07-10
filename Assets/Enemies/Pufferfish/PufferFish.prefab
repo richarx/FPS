@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 6702828691177492059}
   - component: {fileID: 8079088445418074005}
   - component: {fileID: 1599873750426905784}
+  - component: {fileID: 8608249450081547073}
   m_Layer: 6
   m_Name: PufferFish
   m_TagString: Untagged
@@ -100,7 +101,7 @@ SpriteRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2020983453304985982}
   m_Enabled: 1
-  m_CastShadows: 0
+  m_CastShadows: 1
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -112,7 +113,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 4ea3736e76468cc4d840917120002123, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -287,7 +288,7 @@ MonoBehaviour:
   moveSpeed: 5
   moveAcceleration: 20
   moveDeceleration: 30
-  hoverHeight: 10
+  hoverHeight: 7
   hoverVariationMultiplier: 3
   hoverVariationSpeed: 1.5
   hoverSmoothSpeed: 0.3
@@ -306,5 +307,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7330fe2a1393445ac97d12def6bfd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aggroRange: 40
-  stopMovingRange: 10
+  aggroRange: 150
+  stopMovingRange: 17
+--- !u!114 &8608249450081547073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2020983453304985982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eddc0bccf62610a4c9cebb08076568d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particlePrefabs:
+  - {fileID: 4682335699828752895, guid: 59a7cebbb035a3340b2e79a3e78098ea, type: 3}
+  - {fileID: 87095716638821451, guid: 23d2df6e0cc2d974091c223a7a1ac988, type: 3}
+  - {fileID: 8130165704439340640, guid: 9aabd2f3d4e70c0419c47fa414cf236e, type: 3}
+  - {fileID: 7492719039021353942, guid: 35593fa994c0177419f14e81a21e1ed7, type: 3}
+  - {fileID: 5343398588388544243, guid: 35e35c40e39657748b4d273b4fd9a6f3, type: 3}

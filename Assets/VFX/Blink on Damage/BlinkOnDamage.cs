@@ -17,7 +17,7 @@ namespace VFX.Blink_on_Damage
         private void Start()
         {
             baseMaterial = spriteRenderer.material;
-            GetComponent<Damageable>().OnTakeDamage.AddListener(Blink);
+            GetComponent<Damageable>().OnTakeDamage.AddListener((position) => Blink());
         }
 
         private void Blink()
