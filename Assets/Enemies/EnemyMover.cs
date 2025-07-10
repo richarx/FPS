@@ -1,6 +1,7 @@
 using System;
 using Player.Scripts;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Enemies
 {
@@ -22,15 +23,16 @@ namespace Enemies
         private Vector3 currentVelocity;
 
         public bool IsMoving => currentVelocity.magnitude >= 0.01f;
-        
-        
+
         private float gravityVelocity;
         private Vector3 moveVelocity;
+        private float randomBounceOffset;
 
         private void Start()
         {
             player = PlayerStateMachine.instance.transform;
             rb = GetComponent<Rigidbody>();
+            randomBounceOffset = Random.Range(0.1f, 15.0f);
         }
 
         private void FixedUpdate()
@@ -58,7 +60,7 @@ namespace Enemies
             
             float groundHeight = ComputeGroundHeight();
             float currentHeight = position.y;
-            float targetHeight = groundHeight + hoverHeight + (Mathf.Sin(Time.time * hoverVariationSpeed) * hoverVariationMultiplier);
+            float targetHeight = groundHeight + hoverHeight + (Mathf.Sin(randomBounceOffset + (Time.time * hoverVariationSpeed)) * hoverVariationMultiplier);
 
             if (Mathf.Abs(targetHeight - currentHeight) >= 0.01f)
             {
@@ -69,15 +71,15 @@ namespace Enemies
 
         private float ComputeGroundHeight()
         {
-            Vector3 position = transform.position + (Vector3.up * hoverHeight);
+            Vector3 position = transform.position + (Vector3.up * 5.0f);
             
             RaycastHit hit;
-            bool hasHit = Physics.Raycast(position, Vector3.down, out hit, hoverHeight * 3.0f, ~ignoreForGroundCollision);
+            bool hasHit = Physics.Raycast(position, Vector3.down, out hit, (hoverHeight * 3.0f) + 5.0f, ~ignoreForGroundCollision);
 
             if (hasHit)
                 return position.y - hit.distance;
             else
-                return hoverHeight * 2.0f;
+                return transform.position.y - 0.5f;
         }
 
         public void MoveInDirection(Vector3 direction)
