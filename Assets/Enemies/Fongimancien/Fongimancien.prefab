@@ -103,7 +103,7 @@ SpriteRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2898402158565811358}
   m_Enabled: 1
-  m_CastShadows: 0
+  m_CastShadows: 1
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bb79bd7b15f7da44afdabd31bebb194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  corpsePrefab: {fileID: 3792171214130656878, guid: 250bf73ce18af04498189fcfccce5284,
+  corpsePrefab: {fileID: 2898402158565811358, guid: 306c0def1ac7bba4ea2881f649259584,
     type: 3}
 --- !u!114 &3907590639452446328
 MonoBehaviour:
