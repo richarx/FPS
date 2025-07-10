@@ -1,66 +1,27 @@
-using Player.Scripts;
 using UnityEngine;
 
 namespace Enemies
 {
     public class ChasePlayer : MonoBehaviour
     {
-        [SerializeField] private float moveSpeed;
         [SerializeField] private float aggroRange;
         [SerializeField] private float stopMovingRange;
-            
-        private Transform player;
-        private Rigidbody rb;
-
-        private Vector3 currentVelocity;
         
+        private EnemyMover mover;
+
         private void Start()
         {
-            player = PlayerStateMachine.instance.transform;
-            rb = GetComponent<Rigidbody>();
+            mover = GetComponent<EnemyMover>();
         }
 
         private void LateUpdate()
         {
-            float distance = DistanceToPlayer();
+            float distance = mover.DistanceToPlayer();
 
             if (distance >= aggroRange || distance <= stopMovingRange)
-                StopMoving();
+                mover.StopMoving();
             else
-                MoveTowardsPlayer();
-        }
-
-        private void FixedUpdate()
-        {
-            rb.velocity = currentVelocity;
-        }
-
-        private void MoveTowardsPlayer()
-        {
-            Vector3 direction = DirectionToPlayerFlatten();
-            currentVelocity = direction * moveSpeed;
-        }
-
-        private void StopMoving()
-        {
-            currentVelocity = Vector3.zero;
-        }
-
-        private float DistanceToPlayer()
-        {
-            return (player.position - transform.position).magnitude;
-        }
-        
-        private Vector3 DirectionToPlayer()
-        {
-            return (player.position - transform.position).normalized;
-        }
-        
-        private Vector3 DirectionToPlayerFlatten()
-        {
-            Vector3 direction = DirectionToPlayer();
-            direction.y = 0.0f;
-            return direction.normalized;
+                mover.MoveInDirection(mover.DirectionToPlayerFlatten());
         }
     }
 }
