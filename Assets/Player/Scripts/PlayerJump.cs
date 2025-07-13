@@ -56,7 +56,16 @@ namespace Player.Scripts
         public void UpdateBehaviour(PlayerStateMachine player)
         {
             if (!jumpToConsume && CanJump() && PlayerInputs.GetSouthButton())
+            {
                 StartJump(player);
+                return;
+            }
+
+            if (PlayerInputs.GetEastButton())
+            {
+                player.ChangeBehaviour(player.playerSlam);
+                return;
+            }
         }
 
         public void FixedUpdateBehaviour(PlayerStateMachine player)
@@ -200,6 +209,20 @@ namespace Player.Scripts
             
             player.moveVelocity.y = player.playerData.jumpForce;
             OnJump?.Invoke();
+        }
+        
+        public void HandleDirectionNoDeceleration(PlayerStateMachine player)
+        {            
+            float currentSpeed = player.moveVelocity.magnitude;
+
+            Vector3 move = (player.moveInput.x * player.orientationPivot.right + player.moveInput.y * player.orientationPivot.forward).normalized;
+            float speed = Mathf.Max(player.playerData.airMaxSpeed, player.ComputeGroundMoveVelocity().magnitude);
+            move *= speed;
+            
+            player.moveVelocity.x = Mathf.MoveTowards(player.moveVelocity.x, move.x, player.playerData.airAcceleration * Time.fixedDeltaTime);
+            player.moveVelocity.z = Mathf.MoveTowards(player.moveVelocity.z, move.z, player.playerData.airAcceleration * Time.fixedDeltaTime);
+            
+            player.moveVelocity = player.moveVelocity.normalized * currentSpeed;
         }
         
         public void HandleDirection(PlayerStateMachine player)

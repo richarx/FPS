@@ -90,15 +90,12 @@ namespace Player.Scripts
 
         public void HandleDirection(PlayerStateMachine player)
         {
-            if (player.moveInput.magnitude <= 0.8f)
-                return;
-            
             float currentSpeed = player.moveVelocity.magnitude;
             Vector3 targetVelocity = player.ComputeGroundMoveInputDirection() * currentSpeed;
             Vector3 steerForce = (targetVelocity - player.moveVelocity) * (player.playerData.slideSteerAcceleration * Time.fixedDeltaTime);
 
             player.moveVelocity += steerForce;
-            player.moveVelocity = Vector3.ClampMagnitude(player.moveVelocity, currentSpeed);
+            player.moveVelocity = player.moveVelocity.normalized * currentSpeed;
         }
         
         public void StopBehaviour(PlayerStateMachine player, BehaviourType next)

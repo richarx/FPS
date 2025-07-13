@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7313491341367921474}
   - component: {fileID: 6724916104360156306}
+  - component: {fileID: 2007987357955616165}
+  - component: {fileID: 8306272083936462435}
   m_Layer: 0
   m_Name: FongimancienCorpse
   m_TagString: Untagged
@@ -29,8 +31,7 @@ Transform:
   m_LocalPosition: {x: 75.85, y: 0, z: 98.3}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7759958823611435062}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6724916104360156306
@@ -45,50 +46,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 278f39604b13db6459f883d16c7f6279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistance: 20
-  speed: 75
+  maxDistance: 50
+  speed: 200
   explosionPrefab: {fileID: 3792171214130656878, guid: 250bf73ce18af04498189fcfccce5284,
     type: 3}
---- !u!1 &4224773901945376609
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7759958823611435062}
-  - component: {fileID: 5149740055060091044}
-  - component: {fileID: 3136924233681763671}
-  m_Layer: 0
-  m_Name: Graphics
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7759958823611435062
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4224773901945376609}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7313491341367921474}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &5149740055060091044
+--- !u!212 &2007987357955616165
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4224773901945376609}
+  m_GameObject: {fileID: 2898402158565811358}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 0
@@ -134,13 +102,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3136924233681763671
+--- !u!114 &8306272083936462435
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4224773901945376609}
+  m_GameObject: {fileID: 2898402158565811358}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7575fdedfd078034cbfaf2f9498be0fd, type: 3}

@@ -7,7 +7,6 @@ namespace Tools_and_Scripts
     {
         private Transform player;
         private SpriteRenderer sr;
-        private Vector3 randomDirection;
 
         private void Start()
         {
@@ -15,12 +14,10 @@ namespace Tools_and_Scripts
             sr = GetComponent<SpriteRenderer>();
             sr.flipX = true;
 
-            randomDirection = Random.insideUnitSphere;
-        }
-
-        private void LateUpdate()
-        {
-            transform.LookAt(player.position, Vector3.up + randomDirection);
+            float randomAngle = Random.Range(-100.0f, 100.0f);
+            
+            transform.LookAt(player.position, Vector3.up);
+            transform.Rotate(Vector3.forward, randomAngle, Space.Self);
         }
     }
 }

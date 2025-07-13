@@ -23,6 +23,10 @@ namespace Data
         public float slideSteerAcceleration;
         public float slideGravity;
 
+        [Space] [Header("Slide")] 
+        public float slamMaxSpeed;
+        public float slamAcceleration;
+        
         [Space] [Header("Crouch")] 
         public float crouchTransitionSpeed;
         public float crouchMaxSpeed;

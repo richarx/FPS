@@ -26,6 +26,8 @@ MonoBehaviour:
   slideFriction: 0.1
   slideSteerAcceleration: 5
   slideGravity: -120
+  slamMaxSpeed: 1000
+  slamAcceleration: 1000
   crouchTransitionSpeed: 0.2
   crouchMaxSpeed: 7
   crouchMaxSpeedAiming: 5

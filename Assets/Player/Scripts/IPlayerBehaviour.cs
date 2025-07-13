@@ -5,7 +5,8 @@ namespace Player.Scripts
         Run,
         Jump,
         Crouch,
-        Slide
+        Slide,
+        Slam
     }
     
     public interface IPlayerBehaviour

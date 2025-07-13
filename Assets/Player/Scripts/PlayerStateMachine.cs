@@ -15,6 +15,7 @@ namespace Player.Scripts
 
         public PlayerRun playerRun;
         public PlayerJump playerJump;
+        public PlayerSlam playerSlam = new PlayerSlam();
         public PlayerCrouch playerCrouch = new PlayerCrouch();
         public PlayerSlide playerSlide = new PlayerSlide();
 
