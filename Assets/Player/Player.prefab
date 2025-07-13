@@ -269,8 +269,8 @@ MonoBehaviour:
   tiltSnapBackTime: 10
   minTilt: -10
   maxTilt: 10
-  aimBlurDelay: 0.15
-  aimBlurFadeDuration: 0.1
+  slideShakePowerX: 0
+  slideShakePowerY: 0
 --- !u!114 &7423804947677619923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,13 +286,6 @@ MonoBehaviour:
   secondaryGunImpacts:
   - {fileID: 5069143262147700891, guid: 68779bf296435464a8105ee3a53575d6, type: 3}
   - {fileID: 7259989365948300311, guid: 7e32bd10da4a1334591a1871cbf85156, type: 3}
-  bloodSplats:
-  - {fileID: 4682335699828752895, guid: 59a7cebbb035a3340b2e79a3e78098ea, type: 3}
-  - {fileID: 87095716638821451, guid: 23d2df6e0cc2d974091c223a7a1ac988, type: 3}
-  - {fileID: 8130165704439340640, guid: 9aabd2f3d4e70c0419c47fa414cf236e, type: 3}
-  - {fileID: 7492719039021353942, guid: 35593fa994c0177419f14e81a21e1ed7, type: 3}
-  - {fileID: 5343398588388544243, guid: 35e35c40e39657748b4d273b4fd9a6f3, type: 3}
-  distanceTowardsPlayer: 1.3
   slideSpeedLines: {fileID: 0}
 --- !u!114 &2671848171592036358
 MonoBehaviour:

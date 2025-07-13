@@ -70,8 +70,8 @@ MonoBehaviour:
   standingCameraHeight: 2.5
   crouchedCameraHeight: 0.75
   slideCameraHeight: 0.25
-  crouchVignetteIntensity: 0.3
-  standingVignetteIntensity: 0
+  crouchVignetteIntensity: 0.4
+  standingVignetteIntensity: 0.2
   vignetteIntensityTransitionDuration: 0.3
   joystickSensitivityX: 15000
   joystickSensitivityY: 10000

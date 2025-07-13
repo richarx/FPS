@@ -28,6 +28,9 @@ namespace Player.Scripts
             player.playerCrouch.OnStopCrouch.AddListener((isToSlide) => HideVignette());
             player.playerSlide.OnStartSlide.AddListener((isFromCrouch) => DisplayVignette());
             player.playerSlide.OnStopSlide.AddListener((isToCrouch) => HideVignette());
+
+            if (isSetup)
+                vignette.intensity.value = playerData.standingVignetteIntensity;
         }
 
         private void DisplayVignette()
@@ -49,7 +52,7 @@ namespace Player.Scripts
             isDisplayed = false;
             
             StopAllCoroutines();
-            StartCoroutine(FadeVignette(vignette.intensity.value, 0.0f));
+            StartCoroutine(FadeVignette(vignette.intensity.value, playerData.standingVignetteIntensity));
         }
         
         private IEnumerator FadeVignette(float current, float target)
