@@ -5,6 +5,7 @@ namespace Enemies
     public class SpawnCorpse : MonoBehaviour
     {
         [SerializeField] private GameObject corpsePrefab;
+        [SerializeField] private float heightOffset;
 
         private void Start()
         {
@@ -13,7 +14,9 @@ namespace Enemies
 
         public void SpawnCorpseAndDelete()
         {
-            Instantiate(corpsePrefab, transform.position, Quaternion.identity);
+            Vector3 position = transform.position + (Vector3.up * heightOffset);
+            
+            Instantiate(corpsePrefab, position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

@@ -7,6 +7,7 @@ namespace Enemies
     public class SpawnParticlesOnDamage : MonoBehaviour
     {
         [SerializeField] private List<GameObject> particlePrefabs;
+        [SerializeField] private float heightOffset;
 
         private PlayerStateMachine player;
         
@@ -22,6 +23,7 @@ namespace Enemies
         {
             Vector3 directionToPlayer = (player.position - position).normalized;
             position += directionToPlayer * distanceTowardsPlayer;
+            position += Vector3.up * heightOffset;
             
             int randomIndex = Random.Range(0, particlePrefabs.Count);
             Instantiate(particlePrefabs[randomIndex], position + (Random.insideUnitSphere * 0.5f), Quaternion.identity);
