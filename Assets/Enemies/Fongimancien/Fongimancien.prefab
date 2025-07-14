@@ -104,7 +104,7 @@ SpriteRenderer:
   m_GameObject: {fileID: 2898402158565811358}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 0
+  m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -256,6 +256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   corpsePrefab: {fileID: 2898402158565811358, guid: 306c0def1ac7bba4ea2881f649259584,
     type: 3}
+  heightOffset: 0
 --- !u!114 &3907590639452446328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,6 +275,7 @@ MonoBehaviour:
   - {fileID: 2815922470689716145, guid: 9ada41887bc3a7743a3c0cf747e5da3b, type: 3}
   - {fileID: 9007263838461233187, guid: ffd19d0eef0a7ef429340d9f0938f649, type: 3}
   - {fileID: 8081877286867634132, guid: e118683233431094d934e350c2525fd4, type: 3}
+  heightOffset: 0
 --- !u!114 &8129043686605612853
 MonoBehaviour:
   m_ObjectHideFlags: 0

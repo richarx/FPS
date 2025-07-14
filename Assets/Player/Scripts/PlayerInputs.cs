@@ -262,6 +262,30 @@ namespace Tools_and_Scripts
             return keyboard;
         }
 
+        private static bool wasUpArrowReset = true;
+        public static bool GetUpArrow()
+        {
+            bool gamepad = false;
+
+            if (Gamepad.current != null)
+            {
+                bool isPressed = Gamepad.current.dpad.ReadValue().y > 0;
+
+                if (wasUpArrowReset && isPressed)
+                {
+                    gamepad = true;
+                    wasUpArrowReset = false;
+                }
+
+                if (!isPressed)
+                    wasUpArrowReset = true;
+            }
+
+            bool keyboard = Keyboard.current.fKey.wasPressedThisFrame;
+
+            return gamepad || keyboard;
+        }
+
         public static bool GetSelectButton()
         {
             if (Gamepad.current == null)
