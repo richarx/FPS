@@ -22,10 +22,10 @@ MonoBehaviour:
   steepSlopeFallSpeed: 35
   slideTransitionSpeed: 0.1
   slideVelocityThresholdToCrouch: 15
-  slidePower: 15
-  slideFriction: 0.8
-  slideSteerAcceleration: 5
-  slideGravity: -90
+  slidePower: 45
+  slideFriction: 0.5
+  slideSteerAcceleration: 45
+  slideGravity: -300
   slamMaxSpeed: 1000
   slamAcceleration: 1000
   crouchTransitionSpeed: 0.2

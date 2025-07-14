@@ -8,14 +8,14 @@ TerrainLayer:
   m_PrefabAsset: {fileID: 0}
   m_Name: Spinach
   m_DiffuseTexture: {fileID: 2800000, guid: 14f70d462d69df54d81f92f846a54dfa, type: 3}
-  m_NormalMapTexture: {fileID: 2800000, guid: 1a37e0a9b20dea1448a1bbcfaf488f59, type: 3}
+  m_NormalMapTexture: {fileID: 2800000, guid: ce0e2a8e68addd7408bba2f6819678ad, type: 3}
   m_MaskMapTexture: {fileID: 0}
   m_TileSize: {x: 20, y: 20}
   m_TileOffset: {x: 0, y: 0}
   m_Specular: {r: 0, g: 0, b: 0, a: 0}
   m_Metallic: 0
   m_Smoothness: 0
-  m_NormalScale: 15.47
+  m_NormalScale: 3.29
   m_DiffuseRemapMin: {x: 0, y: 0, z: 0, w: 0}
   m_DiffuseRemapMax: {x: 1, y: 1, z: 1, w: 1}
   m_MaskMapRemapMin: {x: 0, y: 0, z: 0, w: 0}

@@ -38,13 +38,13 @@ namespace Player.Scripts
                 return;
             }
             
-            player.playerRun.HandleSprint(player);
+            //player.playerRun.HandleSprint(player);
 
-            if (player.playerRun.isSprinting)
-            {
-                player.ChangeBehaviour(player.playerRun);
-                return;
-            }
+            // if (player.playerRun.isSprinting)
+            // {
+            //     player.ChangeBehaviour(player.playerRun);
+            //     return;
+            // }
 
             wasInputReset = true;
         }
@@ -81,11 +81,16 @@ namespace Player.Scripts
 
         private void HandleGravity(PlayerStateMachine player)
         {
+            float speed = player.moveVelocity.magnitude;
+            
             Vector3 groundNormal = player.ComputeGroundNormal();
 
             Vector3 force = Vector3.ProjectOnPlane(Vector3.down, groundNormal) * player.playerData.slideGravity;
-
+            
             player.moveVelocity -= force * Time.fixedDeltaTime;
+
+            if (player.moveVelocity.magnitude < speed)
+                player.moveVelocity = player.moveVelocity.normalized * speed;
         }
 
         public void HandleDirection(PlayerStateMachine player)

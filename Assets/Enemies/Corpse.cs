@@ -35,7 +35,7 @@ namespace Enemies
 
         private void Explode()
         {
-            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            Instantiate(explosionPrefab, transform.position, transform.rotation);
             Destroy(gameObject);
         }
 
