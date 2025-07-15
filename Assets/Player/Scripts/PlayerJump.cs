@@ -144,27 +144,27 @@ namespace Player.Scripts
 
         private bool ShootDownRaycasts(PlayerStateMachine player)
         {
-            Vector3 position = player.position + (Vector3.up * 0.1f);
+            Vector3 position = player.position + (Vector3.up * 1.5f);
             
-            if (Physics.Raycast(position, Vector3.down, 0.2f, ~player.playerData.layersToIgnoreForGroundCheck))
+            if (Physics.Raycast(position, Vector3.down, 1.6f, ~player.playerData.layersToIgnoreForGroundCheck))
                 return true;
 
             position += Vector3.up * 0.505f;
             
             Vector3 forward = player.orientationPivot.forward * 0.25f;
             
-            if (Physics.Raycast(position + forward, Vector3.down, 0.705f, ~player.playerData.layersToIgnoreForGroundCheck))
+            if (Physics.Raycast(position + forward, Vector3.down, 2.105f, ~player.playerData.layersToIgnoreForGroundCheck))
                 return true;
 
-            if (Physics.Raycast(position - forward, Vector3.down, 0.705f, ~player.playerData.layersToIgnoreForGroundCheck))
+            if (Physics.Raycast(position - forward, Vector3.down, 2.105f, ~player.playerData.layersToIgnoreForGroundCheck))
                 return true;
             
             Vector3 right = player.orientationPivot.right * 0.25f;
 
-            if (Physics.Raycast(position + right, Vector3.down, 0.705f, ~player.playerData.layersToIgnoreForGroundCheck))
+            if (Physics.Raycast(position + right, Vector3.down, 2.105f, ~player.playerData.layersToIgnoreForGroundCheck))
                 return true;
 
-            if (Physics.Raycast(position - right, Vector3.down, 0.705f, ~player.playerData.layersToIgnoreForGroundCheck))
+            if (Physics.Raycast(position - right, Vector3.down, 2.105f, ~player.playerData.layersToIgnoreForGroundCheck))
                 return true;
             
             return false;

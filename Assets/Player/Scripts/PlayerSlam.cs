@@ -28,7 +28,7 @@ namespace Player.Scripts
 
             player.ApplyMovement();
             
-            if (landed)
+            if (landed || player.playerJump.isGrounded)
                 player.ChangeBehaviour(player.playerSlide);
         }
 
