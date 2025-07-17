@@ -6,8 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/ShootingRange.unity
+    guid: 3b2d7b04be160c04da8d12d227c75e73
+  - enabled: 1
     path: Assets/Scenes/SlideLab.unity
     guid: 1feb031f80c72494fae6e103286818aa
+  - enabled: 1
+    path: Assets/Scenes/MountainRide.unity
+    guid: 7c74befbde8c8814585860e0fbbdd8ec
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05

@@ -5,13 +5,16 @@ namespace Tools_and_Scripts
 {
     public class LookAtPlayer : MonoBehaviour
     {
+        [SerializeField] private SpriteRenderer sr;
+        
         private Transform player;
-        private SpriteRenderer sr;
 
         private void Start()
         {
             player = PlayerStateMachine.instance.transform;
-            sr = GetComponent<SpriteRenderer>();
+            
+            if (sr == null)
+                sr = GetComponent<SpriteRenderer>();
             sr.flipX = true;
         }
 
