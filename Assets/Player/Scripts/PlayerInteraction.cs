@@ -7,7 +7,7 @@ namespace Player.Scripts
 {
     public class PlayerInteraction : MonoBehaviour
     {
-        private InteractableItem registeredItem;
+        private Interactable registeredItem;
 
         private void Update()
         {
@@ -24,18 +24,19 @@ namespace Player.Scripts
 
             switch (registeredItem.type)
             {
-                case InteractableItem.ItemType.Loot:
+                case Interactable.ItemType.Loot:
                     break;
-                case InteractableItem.ItemType.Weapon:
+                case Interactable.ItemType.Weapon:
                     break;
-                case InteractableItem.ItemType.Trigger:
+                case Interactable.ItemType.Trigger:
+                    registeredItem.Interact();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
-        public bool TryRegisterItem(InteractableItem item)
+        public bool TryRegisterItem(Interactable item)
         {
             if (registeredItem != null)
                 registeredItem.DeactivateItem();
@@ -44,7 +45,7 @@ namespace Player.Scripts
             return true;
         }
 
-        public void UnregisterItem(InteractableItem item)
+        public void UnregisterItem(Interactable item)
         {
             if (registeredItem == item)
                 registeredItem = null;
