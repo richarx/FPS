@@ -16,7 +16,13 @@ namespace Player.Scripts
         private void Start()
         {
             player = GetComponent<PlayerStateMachine>();
-            currentAmmo = player.playerData.startingAmmo;
+            player.playerGun.OnEquipWeapon.AddListener(() => currentAmmo = GetMaxAmmo());
+            currentAmmo = GetMaxAmmo();
+        }
+
+        private int GetMaxAmmo()
+        {
+            return player.playerGun.hasWeapon ? player.playerGun.CurrentWeapon.startingAmmo : 0;
         }
 
         public void ConsumeAmmo()
@@ -26,7 +32,7 @@ namespace Player.Scripts
 
         public void RefillAmmo()
         {
-            currentAmmo = player.playerData.startingAmmo;
+            currentAmmo = GetMaxAmmo();
             OnRefillAmmo?.Invoke();
         }
     }

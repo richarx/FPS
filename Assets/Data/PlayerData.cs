@@ -45,43 +45,11 @@ namespace Data
         public float airMaxSpeed;
         public float airAcceleration;
         public float airDeceleration;
-
-        [Space] [Header("Gun")] 
-        public float bulletDistance;
-        public int startingAmmo;
-        public float reloadDuration;
-        public float fireRate;        
-        public float xRecoil;
-        public float yRecoil;
-        public float recoilSnappiness;
-        public float recoilCancelSnappiness;
-        public float recoilCancelPower;
         
-        [Space] [Header("Gun Animation")]
+        [Space] [Header("FOV Animation")]
         public float fovReductionOnAim;
         public float fovReductionOnSprint;
         public float fovReductionOnSlide;
-
-        public float gunAnimationCosSpeed;
-        public float gunAnimationCosSpeedSprinting;
-        public float gunAnimationSinSpeed;
-        public float gunAnimationSinSpeedSprinting;
-        
-        [Space]
-        public float gunAnimationDistance;
-        public float gunAnimationDistanceSprinting;
-        public float gunAnimationSmoothTime;
-        
-        [Space]
-        public float gunAnimationLateralDistance;
-        public float gunAnimationLateralSmoothTime;
-        
-        [Space]
-        public float gunAnimationIdleDistance;
-        public float gunAnimationIdleSpeed;
-        
-        [Space]
-        public float gunAnimationSizeSpeed;
 
         [Space] [Header("Camera Height")]
         public float standingCameraHeight;

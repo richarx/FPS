@@ -18,14 +18,38 @@ namespace Player.Scripts
         private void Start()
         {
             player = PlayerStateMachine.instance;
-            player.playerGun.OnChangeAimState.AddListener((isAiming) => ChangeFov(isAiming ? player.playerData.fovReductionOnAim : 0.0f));
+            player.playerGun.OnChangeAimState.AddListener((isAiming) => ChangeFov(GetAimFov(isAiming)));
             
-            player.playerRun.OnStartSprinting.AddListener(() => ChangeFov(player.playerData.fovReductionOnSprint));
+            player.playerRun.OnStartSprinting.AddListener(() => ChangeFov(GetSprintFov()));
             player.playerRun.OnStopSprinting.AddListener(ResetFov);
             
-            player.playerSlide.OnStartSlide.AddListener((fromCrouch) => ChangeFov(player.playerData.fovReductionOnSlide));
+            player.playerSlide.OnStartSlide.AddListener((fromCrouch) => ChangeFov(GetSlideFov()));
             player.playerSlide.OnStopSlide.AddListener((toCrouch) => ResetFov());
             currentTarget = mainCamera.fieldOfView;
+        }
+
+        private float GetAimFov(bool isAiming)
+        {
+            if (!isAiming)
+                return 0.0f;
+            
+            return player.playerGun.hasWeapon
+                ? player.playerGun.CurrentWeapon.fovReductionOnAim
+                : player.playerData.fovReductionOnAim;
+        }
+        
+        private float GetSprintFov()
+        {
+            return player.playerGun.hasWeapon
+                ? player.playerGun.CurrentWeapon.fovReductionOnSprint
+                : player.playerData.fovReductionOnSprint;
+        }
+        
+        private float GetSlideFov()
+        {
+            return player.playerGun.hasWeapon
+                ? player.playerGun.CurrentWeapon.fovReductionOnSlide
+                : player.playerData.fovReductionOnSlide;
         }
 
         private void ChangeFov(float newValue)

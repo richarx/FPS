@@ -1,5 +1,6 @@
 using Data;
 using Enemies;
+using Items.Weapons;
 using Pause_Menu;
 using Tools_and_Scripts;
 using UnityEngine;
@@ -10,12 +11,15 @@ namespace Player.Scripts
     public class PlayerGun : MonoBehaviour
     {
         [SerializeField] private Transform shootingPivot;
+        [SerializeField] private Transform gunPivot;
         [SerializeField] private PlayerRecoil playerRecoil;
         [SerializeField] private LayerMask targetLayer;
         
         private PlayerStateMachine player;
         private PlayerAmmo playerAmmo;
 
+        [HideInInspector] public UnityEvent OnEquipWeapon = new UnityEvent();
+        [HideInInspector] public UnityEvent<GameObject> OnSwapWeapon = new UnityEvent<GameObject>();
         [HideInInspector] public UnityEvent OnShoot = new UnityEvent();
         [HideInInspector] public UnityEvent OnShootEmptyMag = new UnityEvent();
         [HideInInspector] public UnityEvent OnStartReloading = new UnityEvent();
@@ -25,10 +29,17 @@ namespace Player.Scripts
 
         [HideInInspector] public bool isAiming;
         [HideInInspector] public bool isReloading;
+        [HideInInspector] public bool isEquippingWeapon;
         public bool isShooting => !CanShoot();
+        public bool hasWeapon => currentWeapon != null;
         
         private float lastShotTimestamp;
         private float startReloadTimestamp;
+        private float startEquipWeaponTimestamp;
+        private bool hasWeaponBeenSwapped;
+
+        private WeaponData currentWeapon;
+        public WeaponData CurrentWeapon => currentWeapon;
         
         private void Start()
         {
@@ -41,20 +52,26 @@ namespace Player.Scripts
             if (PauseMenu.instance.IsPaused)
                 return;
 
-            if (isReloading && Time.time - startReloadTimestamp >= player.playerData.reloadDuration)
+            if (isReloading && Time.time - startReloadTimestamp >= currentWeapon.reloadDuration)
             {
                 isReloading = false;
                 playerAmmo.RefillAmmo();
                 OnStopReloading?.Invoke();
             }
             
+            if (isEquippingWeapon && !hasWeaponBeenSwapped && Time.time - startEquipWeaponTimestamp >= 0.5f)
+                SwapWeaponsVisuals();
+            
+            if (isEquippingWeapon && Time.time - startEquipWeaponTimestamp >= 1.0f)
+                isEquippingWeapon = false;
+
             if (isAiming != PlayerInputs.GetLeftTrigger(isHeld: true))
             {
                 isAiming = !isAiming;
                 OnChangeAimState?.Invoke(isAiming);
             }
             
-            if (isReloading)
+            if (isReloading || isEquippingWeapon || currentWeapon == null)
                 return;
 
             if (CanShoot() && PlayerInputs.GetRightTrigger(isHeld: true))
@@ -90,8 +107,8 @@ namespace Player.Scripts
 
         private void Kickback()
         {
-            float xKickBack = Tools.RandomPositiveOrNegative(Tools.RandomAround(player.playerData.xRecoil, 0.3f));
-            float yKickBack = Tools.RandomAround(player.playerData.yRecoil, 0.15f);
+            float xKickBack = Tools.RandomPositiveOrNegative(Tools.RandomAround(currentWeapon.xRecoil, 0.3f));
+            float yKickBack = Tools.RandomAround(currentWeapon.yRecoil, 0.15f);
 
             if (isAiming)
             {
@@ -106,7 +123,7 @@ namespace Player.Scripts
         {
             Vector3 position = shootingPivot.position;
             Vector3 direction = shootingPivot.forward;
-            RaycastHit[] hit = Physics.RaycastAll(position, direction, player.playerData.bulletDistance, targetLayer);
+            RaycastHit[] hit = Physics.RaycastAll(position, direction, currentWeapon.bulletDistance, targetLayer);
 
             SurfaceData.SurfaceType surfaceType = SurfaceData.SurfaceType.None;
             for (int i = 0; i < hit.Length; i++)
@@ -130,7 +147,27 @@ namespace Player.Scripts
 
         private bool CanShoot()
         {
-            return Time.time - lastShotTimestamp >= 1.0f / player.playerData.fireRate;
+            return currentWeapon != null && Time.time - lastShotTimestamp >= 1.0f / currentWeapon.fireRate;
+        }
+
+        public void EquipNewWeapon(WeaponData weapon)
+        {
+            isEquippingWeapon = true;
+            startEquipWeaponTimestamp = Time.time;
+            hasWeaponBeenSwapped = false;
+            currentWeapon = weapon;
+            OnEquipWeapon?.Invoke();
+        }
+
+        private void SwapWeaponsVisuals()
+        {
+            if (gunPivot.childCount > 0)
+                Destroy(gunPivot.GetChild(0).gameObject);
+
+            Transform newWeapon = Instantiate(currentWeapon.weaponPrefab, Vector3.zero, Quaternion.identity, gunPivot).transform;
+            newWeapon.localPosition = new Vector3(0.0f, -600.0f, 0.0f);
+            hasWeaponBeenSwapped = true;
+            OnSwapWeapon?.Invoke(newWeapon.gameObject);
         }
     }
 }

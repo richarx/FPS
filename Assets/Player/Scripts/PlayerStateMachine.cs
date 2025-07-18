@@ -25,6 +25,7 @@ namespace Player.Scripts
         public bool isShooting => playerGun.isShooting;
         public bool isAiming => playerGun.isAiming;
         public bool isReloading => playerGun.isReloading;
+        public bool isEquippingWeapon => playerGun.isEquippingWeapon;
         public bool isSliding => currentBehaviour.GetBehaviourType() == BehaviourType.Slide;
 
         [HideInInspector] public Vector2 moveInput;

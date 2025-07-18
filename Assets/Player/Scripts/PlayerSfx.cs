@@ -46,7 +46,7 @@ namespace Player.Scripts
             {
                 SFXManager.instance.PlaySFX(isAiming ? adsInWoosh : adsOutWoosh, wooshVolume);
                 
-                if (isAiming)
+                if (isAiming && player.playerGun.hasWeapon)
                     SFXManager.instance.PlayRandomSFX(adsClick);
             });
             player.playerJump.OnJump.AddListener(() => SFXManager.instance.PlayRandomSFX(jumpWoosh));

@@ -7,7 +7,14 @@ namespace Player.Scripts
 {
     public class PlayerInteraction : MonoBehaviour
     {
+        private PlayerGun playerGun;
+        
         private Interactable registeredItem;
+
+        private void Start()
+        {
+            playerGun = GetComponent<PlayerGun>();
+        }
 
         private void Update()
         {
@@ -27,6 +34,8 @@ namespace Player.Scripts
                 case Interactable.ItemType.Loot:
                     break;
                 case Interactable.ItemType.Weapon:
+                    playerGun.EquipNewWeapon(registeredItem.GetComponent<LootWeapon>().GetWeaponData());
+                    registeredItem.Interact();
                     break;
                 case Interactable.ItemType.Trigger:
                     registeredItem.Interact();

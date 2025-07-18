@@ -29,14 +29,14 @@ namespace Player.Scripts
             if (currentRecoil.Distance(targetRecoil) >= 0.001f)
             {
                 Vector2 previousRecoil = currentRecoil;
-                currentRecoil = Vector2.SmoothDamp(currentRecoil, targetRecoil, ref velocity, isReturning ? playerData.recoilCancelSnappiness : playerData.recoilSnappiness);
+                currentRecoil = Vector2.SmoothDamp(currentRecoil, targetRecoil, ref velocity, isReturning ? playerGun.CurrentWeapon.recoilCancelSnappiness : playerGun.CurrentWeapon.recoilSnappiness);
                 
                 Vector2 deltaRecoil = currentRecoil - previousRecoil;
                 playerLook.ApplyKickBack(deltaRecoil.x, deltaRecoil.y);
             }
             else if (!playerGun.isShooting && !isReturning)
             {
-                targetRecoil.y += (startingHeight - targetRecoil.y) * playerData.recoilCancelPower;
+                targetRecoil.y += (startingHeight - targetRecoil.y) * playerGun.CurrentWeapon.recoilCancelPower;
                 startingHeight = 0.0f;
                 isReturning = true;
             }

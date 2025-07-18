@@ -647,6 +647,7 @@ GameObject:
   - component: {fileID: 237189134}
   - component: {fileID: 237189135}
   - component: {fileID: 237189136}
+  - component: {fileID: 237189137}
   m_Layer: 8
   m_Name: AK47
   m_TagString: Untagged
@@ -699,6 +700,9 @@ MonoBehaviour:
   sr: {fileID: 45700605}
   sprite: {fileID: 21300000, guid: d8ed2db598be3664e9f7b4ed41c43994, type: 3}
   outlineSprite: {fileID: 21300000, guid: 82231fcda1d9e63478fa3c25a0890a64, type: 3}
+  OnLoot:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!135 &237189136
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -720,6 +724,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.66
   m_Center: {x: 0, y: 0, z: 0.27}
+--- !u!114 &237189137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237189131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb2ec63d05bd0874abd041cb82d58a10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponData: {fileID: 11400000, guid: 00357738bd4263742ac872b5569243c4, type: 2}
 --- !u!1001 &305119786
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -996,6 +1013,7 @@ GameObject:
   - component: {fileID: 490881393}
   - component: {fileID: 490881392}
   - component: {fileID: 490881391}
+  - component: {fileID: 490881395}
   m_Layer: 8
   m_Name: Pistol
   m_TagString: Untagged
@@ -1040,6 +1058,9 @@ MonoBehaviour:
   sr: {fileID: 1095330452}
   sprite: {fileID: 21300000, guid: c75a2cce3002d4e45bf3a07ee3e48da7, type: 3}
   outlineSprite: {fileID: 21300000, guid: d89f1424d8b32e044b3b82abe7bee1f9, type: 3}
+  OnLoot:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &490881393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1069,6 +1090,19 @@ Transform:
   - {fileID: 1095330453}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &490881395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490881390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb2ec63d05bd0874abd041cb82d58a10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponData: {fileID: 11400000, guid: 9aba9a95f947ccf4db525e0588ff6970, type: 2}
 --- !u!1001 &561259351
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2242,6 +2276,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 430398078}
   m_PrefabAsset: {fileID: 0}
+--- !u!224 &1087508298 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3079031492957271179, guid: 99fc002cf63d7f94984a5a14526de63a,
+    type: 3}
+  m_PrefabInstance: {fileID: 8637642417623603251}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1095330451
 GameObject:
   m_ObjectHideFlags: 0
@@ -3372,6 +3412,31 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3079031492957271179, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 880
+      objectReference: {fileID: 0}
+    - target: {fileID: 3079031492957271179, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 640
+      objectReference: {fileID: 0}
+    - target: {fileID: 3130268381852602373, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: gunPivot
+      value: 
+      objectReference: {fileID: 1087508298}
+    - target: {fileID: 3130268381852602373, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: adsPosition.x
+      value: -465.9945
+      objectReference: {fileID: 0}
+    - target: {fileID: 3130268381852602373, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: adsPosition.y
+      value: 319.1955
+      objectReference: {fileID: 0}
     - target: {fileID: 5634914203544353321, guid: 99fc002cf63d7f94984a5a14526de63a,
         type: 3}
       propertyPath: m_Name
