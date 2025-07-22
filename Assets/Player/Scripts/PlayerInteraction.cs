@@ -1,5 +1,6 @@
 using System;
 using Items;
+using Pause_Menu;
 using Tools_and_Scripts;
 using UnityEngine;
 
@@ -18,6 +19,9 @@ namespace Player.Scripts
 
         private void Update()
         {
+            if (PauseMenu.instance.IsPaused)
+                return;
+            
             if (PlayerInputs.GetRightShoulder() && registeredItem != null)
                 InteractWithItem();
         }

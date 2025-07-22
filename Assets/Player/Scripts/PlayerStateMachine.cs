@@ -13,6 +13,7 @@ namespace Player.Scripts
         
         public static PlayerStateMachine instance;
 
+        // Behaviour States
         public PlayerRun playerRun;
         public PlayerJump playerJump;
         public PlayerSlam playerSlam = new PlayerSlam();
@@ -22,9 +23,9 @@ namespace Player.Scripts
         public IPlayerBehaviour currentBehaviour;
         
         public Vector3 position => transform.position;
-        public bool isShooting => playerGun.isShooting;
-        public bool isAiming => playerGun.isAiming;
-        public bool isReloading => playerGun.isReloading;
+        public bool isShooting => playerShootGun.isShooting;
+        public bool isAiming => playerAiming.isAiming;
+        public bool isReloading => playerAmmo.isReloading;
         public bool isEquippingWeapon => playerGun.isEquippingWeapon;
         public bool isSliding => currentBehaviour.GetBehaviourType() == BehaviourType.Slide;
 
@@ -36,12 +37,18 @@ namespace Player.Scripts
 
         [HideInInspector] public Rigidbody rb;
         [HideInInspector] public PlayerGun playerGun;
+        [HideInInspector] public PlayerAiming playerAiming;
+        [HideInInspector] public PlayerAmmo playerAmmo;
+        [HideInInspector] public PlayerShootGun playerShootGun;
         
         private void Awake()
         {
             instance = this;
             rb = GetComponent<Rigidbody>();
             playerGun = GetComponent<PlayerGun>();
+            playerAiming = GetComponent<PlayerAiming>();
+            playerAmmo = GetComponent<PlayerAmmo>();
+            playerShootGun = GetComponent<PlayerShootGun>();
 
             playerRun = new PlayerRun(this);
             playerJump = new PlayerJump(this);

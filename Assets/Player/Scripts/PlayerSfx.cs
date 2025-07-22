@@ -34,15 +34,15 @@ namespace Player.Scripts
         private void Start()
         {
             player = GetComponent<PlayerStateMachine>();
-            player.playerGun.OnShoot.AddListener(PlayGunShotSound);
-            player.playerGun.OnShootEmptyMag.AddListener(() => SFXManager.instance.PlayRandomSFX(emptyMag));
-            player.playerGun.OnStartReloading.AddListener(() =>
+            player.playerShootGun.OnShoot.AddListener(PlayGunShotSound);
+            player.playerShootGun.OnShootEmptyMag.AddListener(() => SFXManager.instance.PlayRandomSFX(emptyMag));
+            player.playerAmmo.OnStartReloading.AddListener(() =>
             {
                 SFXManager.instance.PlayRandomSFX(ejectMag);
                 SFXManager.instance.PlayRandomSFX(insertMag, delay:insertDelay);
                 SFXManager.instance.PlayRandomSFX(cockGun, delay:cockDelay);
             });
-            player.playerGun.OnChangeAimState.AddListener((isAiming) =>
+            player.playerAiming.OnChangeAimState.AddListener((isAiming) =>
             {
                 SFXManager.instance.PlaySFX(isAiming ? adsInWoosh : adsOutWoosh, wooshVolume);
                 

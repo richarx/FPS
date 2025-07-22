@@ -18,13 +18,13 @@ namespace Player.Scripts
 
         public PlayerRun(PlayerStateMachine player)
         {
-            player.playerGun.OnChangeAimState.AddListener((isAiming) =>
+            player.playerAiming.OnChangeAimState.AddListener((isAiming) =>
             {
                 if (isAiming)
                     CancelSprint();
             });
-            player.playerGun.OnShoot.AddListener(CancelSprint);
-            player.playerGun.OnStartReloading.AddListener(CancelSprint);
+            player.playerShootGun.OnShoot.AddListener(CancelSprint);
+            player.playerAmmo.OnStartReloading.AddListener(CancelSprint);
         }
         
         public void StartBehaviour(PlayerStateMachine player, BehaviourType previous)

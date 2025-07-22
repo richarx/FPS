@@ -18,7 +18,7 @@ namespace Player.Scripts
         private void Start()
         {
             player = PlayerStateMachine.instance;
-            player.playerGun.OnChangeAimState.AddListener((isAiming) => ChangeFov(GetAimFov(isAiming)));
+            player.playerAiming.OnChangeAimState.AddListener((isAiming) => ChangeFov(GetAimFov(isAiming)));
             
             player.playerRun.OnStartSprinting.AddListener(() => ChangeFov(GetSprintFov()));
             player.playerRun.OnStopSprinting.AddListener(ResetFov);

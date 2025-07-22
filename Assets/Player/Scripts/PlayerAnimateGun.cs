@@ -45,7 +45,7 @@ namespace Player.Scripts
         {
             offsetPosition = Vector3.zero;
             player = GetComponent<PlayerStateMachine>();
-            player.playerGun.OnShoot.AddListener(() =>
+            player.playerShootGun.OnShoot.AddListener(() =>
             {
                 if (graphics != null)
                     graphics.Play(player.isAiming ? "Shoot_ADS" : "Shoot", 0, 0.0f);

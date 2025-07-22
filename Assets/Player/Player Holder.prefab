@@ -380,6 +380,9 @@ GameObject:
   - component: {fileID: 5697261387175072418}
   - component: {fileID: 9176794640023763368}
   - component: {fileID: 7117807148015091429}
+  - component: {fileID: 2392713915105528312}
+  - component: {fileID: 7748040577495489036}
+  - component: {fileID: 3664766614239933051}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -474,6 +477,9 @@ MonoBehaviour:
   isLocked: 0
   rb: {fileID: 0}
   playerGun: {fileID: 0}
+  playerAiming: {fileID: 0}
+  playerAmmo: {fileID: 0}
+  playerShootGun: {fileID: 0}
 --- !u!114 &8612742982520950148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,38 +492,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 989528b061ca06241906e387d8eb82e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootingPivot: {fileID: 2641997998149510464}
   gunPivot: {fileID: 3079031492957271179}
-  playerRecoil: {fileID: 1064677959288688331}
-  targetLayer:
-    serializedVersion: 2
-    m_Bits: 192
   OnEquipWeapon:
     m_PersistentCalls:
       m_Calls: []
   OnSwapWeapon:
     m_PersistentCalls:
       m_Calls: []
-  OnShoot:
-    m_PersistentCalls:
-      m_Calls: []
-  OnShootEmptyMag:
-    m_PersistentCalls:
-      m_Calls: []
-  OnStartReloading:
-    m_PersistentCalls:
-      m_Calls: []
-  OnStopReloading:
-    m_PersistentCalls:
-      m_Calls: []
-  OnChangeAimState:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHit:
-    m_PersistentCalls:
-      m_Calls: []
-  isAiming: 0
-  isReloading: 0
   isEquippingWeapon: 0
 --- !u!114 &6076765881001960936
 MonoBehaviour:
@@ -590,10 +571,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddfe95708d2e700488cbaff6f7a25438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gun: {fileID: 3079031492957271179}
-  reloadPosition: {x: 0, y: -600, z: 0}
-  adsPosition: {x: 0, y: 0, z: 0}
-  adsSize: {x: 1600, y: 1300}
   transitionFalloff: 1200
   jumpImpulsePower: 400
   landingImpulsePower: 15
@@ -664,6 +641,13 @@ MonoBehaviour:
   OnRefillAmmo:
     m_PersistentCalls:
       m_Calls: []
+  OnStartReloading:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStopReloading:
+    m_PersistentCalls:
+      m_Calls: []
+  isReloading: 0
 --- !u!114 &4989331124679090616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -728,6 +712,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7432698584fa64fa3884778e94a1cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2392713915105528312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236258945342678793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11224591f6ecd8744bf7e0f70997a247, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnChangeAimState:
+    m_PersistentCalls:
+      m_Calls: []
+  isAiming: 0
+--- !u!114 &7748040577495489036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236258945342678793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e63377f81f5214aa3e69afbf014e90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootingPivot: {fileID: 2641997998149510464}
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 193
+  OnShoot:
+    m_PersistentCalls:
+      m_Calls: []
+  OnShootEmptyMag:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHit:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &3664766614239933051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236258945342678793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 419ea39807519214190231ebbc810ba2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerRecoil: {fileID: 1064677959288688331}
 --- !u!1 &1356615833815831405
 GameObject:
   m_ObjectHideFlags: 0
@@ -3544,7 +3582,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 465.9945, y: -319.1955}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 880, y: 640}
   m_Pivot: {x: 0.522414, y: 0.51865}
 --- !u!1 &6676210793563043887
 GameObject:

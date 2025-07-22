@@ -17,7 +17,7 @@ namespace Player.Scripts
         private void Start()
         {
             player = GetComponent<PlayerStateMachine>();
-            player.playerGun.OnHit.AddListener(SpawnImpact);
+            player.playerShootGun.OnHit.AddListener(SpawnImpact);
             player.playerSlide.OnStartSlide.AddListener((_) => slideSpeedLines.SetActive(true));
             player.playerSlide.OnStopSlide.AddListener((_) => slideSpeedLines.SetActive(false));
         }

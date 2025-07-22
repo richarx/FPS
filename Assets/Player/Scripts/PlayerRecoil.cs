@@ -8,6 +8,7 @@ namespace Player.Scripts
     {
         private PlayerLook playerLook;
         private PlayerGun playerGun;
+        private PlayerShootGun playerShootGun;
         private PlayerData playerData;
         
         private Vector2 currentRecoil;
@@ -22,6 +23,7 @@ namespace Player.Scripts
             playerLook = GetComponent<PlayerLook>();
             playerGun = PlayerStateMachine.instance.playerGun;
             playerData = PlayerStateMachine.instance.playerData;
+            playerShootGun = PlayerStateMachine.instance.playerShootGun;
         }
 
         private void Update()
@@ -34,7 +36,7 @@ namespace Player.Scripts
                 Vector2 deltaRecoil = currentRecoil - previousRecoil;
                 playerLook.ApplyKickBack(deltaRecoil.x, deltaRecoil.y);
             }
-            else if (!playerGun.isShooting && !isReturning)
+            else if (!playerShootGun.isShooting && !isReturning)
             {
                 targetRecoil.y += (startingHeight - targetRecoil.y) * playerGun.CurrentWeapon.recoilCancelPower;
                 startingHeight = 0.0f;

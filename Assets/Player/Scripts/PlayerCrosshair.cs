@@ -13,7 +13,7 @@ namespace Player.Scripts
         private void Start()
         {
             player = PlayerStateMachine.instance;
-            player.playerGun.OnChangeAimState.AddListener((isAiming) =>
+            player.playerAiming.OnChangeAimState.AddListener((isAiming) =>
             {
                 StopAllCoroutines();
                 StartCoroutine(Tools.Fade(crosshair, fadeDuration, !isAiming));
