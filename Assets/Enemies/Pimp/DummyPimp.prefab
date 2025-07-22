@@ -21,10 +21,9 @@ GameObject:
   - component: {fileID: 3258821244943181251}
   - component: {fileID: 7013077048876284875}
   - component: {fileID: 2930619178031146486}
-  - component: {fileID: 9004007913876667464}
   - component: {fileID: 8684747910843393797}
   m_Layer: 6
-  m_Name: Pimp
+  m_Name: DummyPimp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -297,20 +296,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 794dd1df202e06f4bb13484c9e67d7e1, type: 3}
   - {fileID: 8300000, guid: 74a13dcb436a8994fa04d5c7704c1887, type: 3}
   - {fileID: 8300000, guid: 1cc3e3b6081cce24fba520ab81570204, type: 3}
---- !u!114 &9004007913876667464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1217254862977030381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c7330fe2a1393445ac97d12def6bfd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aggroRange: 100
-  stopMovingRange: 25
 --- !u!114 &8684747910843393797
 MonoBehaviour:
   m_ObjectHideFlags: 0

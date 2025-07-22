@@ -15,8 +15,8 @@ MonoBehaviour:
   weaponPrefab: {fileID: 3602875748352308952, guid: 755780a27fcdb7c42a74d91701dd351d,
     type: 3}
   bulletDistance: 250
-  startingAmmo: 8
-  reloadDuration: 1
+  startingAmmo: 12
+  reloadDuration: 0.5
   fireRate: 3
   xRecoil: 1
   yRecoil: 2

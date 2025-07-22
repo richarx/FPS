@@ -1,10 +1,10 @@
+using Items.Triggers;
 using Player.Scripts;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Items
 {
-    public class Interactable : MonoBehaviour
+    public class Interactable : Trigger
     {
         public enum ItemType
         {

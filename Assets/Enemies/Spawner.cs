@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using Items.Triggers;
 using UnityEngine;
 
 namespace Enemies
 {
     public class Spawner : MonoBehaviour
     {
-        [SerializeField] private Damageable trigger;
+        [SerializeField] private Trigger trigger;
         [SerializeField] private Damageable enemyPrefab;
         [SerializeField] private List<Transform> spawnPositions;
         [SerializeField] private AnimationCurve difficulty;
@@ -18,13 +19,24 @@ namespace Enemies
         
         private void Start()
         {
-            trigger.OnDeath.AddListener(StartSpawning);
+            trigger.OnTrigger.AddListener(() =>
+            {
+                if (isSpawning)
+                    StopSpawning();
+                else
+                    StartSpawning();
+            });
         }
 
         private void StartSpawning()
         {
             startSpawningTimestamp = Time.time;
             isSpawning = true;
+        }
+
+        private void StopSpawning()
+        {
+            isSpawning = false;
         }
 
         private void Update()
