@@ -23,8 +23,8 @@ MonoBehaviour:
   recoilSnappiness: 0.05
   recoilCancelSnappiness: 0.15
   recoilCancelPower: 1
-  isRaycast: 0
-  isFullAuto: 0
+  isRaycast: 1
+  isFullAuto: 1
   fovReductionOnAim: 20
   fovReductionOnSprint: -10
   fovReductionOnSlide: -30
@@ -40,3 +40,7 @@ MonoBehaviour:
   gunAnimationIdleDistance: 40
   gunAnimationIdleSpeed: 100
   gunAnimationSizeSpeed: 0.1
+  reloadPosition: {x: 0, y: -600, z: 0}
+  adsPosition: {x: -466, y: 319.2, z: 0}
+  hipSize: {x: 880, y: 640, z: 0}
+  adsSize: {x: 1600, y: 1300}

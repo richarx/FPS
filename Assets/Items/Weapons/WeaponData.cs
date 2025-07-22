@@ -47,5 +47,11 @@ namespace Items.Weapons
         
         [Space]
         public float gunAnimationSizeSpeed;
+        
+        [Space]
+        public Vector3 reloadPosition;
+        public Vector3 adsPosition;
+        public Vector3 hipSize;
+        public Vector2 adsSize;
     }
 }

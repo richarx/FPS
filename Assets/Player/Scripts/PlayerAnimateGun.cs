@@ -4,10 +4,6 @@ namespace Player.Scripts
 {
     public class PlayerAnimateGun : MonoBehaviour
     {
-        [SerializeField] private RectTransform gunPivot;
-        [SerializeField] private Vector3 reloadPosition;
-        [SerializeField] private Vector3 adsPosition;
-        [SerializeField] private Vector2 adsSize;
         [SerializeField] private float transitionFalloff;
         [SerializeField] private float jumpImpulsePower;
         [SerializeField] private float landingImpulsePower;
@@ -158,7 +154,7 @@ namespace Player.Scripts
             if (graphics == null)
                 return;
             
-            Vector2 target = player.isAiming ? adsSize : new Vector2(880.0f, 640.0f);
+            Vector2 target = player.isAiming ? player.playerGun.CurrentWeapon.adsSize : player.playerGun.CurrentWeapon.hipSize;
             Vector2 newSize = Vector2.SmoothDamp(gun.sizeDelta, target, ref sizeVelocity, player.playerGun.CurrentWeapon.gunAnimationSizeSpeed);
             gun.sizeDelta = newSize;
 
@@ -201,8 +197,8 @@ namespace Player.Scripts
         
         private void HideGun()
         {
-            Vector3 position = player.isAiming ? adsPosition : initialPosition;
-            targetPosition = position + reloadPosition;
+            Vector3 position = player.isAiming ? player.playerGun.CurrentWeapon.adsPosition : initialPosition;
+            targetPosition = position + player.playerGun.CurrentWeapon.reloadPosition;
         }
         
         private void ShootingGun()
@@ -212,7 +208,7 @@ namespace Player.Scripts
         
         private void AimDownSight()
         {
-            targetPosition = adsPosition;
+            targetPosition = player.playerGun.CurrentWeapon.adsPosition;
         }
 
         private void RunningGun()
