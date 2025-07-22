@@ -205,13 +205,15 @@ namespace Tools_and_Scripts
     
         public static bool GetRightShoulder(bool isHeld = false)
         {
-            if (Gamepad.current == null)
-                return false;
+            bool gamepad = false;
+            bool mouse = false;
         
-            if (isHeld)
-                return Gamepad.current.rightShoulder.isPressed;
+            if (Gamepad.current != null)
+                gamepad = isHeld ? Gamepad.current.rightShoulder.isPressed : Gamepad.current.rightShoulder.wasPressedThisFrame;
+
+            mouse = isHeld ? Keyboard.current.eKey.isPressed : Keyboard.current.eKey.wasPressedThisFrame;
         
-            return Gamepad.current.rightShoulder.wasPressedThisFrame;
+            return mouse || gamepad;
         }
 
         public static bool GetLeftTrigger(bool isHeld = false)
