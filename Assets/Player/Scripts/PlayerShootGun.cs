@@ -24,6 +24,7 @@ namespace Player.Scripts
         public bool isShooting => !CanShoot();
         
         private float lastShotTimestamp;
+        private bool isInputReset = true;
 
         private void Start()
         {
@@ -41,7 +42,13 @@ namespace Player.Scripts
                 return;
 
             if (CanShoot() && PlayerInputs.GetRightTrigger(isHeld: true))
+            {
                 Shoot();
+                isInputReset = false;
+            }
+            
+            if (!isInputReset && !PlayerInputs.GetRightTrigger(isHeld: true))
+                isInputReset = true;
         }
         
         private void Shoot()
@@ -71,7 +78,6 @@ namespace Player.Scripts
             SurfaceData.SurfaceType surfaceType = SurfaceData.SurfaceType.None;
             for (int i = 0; i < hit.Length; i++)
             {
-                
                 Damageable damageable = hit[i].collider.GetComponent<Damageable>();
                 if (damageable != null)
                 {
@@ -90,7 +96,13 @@ namespace Player.Scripts
 
         private bool CanShoot()
         {
-            return playerGun.CurrentWeapon != null && Time.time - lastShotTimestamp >= 1.0f / playerGun.CurrentWeapon.fireRate;
+            if (playerGun.CurrentWeapon == null)
+                return false;
+            
+            if (playerGun.CurrentWeapon.isFullAuto)
+                return Time.time - lastShotTimestamp >= 1.0f / playerGun.CurrentWeapon.fireRate;
+            else
+                return isInputReset;
         }
     }
 }
