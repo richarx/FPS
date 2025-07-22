@@ -36,7 +36,7 @@ namespace Player.Scripts
                 Vector2 deltaRecoil = currentRecoil - previousRecoil;
                 playerLook.ApplyKickBack(deltaRecoil.x, deltaRecoil.y);
             }
-            else if (!playerShootGun.isShooting && !isReturning)
+            else if (playerGun.hasWeapon && !playerShootGun.isShooting && !isReturning)
             {
                 targetRecoil.y += (startingHeight - targetRecoil.y) * playerGun.CurrentWeapon.recoilCancelPower;
                 startingHeight = 0.0f;

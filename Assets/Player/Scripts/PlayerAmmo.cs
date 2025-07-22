@@ -40,7 +40,7 @@ namespace Player.Scripts
                 OnStopReloading?.Invoke();
             }
             
-            if (isReloading || player.playerGun.isEquippingWeapon || player.playerGun.CurrentWeapon == null)
+            if (isReloading || player.playerGun.isEquippingWeapon || !player.playerGun.hasWeapon)
                 return;
             
             if (PlayerInputs.GetWestButton())

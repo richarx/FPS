@@ -21,7 +21,7 @@ namespace Player.Scripts
         private PlayerAmmo playerAmmo;
         private PlayerGunKickback playerGunKickback;
         
-        public bool isShooting => !CanShoot();
+        public bool isShooting => Time.time - lastShotTimestamp <= 0.2f;
         
         private float lastShotTimestamp;
         private bool isInputReset = true;
@@ -38,7 +38,7 @@ namespace Player.Scripts
             if (PauseMenu.instance.IsPaused)
                 return;
             
-            if (playerAmmo.isReloading || playerGun.isEquippingWeapon || playerGun.CurrentWeapon == null)
+            if (playerAmmo.isReloading || playerGun.isEquippingWeapon || !playerGun.hasWeapon)
                 return;
 
             if (CanShoot() && PlayerInputs.GetRightTrigger(isHeld: true))
@@ -96,7 +96,7 @@ namespace Player.Scripts
 
         private bool CanShoot()
         {
-            if (playerGun.CurrentWeapon == null)
+            if (!playerGun.hasWeapon)
                 return false;
             
             if (playerGun.CurrentWeapon.isFullAuto)
