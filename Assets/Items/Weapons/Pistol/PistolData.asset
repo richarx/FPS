@@ -41,6 +41,6 @@ MonoBehaviour:
   gunAnimationIdleSpeed: 100
   gunAnimationSizeSpeed: 0.1
   reloadPosition: {x: 0, y: -600, z: 0}
-  adsPosition: {x: -319, y: 194, z: 0}
-  hipSize: {x: 1140, y: 730, z: 0}
-  adsSize: {x: 1044, y: 970}
+  adsPosition: {x: -397.8, y: 170.7, z: 0}
+  hipSize: {x: 1174, y: 855.7, z: 0}
+  adsSize: {x: 1112.4, y: 1000.7}
