@@ -6,6 +6,7 @@ namespace Tools_and_Scripts
     public class LookAtPlayer : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer sr;
+        [SerializeField] private bool isAllowedToLean;
         
         private Transform player;
 
@@ -20,7 +21,12 @@ namespace Tools_and_Scripts
 
         private void LateUpdate()
         {
-            transform.LookAt(player.position, Vector3.up);
+            Vector3 position = player.position;
+            
+            if (!isAllowedToLean)
+                position.y = transform.position.y;
+            
+            transform.LookAt(position, Vector3.up);
         }
     }
 }
