@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 753727923581277864}
   - component: {fileID: 5614181354682665201}
   - component: {fileID: 4762171897179394912}
+  - component: {fileID: 1739163291334731603}
   m_Layer: 8
   m_Name: Loot_AK47
   m_TagString: Untagged
@@ -220,6 +221,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &1739163291334731603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3677275250429599229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ef2c03d99c20f547a3351f8436a7a7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 5188482113270175821}
+  glideSpeed: 2
+  glideAmplitude: 0.15
 --- !u!1 &9093071990426674819
 GameObject:
   m_ObjectHideFlags: 0

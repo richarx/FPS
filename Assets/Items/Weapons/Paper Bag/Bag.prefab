@@ -67,6 +67,7 @@ GameObject:
   - component: {fileID: 1365646198144606170}
   - component: {fileID: 6669578478833613357}
   - component: {fileID: 3455621833941988564}
+  - component: {fileID: 1266765901704187021}
   m_Layer: 8
   m_Name: Bag
   m_TagString: Untagged
@@ -189,6 +190,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &1266765901704187021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987154101014960622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ef2c03d99c20f547a3351f8436a7a7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 7106726772145075788}
+  glideSpeed: 2
+  glideAmplitude: 0.15
 --- !u!1 &3202324984456210236
 GameObject:
   m_ObjectHideFlags: 0
