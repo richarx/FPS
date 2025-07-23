@@ -25,6 +25,25 @@ MonoBehaviour:
   recoilCancelPower: 1
   isRaycast: 1
   isFullAuto: 0
+  gunShotFirst: {fileID: 0}
+  gunShot:
+  - {fileID: 8300000, guid: 3cc75a7f908b3ce49831e0cd468f6f41, type: 3}
+  - {fileID: 8300000, guid: 5df5b4b9eb5b633479cad29a9a5d9407, type: 3}
+  - {fileID: 8300000, guid: be5bc395bae6df741beebe5b6a947969, type: 3}
+  gunShotTail: {fileID: 0}
+  emptyMag:
+  - {fileID: 8300000, guid: 7a28ded3cf52ba4418623cd458f5374d, type: 3}
+  ejectMag: []
+  insertMag:
+  - {fileID: 8300000, guid: 8b16f83ef0be5754b887928b18afa872, type: 3}
+  cockGun:
+  - {fileID: 8300000, guid: 3e9b8e14779fad3469fe172bea45e506, type: 3}
+  - {fileID: 8300000, guid: bba2c30731d52d3469b50f29844efb10, type: 3}
+  - {fileID: 8300000, guid: 33db9d1f871974443b62d3b4649c77a8, type: 3}
+  adsClick:
+  - {fileID: 8300000, guid: 94ee927b497fe27478924f0b96e5460d, type: 3}
+  cockDelay: 1
+  shotVolume: 0.1
   fovReductionOnAim: 20
   fovReductionOnSprint: -10
   fovReductionOnSlide: -30

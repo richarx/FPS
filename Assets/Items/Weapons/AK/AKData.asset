@@ -25,6 +25,31 @@ MonoBehaviour:
   recoilCancelPower: 1
   isRaycast: 1
   isFullAuto: 1
+  gunShotFirst: {fileID: 8300000, guid: 756bc0988504d31488ab1e5b17e5c4fc, type: 3}
+  gunShot:
+  - {fileID: 8300000, guid: 6fad2c2eeb5002d4d814bc38f9e14406, type: 3}
+  - {fileID: 8300000, guid: e09f5fc5adfb30f479f4eb54714cc1fe, type: 3}
+  - {fileID: 8300000, guid: 5c783d84aa9964645b2f2844983d7839, type: 3}
+  - {fileID: 8300000, guid: 0035f7eafd22d0a478675ad5b6188c02, type: 3}
+  - {fileID: 8300000, guid: fd5e17891575be244842bec42901a83b, type: 3}
+  - {fileID: 8300000, guid: b41e072b29c29f64eb2fa65f3aad038f, type: 3}
+  - {fileID: 8300000, guid: e724c8501e151894ab980580ac0c9630, type: 3}
+  - {fileID: 8300000, guid: aeb9122820daac843a9900b65c6f181d, type: 3}
+  gunShotTail: {fileID: 8300000, guid: d7d7f8dead084ac4e9c417d69c660b77, type: 3}
+  emptyMag:
+  - {fileID: 8300000, guid: df5d5b3ed3111c44eab3f859316f383c, type: 3}
+  ejectMag:
+  - {fileID: 8300000, guid: e7eadce38ecd71e4f9e40e3304cc3466, type: 3}
+  - {fileID: 8300000, guid: 8e14e5cac3cc842409a00ffac0a3955f, type: 3}
+  insertMag:
+  - {fileID: 8300000, guid: 813ffb0c3cfc6124dbc5bd401ea5bbb5, type: 3}
+  - {fileID: 8300000, guid: 1f102db6962b4f74d871894a275f11c4, type: 3}
+  cockGun:
+  - {fileID: 8300000, guid: 3e9b8e14779fad3469fe172bea45e506, type: 3}
+  - {fileID: 8300000, guid: bba2c30731d52d3469b50f29844efb10, type: 3}
+  - {fileID: 8300000, guid: 33db9d1f871974443b62d3b4649c77a8, type: 3}
+  adsClick:
+  - {fileID: 8300000, guid: 86407fc586a068046afceaa3b1747d0e, type: 3}
   fovReductionOnAim: 20
   fovReductionOnSprint: -10
   fovReductionOnSlide: -30

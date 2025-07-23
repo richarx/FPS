@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Items.Weapons
@@ -20,7 +21,19 @@ namespace Items.Weapons
         public float recoilCancelPower;
         public bool isRaycast;
         public bool isFullAuto;
-    
+        
+        [Space] [Header("Sounds")]
+        public AudioClip gunShotFirst;
+        public List<AudioClip> gunShot;
+        public AudioClip gunShotTail;
+        public List<AudioClip> emptyMag;
+        public List<AudioClip> ejectMag;
+        public List<AudioClip> insertMag;
+        public List<AudioClip> cockGun;
+        public List<AudioClip> adsClick;
+        public float cockDelay;
+        public float shotVolume;
+
         [Space] [Header("FOV Animation")]
         public float fovReductionOnAim;
         public float fovReductionOnSprint;
