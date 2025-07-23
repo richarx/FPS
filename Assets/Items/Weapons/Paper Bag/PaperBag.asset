@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponPrefab: {fileID: 3602875748352308952, guid: e68748ce4df645d458a3b701fb0ff2f5,
     type: 3}
+  lootPrefab: {fileID: 1987154101014960622, guid: 345feaa44556eca4c8efc5decbca3044,
+    type: 3}
   bulletDistance: 250
   startingAmmo: 32
   reloadDuration: 1.5
@@ -25,6 +27,16 @@ MonoBehaviour:
   recoilCancelPower: 1
   isRaycast: 1
   isFullAuto: 1
+  gunShotFirst: {fileID: 0}
+  gunShot: []
+  gunShotTail: {fileID: 0}
+  emptyMag: []
+  ejectMag: []
+  insertMag: []
+  cockGun: []
+  adsClick: []
+  cockDelay: 0
+  shotVolume: 0
   fovReductionOnAim: 20
   fovReductionOnSprint: -10
   fovReductionOnSlide: -30

@@ -24,7 +24,7 @@ namespace Player.Scripts
         private void Start()
         {
             player = GetComponent<PlayerStateMachine>();
-            player.playerGun.OnEquipWeapon.AddListener(() => currentAmmo = GetMaxAmmo());
+            player.playerGun.OnSwapWeapon.AddListener((_) => currentAmmo = GetMaxAmmo());
             currentAmmo = GetMaxAmmo();
         }
 
@@ -40,7 +40,7 @@ namespace Player.Scripts
                 OnStopReloading?.Invoke();
             }
             
-            if (isReloading || player.playerGun.isEquippingWeapon || !player.playerGun.hasWeapon)
+            if (isReloading || !player.playerGun.hasWeapon)
                 return;
             
             if (PlayerInputs.GetWestButton())

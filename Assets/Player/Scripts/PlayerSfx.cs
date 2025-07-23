@@ -12,6 +12,9 @@ namespace Player.Scripts
         [SerializeField] private List<AudioClip> jumpWoosh;
         [SerializeField] private List<AudioClip> landingLight;
         [SerializeField] private List<AudioClip> slideStart;
+        public List<AudioClip> equipWeapon;
+        public List<AudioClip> equipWeapon_2;
+
 
         private const float wooshVolume = 0.01f;
         private const float insertDelay = 0.6f;
@@ -33,6 +36,12 @@ namespace Player.Scripts
             {
                 SFXManager.instance.PlayRandomSFX(currentWeapon.ejectMag);
                 SFXManager.instance.PlayRandomSFX(currentWeapon.insertMag, delay:insertDelay);
+                SFXManager.instance.PlayRandomSFX(currentWeapon.cockGun, delay:currentWeapon.cockDelay);
+            });
+            player.playerGun.OnSwapWeapon.AddListener((_) =>
+            {
+                SFXManager.instance.PlayRandomSFX(equipWeapon);
+                SFXManager.instance.PlayRandomSFX(equipWeapon_2);
                 SFXManager.instance.PlayRandomSFX(currentWeapon.cockGun, delay:currentWeapon.cockDelay);
             });
             player.playerAiming.OnChangeAimState.AddListener((isAiming) =>

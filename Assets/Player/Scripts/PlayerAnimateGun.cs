@@ -54,6 +54,8 @@ namespace Player.Scripts
             {
                 gun = weapon.GetComponent<RectTransform>();
                 graphics = weapon.GetComponent<Animator>();
+                Vector3 position = player.isAiming ? player.playerGun.CurrentWeapon.adsPosition : initialPosition;
+                gun.localPosition = position + player.playerGun.CurrentWeapon.reloadPosition;
             });
             player.playerJump.OnJump.AddListener(() => { offsetPosition.y = -jumpImpulsePower; });
             player.playerJump.OnGroundedChanged.AddListener((isGrounded, impactPower) =>
@@ -74,7 +76,7 @@ namespace Player.Scripts
 
             bool isGrounded = player.playerJump.isGrounded;
 
-            if (player.isReloading || player.isEquippingWeapon)
+            if (player.isReloading)
                 HideGun();
             else if (player.isAiming)
                 AimDownSight();

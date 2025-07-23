@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponPrefab: {fileID: 3602875748352308952, guid: 755780a27fcdb7c42a74d91701dd351d,
     type: 3}
+  lootPrefab: {fileID: 7570925612291194650, guid: 272e6002f7a491e448e1b89c6e18dc6e,
+    type: 3}
   bulletDistance: 250
   startingAmmo: 12
   reloadDuration: 0.5

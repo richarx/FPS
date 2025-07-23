@@ -8,6 +8,7 @@ namespace Items.Weapons
     {
         [Header("Prefabs")] 
         public GameObject weaponPrefab;
+        public GameObject lootPrefab;
         
         [Header("Stats")] 
         public float bulletDistance;

@@ -45,6 +45,11 @@ namespace Data
         public float airMaxSpeed;
         public float airAcceleration;
         public float airDeceleration;
+
+        [Space] [Header("Misc")] 
+        public float throwWeaponForce;
+        public float throwWeaponHeightOffset;
+        public float throwWeaponSideOffset;
         
         [Space] [Header("FOV Animation")]
         public float fovReductionOnAim;

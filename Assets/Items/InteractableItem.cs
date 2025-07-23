@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,10 +11,23 @@ namespace Items
         [SerializeField] private Sprite outlineSprite;
 
         [HideInInspector] public UnityEvent OnLoot = new UnityEvent();
+
+        private Rigidbody rb;
         
+        private void Start()
+        {
+            rb = GetComponent<Rigidbody>();
+        }
+
         public override void Interact()
         {
             OnLoot?.Invoke();
+            Destroy(gameObject);
+        }
+        
+        protected override bool CanInteract()
+        {
+            return rb.velocity.magnitude <= 1.5f;
         }
         
         protected override void SetItemDisplay(bool isInteractable)

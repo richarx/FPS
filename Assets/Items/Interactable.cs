@@ -24,16 +24,21 @@ namespace Items
         {
             
         }
-    
-        private void OnTriggerEnter(Collider other)
+
+        protected virtual bool CanInteract()
         {
-            if (other.attachedRigidbody.CompareTag("Player"))
+            return true;
+        }
+    
+        private void OnTriggerStay(Collider other)
+        {
+            if (!isPlayerInRange && CanInteract() && other.attachedRigidbody != null && other.attachedRigidbody.CompareTag("Player"))
                 OnPlayerEnterRange();
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.attachedRigidbody.CompareTag("Player"))
+            if (isPlayerInRange && other.attachedRigidbody != null && other.attachedRigidbody.CompareTag("Player"))
                 OnPlayerExitRange();
         }
     

@@ -20,6 +20,10 @@ namespace Player.Scripts
         private PlayerGun playerGun;
         private PlayerAmmo playerAmmo;
         private PlayerGunKickback playerGunKickback;
+
+        public Vector3 shootingPosition => shootingPivot.position;
+        public Vector3 shootingDirection => shootingPivot.forward;
+        public Vector3 rightDirection => shootingPivot.right;
         
         public bool isShooting => Time.time - lastShotTimestamp <= 0.2f;
         
@@ -38,7 +42,7 @@ namespace Player.Scripts
             if (PauseMenu.instance.IsPaused)
                 return;
             
-            if (playerAmmo.isReloading || playerGun.isEquippingWeapon || !playerGun.hasWeapon)
+            if (playerAmmo.isReloading || !playerGun.hasWeapon)
                 return;
 
             if (CanShoot() && PlayerInputs.GetRightTrigger(isHeld: true))
@@ -71,9 +75,7 @@ namespace Player.Scripts
 
         private void ShootRaycast()
         {
-            Vector3 position = shootingPivot.position;
-            Vector3 direction = shootingPivot.forward;
-            RaycastHit[] hit = Physics.RaycastAll(position, direction, playerGun.CurrentWeapon.bulletDistance, targetLayer);
+            RaycastHit[] hit = Physics.RaycastAll(shootingPosition, shootingDirection, playerGun.CurrentWeapon.bulletDistance, targetLayer);
 
             SurfaceData.SurfaceType surfaceType = SurfaceData.SurfaceType.None;
             for (int i = 0; i < hit.Length; i++)
@@ -81,7 +83,7 @@ namespace Player.Scripts
                 Damageable damageable = hit[i].collider.GetComponent<Damageable>();
                 if (damageable != null)
                 {
-                    Vector3 hitPosition = position + (direction.normalized * hit[i].distance);
+                    Vector3 hitPosition = shootingPosition + (shootingDirection.normalized * hit[i].distance);
                     damageable.TakeDamage(1.0f, hitPosition);
                     OnHit?.Invoke(hitPosition, SurfaceData.SurfaceType.Enemy);
                     return;
@@ -91,7 +93,7 @@ namespace Player.Scripts
             }
             
             if (surfaceType != SurfaceData.SurfaceType.None)
-                OnHit?.Invoke(position + (direction.normalized * hit[0].distance), surfaceType);
+                OnHit?.Invoke(shootingPosition + (shootingDirection.normalized * hit[0].distance), surfaceType);
         }
 
         private bool CanShoot()
