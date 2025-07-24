@@ -71,12 +71,15 @@ namespace Player.Scripts
 
         private Quaternion initialRotation;
 
+        private RectTransform graphicsTransform;
+
         private void Start()
         {
             offsetPosition = Vector3.zero;
             initialPosition = Vector3.zero;
             initialRotation = Quaternion.identity;
             GetComponent<RectTransform>().localPosition = initialPosition;
+            graphicsTransform = graphics.gameObject.GetComponent<RectTransform>();
             
             player = PlayerStateMachine.instance;
             
@@ -186,10 +189,10 @@ namespace Player.Scripts
                 return;
             
             Vector2 target = player.isAiming ? adsSize : hipSize;
-            Vector2 newSize = Vector2.SmoothDamp(gun.sizeDelta, target, ref sizeVelocity, gunAnimationSizeSpeed);
-            gun.sizeDelta = newSize;
+            Vector2 newSize = Vector2.SmoothDamp(graphicsTransform.sizeDelta, target, ref sizeVelocity, gunAnimationSizeSpeed);
+            graphicsTransform.sizeDelta = newSize;
             
-            Debug.Log($"Update Size : {target} / {gun.sizeDelta} / {gunAnimationSizeSpeed}");
+            Debug.Log($"Update Size : {target} / {graphicsTransform.sizeDelta} / {gunAnimationSizeSpeed}");
 
             bool isPlayingShootingAnimation = graphics.GetCurrentAnimatorStateInfo(0).IsName("Shoot") ||
                                               graphics.GetCurrentAnimatorStateInfo(0).IsName("Shoot_ADS");

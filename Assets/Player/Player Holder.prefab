@@ -462,7 +462,6 @@ GameObject:
   - component: {fileID: 7444908774910304636}
   - component: {fileID: 8612742982520950148}
   - component: {fileID: 6076765881001960936}
-  - component: {fileID: 3130268381852602373}
   - component: {fileID: 6615129651493764458}
   - component: {fileID: 3474642031477334206}
   - component: {fileID: 9035183170325145851}
@@ -562,6 +561,7 @@ MonoBehaviour:
   playerData: {fileID: 11400000, guid: 6881bad086a3fdc4dbe206af7da465a4, type: 2}
   vfxData: {fileID: 11400000, guid: 1b4236f887a44974e8f8f58e48f0b00c, type: 2}
   surfaceData: {fileID: 11400000, guid: 6d8b74fb2f3d5c24bbc099b7b3269f91, type: 2}
+  muzzleFlashHolder: {fileID: 0}
   moveInput: {x: 0, y: 0}
   moveVelocity: {x: 0, y: 0, z: 0}
   canBeInterruptedByLanding: 1
@@ -624,29 +624,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4f7ea285a7e86ec49983078c2a7130d5, type: 3}
   - {fileID: 8300000, guid: 339f8b7ffc42b1849a24a299ec27e4a7, type: 3}
   - {fileID: 8300000, guid: 09f79083617ed37409716ae22728cc95, type: 3}
---- !u!114 &3130268381852602373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1236258945342678793}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddfe95708d2e700488cbaff6f7a25438, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transitionFalloff: 1200
-  jumpImpulsePower: 400
-  landingImpulsePower: 15
-  fallOffsetPower: 100
-  tiltRotationAmount: -10
-  tiltSmoothTime: 5
-  tiltSnapBackTime: 10
-  minTilt: -10
-  maxTilt: 10
-  slideShakePowerX: 500
-  slideShakePowerY: 100
 --- !u!114 &6615129651493764458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2390,6 +2367,7 @@ RectTransform:
   - {fileID: 6564430047199383382}
   - {fileID: 5554232586605108779}
   - {fileID: 5315420512699133828}
+  - {fileID: 3490661533929087804}
   - {fileID: 7543719600651675910}
   - {fileID: 1081912285822752809}
   - {fileID: 1917246342761212625}
@@ -2540,6 +2518,41 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &3585374285122011876
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3490661533929087804}
+  m_Layer: 5
+  m_Name: MuzzleFlash Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3490661533929087804
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3585374285122011876}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 965784254339680914}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3758397501601260389
 GameObject:
   m_ObjectHideFlags: 0
