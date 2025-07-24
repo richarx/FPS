@@ -39,33 +39,5 @@ namespace Items.Weapons
         public float fovReductionOnAim;
         public float fovReductionOnSprint;
         public float fovReductionOnSlide;
-
-        [Space] [Header("Weapon Animation")]
-        public float gunAnimationCosSpeed;
-        public float gunAnimationCosSpeedSprinting;
-        public float gunAnimationSinSpeed;
-        public float gunAnimationSinSpeedSprinting;
-        
-        [Space]
-        public float gunAnimationDistance;
-        public float gunAnimationDistanceSprinting;
-        public float gunAnimationSmoothTime;
-        
-        [Space]
-        public float gunAnimationLateralDistance;
-        public float gunAnimationLateralSmoothTime;
-        
-        [Space]
-        public float gunAnimationIdleDistance;
-        public float gunAnimationIdleSpeed;
-        
-        [Space]
-        public float gunAnimationSizeSpeed;
-        
-        [Space]
-        public Vector3 reloadPosition;
-        public Vector3 adsPosition;
-        public Vector3 hipSize;
-        public Vector2 adsSize;
     }
 }

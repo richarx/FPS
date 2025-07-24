@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8550891669866144094}
   - component: {fileID: 1557802902202225317}
-  - component: {fileID: 6004030672152455668}
-  - component: {fileID: 1754804219982114420}
+  - component: {fileID: 3584556795204453537}
   m_Layer: 5
   m_Name: Pistol
   m_TagString: Untagged
@@ -30,7 +29,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 8665616392978318309}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -46,13 +46,101 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3602875748352308952}
   m_CullTransparentMesh: 1
---- !u!114 &6004030672152455668
+--- !u!114 &3584556795204453537
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3602875748352308952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddfe95708d2e700488cbaff6f7a25438, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gun: {fileID: 8665616392978318309}
+  graphics: {fileID: 7371427624038439154}
+  transitionFalloff: 1200
+  jumpImpulsePower: 400
+  landingImpulsePower: 15
+  fallOffsetPower: 100
+  tiltRotationAmount: -10
+  tiltSmoothTime: 5
+  tiltSnapBackTime: 10
+  minTilt: -10
+  maxTilt: 10
+  slideShakePowerX: 500
+  slideShakePowerY: 100
+  gunAnimationCosSpeed: 800
+  gunAnimationCosSpeedSprinting: 2
+  gunAnimationSinSpeed: 400
+  gunAnimationSinSpeedSprinting: 2
+  gunAnimationDistance: 80
+  gunAnimationDistanceSprinting: 3
+  gunAnimationSmoothTime: 0.1
+  gunAnimationLateralDistance: 150
+  gunAnimationLateralSmoothTime: 0.5
+  gunAnimationIdleDistance: 40
+  gunAnimationIdleSpeed: 100
+  gunAnimationSizeSpeed: 0.1
+  reloadPosition: {x: 0, y: -600, z: 0}
+  adsPosition: {x: -393.6, y: 170.7, z: 0}
+  hipSize: {x: 1174, y: 855.7, z: 0}
+  adsSize: {x: 1112.4, y: 1000.7}
+--- !u!1 &3700819000467180912
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8665616392978318309}
+  - component: {fileID: 246383597271301827}
+  - component: {fileID: 7088287786555049706}
+  - component: {fileID: 7371427624038439154}
+  m_Layer: 5
+  m_Name: graphics
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8665616392978318309
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3700819000467180912}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 4886850362627321310}
+  m_Father: {fileID: 8550891669866144094}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1140, y: 730}
+  m_Pivot: {x: 0.522414, y: 0.51865}
+--- !u!222 &246383597271301827
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3700819000467180912}
+  m_CullTransparentMesh: 1
+--- !u!114 &7088287786555049706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3700819000467180912}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -77,14 +165,14 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!95 &1754804219982114420
+--- !u!95 &7371427624038439154
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3602875748352308952}
+  m_GameObject: {fileID: 3700819000467180912}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 4674fa1d0c348824dad44a310c7acdbd, type: 2}
@@ -98,3 +186,38 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &4749044693843377301
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4886850362627321310}
+  m_Layer: 5
+  m_Name: Muzzle Pivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4886850362627321310
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4749044693843377301}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8665616392978318309}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -72.4, y: 231.5}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 399f168500134254abea0a82c65e79df, type: 3}
   m_Name: VFXData
   m_EditorClassIdentifier: 
-  hitMarkDuration: 0.3
+  hitMarkDuration: 0.1
   hitMarkFadeDuration: 0.1
   freezeFrameDuration: 0.05
   freezeFrameIntensity: 0.3

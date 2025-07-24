@@ -4,6 +4,10 @@ namespace Player.Scripts
 {
     public class PlayerAnimateGun : MonoBehaviour
     {
+        [SerializeField] private RectTransform gun;
+        [SerializeField] private Animator graphics;
+        
+        [Space]
         [SerializeField] private float transitionFalloff;
         [SerializeField] private float jumpImpulsePower;
         [SerializeField] private float landingImpulsePower;
@@ -19,9 +23,35 @@ namespace Player.Scripts
         [Space]
         [SerializeField] private float slideShakePowerX;
         [SerializeField] private float slideShakePowerY;
+        
+        [Space]
+        public float gunAnimationCosSpeed;
+        public float gunAnimationCosSpeedSprinting;
+        public float gunAnimationSinSpeed;
+        public float gunAnimationSinSpeedSprinting;
+        
+        [Space]
+        public float gunAnimationDistance;
+        public float gunAnimationDistanceSprinting;
+        public float gunAnimationSmoothTime;
+        
+        [Space]
+        public float gunAnimationLateralDistance;
+        public float gunAnimationLateralSmoothTime;
+        
+        [Space]
+        public float gunAnimationIdleDistance;
+        public float gunAnimationIdleSpeed;
+        
+        [Space]
+        public float gunAnimationSizeSpeed;
+        
+        [Space]
+        public Vector3 reloadPosition;
+        public Vector3 adsPosition;
+        public Vector3 hipSize;
+        public Vector2 adsSize;
 
-        private RectTransform gun;
-        private Animator graphics;
         private PlayerStateMachine player;
 
         private float sinTimer = 0.0f;
@@ -44,18 +74,19 @@ namespace Player.Scripts
         private void Start()
         {
             offsetPosition = Vector3.zero;
-            player = GetComponent<PlayerStateMachine>();
+            initialPosition = Vector3.zero;
+            initialRotation = Quaternion.identity;
+            GetComponent<RectTransform>().localPosition = initialPosition;
+            
+            player = PlayerStateMachine.instance;
+            
+            Vector3 position = player.isAiming ? adsPosition : initialPosition;
+            gun.localPosition = position + reloadPosition;
+            
             player.playerShootGun.OnShoot.AddListener(() =>
             {
                 if (graphics != null)
                     graphics.Play(player.isAiming ? "Shoot_ADS" : "Shoot", 0, 0.0f);
-            });
-            player.playerGun.OnSwapWeapon.AddListener((weapon) =>
-            {
-                gun = weapon.GetComponent<RectTransform>();
-                graphics = weapon.GetComponent<Animator>();
-                Vector3 position = player.isAiming ? player.playerGun.CurrentWeapon.adsPosition : initialPosition;
-                gun.localPosition = position + player.playerGun.CurrentWeapon.reloadPosition;
             });
             player.playerJump.OnJump.AddListener(() => { offsetPosition.y = -jumpImpulsePower; });
             player.playerJump.OnGroundedChanged.AddListener((isGrounded, impactPower) =>
@@ -63,8 +94,6 @@ namespace Player.Scripts
                 if (isGrounded)
                     offsetPosition.y = -landingImpulsePower * impactPower;
             });
-            initialPosition = Vector3.zero;
-            initialRotation = Quaternion.identity;
         }
 
         private void Update()
@@ -156,9 +185,11 @@ namespace Player.Scripts
             if (graphics == null)
                 return;
             
-            Vector2 target = player.isAiming ? player.playerGun.CurrentWeapon.adsSize : player.playerGun.CurrentWeapon.hipSize;
-            Vector2 newSize = Vector2.SmoothDamp(gun.sizeDelta, target, ref sizeVelocity, player.playerGun.CurrentWeapon.gunAnimationSizeSpeed);
+            Vector2 target = player.isAiming ? adsSize : hipSize;
+            Vector2 newSize = Vector2.SmoothDamp(gun.sizeDelta, target, ref sizeVelocity, gunAnimationSizeSpeed);
             gun.sizeDelta = newSize;
+            
+            Debug.Log($"Update Size : {target} / {gun.sizeDelta} / {gunAnimationSizeSpeed}");
 
             bool isPlayingShootingAnimation = graphics.GetCurrentAnimatorStateInfo(0).IsName("Shoot") ||
                                               graphics.GetCurrentAnimatorStateInfo(0).IsName("Shoot_ADS");
@@ -169,9 +200,9 @@ namespace Player.Scripts
 
         private void UpdateTimers()
         {
-            sinTimer += Time.deltaTime * player.playerGun.CurrentWeapon.gunAnimationSinSpeed * (player.playerRun.isSprinting ? player.playerGun.CurrentWeapon.gunAnimationSinSpeedSprinting : 1.0f);
-            cosTimer += Time.deltaTime * player.playerGun.CurrentWeapon.gunAnimationCosSpeed * (player.playerRun.isSprinting ? player.playerGun.CurrentWeapon.gunAnimationCosSpeedSprinting : 1.0f);
-            idleTimer += Time.deltaTime * player.playerGun.CurrentWeapon.gunAnimationIdleSpeed;
+            sinTimer += Time.deltaTime * gunAnimationSinSpeed * (player.playerRun.isSprinting ? gunAnimationSinSpeedSprinting : 1.0f);
+            cosTimer += Time.deltaTime * gunAnimationCosSpeed * (player.playerRun.isSprinting ? gunAnimationCosSpeedSprinting : 1.0f);
+            idleTimer += Time.deltaTime * gunAnimationIdleSpeed;
             
             if (sinTimer >= 360.0f)
                 sinTimer -= 360.0f;
@@ -188,19 +219,20 @@ namespace Player.Scripts
             if (gun == null)
                 return;
             
-            gun.localPosition = Vector3.SmoothDamp(gun.localPosition, targetPosition + offsetPosition, ref velocity, player.playerGun.CurrentWeapon.gunAnimationSmoothTime);
+            gun.localPosition = Vector3.SmoothDamp(gun.localPosition, targetPosition + offsetPosition, ref velocity, gunAnimationSmoothTime);
+            Debug.Log($"Apply movement : {targetPosition} / {offsetPosition} / {gunAnimationSmoothTime}");
         }
 
         private void IdleGun()
         {
-            float y = Mathf.Cos(Tools.DegreeToRadian(idleTimer)) * player.playerGun.CurrentWeapon.gunAnimationIdleDistance;
+            float y = Mathf.Cos(Tools.DegreeToRadian(idleTimer)) * gunAnimationIdleDistance;
             targetPosition = initialPosition + new Vector3(0.0f, y, 0.0f);
         }
         
         private void HideGun()
         {
-            Vector3 position = player.isAiming ? player.playerGun.CurrentWeapon.adsPosition : initialPosition;
-            targetPosition = position + player.playerGun.CurrentWeapon.reloadPosition;
+            Vector3 position = player.isAiming ? adsPosition : initialPosition;
+            targetPosition = position + reloadPosition;
         }
         
         private void ShootingGun()
@@ -210,18 +242,18 @@ namespace Player.Scripts
         
         private void AimDownSight()
         {
-            targetPosition = player.playerGun.CurrentWeapon.adsPosition;
+            targetPosition = adsPosition;
         }
 
         private void RunningGun()
         {
-            float x = Mathf.Sin(Tools.DegreeToRadian(sinTimer)) * player.playerGun.CurrentWeapon.gunAnimationDistance;
-            float y = Mathf.Cos(Tools.DegreeToRadian(cosTimer)) * player.playerGun.CurrentWeapon.gunAnimationDistance;
+            float x = Mathf.Sin(Tools.DegreeToRadian(sinTimer)) * gunAnimationDistance;
+            float y = Mathf.Cos(Tools.DegreeToRadian(cosTimer)) * gunAnimationDistance;
 
             if (player.playerRun.isSprinting)
             {
-                x *= player.playerGun.CurrentWeapon.gunAnimationDistanceSprinting;
-                y *= player.playerGun.CurrentWeapon.gunAnimationDistanceSprinting;
+                x *= gunAnimationDistanceSprinting;
+                y *= gunAnimationDistanceSprinting;
             }
 
             targetPosition = initialPosition + new Vector3(x, y, 0.0f);
@@ -237,11 +269,11 @@ namespace Player.Scripts
                 if (Mathf.Abs(dot) <= 0.9f)
                 {
                     float angle = Vector3.SignedAngle(player.orientationPivot.forward, player.moveVelocity, Vector3.up);
-                    target = Mathf.Sign(angle) * player.playerGun.CurrentWeapon.gunAnimationLateralDistance * (1 - Mathf.Abs(dot));
+                    target = Mathf.Sign(angle) * gunAnimationLateralDistance * (1 - Mathf.Abs(dot));
                 }
             }
             
-            targetLateralPosition = Mathf.SmoothDamp(targetLateralPosition, target, ref lateralVelocity, player.playerGun.CurrentWeapon.gunAnimationLateralSmoothTime);
+            targetLateralPosition = Mathf.SmoothDamp(targetLateralPosition, target, ref lateralVelocity, gunAnimationLateralSmoothTime);
             targetPosition.x += targetLateralPosition;
         }
     }
