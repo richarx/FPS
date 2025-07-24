@@ -1,4 +1,3 @@
-using System;
 using Tools_and_Scripts;
 using UnityEngine;
 
@@ -6,7 +5,7 @@ namespace Player.Scripts
 {
     public class PlayerFlashlight : MonoBehaviour
     {
-        [SerializeField] private Light light;
+        [SerializeField] private Light flashLight;
 
         private bool isTurnedOn;
         
@@ -20,7 +19,7 @@ namespace Player.Scripts
         {
             isTurnedOn = !isTurnedOn;
             
-            light.gameObject.SetActive(isTurnedOn);
+            flashLight.gameObject.SetActive(isTurnedOn);
         }
     }
 }

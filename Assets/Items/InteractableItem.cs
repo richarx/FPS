@@ -1,4 +1,5 @@
-using System;
+using UI;
+using UI.ToolTip;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,6 +14,8 @@ namespace Items
         [HideInInspector] public UnityEvent OnLoot = new UnityEvent();
 
         private Rigidbody rb;
+
+        private GameObject tooltip;
         
         private void Start()
         {
@@ -23,6 +26,9 @@ namespace Items
         {
             OnLoot?.Invoke();
             Destroy(gameObject);
+            
+            if (tooltip != null)
+                Destroy(tooltip);
         }
         
         protected override bool CanInteract()
@@ -33,6 +39,11 @@ namespace Items
         protected override void SetItemDisplay(bool isInteractable)
         {
             sr.sprite = isInteractable ? outlineSprite : sprite;
+
+            if (isInteractable)
+                tooltip = ToolTipManager.instance.DisplayToolTip("Press $E$ to Equip");
+            else if (tooltip != null)
+                Destroy(tooltip);
         }
     }
 }

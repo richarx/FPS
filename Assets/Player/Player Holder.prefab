@@ -493,13 +493,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunPivot: {fileID: 3079031492957271179}
-  OnEquipWeapon:
-    m_PersistentCalls:
-      m_Calls: []
   OnSwapWeapon:
     m_PersistentCalls:
       m_Calls: []
-  isEquippingWeapon: 0
 --- !u!114 &6076765881001960936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -512,38 +508,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a37fd5ade36530740b635a78d1e76b3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunShotFirst: {fileID: 8300000, guid: 756bc0988504d31488ab1e5b17e5c4fc, type: 3}
-  gunShot:
-  - {fileID: 8300000, guid: 6fad2c2eeb5002d4d814bc38f9e14406, type: 3}
-  - {fileID: 8300000, guid: e09f5fc5adfb30f479f4eb54714cc1fe, type: 3}
-  - {fileID: 8300000, guid: 5c783d84aa9964645b2f2844983d7839, type: 3}
-  - {fileID: 8300000, guid: 0035f7eafd22d0a478675ad5b6188c02, type: 3}
-  - {fileID: 8300000, guid: fd5e17891575be244842bec42901a83b, type: 3}
-  - {fileID: 8300000, guid: b41e072b29c29f64eb2fa65f3aad038f, type: 3}
-  - {fileID: 8300000, guid: e724c8501e151894ab980580ac0c9630, type: 3}
-  - {fileID: 8300000, guid: aeb9122820daac843a9900b65c6f181d, type: 3}
-  gunShotTail: {fileID: 8300000, guid: d7d7f8dead084ac4e9c417d69c660b77, type: 3}
-  emptyMag:
-  - {fileID: 8300000, guid: df5d5b3ed3111c44eab3f859316f383c, type: 3}
-  ejectMag:
-  - {fileID: 8300000, guid: 4ad06ffbccf2edb46ac4e6f9e3d72637, type: 3}
-  - {fileID: 8300000, guid: 814e6e524ed5542418d6d729145699c6, type: 3}
-  - {fileID: 8300000, guid: e7eadce38ecd71e4f9e40e3304cc3466, type: 3}
-  - {fileID: 8300000, guid: 8e14e5cac3cc842409a00ffac0a3955f, type: 3}
-  insertMag:
-  - {fileID: 8300000, guid: 813ffb0c3cfc6124dbc5bd401ea5bbb5, type: 3}
-  - {fileID: 8300000, guid: 1f102db6962b4f74d871894a275f11c4, type: 3}
-  - {fileID: 8300000, guid: 8b16f83ef0be5754b887928b18afa872, type: 3}
-  cockGun:
-  - {fileID: 8300000, guid: 3e9b8e14779fad3469fe172bea45e506, type: 3}
-  - {fileID: 8300000, guid: bba2c30731d52d3469b50f29844efb10, type: 3}
-  - {fileID: 8300000, guid: 33db9d1f871974443b62d3b4649c77a8, type: 3}
   adsInWoosh: {fileID: 8300000, guid: 061d8fb9b84e50549a4dba5d765e6773, type: 3}
   adsOutWoosh: {fileID: 8300000, guid: f16a6f622bfed844d920d0ed5ec91847, type: 3}
-  adsClick:
-  - {fileID: 8300000, guid: 94ee927b497fe27478924f0b96e5460d, type: 3}
-  - {fileID: 8300000, guid: 61bed5dfe385d154384abc6dae2ab481, type: 3}
-  - {fileID: 8300000, guid: 73d31a293a1e39f4683d2d4d2bd5dee8, type: 3}
   jumpWoosh:
   - {fileID: 8300000, guid: d4eedb43b8557074b88449d6a85033ec, type: 3}
   - {fileID: 8300000, guid: 5b6b10963b2c147469609dede2b708f2, type: 3}
@@ -559,6 +525,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 43c7b5263e099ec47916d35acfbc4248, type: 3}
   - {fileID: 8300000, guid: b50a5a178f2bdfd449384faabeca339a, type: 3}
   - {fileID: 8300000, guid: 7d28ef20f56758143a1c9cbde1a76377, type: 3}
+  equipWeapon:
+  - {fileID: 8300000, guid: ff150c79afd7fe244948d18e7c7c07e9, type: 3}
+  - {fileID: 8300000, guid: b7887858ea480ae4093ce6e76e504b06, type: 3}
+  - {fileID: 8300000, guid: 4daaf855b1a272f4fa7ed076da28e11f, type: 3}
+  equipWeapon_2:
+  - {fileID: 8300000, guid: 4f7ea285a7e86ec49983078c2a7130d5, type: 3}
+  - {fileID: 8300000, guid: 339f8b7ffc42b1849a24a299ec27e4a7, type: 3}
+  - {fileID: 8300000, guid: 09f79083617ed37409716ae22728cc95, type: 3}
 --- !u!114 &3130268381852602373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -699,7 +673,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aa3ceaa7ae26c047858c59ad72213d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  light: {fileID: 4995953027705701820}
+  flashLight: {fileID: 4995953027705701820}
 --- !u!114 &7117807148015091429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1875,6 +1849,58 @@ RectTransform:
   m_AnchoredPosition: {x: -5.0000305, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2608019178435942164
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6244785240934806187}
+  - component: {fileID: 630618672149492332}
+  m_Layer: 5
+  m_Name: ToolTip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6244785240934806187
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2608019178435942164}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5757878026784750988}
+  m_Father: {fileID: 965784254339680914}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &630618672149492332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2608019178435942164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aff2816c83b113244ab0d110b367e296, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipPivot: {fileID: 5757878026784750988}
+  tooltipPrefab: {fileID: 3321119088792409959, guid: 58fd019bc365fd44dba3d9055fc034f7,
+    type: 3}
 --- !u!1 &3116772498192541926
 GameObject:
   m_ObjectHideFlags: 0
@@ -2239,6 +2265,7 @@ RectTransform:
   - {fileID: 1351387423626324129}
   - {fileID: 1917246342761212625}
   - {fileID: 6599384661910304552}
+  - {fileID: 6244785240934806187}
   m_Father: {fileID: 9029753958373732987}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3273,6 +3300,41 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &5727029422937169284
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5757878026784750988}
+  m_Layer: 5
+  m_Name: ToolTipPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5757878026784750988
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5727029422937169284}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6244785240934806187}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -400}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5837309778449116966
 GameObject:
   m_ObjectHideFlags: 0
