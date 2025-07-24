@@ -1,5 +1,6 @@
 using Items.Triggers;
 using Player.Scripts;
+using UI.ToolTip;
 using UnityEngine;
 
 namespace Items
@@ -12,13 +13,16 @@ namespace Items
             Weapon,
             Trigger
         }
-        
+
+        [SerializeField] private string toolTipText;
         [SerializeField] private ItemType itemType;
         public ItemType type => itemType;
         
         private PlayerInteraction playerInteraction;
         
         private bool isPlayerInRange;
+        
+        protected GameObject tooltip;
 
         public virtual void Interact()
         {
@@ -47,11 +51,7 @@ namespace Items
             if (playerInteraction == null)
                 playerInteraction = PlayerStateMachine.instance.GetComponent<PlayerInteraction>();
 
-            if (playerInteraction.TryRegisterItem(this))
-            {
-                isPlayerInRange = true;
-                SetItemDisplay(isPlayerInRange);
-            }
+            ActivateItem();
         }
 
         private void OnPlayerExitRange()
@@ -63,6 +63,15 @@ namespace Items
             DeactivateItem();
         }
 
+        public virtual void ActivateItem()
+        {
+            if (playerInteraction.TryRegisterItem(this))
+            {
+                isPlayerInRange = true;
+                SetItemDisplay(isPlayerInRange);
+            }
+        }
+
         public virtual void DeactivateItem()
         {
             isPlayerInRange = false;
@@ -71,6 +80,10 @@ namespace Items
         
         protected virtual void SetItemDisplay(bool isInteractable)
         {
+            if (isInteractable && !string.IsNullOrEmpty(toolTipText))
+                tooltip = ToolTipManager.instance.DisplayToolTip(toolTipText);
+            else if (!isInteractable && tooltip != null)
+                Destroy(tooltip);
         }
     }
 }

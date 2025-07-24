@@ -1,5 +1,3 @@
-using UI;
-using UI.ToolTip;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -15,7 +13,7 @@ namespace Items
 
         private Rigidbody rb;
 
-        private GameObject tooltip;
+        
         
         private void Start()
         {
@@ -40,10 +38,7 @@ namespace Items
         {
             sr.sprite = isInteractable ? outlineSprite : sprite;
 
-            if (isInteractable)
-                tooltip = ToolTipManager.instance.DisplayToolTip("Press $E$ to Equip");
-            else if (tooltip != null)
-                Destroy(tooltip);
+            base.SetItemDisplay(isInteractable);
         }
     }
 }

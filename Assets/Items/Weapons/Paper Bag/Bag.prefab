@@ -122,6 +122,7 @@ MonoBehaviour:
   OnTrigger:
     m_PersistentCalls:
       m_Calls: []
+  toolTipText: Press $E$ to Equip
   itemType: 1
   sr: {fileID: 1035700757088408517}
   sprite: {fileID: 21300000, guid: 148c1cddf2830544fa39afa98fabac25, type: 3}

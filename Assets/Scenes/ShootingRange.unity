@@ -1175,6 +1175,7 @@ MonoBehaviour:
   OnTrigger:
     m_PersistentCalls:
       m_Calls: []
+  toolTipText: Press $E$ to Interact
   itemType: 2
 --- !u!135 &644009951
 SphereCollider:
