@@ -43,6 +43,11 @@ MonoBehaviour:
   airMaxSpeed: 25
   airAcceleration: 50
   airDeceleration: 60
+  freezeFrameDuration: 0.1
+  freezeFrameIntensity: 0
+  chromaticAberrationFadeDuration: 0.1
+  chromaticAberrationDuration: 0.1
+  chromaticAberrationIntensity: 0.5
   throwWeaponForce: 10
   throwWeaponHeightOffset: -1
   throwWeaponSideOffset: 0.5

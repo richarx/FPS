@@ -1,0 +1,58 @@
+using System.Collections;
+using System.Collections.Generic;
+using Data;
+using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+
+namespace Player.Scripts
+{
+    public class PlayerChromaticAberration : MonoBehaviour
+    {
+        private ChromaticAberration chromatic;
+
+        private PlayerData playerData;
+        
+        private bool isSetup;
+        
+        private void Start()
+        {
+            Volume volume = GetComponent<Volume>();
+            VolumeProfile volumeProfile = volume.profile;
+            isSetup = volumeProfile.TryGet<ChromaticAberration>(out chromatic);
+            
+            PlayerStateMachine player = PlayerStateMachine.instance;
+
+            playerData = player.playerData;
+            player.playerShootGun.OnHit.AddListener((_, surfaceData) =>
+            {
+                if (isSetup && surfaceData == SurfaceData.SurfaceType.Enemy)
+                {
+                    StopAllCoroutines();
+                    StartCoroutine(TriggerChromaticAberration());
+                }
+            });
+        }
+
+        private IEnumerator TriggerChromaticAberration()
+        {
+            float timer = 0.0f;
+            while (timer <= playerData.chromaticAberrationFadeDuration)
+            {
+                chromatic.intensity.value = Tools.NormalizeValue(timer, 0.0f, playerData.chromaticAberrationFadeDuration) * playerData.chromaticAberrationIntensity;
+                yield return null;
+                timer += Time.deltaTime;
+            }
+
+            yield return new WaitForSeconds(playerData.chromaticAberrationDuration);
+            
+            timer = 0.0f;
+            while (timer <= playerData.chromaticAberrationFadeDuration)
+            {
+                chromatic.intensity.value = playerData.chromaticAberrationIntensity - (Tools.NormalizeValue(timer, 0.0f, playerData.chromaticAberrationFadeDuration) * playerData.chromaticAberrationIntensity);
+                yield return null;
+                timer += Time.deltaTime;
+            }
+        }
+    }
+}

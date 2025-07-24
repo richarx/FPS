@@ -46,6 +46,17 @@ namespace Data
         public float airAcceleration;
         public float airDeceleration;
 
+        [Space] [Header("Freeze Frame")]
+        public float freezeFrameDuration;
+        [Range(0.0f, 1.0f)]
+        public float freezeFrameIntensity;
+        
+        [Space] [Header("Chromatic Aberration")]
+        public float chromaticAberrationFadeDuration;
+        public float chromaticAberrationDuration;
+        [Range(0.0f, 1.0f)]
+        public float chromaticAberrationIntensity;
+        
         [Space] [Header("Misc")] 
         public float throwWeaponForce;
         public float throwWeaponHeightOffset;
