@@ -43,8 +43,8 @@ MonoBehaviour:
   airMaxSpeed: 25
   airAcceleration: 50
   airDeceleration: 60
-  freezeFrameDuration: 0.1
-  freezeFrameIntensity: 0
+  freezeFrameDuration: 0.05
+  freezeFrameIntensity: 0.3
   chromaticAberrationFadeDuration: 0.1
   chromaticAberrationDuration: 0.1
   chromaticAberrationIntensity: 0.5

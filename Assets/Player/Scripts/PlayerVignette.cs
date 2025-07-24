@@ -10,7 +10,7 @@ namespace Player.Scripts
     {
         private Vignette vignette;
 
-        private PlayerData playerData;
+        private VFXData vfxData;
         
         private bool isSetup;
         private bool isDisplayed;
@@ -23,14 +23,14 @@ namespace Player.Scripts
 
             PlayerStateMachine player = PlayerStateMachine.instance;
 
-            playerData = player.playerData;
+            vfxData = player.vfxData;
             player.playerCrouch.OnStartCrouch.AddListener((isFromSlide) => DisplayVignette());
             player.playerCrouch.OnStopCrouch.AddListener((isToSlide) => HideVignette());
             player.playerSlide.OnStartSlide.AddListener((isFromCrouch) => DisplayVignette());
             player.playerSlide.OnStopSlide.AddListener((isToCrouch) => HideVignette());
 
             if (isSetup)
-                vignette.intensity.value = playerData.standingVignetteIntensity;
+                vignette.intensity.value = vfxData.standingVignetteIntensity;
         }
 
         private void DisplayVignette()
@@ -41,7 +41,7 @@ namespace Player.Scripts
             isDisplayed = true;
             
             StopAllCoroutines();
-            StartCoroutine(FadeVignette(vignette.intensity.value, playerData.crouchVignetteIntensity));
+            StartCoroutine(FadeVignette(vignette.intensity.value, vfxData.crouchVignetteIntensity));
         }
 
         private void HideVignette()
@@ -52,12 +52,12 @@ namespace Player.Scripts
             isDisplayed = false;
             
             StopAllCoroutines();
-            StartCoroutine(FadeVignette(vignette.intensity.value, playerData.standingVignetteIntensity));
+            StartCoroutine(FadeVignette(vignette.intensity.value, vfxData.standingVignetteIntensity));
         }
         
         private IEnumerator FadeVignette(float current, float target)
         {
-            float duration = playerData.vignetteIntensityTransitionDuration;
+            float duration = vfxData.vignetteIntensityTransitionDuration;
 
             float timer = 0.0f;
             while (timer <= duration)

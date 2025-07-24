@@ -11,7 +11,7 @@ namespace Player.Scripts
     {
         private ChromaticAberration chromatic;
 
-        private PlayerData playerData;
+        private VFXData vfxData;
         
         private bool isSetup;
         
@@ -23,7 +23,7 @@ namespace Player.Scripts
             
             PlayerStateMachine player = PlayerStateMachine.instance;
 
-            playerData = player.playerData;
+            vfxData = player.vfxData;
             player.playerShootGun.OnHit.AddListener((_, surfaceData) =>
             {
                 if (isSetup && surfaceData == SurfaceData.SurfaceType.Enemy)
@@ -37,19 +37,19 @@ namespace Player.Scripts
         private IEnumerator TriggerChromaticAberration()
         {
             float timer = 0.0f;
-            while (timer <= playerData.chromaticAberrationFadeDuration)
+            while (timer <= vfxData.chromaticAberrationFadeDuration)
             {
-                chromatic.intensity.value = Tools.NormalizeValue(timer, 0.0f, playerData.chromaticAberrationFadeDuration) * playerData.chromaticAberrationIntensity;
+                chromatic.intensity.value = Tools.NormalizeValue(timer, 0.0f, vfxData.chromaticAberrationFadeDuration) * vfxData.chromaticAberrationIntensity;
                 yield return null;
                 timer += Time.deltaTime;
             }
 
-            yield return new WaitForSeconds(playerData.chromaticAberrationDuration);
+            yield return new WaitForSeconds(vfxData.chromaticAberrationDuration);
             
             timer = 0.0f;
-            while (timer <= playerData.chromaticAberrationFadeDuration)
+            while (timer <= vfxData.chromaticAberrationFadeDuration)
             {
-                chromatic.intensity.value = playerData.chromaticAberrationIntensity - (Tools.NormalizeValue(timer, 0.0f, playerData.chromaticAberrationFadeDuration) * playerData.chromaticAberrationIntensity);
+                chromatic.intensity.value = vfxData.chromaticAberrationIntensity - (Tools.NormalizeValue(timer, 0.0f, vfxData.chromaticAberrationFadeDuration) * vfxData.chromaticAberrationIntensity);
                 yield return null;
                 timer += Time.deltaTime;
             }

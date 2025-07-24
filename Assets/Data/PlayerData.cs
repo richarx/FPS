@@ -45,17 +45,6 @@ namespace Data
         public float airMaxSpeed;
         public float airAcceleration;
         public float airDeceleration;
-
-        [Space] [Header("Freeze Frame")]
-        public float freezeFrameDuration;
-        [Range(0.0f, 1.0f)]
-        public float freezeFrameIntensity;
-        
-        [Space] [Header("Chromatic Aberration")]
-        public float chromaticAberrationFadeDuration;
-        public float chromaticAberrationDuration;
-        [Range(0.0f, 1.0f)]
-        public float chromaticAberrationIntensity;
         
         [Space] [Header("Misc")] 
         public float throwWeaponForce;
@@ -71,11 +60,6 @@ namespace Data
         public float standingCameraHeight;
         public float crouchedCameraHeight;
         public float slideCameraHeight;
-
-        [Space] [Header("Camera Vignette")] 
-        public float crouchVignetteIntensity;
-        public float standingVignetteIntensity;
-        public float vignetteIntensityTransitionDuration;
         
         [Space] [Header("Camera Default Sensitivity")]
         public float joystickSensitivityX;

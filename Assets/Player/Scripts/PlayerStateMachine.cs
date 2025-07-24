@@ -9,6 +9,7 @@ namespace Player.Scripts
     {
         public Transform orientationPivot;
         public PlayerData playerData;
+        public VFXData vfxData;
         public SurfaceData surfaceData;
         
         public static PlayerStateMachine instance;
