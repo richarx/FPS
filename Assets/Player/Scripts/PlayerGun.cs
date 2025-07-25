@@ -51,7 +51,7 @@ namespace Player.Scripts
                 Destroy(gunPivot.GetChild(0).gameObject);
 
             Transform newWeapon = Instantiate(weaponData.weaponPrefab, Vector3.zero, Quaternion.identity, gunPivot).transform;
-            newWeapon.localPosition = new Vector3(0.0f, -600.0f, 0.0f);
+            newWeapon.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
             OnSwapWeapon?.Invoke(newWeapon.gameObject);
         }
     }

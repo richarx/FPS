@@ -48,6 +48,7 @@ namespace Player.Scripts
         
         [Space]
         public Vector3 reloadPosition;
+        public Vector3 hipPosition;
         public Vector3 adsPosition;
         public Vector3 hipSize;
         public Vector2 adsSize;
@@ -58,7 +59,6 @@ namespace Player.Scripts
         private float cosTimer = 0.0f;
         private float idleTimer = 0.0f;
 
-        private Vector3 initialPosition;
         private Vector3 targetPosition;
         private Vector3 offsetPosition;
         private Vector3 velocity;
@@ -71,19 +71,20 @@ namespace Player.Scripts
 
         private Quaternion initialRotation;
 
+        private RectTransform rootTransform;
         private RectTransform graphicsTransform;
 
         private void Start()
         {
             offsetPosition = Vector3.zero;
-            initialPosition = Vector3.zero;
             initialRotation = Quaternion.identity;
-            GetComponent<RectTransform>().localPosition = initialPosition;
+            rootTransform = GetComponent<RectTransform>();
+            rootTransform.localPosition = Vector3.zero;
             graphicsTransform = graphics.gameObject.GetComponent<RectTransform>();
             
             player = PlayerStateMachine.instance;
             
-            Vector3 position = player.isAiming ? adsPosition : initialPosition;
+            Vector3 position = player.isAiming ? adsPosition : hipPosition;
             gun.localPosition = position + reloadPosition;
             
             player.playerShootGun.OnShoot.AddListener(() =>
@@ -121,7 +122,7 @@ namespace Player.Scripts
             else if (isGrounded)
                 IdleGun();
             else
-                targetPosition = initialPosition;
+                targetPosition = hipPosition;
             
             Jump(isGrounded);
 
@@ -137,7 +138,7 @@ namespace Player.Scripts
             position.x *= slideShakePowerX;
             position.y *= slideShakePowerY;
             
-            targetPosition = initialPosition + position;
+            targetPosition = hipPosition + position;
         }
 
         private void UpdateTilt()
@@ -160,7 +161,7 @@ namespace Player.Scripts
             
             Quaternion finalRotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, tilt));
 
-            gun.localRotation = Quaternion.Slerp(gun.localRotation, finalRotation * initialRotation, time * Time.deltaTime);
+            rootTransform.localRotation = Quaternion.Slerp(rootTransform.localRotation, finalRotation * initialRotation, time * Time.deltaTime);
         }
 
         private void Jump(bool isGrounded)
@@ -229,18 +230,18 @@ namespace Player.Scripts
         private void IdleGun()
         {
             float y = Mathf.Cos(Tools.DegreeToRadian(idleTimer)) * gunAnimationIdleDistance;
-            targetPosition = initialPosition + new Vector3(0.0f, y, 0.0f);
+            targetPosition = hipPosition + new Vector3(0.0f, y, 0.0f);
         }
         
         private void HideGun()
         {
-            Vector3 position = player.isAiming ? adsPosition : initialPosition;
+            Vector3 position = player.isAiming ? adsPosition : hipPosition;
             targetPosition = position + reloadPosition;
         }
         
         private void ShootingGun()
         {
-            targetPosition = initialPosition;
+            targetPosition = hipPosition;
         }
         
         private void AimDownSight()
@@ -259,7 +260,7 @@ namespace Player.Scripts
                 y *= gunAnimationDistanceSprinting;
             }
 
-            targetPosition = initialPosition + new Vector3(x, y, 0.0f);
+            targetPosition = hipPosition + new Vector3(x, y, 0.0f);
         }
 
         private void UpdateLateralPosition()

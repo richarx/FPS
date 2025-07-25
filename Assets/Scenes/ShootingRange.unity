@@ -3435,6 +3435,36 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3079031492957271179, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3079031492957271179, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3079031492957271179, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 3079031492957271179, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 3079031492957271179, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3079031492957271179, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5634914203544353321, guid: 99fc002cf63d7f94984a5a14526de63a,
         type: 3}
       propertyPath: m_Name
@@ -3445,6 +3475,11 @@ PrefabInstance:
       propertyPath: muzzleFlashHolder
       value: 
       objectReference: {fileID: 2083788061}
+    - target: {fileID: 7543719600651675910, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9029753958373732987, guid: 99fc002cf63d7f94984a5a14526de63a,
         type: 3}
       propertyPath: m_LocalPosition.x
