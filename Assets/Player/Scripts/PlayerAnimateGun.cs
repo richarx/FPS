@@ -35,6 +35,10 @@ namespace Player.Scripts
         public float gunAnimationIdleSpeed;
 
         [Space]
+        public float emptyGunShakeDuration;
+        public float emptyGunShakePower;
+        
+        [Space]
         public Vector3 reloadPosition;
         public Vector3 hipPosition;
         public Vector3 adsPosition;
@@ -44,6 +48,8 @@ namespace Player.Scripts
         private float sinTimer = 0.0f;
         private float cosTimer = 0.0f;
         private float idleTimer = 0.0f;
+        
+        private float shakeTimer = 0.0f;
 
         private Vector3 targetPosition;
         private Vector3 offsetPosition;
@@ -62,6 +68,8 @@ namespace Player.Scripts
             
             Vector3 position = player.isAiming ? adsPosition : hipPosition;
             gun.localPosition = position + reloadPosition;
+            
+            player.playerShootGun.OnShootEmptyMag.AddListener(() => shakeTimer = emptyGunShakeDuration);
             
             player.playerJump.OnJump.AddListener(() => { offsetPosition.y = -jumpImpulsePower; });
             player.playerJump.OnGroundedChanged.AddListener((isGrounded, impactPower) =>
@@ -94,6 +102,9 @@ namespace Player.Scripts
                 IdleGun();
             else
                 targetPosition = hipPosition;
+
+            if (shakeTimer > 0.0f)
+                Shake();
             
             Jump(isGrounded);
 
@@ -101,12 +112,21 @@ namespace Player.Scripts
             ApplyMovement();
         }
 
+        private void Shake()
+        {
+            if (shakeTimer > 0.0f)
+                shakeTimer -= Time.deltaTime;
+
+            float randomPower = Random.Range(-emptyGunShakePower, emptyGunShakePower);
+            targetPosition += Vector3.right * randomPower;
+        }
+
         private void Slide()
         {
             Vector3 position = Random.insideUnitCircle.ToVector3();
             position.x *= slideShakePowerX;
             position.y *= slideShakePowerY;
-            
+
             targetPosition = hipPosition + position;
         }
 

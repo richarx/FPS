@@ -289,6 +289,8 @@ MonoBehaviour:
   gunAnimationLateralSmoothTime: 0.5
   gunAnimationIdleDistance: 40
   gunAnimationIdleSpeed: 100
+  emptyGunShakeDuration: 0.2
+  emptyGunShakePower: 200
   reloadPosition: {x: 0, y: -600, z: 0}
   hipPosition: {x: 500, y: -400, z: 0}
   adsPosition: {x: 53, y: -180, z: 0}
@@ -304,6 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aa2827d460658e46b5e81bc7989ebb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxRandomAngle: 0
   muzzlePivot: {fileID: 4886850362627321310}
   flashPrefabs:
   - {fileID: 2589173951740334879, guid: 5cf8aeecadaa5ec4998320d66153aabb, type: 3}

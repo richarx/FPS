@@ -79,6 +79,8 @@ MonoBehaviour:
   gunAnimationLateralSmoothTime: 0.5
   gunAnimationIdleDistance: 40
   gunAnimationIdleSpeed: 100
+  emptyGunShakeDuration: 0.2
+  emptyGunShakePower: 200
   reloadPosition: {x: 0, y: -600, z: 0}
   hipPosition: {x: 480.2, y: -312.3, z: 0}
   adsPosition: {x: 0, y: -0.2, z: 0}
