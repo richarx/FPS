@@ -16,8 +16,6 @@ namespace Player.Scripts
         private const float wooshVolume = 0.01f;
 
         private PlayerStateMachine player;
-        private float lastShotTimestamp = -1.0f;
-        private AudioSource lastTail = null;
 
         private void Start()
         {
