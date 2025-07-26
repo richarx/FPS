@@ -12,6 +12,7 @@ namespace Player.Scripts
         public VFXData vfxData;
         public SurfaceData surfaceData;
         public Transform muzzleFlashHolder;
+        public Light muzzleFlashLight;
         
         public static PlayerStateMachine instance;
 

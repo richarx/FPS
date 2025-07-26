@@ -271,6 +271,31 @@ public static class Tools
             sprite.gameObject.SetActive(false);
     }
     
+    public static IEnumerator Fade(Light light, float duration, bool fadeIn, float maxFade = 1.0f, bool scaledTime = true)
+    {
+        float fade = fadeIn ? 0.0f : maxFade;
+        float timer = duration;
+        float increment = maxFade / timer;
+
+        light.gameObject.SetActive(true);
+        
+        while (timer > 0.0f)
+        {
+            light.intensity = fade;
+            
+            float delta = scaledTime ? Time.deltaTime : Time.unscaledDeltaTime;
+            fade += fadeIn ? delta * increment : -delta * increment;
+            timer -= delta;
+            
+            yield return null;
+        }
+        
+        light.intensity = fadeIn ? maxFade : 0.0f;;
+        
+        if (!fadeIn)
+            light.gameObject.SetActive(false);
+    }
+    
     public static IEnumerator Fade(Light2D light, float duration, bool fadeIn, float maxFade = 1.0f, bool scaledTime = true)
     {
         float fade = fadeIn ? 0.0f : maxFade;

@@ -6,27 +6,41 @@ namespace Items.Weapons
 {
     public class MuzzleFlash : MonoBehaviour
     {
+        [SerializeField] private float lightFlashDuration;
+        [SerializeField] private float lightFlashIntensity;
+        [Space]
         [SerializeField] private float maxRandomAngle;
         [SerializeField] private Transform muzzlePivot;
         [SerializeField] private List<GameObject> flashPrefabs;
         [SerializeField] private Vector3 muzzlePositionHip;
         [SerializeField] private Vector3 muzzlePositionAim;
-        
+
+        private Light flash;
         private Transform muzzleFlashHolder;
         
         private void Start()
         {
-            PlayerStateMachine.instance.playerShootGun.OnShoot.AddListener(TriggerMuzzleFlash);
-            PlayerStateMachine.instance.playerAiming.OnChangeAimState.AddListener((isAiming) =>
+            PlayerStateMachine player = PlayerStateMachine.instance;
+            
+            player.playerShootGun.OnShoot.AddListener(TriggerMuzzleFlash);
+            player.playerAiming.OnChangeAimState.AddListener((isAiming) =>
             {
                 muzzlePivot.localPosition = isAiming ? muzzlePositionAim : muzzlePositionHip;
             });
-            muzzleFlashHolder = PlayerStateMachine.instance.muzzleFlashHolder;
+            
+            flash = player.muzzleFlashLight;
+            muzzleFlashHolder = player.muzzleFlashHolder;
             muzzlePivot.localPosition = muzzlePositionHip;
         }
 
         private void TriggerMuzzleFlash()
         {
+            flash.gameObject.SetActive(true);
+            flash.intensity = lightFlashIntensity;
+
+            StopAllCoroutines();
+            StartCoroutine(Tools.Fade(flash, lightFlashDuration, false, maxFade: lightFlashIntensity));
+            
             for (int i = 0; i < muzzlePivot.childCount; i++)
             {
                 Transform pivot = muzzlePivot.GetChild(i);
