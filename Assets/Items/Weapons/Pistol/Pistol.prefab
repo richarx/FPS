@@ -225,6 +225,7 @@ GameObject:
   - component: {fileID: -7135158928536062309}
   - component: {fileID: -7229053722826005333}
   - component: {fileID: 2269024688017213260}
+  - component: {fileID: 8342076552351021558}
   m_Layer: 5
   m_Name: Pistol
   m_TagString: Untagged
@@ -551,6 +552,48 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8342076552351021558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3602875748352308952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b5601e48e7d9e7469b30d8e6dcf1ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunShotFirst: {fileID: 0}
+  gunShot:
+  - {fileID: 8300000, guid: 3cc75a7f908b3ce49831e0cd468f6f41, type: 3}
+  - {fileID: 8300000, guid: 5df5b4b9eb5b633479cad29a9a5d9407, type: 3}
+  - {fileID: 8300000, guid: be5bc395bae6df741beebe5b6a947969, type: 3}
+  gunShotTail: {fileID: 0}
+  shotVolume: 0.1
+  emptyMag:
+  - {fileID: 8300000, guid: 7a28ded3cf52ba4418623cd458f5374d, type: 3}
+  ejectMag:
+  - {fileID: 8300000, guid: 8b16f83ef0be5754b887928b18afa872, type: 3}
+  insertMag: []
+  insertDelay: 0
+  reloadCockDelay: 0.5
+  equipWeapon:
+  - {fileID: 8300000, guid: ff150c79afd7fe244948d18e7c7c07e9, type: 3}
+  - {fileID: 8300000, guid: b7887858ea480ae4093ce6e76e504b06, type: 3}
+  - {fileID: 8300000, guid: 4daaf855b1a272f4fa7ed076da28e11f, type: 3}
+  equipWeapon_2:
+  - {fileID: 8300000, guid: 4f7ea285a7e86ec49983078c2a7130d5, type: 3}
+  - {fileID: 8300000, guid: 339f8b7ffc42b1849a24a299ec27e4a7, type: 3}
+  - {fileID: 8300000, guid: 09f79083617ed37409716ae22728cc95, type: 3}
+  equipWeapon_2_Delay: 0
+  equipWeaponCockDelay: 0.2
+  cockGun:
+  - {fileID: 8300000, guid: 3e9b8e14779fad3469fe172bea45e506, type: 3}
+  - {fileID: 8300000, guid: bba2c30731d52d3469b50f29844efb10, type: 3}
+  - {fileID: 8300000, guid: 33db9d1f871974443b62d3b4649c77a8, type: 3}
+  adsClick:
+  - {fileID: 8300000, guid: 94ee927b497fe27478924f0b96e5460d, type: 3}
 --- !u!1 &3700819000467180912
 GameObject:
   m_ObjectHideFlags: 0
