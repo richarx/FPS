@@ -20,8 +20,9 @@ MonoBehaviour:
   startingAmmo: 12
   reloadDuration: 0.5
   fireRate: 3
-  xRecoil: 1
+  xRecoil: 0
   yRecoil: 2
+  shotDuration: 0.1
   recoilSnappiness: 0.05
   recoilCancelSnappiness: 0.15
   recoilCancelPower: 1
@@ -49,19 +50,3 @@ MonoBehaviour:
   fovReductionOnAim: 20
   fovReductionOnSprint: -10
   fovReductionOnSlide: -30
-  gunAnimationCosSpeed: 800
-  gunAnimationCosSpeedSprinting: 2
-  gunAnimationSinSpeed: 400
-  gunAnimationSinSpeedSprinting: 2
-  gunAnimationDistance: 80
-  gunAnimationDistanceSprinting: 3
-  gunAnimationSmoothTime: 0.1
-  gunAnimationLateralDistance: 150
-  gunAnimationLateralSmoothTime: 0.5
-  gunAnimationIdleDistance: 40
-  gunAnimationIdleSpeed: 100
-  gunAnimationSizeSpeed: 0.1
-  reloadPosition: {x: 0, y: -600, z: 0}
-  adsPosition: {x: -393.6, y: 170.7, z: 0}
-  hipSize: {x: 1174, y: 855.7, z: 0}
-  adsSize: {x: 1112.4, y: 1000.7}

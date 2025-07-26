@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 346967609440228876}
   - component: {fileID: 4368495366583817694}
   - component: {fileID: 77574794508521413}
-  - component: {fileID: 7688732273825198121}
   m_Layer: 5
   m_Name: graphics
   m_TagString: Untagged
@@ -78,27 +77,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!95 &7688732273825198121
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 197444277167711880}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4674fa1d0c348824dad44a310c7acdbd, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2448546026192178351
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,6 +221,9 @@ GameObject:
   - component: {fileID: 1557802902202225317}
   - component: {fileID: 3584556795204453537}
   - component: {fileID: 4452324259985227484}
+  - component: {fileID: -1666949512379207857}
+  - component: {fileID: -7135158928536062309}
+  - component: {fileID: -7229053722826005333}
   m_Layer: 5
   m_Name: Pistol
   m_TagString: Untagged
@@ -291,16 +272,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gun: {fileID: 8665616392978318309}
-  graphics: {fileID: 7688732273825198121}
-  transitionFalloff: 1200
   jumpImpulsePower: 400
   landingImpulsePower: 15
   fallOffsetPower: 100
-  tiltRotationAmount: -10
-  tiltSmoothTime: 5
-  tiltSnapBackTime: 10
-  minTilt: -10
-  maxTilt: 10
   slideShakePowerX: 500
   slideShakePowerY: 100
   gunAnimationCosSpeed: 800
@@ -314,12 +288,9 @@ MonoBehaviour:
   gunAnimationLateralSmoothTime: 0.5
   gunAnimationIdleDistance: 40
   gunAnimationIdleSpeed: 100
-  gunAnimationSizeSpeed: 0.1
   reloadPosition: {x: 0, y: -600, z: 0}
   hipPosition: {x: 500, y: -400, z: 0}
   adsPosition: {x: 53, y: -180, z: 0}
-  hipSize: {x: 1174, y: 855.7, z: 0}
-  adsSize: {x: 1255, y: 1137}
 --- !u!114 &4452324259985227484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,8 +309,60 @@ MonoBehaviour:
   - {fileID: 2589173951740334879, guid: 73c4b86a979a61745b626fbcdfe33d1c, type: 3}
   - {fileID: 2589173951740334879, guid: 31f3fc6c62f3f3c4da56342a8af39543, type: 3}
   - {fileID: 2589173951740334879, guid: 8f7c841dad7c03a4689831492c360165, type: 3}
-  muzzlePositionHip: {x: -95, y: 252, z: 0}
-  muzzlePositionAim: {x: -38, y: 130, z: 0}
+  muzzlePositionHip: {x: -95, y: 320, z: 0}
+  muzzlePositionAim: {x: -38, y: 200, z: 0}
+--- !u!114 &-1666949512379207857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3602875748352308952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 899786fc97828b347b9b7b16dec36b76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tiltRotationAmount: -10
+  tiltSmoothTime: 5
+  tiltSnapBackTime: 10
+  minTilt: -10
+  maxTilt: 10
+--- !u!114 &-7135158928536062309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3602875748352308952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6198143d2a6046845ab938c201e8408a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  graphics: {fileID: 77574794508521413}
+  hipSprite: {fileID: 21300000, guid: aaef0dcd3eaa8ee4fab2a650e3fc9206, type: 3}
+  aimSprite: {fileID: 21300000, guid: 0c0f0a7202a0ae442860a4c87b033fc2, type: 3}
+  gunAnimationSizeSpeed: 0.1
+  transitionFalloff: 1200
+  hipSize: {x: 1174, y: 855.7}
+  adsSize: {x: 1255, y: 1137}
+--- !u!114 &-7229053722826005333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3602875748352308952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 777201917d742f24bb10b82981e3b30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: 2, y: -1}
+  force: 300
+  kickSpeed: 0
+  recoverySpeed: 0.3
 --- !u!1 &3700819000467180912
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,6 +17,7 @@ namespace Items.Weapons
         public float fireRate;
         public float xRecoil;
         public float yRecoil;
+        public float shotDuration;
         public float recoilSnappiness;
         public float recoilCancelSnappiness;
         public float recoilCancelPower;

@@ -5,20 +5,11 @@ namespace Player.Scripts
     public class PlayerAnimateGun : MonoBehaviour
     {
         [SerializeField] private RectTransform gun;
-        [SerializeField] private Animator graphics;
         
         [Space]
-        [SerializeField] private float transitionFalloff;
         [SerializeField] private float jumpImpulsePower;
         [SerializeField] private float landingImpulsePower;
         [SerializeField] private float fallOffsetPower;
-
-        [Space]
-        [SerializeField] private float tiltRotationAmount;
-        [SerializeField] private float tiltSmoothTime;
-        [SerializeField] private float tiltSnapBackTime;
-        [SerializeField] private float minTilt;
-        [SerializeField] private float maxTilt;
         
         [Space]
         [SerializeField] private float slideShakePowerX;
@@ -42,16 +33,11 @@ namespace Player.Scripts
         [Space]
         public float gunAnimationIdleDistance;
         public float gunAnimationIdleSpeed;
-        
-        [Space]
-        public float gunAnimationSizeSpeed;
-        
+
         [Space]
         public Vector3 reloadPosition;
         public Vector3 hipPosition;
         public Vector3 adsPosition;
-        public Vector3 hipSize;
-        public Vector2 adsSize;
 
         private PlayerStateMachine player;
 
@@ -63,35 +49,20 @@ namespace Player.Scripts
         private Vector3 offsetPosition;
         private Vector3 velocity;
         private float offsetVelocity;
-        private Vector2 sizeVelocity;
 
         private float baseLateralPosition;
         private float targetLateralPosition;
         private float lateralVelocity;
 
-        private Quaternion initialRotation;
-
-        private RectTransform rootTransform;
-        private RectTransform graphicsTransform;
-
         private void Start()
         {
             offsetPosition = Vector3.zero;
-            initialRotation = Quaternion.identity;
-            rootTransform = GetComponent<RectTransform>();
-            rootTransform.localPosition = Vector3.zero;
-            graphicsTransform = graphics.gameObject.GetComponent<RectTransform>();
             
             player = PlayerStateMachine.instance;
             
             Vector3 position = player.isAiming ? adsPosition : hipPosition;
             gun.localPosition = position + reloadPosition;
             
-            player.playerShootGun.OnShoot.AddListener(() =>
-            {
-                if (graphics != null)
-                    graphics.Play(player.isAiming ? "Shoot_ADS" : "Shoot", 0, 0.0f);
-            });
             player.playerJump.OnJump.AddListener(() => { offsetPosition.y = -jumpImpulsePower; });
             player.playerJump.OnGroundedChanged.AddListener((isGrounded, impactPower) =>
             {
@@ -126,10 +97,8 @@ namespace Player.Scripts
             
             Jump(isGrounded);
 
-            UpdateTilt();
             UpdateLateralPosition();
             ApplyMovement();
-            UpdateAnimator();
         }
 
         private void Slide()
@@ -139,29 +108,6 @@ namespace Player.Scripts
             position.y *= slideShakePowerY;
             
             targetPosition = hipPosition + position;
-        }
-
-        private void UpdateTilt()
-        {
-            if (gun == null)
-                return;
-            
-            float tilt = 0.0f;
-            float time = tiltSnapBackTime;
-
-            if (player.isAiming)
-            {
-                float input = player.moveInput.x;
-
-                tilt = Mathf.Clamp(input * tiltRotationAmount, minTilt, maxTilt);
-             
-                if (Mathf.Abs(input) >= 0.15f)
-                    time = tiltSmoothTime;
-            }
-            
-            Quaternion finalRotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, tilt));
-
-            rootTransform.localRotation = Quaternion.Slerp(rootTransform.localRotation, finalRotation * initialRotation, time * Time.deltaTime);
         }
 
         private void Jump(bool isGrounded)
@@ -182,24 +128,6 @@ namespace Player.Scripts
             {
                 offsetPosition = Vector3.zero;
             }
-        }
-
-        private void UpdateAnimator()
-        {
-            if (graphics == null)
-                return;
-            
-            Vector2 target = player.isAiming ? adsSize : hipSize;
-            Vector2 newSize = Vector2.SmoothDamp(graphicsTransform.sizeDelta, target, ref sizeVelocity, gunAnimationSizeSpeed);
-            graphicsTransform.sizeDelta = newSize;
-            
-            Debug.Log($"Update Size : {target} / {graphicsTransform.sizeDelta} / {gunAnimationSizeSpeed}");
-
-            bool isPlayingShootingAnimation = graphics.GetCurrentAnimatorStateInfo(0).IsName("Shoot") ||
-                                              graphics.GetCurrentAnimatorStateInfo(0).IsName("Shoot_ADS");
-
-            if (!isPlayingShootingAnimation)
-                graphics.Play(player.isAiming || newSize.x >= transitionFalloff ? "Idle_ADS" : "Idle");
         }
 
         private void UpdateTimers()
@@ -224,7 +152,6 @@ namespace Player.Scripts
                 return;
             
             gun.localPosition = Vector3.SmoothDamp(gun.localPosition, targetPosition + offsetPosition, ref velocity, gunAnimationSmoothTime);
-            Debug.Log($"Apply movement : {targetPosition} / {offsetPosition} / {gunAnimationSmoothTime}");
         }
 
         private void IdleGun()

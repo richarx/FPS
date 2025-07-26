@@ -25,7 +25,7 @@ namespace Player.Scripts
         public Vector3 shootingDirection => shootingPivot.forward;
         public Vector3 rightDirection => shootingPivot.right;
         
-        public bool isShooting => Time.time - lastShotTimestamp <= 0.2f;
+        public bool isShooting => playerGun.hasWeapon && Time.time - lastShotTimestamp <= playerGun.CurrentWeapon.shotDuration;
         
         private float lastShotTimestamp;
         private bool isInputReset = true;
