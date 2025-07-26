@@ -59,7 +59,7 @@ namespace Items.Weapons
             });
             player.playerAiming.OnChangeAimState.AddListener((isAiming) =>
             {
-                if (isAiming && player.playerGun.hasWeapon)
+                if (isAiming && player.playerGun.hasWeapon && !player.isLocked)
                     SFXManager.instance.PlayRandomSFX(adsClick);
             });
         }

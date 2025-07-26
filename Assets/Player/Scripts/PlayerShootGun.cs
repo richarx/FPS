@@ -17,32 +17,28 @@ namespace Player.Scripts
         [HideInInspector] public UnityEvent OnShootEmptyMag = new UnityEvent();
         [HideInInspector] public UnityEvent<Vector3, SurfaceData.SurfaceType> OnHit = new UnityEvent<Vector3, SurfaceData.SurfaceType>();
 
-        private PlayerGun playerGun;
-        private PlayerAmmo playerAmmo;
-        private PlayerGunKickback playerGunKickback;
+        private PlayerStateMachine player;
 
         public Vector3 shootingPosition => shootingPivot.position;
         public Vector3 shootingDirection => shootingPivot.forward;
         public Vector3 rightDirection => shootingPivot.right;
         
-        public bool isShooting => playerGun.hasWeapon && Time.time - lastShotTimestamp <= playerGun.CurrentWeapon.shotDuration;
+        public bool isShooting => player.playerGun.hasWeapon && Time.time - lastShotTimestamp <= player.playerGun.CurrentWeapon.shotDuration;
         
         private float lastShotTimestamp;
         private bool isInputReset = true;
 
         private void Start()
         {
-            playerGun = GetComponent<PlayerGun>();
-            playerAmmo = GetComponent<PlayerAmmo>();
-            playerGunKickback = GetComponent<PlayerGunKickback>();
+            player = GetComponent<PlayerStateMachine>();
         }
 
         private void Update()
         {
-            if (PauseMenu.instance.IsPaused)
+            if (PauseMenu.instance.IsPaused || player.isLocked)
                 return;
             
-            if (playerAmmo.isReloading || !playerGun.hasWeapon)
+            if (player.playerAmmo.isReloading || !player.playerGun.hasWeapon)
                 return;
 
             if (CanShoot() && PlayerInputs.GetRightTrigger(isHeld: true))
@@ -59,7 +55,7 @@ namespace Player.Scripts
         {
             lastShotTimestamp = Time.time;
             
-            if (playerAmmo.IsEmpty)
+            if (player.playerAmmo.IsEmpty)
             {
                 if (PlayerInputs.GetRightTrigger())
                     OnShootEmptyMag?.Invoke();
@@ -67,15 +63,15 @@ namespace Player.Scripts
             else
             {
                 ShootRaycast();
-                playerGunKickback.Kickback();
-                playerAmmo.ConsumeAmmo();
+                player.playerGunKickback.Kickback();
+                player.playerAmmo.ConsumeAmmo();
                 OnShoot?.Invoke();
             }
         }
 
         private void ShootRaycast()
         {
-            RaycastHit[] hit = Physics.RaycastAll(shootingPosition, shootingDirection, playerGun.CurrentWeapon.bulletDistance, targetLayer);
+            RaycastHit[] hit = Physics.RaycastAll(shootingPosition, shootingDirection, player.playerGun.CurrentWeapon.bulletDistance, targetLayer);
 
             SurfaceData.SurfaceType surfaceType = SurfaceData.SurfaceType.None;
             for (int i = 0; i < hit.Length; i++)
@@ -98,11 +94,11 @@ namespace Player.Scripts
 
         private bool CanShoot()
         {
-            if (!playerGun.hasWeapon)
+            if (!player.playerGun.hasWeapon)
                 return false;
             
-            if (playerGun.CurrentWeapon.isFullAuto)
-                return Time.time - lastShotTimestamp >= 1.0f / playerGun.CurrentWeapon.fireRate;
+            if (player.playerGun.CurrentWeapon.isFullAuto)
+                return Time.time - lastShotTimestamp >= 1.0f / player.playerGun.CurrentWeapon.fireRate;
             else
                 return isInputReset;
         }

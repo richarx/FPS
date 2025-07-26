@@ -22,6 +22,7 @@ namespace Player.Scripts
         public PlayerSlam playerSlam = new PlayerSlam();
         public PlayerCrouch playerCrouch = new PlayerCrouch();
         public PlayerSlide playerSlide = new PlayerSlide();
+        public PlayerLocked playerLocked = new PlayerLocked();
 
         public IPlayerBehaviour currentBehaviour;
         
@@ -30,18 +31,19 @@ namespace Player.Scripts
         public bool isAiming => playerAiming.isAiming;
         public bool isReloading => playerAmmo.isReloading;
         public bool isSliding => currentBehaviour.GetBehaviourType() == BehaviourType.Slide;
+        public bool isLocked => currentBehaviour.GetBehaviourType() == BehaviourType.Locked;
 
         [HideInInspector] public Vector2 moveInput;
         [HideInInspector] public Vector3 moveVelocity;
 
         [HideInInspector] public bool canBeInterruptedByLanding = true;
-        [HideInInspector] public bool isLocked;
 
         [HideInInspector] public Rigidbody rb;
         [HideInInspector] public PlayerGun playerGun;
         [HideInInspector] public PlayerAiming playerAiming;
         [HideInInspector] public PlayerAmmo playerAmmo;
         [HideInInspector] public PlayerShootGun playerShootGun;
+        [HideInInspector] public PlayerGunKickback playerGunKickback;
         
         private void Awake()
         {
@@ -51,6 +53,7 @@ namespace Player.Scripts
             playerAiming = GetComponent<PlayerAiming>();
             playerAmmo = GetComponent<PlayerAmmo>();
             playerShootGun = GetComponent<PlayerShootGun>();
+            playerGunKickback = GetComponent<PlayerGunKickback>();
 
             playerRun = new PlayerRun(this);
             playerJump = new PlayerJump(this);
@@ -73,17 +76,11 @@ namespace Player.Scripts
             PlayerInputs.UpdateInputBuffers();
             moveInput = PlayerInputs.GetMoveDirection();
             
-            if (isLocked)
-                return;
-            
             currentBehaviour.UpdateBehaviour(this);
         }
 
         private void FixedUpdate()
         {
-            if (isLocked)
-                return;
-
             currentBehaviour.FixedUpdateBehaviour(this);
         }
         
