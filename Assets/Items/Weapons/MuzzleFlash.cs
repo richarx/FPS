@@ -6,6 +6,7 @@ namespace Items.Weapons
 {
     public class MuzzleFlash : MonoBehaviour
     {
+        [SerializeField] private float maxRandomAngle;
         [SerializeField] private Transform muzzlePivot;
         [SerializeField] private List<GameObject> flashPrefabs;
         [SerializeField] private Vector3 muzzlePositionHip;
@@ -31,7 +32,8 @@ namespace Items.Weapons
                 Transform pivot = muzzlePivot.GetChild(i);
 
                 int index = Random.Range(0, flashPrefabs.Count);
-                Instantiate(flashPrefabs[index], pivot.position, pivot.rotation, muzzleFlashHolder);
+                Quaternion direction = Tools.DegreeToVector2(pivot.rotation.eulerAngles.z).AddRandomAngleToDirection(-maxRandomAngle, maxRandomAngle).ToRotation();
+                Instantiate(flashPrefabs[index], pivot.position, direction, muzzleFlashHolder);
             }
         }
     }

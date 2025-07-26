@@ -50,10 +50,7 @@ namespace Items.Weapons
             if (graphics == null)
                 return;
             
-            bool isPlayingShootingAnimation = IsPlayingShootAnimation();
-
-            if (!isPlayingShootingAnimation)
-                graphics.sprite = (player.isAiming || newSizeX >= transitionFalloff ? aimSprite : hipSprite);
+            graphics.sprite = (player.isAiming || newSizeX >= transitionFalloff ? aimSprite : hipSprite);
         }
 
         private bool IsPlayingShootAnimation()

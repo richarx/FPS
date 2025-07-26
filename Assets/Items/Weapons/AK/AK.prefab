@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   graphics: {fileID: 1237013896486155370}
-  duration: 0.16
+  duration: 0.1
   hipCurveX:
     serializedVersion: 2
     m_Curve:
