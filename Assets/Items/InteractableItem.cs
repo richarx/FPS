@@ -20,11 +20,9 @@ namespace Items
 
         public override void Interact()
         {
+            base.Interact();
             OnLoot?.Invoke();
             Destroy(gameObject);
-            
-            if (tooltip != null)
-                Destroy(tooltip);
         }
         
         protected override bool CanInteract()

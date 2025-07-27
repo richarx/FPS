@@ -12,7 +12,6 @@ namespace Dialog_System
         {
             UpdateTooltipDisplay();
             TriggerDialog();
-            base.Interact();
         }
 
         private void UpdateTooltipDisplay()

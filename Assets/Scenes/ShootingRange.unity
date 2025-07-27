@@ -1963,6 +1963,37 @@ Transform:
   - {fileID: 1172472318}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1329050979
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1329050980}
+  m_Layer: 6
+  m_Name: LookTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1329050980
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329050979}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.53, y: 3.9, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1584237817}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1449751184
 GameObject:
   m_ObjectHideFlags: 0
@@ -2081,6 +2112,58 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 31.4, y: 35.8, z: 0}
+--- !u!1 &1584237804 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4981910855296506517, guid: f5327fbcc3bd5ed49a11abba0b34fcfe,
+    type: 3}
+  m_PrefabInstance: {fileID: 2703203687792565540}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1584237817 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2885880666388157173, guid: f5327fbcc3bd5ed49a11abba0b34fcfe,
+    type: 3}
+  m_PrefabInstance: {fileID: 2703203687792565540}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1584237818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584237804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27fb7309431a23a47acc40ced9160fa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnTrigger:
+    m_PersistentCalls:
+      m_Calls: []
+  toolTipText: Press $E$ to have a chat
+  itemType: 2
+  lookTarget: {fileID: 1329050980}
+  npcName: Gorpian Accountant
+--- !u!135 &1584237819
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584237804}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 7
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1624475192
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3350,8 +3433,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2885880666388157173, guid: f5327fbcc3bd5ed49a11abba0b34fcfe,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1329050980}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4981910855296506517, guid: f5327fbcc3bd5ed49a11abba0b34fcfe,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1584237818}
+    - targetCorrespondingSourceObject: {fileID: 4981910855296506517, guid: f5327fbcc3bd5ed49a11abba0b34fcfe,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1584237819}
   m_SourcePrefab: {fileID: 100100000, guid: f5327fbcc3bd5ed49a11abba0b34fcfe, type: 3}
 --- !u!1001 &4752004102164065015
 PrefabInstance:
@@ -3429,6 +3524,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 630618672149492332, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: tooltipPrefab
+      value: 
+      objectReference: {fileID: 5204685021062012214, guid: 58fd019bc365fd44dba3d9055fc034f7,
+        type: 3}
     - target: {fileID: 5634914203544353321, guid: 99fc002cf63d7f94984a5a14526de63a,
         type: 3}
       propertyPath: m_Name

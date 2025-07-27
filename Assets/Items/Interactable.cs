@@ -22,11 +22,12 @@ namespace Items
         
         protected bool isPlayerInRange;
         
-        protected GameObject tooltip;
+        protected Tooltip tooltip;
 
         public virtual void Interact()
         {
-            
+            if (tooltip != null)
+                tooltip.Hide();
         }
 
         protected virtual bool CanInteract()
@@ -80,7 +81,6 @@ namespace Items
         
         protected virtual void SetItemDisplay(bool isInteractable)
         {
-            Debug.Log($"SetItemDisplay : {isInteractable}");
             if (isInteractable)
                 CreateTooltip();
             else
@@ -89,7 +89,6 @@ namespace Items
 
         protected void CreateTooltip()
         {
-            Debug.Log("Create Tooltip");
             if (tooltip == null && !string.IsNullOrEmpty(toolTipText))
                 tooltip = ToolTipManager.instance.DisplayToolTip(toolTipText);
         }
@@ -97,7 +96,7 @@ namespace Items
         protected void DestroyTooltip()
         {
             if (tooltip != null)
-                Destroy(tooltip);
+                tooltip.Hide();
             tooltip = null;
         }
     }

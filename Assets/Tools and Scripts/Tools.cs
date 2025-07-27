@@ -347,19 +347,19 @@ public static class Tools
             sprite.gameObject.SetActive(false);
     }
     
-    public static IEnumerator Fade(TextMeshPro text, float duration, bool fadeIn)
+    public static IEnumerator Fade(TextMeshProUGUI text, float duration, bool fadeIn, float maxFade = 1.0f)
     {
         if (duration == 0.0f)
         {
             Color tmp = text.color;
-            tmp.a = fadeIn ? 1.0f : 0.0f;
+            tmp.a = fadeIn ? maxFade : 0.0f;
             text.color = tmp;
             yield break;
         }
 
-        float fade = fadeIn ? 0.0f : 1.0f;
+        float fade = fadeIn ? 0.0f : maxFade;
         float timer = duration;
-        float increment = 1.0f / timer;
+        float increment = maxFade / timer;
         Color color = text.color;
         
         while (timer > 0.0f)
@@ -374,7 +374,7 @@ public static class Tools
             yield return null;
         }
         
-        color.a = fadeIn ? 1.0f : 0.0f;
+        color.a = fadeIn ? maxFade : 0.0f;
         text.color = color;
     }
 

@@ -64,6 +64,11 @@ namespace Player.Scripts
             Vector3 finalTargetPosition = player.playerLocked.targetPosition;
             
             Vector3 currentPosition = transform.position;
+            Vector3 flatFinalTargetPosition = finalTargetPosition;
+            flatFinalTargetPosition.y = currentPosition.y;
+
+            Vector3 flatDirectionToTarget = (flatFinalTargetPosition - currentPosition).normalized;
+            
             float targetDistance = Vector3.Distance(currentPosition, finalTargetPosition);
 
             Vector3 currentTarget = currentPosition + transform.forward * targetDistance;
@@ -74,6 +79,7 @@ namespace Player.Scripts
                 Vector2 lookDirection = PlayerInputs.GetAimingDirectionWithSensibility();
                 lookDirection *= Time.deltaTime;
                 lookDirection *= PauseMenu.instance.aimSensitivityMultiplier;
+                lookDirection = orientation.right * lookDirection.x + orientation.up * lookDirection.y;
                 lookDirection = lookDirection.normalized * player.playerData.maxCameraMoveDistanceDuringDialog;
                 currentTarget += lookDirection.ToVector3();
             }
@@ -84,7 +90,9 @@ namespace Player.Scripts
             transform.LookAt(currentTarget, Vector3.up);
             orientation.LookAt(targetFlatPosition, Vector3.up);
 
-            xRotation = transform.rotation.eulerAngles.x - 360.0f;
+            float x = transform.rotation.eulerAngles.x;
+            
+            xRotation = x >= 180.0f ? x - 360.0f : x;
             yRotation = transform.rotation.eulerAngles.y;
         }
 

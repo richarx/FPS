@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2181579689588279139}
   - component: {fileID: 6229461192784563957}
   - component: {fileID: 600362218090074871}
+  - component: {fileID: 5204685021062012214}
   m_Layer: 5
   m_Name: ToolTip
   m_TagString: Untagged
@@ -135,3 +136,17 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5204685021062012214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3321119088792409959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1a5320424435d94c862d6dd2eabb4d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeInDuration: 1
+  fadeOutDuration: 0.3
