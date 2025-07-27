@@ -104,7 +104,7 @@ namespace Player.Scripts
             
             CheckIfSlopeIsWalkable(player);
             
-            if (CanPlayerControlDirection())
+            if (CanPlayerControlDirection(player))
                 HandleDirection(player);
             
             UpdateMoveVelocityOnSlope(player);
@@ -161,9 +161,9 @@ namespace Player.Scripts
             isSlopeWalkable = isOnSlope && IsSlopeWalkable(player);
         }
 
-        public bool CanPlayerControlDirection()
+        public bool CanPlayerControlDirection(PlayerStateMachine player)
         {
-            return !isOnSlope || isSlopeWalkable;
+            return (!isOnSlope || isSlopeWalkable) && (!player.isLocked || player.playerLocked.GetLockState == PlayerLocked.LockState.Dialog);
         }
 
         public void HandleDirection(PlayerStateMachine player)
@@ -195,6 +195,14 @@ namespace Player.Scripts
 
         private float ComputeMoveSpeed(PlayerStateMachine player)
         {
+            if (player.isLocked)
+            {
+                if (player.playerLocked.GetLockState == PlayerLocked.LockState.Dialog)
+                    return player.playerData.dialogWalkMaxSpeed;
+                else
+                    return 0.0f;
+            } 
+            
             if (player.isAiming)
                 return player.playerData.groundMaxSpeedAiming;
 

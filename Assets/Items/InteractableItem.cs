@@ -12,8 +12,6 @@ namespace Items
         [HideInInspector] public UnityEvent OnLoot = new UnityEvent();
 
         private Rigidbody rb;
-
-        
         
         private void Start()
         {

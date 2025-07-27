@@ -34,7 +34,7 @@ namespace Player.Scripts
         {
             if (isLookDirectionReturningToBeforeFollow)
                 GoBackToPreviousPosition();
-            else if (player.isLocked)
+            else if (player.isLocked && player.playerLocked.hasTarget)
                 FollowTarget();
             else
                 FollowMouse();

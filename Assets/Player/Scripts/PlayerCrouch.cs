@@ -50,7 +50,7 @@ namespace Player.Scripts
             
             player.playerRun.CheckIfSlopeIsWalkable(player);
             
-            if (player.playerRun.CanPlayerControlDirection())
+            if (player.playerRun.CanPlayerControlDirection(player))
                 HandleDirection(player);
             
             player.playerRun.UpdateMoveVelocityOnSlope(player);

@@ -8,6 +8,7 @@ namespace Data
         [Header("Movement - Ground")]
         public float stickToGroundHeight;
         public float walkMaxSpeed;
+        public float dialogWalkMaxSpeed;
         public float sprintMaxSpeed;
         public float groundMaxSpeedAiming;
         public float groundAcceleration;

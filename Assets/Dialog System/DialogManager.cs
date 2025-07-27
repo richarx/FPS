@@ -1,4 +1,3 @@
-using System;
 using Player.Scripts;
 using UnityEngine;
 
@@ -11,6 +10,7 @@ namespace Dialog_System
         private PlayerStateMachine player;
         
         private bool isDialogDisplayed;
+        public bool IsDialogDisplayed => isDialogDisplayed;
         
         private void Awake()
         {
@@ -35,8 +35,7 @@ namespace Dialog_System
 
         private void DisplayDialog(Transform lookTarget)
         {
-            player.playerLocked.SetLookTarget(lookTarget);
-            player.ChangeBehaviour(player.playerLocked);
+            player.playerLocked.SetLockState(PlayerStateMachine.instance, PlayerLocked.LockState.Dialog, lookTarget);
         }
         
         private void HideDialog()

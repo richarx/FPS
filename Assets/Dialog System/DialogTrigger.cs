@@ -3,18 +3,36 @@ using UnityEngine;
 
 namespace Dialog_System
 {
-    public class DialogTrigger : MonoBehaviour
+    public class DialogTrigger : Interactable
     {
         [SerializeField] private Transform lookTarget;
-        
-        private void Start()
+
+        public override void Interact()
         {
-            GetComponent<InteractableTrigger>().OnTrigger.AddListener(TriggerDialog);
+            UpdateTooltipDisplay();
+            TriggerDialog();
+            base.Interact();
         }
 
+        private void UpdateTooltipDisplay()
+        {
+            if (DialogManager.instance.IsDialogDisplayed && isPlayerInRange)
+                CreateTooltip();
+            else
+                DestroyTooltip();
+        }
+        
         private void TriggerDialog()
         {
             DialogManager.instance.TriggerDialog(lookTarget);
+        }
+
+        protected override void OnPlayerExitRange()
+        {
+            if (DialogManager.instance.IsDialogDisplayed)
+                DialogManager.instance.TriggerDialog(lookTarget);
+            
+            base.OnPlayerExitRange();
         }
     }
 }

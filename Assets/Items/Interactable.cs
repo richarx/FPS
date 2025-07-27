@@ -20,7 +20,7 @@ namespace Items
         
         private PlayerInteraction playerInteraction;
         
-        private bool isPlayerInRange;
+        protected bool isPlayerInRange;
         
         protected GameObject tooltip;
 
@@ -46,7 +46,7 @@ namespace Items
                 OnPlayerExitRange();
         }
     
-        private void OnPlayerEnterRange()
+        protected virtual  void OnPlayerEnterRange()
         {
             if (playerInteraction == null)
                 playerInteraction = PlayerStateMachine.instance.GetComponent<PlayerInteraction>();
@@ -54,7 +54,7 @@ namespace Items
             ActivateItem();
         }
 
-        private void OnPlayerExitRange()
+        protected virtual void OnPlayerExitRange()
         {
             if (playerInteraction == null)
                 playerInteraction = PlayerStateMachine.instance.GetComponent<PlayerInteraction>();
@@ -80,10 +80,25 @@ namespace Items
         
         protected virtual void SetItemDisplay(bool isInteractable)
         {
-            if (isInteractable && !string.IsNullOrEmpty(toolTipText))
+            Debug.Log($"SetItemDisplay : {isInteractable}");
+            if (isInteractable)
+                CreateTooltip();
+            else
+                DestroyTooltip();
+        }
+
+        protected void CreateTooltip()
+        {
+            Debug.Log("Create Tooltip");
+            if (tooltip == null && !string.IsNullOrEmpty(toolTipText))
                 tooltip = ToolTipManager.instance.DisplayToolTip(toolTipText);
-            else if (!isInteractable && tooltip != null)
+        }
+
+        protected void DestroyTooltip()
+        {
+            if (tooltip != null)
                 Destroy(tooltip);
+            tooltip = null;
         }
     }
 }

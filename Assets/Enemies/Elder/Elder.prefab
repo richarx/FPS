@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 8129043686605612853}
   - component: {fileID: 8318542441220227151}
   - component: {fileID: 1386942372002555232}
-  - component: {fileID: 3877853196020708400}
   - component: {fileID: 522437926642612452}
   m_Layer: 6
   m_Name: Elder
@@ -312,24 +311,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27fb7309431a23a47acc40ced9160fa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookTarget: {fileID: 6465918948855725301}
---- !u!114 &3877853196020708400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2898402158565811358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd6264eb7dc99fd4e9f8876c615b4e82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   OnTrigger:
     m_PersistentCalls:
       m_Calls: []
   toolTipText: Press $E$ to Talk
   itemType: 2
+  lookTarget: {fileID: 6465918948855725301}
 --- !u!135 &522437926642612452
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -376,7 +363,7 @@ Transform:
   m_GameObject: {fileID: 8646803467650657034}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6, z: 0}
+  m_LocalPosition: {x: 0, y: 0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
