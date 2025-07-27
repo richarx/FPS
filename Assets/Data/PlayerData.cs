@@ -51,6 +51,7 @@ namespace Data
         public float throwWeaponForce;
         public float throwWeaponHeightOffset;
         public float throwWeaponSideOffset;
+        public float maxCameraMoveDistanceDuringDialog;
         
         [Space] [Header("FOV Animation")]
         public float fovReductionOnAim;

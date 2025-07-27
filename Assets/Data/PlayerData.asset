@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickToGroundHeight: 1.5
   walkMaxSpeed: 20
+  dialogWalkMaxSpeed: 5
   sprintMaxSpeed: 30
   groundMaxSpeedAiming: 10
   groundAcceleration: 100
@@ -43,23 +44,16 @@ MonoBehaviour:
   airMaxSpeed: 25
   airAcceleration: 50
   airDeceleration: 60
-  freezeFrameDuration: 0.05
-  freezeFrameIntensity: 0.3
-  chromaticAberrationFadeDuration: 0.1
-  chromaticAberrationDuration: 0.1
-  chromaticAberrationIntensity: 0.5
   throwWeaponForce: 10
   throwWeaponHeightOffset: -1
   throwWeaponSideOffset: 0.5
+  maxCameraMoveDistanceDuringDialog: 0.05
   fovReductionOnAim: 20
   fovReductionOnSprint: -10
   fovReductionOnSlide: -30
   standingCameraHeight: 2.5
   crouchedCameraHeight: 0.75
   slideCameraHeight: 0.25
-  crouchVignetteIntensity: 0.3
-  standingVignetteIntensity: 0.2
-  vignetteIntensityTransitionDuration: 0.3
   joystickSensitivityX: 15000
   joystickSensitivityY: 10000
   mouseSensitivity: 7500

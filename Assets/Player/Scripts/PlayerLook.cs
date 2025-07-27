@@ -32,9 +32,10 @@ namespace Player.Scripts
 
         private void LateUpdate()
         {
-            if (isLookDirectionReturningToBeforeFollow)
-                GoBackToPreviousPosition();
-            else if (player.isLocked && player.playerLocked.hasTarget)
+            //if (isLookDirectionReturningToBeforeFollow)
+              //  GoBackToPreviousPosition();
+            //else
+            if (player.isLocked && player.playerLocked.hasTarget)
                 FollowTarget();
             else
                 FollowMouse();
@@ -68,11 +69,24 @@ namespace Player.Scripts
             Vector3 currentTarget = currentPosition + transform.forward * targetDistance;
             currentTarget = Vector3.SmoothDamp(currentTarget, finalTargetPosition, ref followTargetVelocity, 0.5f);
             
+            Vector2 lookDirection = PlayerInputs.GetAimingDirectionWithSensibility();
+            lookDirection *= Time.deltaTime;
+
+            if (player.isAiming)
+                lookDirection *= PauseMenu.instance.aimSensitivityMultiplier;
+
+            lookDirection = lookDirection.normalized * player.playerData.maxCameraMoveDistanceDuringDialog;
+            
+            currentTarget += lookDirection.ToVector3();
+            
             Vector3 targetFlatPosition = currentTarget;
             targetFlatPosition.y = orientation.position.y;
             
             transform.LookAt(currentTarget, Vector3.up);
             orientation.LookAt(targetFlatPosition, Vector3.up);
+
+            xRotation = transform.rotation.eulerAngles.x - 360.0f;
+            yRotation = transform.rotation.eulerAngles.y;
         }
 
         private void FollowMouse()
