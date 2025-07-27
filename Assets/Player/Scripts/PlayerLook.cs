@@ -79,9 +79,9 @@ namespace Player.Scripts
                 Vector2 lookDirection = PlayerInputs.GetAimingDirectionWithSensibility();
                 lookDirection *= Time.deltaTime;
                 lookDirection *= PauseMenu.instance.aimSensitivityMultiplier;
-                lookDirection = orientation.right * lookDirection.x + orientation.up * lookDirection.y;
-                lookDirection = lookDirection.normalized * player.playerData.maxCameraMoveDistanceDuringDialog;
-                currentTarget += lookDirection.ToVector3();
+                Vector3 delta = transform.right * lookDirection.x + Vector3.up * lookDirection.y;
+                delta = delta.normalized * player.playerData.maxCameraMoveDistanceDuringDialog;
+                currentTarget += delta;
             }
 
             Vector3 targetFlatPosition = currentTarget;
