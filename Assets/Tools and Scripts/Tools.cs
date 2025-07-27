@@ -416,6 +416,25 @@ public static class Tools
         target.position -= previousShake.ToVector3();
     }
 
+    public static IEnumerator TweenPosition(RectTransform target, float x, float y, float duration, bool deactivateOnEnd = false)
+    {
+        target.gameObject.SetActive(true);
+        
+        Vector3 targetPosition = new Vector3(x, y, target.position.z);
+        Vector3 velocity = Vector3.zero;
+        
+        while (Vector3.Distance(target.position, targetPosition) >= 0.15f)
+        {
+            target.position = Vector3.SmoothDamp(target.position, targetPosition, ref velocity, duration);
+            yield return null;
+        }
+
+        target.position = targetPosition;
+        
+        if (deactivateOnEnd)
+            target.gameObject.SetActive(false);
+    }
+
     public static void RestoreTextColor(TextMeshPro text)
     {
         int characterCount = text.textInfo.characterCount;

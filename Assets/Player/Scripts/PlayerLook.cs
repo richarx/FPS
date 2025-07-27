@@ -69,16 +69,15 @@ namespace Player.Scripts
             Vector3 currentTarget = currentPosition + transform.forward * targetDistance;
             currentTarget = Vector3.SmoothDamp(currentTarget, finalTargetPosition, ref followTargetVelocity, 0.5f);
             
-            Vector2 lookDirection = PlayerInputs.GetAimingDirectionWithSensibility();
-            lookDirection *= Time.deltaTime;
-
             if (player.isAiming)
+            {
+                Vector2 lookDirection = PlayerInputs.GetAimingDirectionWithSensibility();
+                lookDirection *= Time.deltaTime;
                 lookDirection *= PauseMenu.instance.aimSensitivityMultiplier;
+                lookDirection = lookDirection.normalized * player.playerData.maxCameraMoveDistanceDuringDialog;
+                currentTarget += lookDirection.ToVector3();
+            }
 
-            lookDirection = lookDirection.normalized * player.playerData.maxCameraMoveDistanceDuringDialog;
-            
-            currentTarget += lookDirection.ToVector3();
-            
             Vector3 targetFlatPosition = currentTarget;
             targetFlatPosition.y = orientation.position.y;
             

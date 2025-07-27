@@ -317,6 +317,7 @@ MonoBehaviour:
   toolTipText: Press $E$ to Talk
   itemType: 2
   lookTarget: {fileID: 6465918948855725301}
+  npcName: Elder Dude
 --- !u!135 &522437926642612452
 SphereCollider:
   m_ObjectHideFlags: 0

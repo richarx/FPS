@@ -6,6 +6,7 @@ namespace Dialog_System
     public class DialogTrigger : Interactable
     {
         [SerializeField] private Transform lookTarget;
+        [SerializeField] private string npcName;
 
         public override void Interact()
         {
@@ -24,13 +25,13 @@ namespace Dialog_System
         
         private void TriggerDialog()
         {
-            DialogManager.instance.TriggerDialog(lookTarget);
+            DialogManager.instance.TriggerDialog(lookTarget, npcName);
         }
 
         protected override void OnPlayerExitRange()
         {
             if (DialogManager.instance.IsDialogDisplayed)
-                DialogManager.instance.TriggerDialog(lookTarget);
+                DialogManager.instance.TriggerDialog(lookTarget, npcName);
             
             base.OnPlayerExitRange();
         }
