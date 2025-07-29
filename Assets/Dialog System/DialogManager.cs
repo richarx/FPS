@@ -15,7 +15,8 @@ namespace Dialog_System
 
         private PlayerStateMachine player;
         private DialogDisplay dialogDisplay;
-        
+        private DialogBoxAnimation dialogBoxAnimation;
+
         private bool isDialogDisplayed;
         public bool IsDialogDisplayed => isDialogDisplayed;
 
@@ -28,6 +29,7 @@ namespace Dialog_System
         {
             player = PlayerStateMachine.instance;
             dialogDisplay = GetComponent<DialogDisplay>();
+            dialogBoxAnimation = GetComponent<DialogBoxAnimation>();
             dialogDisplay.OnReachDialogEnd.AddListener(() =>
             {
                 isDialogDisplayed = false;
@@ -52,7 +54,8 @@ namespace Dialog_System
             player.playerLocked.SetLockState(PlayerStateMachine.instance, PlayerLocked.LockState.Dialog, lookTarget);
             OnDisplayDialog?.Invoke(dialogData);
 
-            yield return dialogDisplay.DisplayDialogBox();
+            dialogDisplay.InitializeDisplay();
+            yield return dialogBoxAnimation.DisplayDialogBox();
             dialogDisplay.DisplayNewDialog(dialogData.dialoguesLines);
         }
         
@@ -62,7 +65,8 @@ namespace Dialog_System
             OnHideDialog?.Invoke();
             
             dialogDisplay.StopDialog();
-            yield return dialogDisplay.HideDialogBox();
+            dialogDisplay.StopDisplay();
+            yield return dialogBoxAnimation.HideDialogBox();
         }
     }
 }

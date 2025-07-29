@@ -13,23 +13,17 @@ namespace Dialog_System
     public class DialogDisplay : MonoBehaviour
     {
         [SerializeField] private TypewriterCore typewriter;
-        [SerializeField] private RectTransform dialogBox;
-        [SerializeField] private TextMeshProUGUI textMeshPro;
         [SerializeField] private GameObject continueIcon;
         
         [HideInInspector] public UnityEvent OnReachDialogEnd = new UnityEvent();
 
-        private Image boxImage;
-        
         private string[] dialoguesLines;
         private bool hasLines => dialoguesLines.Length > 0;
         
         int dialogueIndex = 0;
         int dialogueLength;
         bool currentLineShown;
-
-        private float dialogBoxPosition;
-
+        
         private void Awake()
         {
             typewriter.onTextShowed.AddListener(() =>
@@ -41,10 +35,7 @@ namespace Dialog_System
     
         private void Start()
         {
-            boxImage = dialogBox.GetComponent<Image>();
-            textMeshPro = typewriter.GetComponent<TextMeshProUGUI>();
             typewriter.onMessage.AddListener(OnMessage);
-            dialogBoxPosition = dialogBox.position.y;
         }
 
         public void DisplayNewDialog(string[] newDialog)
@@ -89,6 +80,18 @@ namespace Dialog_System
             }
         }
 
+        public void InitializeDisplay()
+        {
+            continueIcon.SetActive(false);
+        }
+
+        public void StopDisplay()
+        {
+            typewriter.StartDisappearingText();
+            CurrentLineShown = false;
+            dialoguesLines = Array.Empty<string>();
+        }
+
         private void ContinueSequence()
         {
             CurrentLineShown = false;
@@ -101,36 +104,6 @@ namespace Dialog_System
                 typewriter.StartDisappearingText();
                 OnReachDialogEnd?.Invoke();
             }
-        }
-
-        public IEnumerator DisplayDialogBox()
-        {
-            textMeshPro.text = "";
-            Tools.RestoreTextColor(textMeshPro);
-            dialogBox.gameObject.SetActive(true);
-            continueIcon.SetActive(false);
-            StartCoroutine(Tools.Fade(boxImage, 0.5f, true, 0.1f));
-            
-            Vector3 position = dialogBox.position;
-            position.y = dialogBoxPosition - 100.0f;
-            dialogBox.position = position;
-            yield return Tools.TweenPosition(dialogBox, dialogBox.position.x, dialogBoxPosition, 0.5f);
-        }
-
-        public IEnumerator HideDialogBox()
-        {
-            typewriter.StartDisappearingText();
-            CurrentLineShown = false;
-            dialoguesLines = Array.Empty<string>();
-            
-            StartCoroutine(Tools.Fade(boxImage, 0.5f, false, 0.1f));
-            StartCoroutine(Tools.Fade(textMeshPro, 0.3f, false));
-            yield return Tools.TweenPosition(dialogBox, dialogBox.position.x, dialogBoxPosition - 100.0f, 0.5f);
-            
-            Vector3 position = dialogBox.position;
-            position.y = dialogBoxPosition;
-            dialogBox.position = position;
-            dialogBox.gameObject.SetActive(false);
         }
 
         private void OnMessage(EventMarker eventData)
