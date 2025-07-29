@@ -1,5 +1,6 @@
 using System;
 using Data;
+using Dialog_System;
 using Enemies;
 using Pause_Menu;
 using Tools_and_Scripts;
@@ -28,15 +29,26 @@ namespace Player.Scripts
         private float lastShotTimestamp;
         private bool isInputReset = true;
 
+        private float unlockPlayerTimestamp = -1.0f;
+        private bool isLocked => unlockPlayerTimestamp > 0.0f;
+
         private void Start()
         {
             player = GetComponent<PlayerStateMachine>();
+            DialogManager.OnHideDialog.AddListener(() => unlockPlayerTimestamp = Time.time + 0.5f);
         }
 
         private void Update()
         {
             if (PauseMenu.instance.IsPaused || player.isLocked)
                 return;
+
+            if (isLocked)
+            {
+                if (Time.time >= unlockPlayerTimestamp)
+                    unlockPlayerTimestamp = -1.0f;
+                return;
+            }
             
             if (player.playerAmmo.isReloading || !player.playerGun.hasWeapon)
                 return;
