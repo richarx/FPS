@@ -18,7 +18,7 @@ namespace Dialog_System
         
         private void Start()
         {
-            DialogManager.OnDisplayDialog.AddListener(ActivateBlackBars);
+            DialogManager.OnDisplayDialog.AddListener((dialogData) => ActivateBlackBars());
             DialogManager.OnHideDialog.AddListener(HideBlackBars);
 
             ComputePositions();

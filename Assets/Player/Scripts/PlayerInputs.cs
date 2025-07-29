@@ -334,5 +334,15 @@ namespace Tools_and_Scripts
             if (GetRightTrigger(false, false))
                 shootBufferTimeStamp = Time.time + 0.2f;
         }
+
+        public static void ResetInputBuffers()
+        {
+            dashBufferTimeStamp = -1.0f;
+            attackBufferTimeStamp = -1.0f;
+            jumpBufferTimeStamp = -1.0f;
+            guardBufferTimeStamp = -1.0f;
+            throwBufferTimeStamp = -1.0f;
+            shootBufferTimeStamp = -1.0f;
+        } 
     }
 }

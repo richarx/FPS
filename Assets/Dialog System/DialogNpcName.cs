@@ -19,18 +19,18 @@ namespace Dialog_System
         private void Start()
         {
             textTransform = text.GetComponent<RectTransform>();
-            DialogManager.OnDisplayDialog.AddListener(() =>
+            DialogManager.OnDisplayDialog.AddListener((dialogData) =>
             {
                 StopAllCoroutines();
-                StartCoroutine(DisplayName());
+                StartCoroutine(DisplayName(dialogData));
             });
             DialogManager.OnHideDialog.AddListener(HideName);
         }
 
-        private IEnumerator DisplayName()
+        private IEnumerator DisplayName(DialogData dialogData)
         {
             yield return new WaitForSeconds(transitionDelay);
-            text.text = DialogManager.instance.npcName;
+            text.text = dialogData.npcName;
             yield return Tools.TweenPosition(textTransform, textTransform.position.x, textHeight, transitionInDuration);
         }
         

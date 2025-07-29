@@ -31,7 +31,7 @@ namespace Player.Scripts
         public bool isAiming => playerAiming.isAiming;
         public bool isReloading => playerAmmo.isReloading;
         public bool isSliding => currentBehaviour.GetBehaviourType() == BehaviourType.Slide;
-        public bool isLocked => currentBehaviour.GetBehaviourType() == BehaviourType.Locked;
+        public bool isLocked => currentBehaviour.GetBehaviourType() == BehaviourType.Locked || playerRun.IsSkippingFrame;
 
         [HideInInspector] public Vector2 moveInput;
         [HideInInspector] public Vector3 moveVelocity;

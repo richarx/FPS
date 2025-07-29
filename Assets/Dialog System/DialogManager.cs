@@ -1,4 +1,6 @@
+using System.Collections;
 using Player.Scripts;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -6,18 +8,17 @@ namespace Dialog_System
 {
     public class DialogManager : MonoBehaviour
     {
-        public static UnityEvent OnDisplayDialog = new UnityEvent();
+        public static UnityEvent<DialogData> OnDisplayDialog = new UnityEvent<DialogData>();
         public static UnityEvent OnHideDialog = new UnityEvent();
         
         public static DialogManager instance;
 
         private PlayerStateMachine player;
+        private DialogDisplay dialogDisplay;
         
         private bool isDialogDisplayed;
         public bool IsDialogDisplayed => isDialogDisplayed;
 
-        [HideInInspector] public string npcName; 
-        
         private void Awake()
         {
             instance = this;
@@ -26,29 +27,42 @@ namespace Dialog_System
         private void Start()
         {
             player = PlayerStateMachine.instance;
+            dialogDisplay = GetComponent<DialogDisplay>();
+            dialogDisplay.OnReachDialogEnd.AddListener(() =>
+            {
+                isDialogDisplayed = false;
+                StopAllCoroutines();
+                StartCoroutine(HideDialog());
+            });
         }
 
-        public void TriggerDialog(Transform lookTarget, string npc)
+        public void TriggerDialog(Transform lookTarget, DialogData dialogData)
         {
-            npcName = npc;
-            
             isDialogDisplayed = !isDialogDisplayed;
+            
+            StopAllCoroutines();
             if (isDialogDisplayed)
-                DisplayDialog(lookTarget);
+                StartCoroutine(DisplayDialog(lookTarget, dialogData));
             else
-                HideDialog();
+                StartCoroutine(HideDialog());
         }
 
-        private void DisplayDialog(Transform lookTarget)
+        private IEnumerator DisplayDialog(Transform lookTarget, DialogData dialogData)
         {
             player.playerLocked.SetLockState(PlayerStateMachine.instance, PlayerLocked.LockState.Dialog, lookTarget);
-            OnDisplayDialog?.Invoke();
+            OnDisplayDialog?.Invoke(dialogData);
+
+            yield return dialogDisplay.DisplayDialogBox();
+            dialogDisplay.DisplayNewDialog(dialogData.dialoguesLines);
         }
         
-        private void HideDialog()
+        private IEnumerator HideDialog()
         {
             player.ChangeBehaviour(player.playerRun);
             OnHideDialog?.Invoke();
+            
+            dialogDisplay.StopDialog();
+            yield return dialogDisplay.HideDialogBox();
         }
     }
 }

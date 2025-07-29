@@ -14,6 +14,8 @@ namespace Player.Scripts
         public bool isSlopeWalkable;
         public bool isSprinting;
 
+        private bool isSkippingFrame;
+        public bool IsSkippingFrame => isSkippingFrame;
         private bool isCrouchInputReset;
 
         public PlayerRun(PlayerStateMachine player)
@@ -33,10 +35,22 @@ namespace Player.Scripts
 
             if (previous == BehaviourType.Crouch || previous == BehaviourType.Slide)
                 isCrouchInputReset = false;
+
+            if (previous == BehaviourType.Locked)
+            {
+                isSkippingFrame = true;
+                PlayerInputs.ResetInputBuffers();
+            }
         }
 
         public void UpdateBehaviour(PlayerStateMachine player)
         {
+            if (isSkippingFrame)
+            {
+                isSkippingFrame = false;
+                return;
+            }
+            
             if (player.playerJump.CanJump() && PlayerInputs.GetSouthButton())
             {
                 player.playerJump.StartJump(player);

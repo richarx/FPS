@@ -47,7 +47,7 @@ namespace Items
                 OnPlayerExitRange();
         }
     
-        protected virtual  void OnPlayerEnterRange()
+        protected virtual void OnPlayerEnterRange()
         {
             if (playerInteraction == null)
                 playerInteraction = PlayerStateMachine.instance.GetComponent<PlayerInteraction>();

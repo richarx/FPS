@@ -435,25 +435,11 @@ public static class Tools
             target.gameObject.SetActive(false);
     }
 
-    public static void RestoreTextColor(TextMeshPro text)
+    public static void RestoreTextColor(TextMeshProUGUI text)
     {
-        int characterCount = text.textInfo.characterCount;
-        TMP_CharacterInfo[] info = text.textInfo.characterInfo;
-        
-        Color32 white = new Color32(255, 255, 255, 255);
-        for (int i = 0; i < characterCount; ++i)
-        {
-            int meshIndex = info[i].materialReferenceIndex;
-            int vertexIndex = info[i].vertexIndex;
-   
-            Color32[] vertexColors = text.textInfo.meshInfo[meshIndex].colors32;
-            vertexColors[vertexIndex + 0] = white;
-            vertexColors[vertexIndex + 1] = white;
-            vertexColors[vertexIndex + 2] = white;
-            vertexColors[vertexIndex + 3] = white;
-        }
-        
-        text.UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
+        Color color = text.color;
+        color.a = 1.0f;
+        text.color = color;
     }
     
     public static Vector3 LerpVector3(Vector3 start, Vector3 end, float t)

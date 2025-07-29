@@ -6,10 +6,22 @@ namespace Dialog_System
     public class DialogTrigger : Interactable
     {
         [SerializeField] private Transform lookTarget;
-        [SerializeField] private string npcName;
+        [SerializeField] DialogData dialogData;
+
+        private bool isDialogDisplayed;
+        
+        private void Start()
+        {
+            DialogManager.OnHideDialog.AddListener(() =>
+            {
+                if (isDialogDisplayed && isPlayerInRange)
+                    CreateTooltip();
+            });
+        }
 
         public override void Interact()
         {
+            isDialogDisplayed = !DialogManager.instance.IsDialogDisplayed;
             UpdateTooltipDisplay();
             TriggerDialog();
         }
@@ -24,13 +36,13 @@ namespace Dialog_System
         
         private void TriggerDialog()
         {
-            DialogManager.instance.TriggerDialog(lookTarget, npcName);
+            DialogManager.instance.TriggerDialog(lookTarget, dialogData);
         }
 
         protected override void OnPlayerExitRange()
         {
             if (DialogManager.instance.IsDialogDisplayed)
-                DialogManager.instance.TriggerDialog(lookTarget, npcName);
+                DialogManager.instance.TriggerDialog(lookTarget, dialogData);
             
             base.OnPlayerExitRange();
         }
