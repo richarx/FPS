@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Items.Weapons
@@ -10,24 +9,36 @@ namespace Items.Weapons
         public GameObject weaponPrefab;
         public GameObject lootPrefab;
         
-        [Header("Stats")] 
+        [Space] [Header("Stats")] 
         public float bulletDistance;
         public int startingAmmo;
-        public float reloadDuration;
         public float fireRate;
+        public float reloadDuration;
+        
+        [Space]
+        public bool isRaycast;
+        public bool isFullAuto;
+
+        [Space] [Header("Spread Shot")]
+        public bool useSpreadShot;
+        public int bulletsPerSpread;
+        public Vector2 maxSpread;
+        
+        [Space] [Header("Burst Shot")]
+        public bool useBurstShot;
+        public int bulletsPerBurst;
+        public float timeBetweenBurstBullets;
+        
+        [Space] [Header("Recoil")]
         public float xRecoil;
         public float yRecoil;
         public float shotDuration;
         public float recoilSnappiness;
         public float recoilCancelSnappiness;
         public float recoilCancelPower;
+
+        [Space] [Header("Aim Down Sight")]
         public float aimDownSightSpeed;
-        public bool isRaycast;
-        public bool isFullAuto;
-        
-        [Space] [Header("FOV Animation")]
         public float fovReductionOnAim;
-        public float fovReductionOnSprint;
-        public float fovReductionOnSlide;
     }
 }

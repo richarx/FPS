@@ -83,15 +83,15 @@ namespace Player.Scripts
 
         private void ShootRaycast()
         {
-            RaycastHit[] hit = Physics.RaycastAll(shootingPosition, shootingDirection, player.playerGun.CurrentWeapon.bulletDistance, targetLayer);
+            bool hit = Physics.Raycast(shootingPosition, shootingDirection, out RaycastHit hitInfo, player.playerGun.CurrentWeapon.bulletDistance, targetLayer);
 
             SurfaceData.SurfaceType surfaceType = SurfaceData.SurfaceType.None;
-            for (int i = 0; i < hit.Length; i++)
+            if (hit)
             {
-                Damageable damageable = hit[i].collider.GetComponent<Damageable>();
+                Damageable damageable = hitInfo.collider.GetComponent<Damageable>();
                 if (damageable != null)
                 {
-                    Vector3 hitPosition = shootingPosition + (shootingDirection.normalized * hit[i].distance);
+                    Vector3 hitPosition = shootingPosition + (shootingDirection.normalized * hitInfo.distance);
                     damageable.TakeDamage(1.0f, hitPosition);
                     OnHit?.Invoke(hitPosition, SurfaceData.SurfaceType.Enemy);
                     return;
@@ -101,7 +101,7 @@ namespace Player.Scripts
             }
             
             if (surfaceType != SurfaceData.SurfaceType.None)
-                OnHit?.Invoke(shootingPosition + (shootingDirection.normalized * hit[0].distance), surfaceType);
+                OnHit?.Invoke(shootingPosition + (shootingDirection.normalized * hitInfo.distance), surfaceType);
         }
 
         private bool CanShoot()

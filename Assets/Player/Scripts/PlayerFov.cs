@@ -40,16 +40,12 @@ namespace Player.Scripts
         
         private float GetSprintFov()
         {
-            return player.playerGun.hasWeapon
-                ? player.playerGun.CurrentWeapon.fovReductionOnSprint
-                : player.playerData.fovReductionOnSprint;
+            return player.playerData.fovReductionOnSprint;
         }
         
         private float GetSlideFov()
         {
-            return player.playerGun.hasWeapon
-                ? player.playerGun.CurrentWeapon.fovReductionOnSlide
-                : player.playerData.fovReductionOnSlide;
+            return player.playerData.fovReductionOnSlide;
         }
 
         private void ChangeFov(float newValue)
