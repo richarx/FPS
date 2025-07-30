@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6acf0caf1551866479817400d707b596, type: 3}
+  m_Name: ShotgunData
+  m_EditorClassIdentifier: 
+  weaponPrefab: {fileID: 3602875748352308952, guid: aa829be77a717ac4eac55c8970e57f36,
+    type: 3}
+  lootPrefab: {fileID: 3677275250429599229, guid: 8f2c91dcc1794ce4a942df3c29c2233b,
+    type: 3}
+  bulletDistance: 250
+  startingAmmo: 6
+  reloadDuration: 1
+  fireRate: 8
+  xRecoil: 1.5
+  yRecoil: 20
+  shotDuration: 0.15
+  recoilSnappiness: 0.05
+  recoilCancelSnappiness: 0.15
+  recoilCancelPower: 0.3
+  isRaycast: 1
+  isFullAuto: 0
+  fovReductionOnAim: 10
+  fovReductionOnSprint: -10
+  fovReductionOnSlide: -30
