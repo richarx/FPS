@@ -21,6 +21,7 @@ namespace Items.Weapons
         public float recoilSnappiness;
         public float recoilCancelSnappiness;
         public float recoilCancelPower;
+        public float aimDownSightSpeed;
         public bool isRaycast;
         public bool isFullAuto;
         

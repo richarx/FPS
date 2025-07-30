@@ -26,6 +26,7 @@ MonoBehaviour:
   recoilSnappiness: 0.05
   recoilCancelSnappiness: 0.15
   recoilCancelPower: 0.3
+  aimDownSightSpeed: 0.2
   isRaycast: 1
   isFullAuto: 0
   fovReductionOnAim: 10

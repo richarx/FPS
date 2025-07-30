@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: -3264863930934573023}
   - component: {fileID: 165464532628759666}
   m_Layer: 5
-  m_Name: Shotgun
+  m_Name: BR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -215,9 +215,9 @@ MonoBehaviour:
   gunAnimationIdleSpeed: 100
   emptyGunShakeDuration: 0.2
   emptyGunShakePower: 200
-  reloadPosition: {x: 0, y: -600, z: 0}
-  hipPosition: {x: 480.2, y: -312.3, z: 0}
-  adsPosition: {x: 54.9, y: -91, z: 0}
+  reloadPosition: {x: 0, y: -1000, z: 0}
+  hipPosition: {x: 578.3, y: -364.4, z: 0}
+  adsPosition: {x: 29.1, y: -174.3, z: 0}
 --- !u!114 &6838287278619560013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,12 +248,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   graphics: {fileID: 3949224675873890428}
-  hipSprite: {fileID: 21300000, guid: 4c3f547685bcff5468b80986738a2528, type: 3}
-  aimSprite: {fileID: 21300000, guid: e4cb437162344e64eaa7c797ace182a3, type: 3}
+  hipSprite: {fileID: 21300000, guid: 247b224429c2c7c458d14b1ee2ef2aa2, type: 3}
+  aimSprite: {fileID: 21300000, guid: 917eaab67558f7e4892e60f38cda2f3e, type: 3}
   gunAnimationSizeSpeed: 0.1
-  transitionFalloff: 2050
-  hipSize: {x: 1900, y: 1600}
-  adsSize: {x: 2055, y: 1360}
+  transitionFalloff: 1690
+  hipSize: {x: 1600, y: 1500}
+  adsSize: {x: 1700, y: 1288}
 --- !u!114 &2989244378452837466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,26 +332,26 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 1.3
-      inSlope: 1.0000002
-      outSlope: 1.0000002
+      inSlope: 0.50231695
+      outSlope: 0.50231695
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.2
-      value: 1.5
-      inSlope: 0.5000001
-      outSlope: 0.5000001
+      time: 0.20483704
+      value: 1.4028931
+      inSlope: 0.22020562
+      outSlope: 0.22020562
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.6
-      value: 1.5
-      inSlope: -0.62500006
-      outSlope: -0.62500006
+      time: 0.6499878
+      value: 1.3753357
+      inSlope: -0.56712806
+      outSlope: -0.56712806
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -359,8 +359,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: -1.2500001
-      outSlope: -1.2500001
+      inSlope: -1.0723504
+      outSlope: -1.0723504
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -373,27 +373,27 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1.1
-      inSlope: 0.5000001
-      outSlope: 0.5000001
+      value: 1.3
+      inSlope: 2.5
+      outSlope: 2.5
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 0.2
-      value: 1.2
-      inSlope: 0.25000006
-      outSlope: 0.25000006
+      value: 1.8
+      inSlope: 1.25
+      outSlope: 1.25
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 0.6
-      value: 1.2
-      inSlope: -0.2500001
-      outSlope: -0.2500001
+      value: 1.8
+      inSlope: -1
+      outSlope: -1
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -401,8 +401,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: -0.5000002
-      outSlope: -0.5000002
+      inSlope: -2
+      outSlope: -2
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -473,8 +473,8 @@ MonoBehaviour:
   - {fileID: 2589173951740334879, guid: 73c4b86a979a61745b626fbcdfe33d1c, type: 3}
   - {fileID: 2589173951740334879, guid: 31f3fc6c62f3f3c4da56342a8af39543, type: 3}
   - {fileID: 2589173951740334879, guid: 8f7c841dad7c03a4689831492c360165, type: 3}
-  muzzlePositionHip: {x: 23, y: 23, z: 0}
-  muzzlePositionAim: {x: -33.6, y: 10, z: 0}
+  muzzlePositionHip: {x: -251, y: 27, z: 0}
+  muzzlePositionAim: {x: -17, y: 164, z: 0}
 --- !u!114 &165464532628759666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -555,7 +555,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -33.6, y: 10}
+  m_AnchoredPosition: {x: -17, y: -164}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7115240586865130267
@@ -625,7 +625,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4c3f547685bcff5468b80986738a2528, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 247b224429c2c7c458d14b1ee2ef2aa2, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

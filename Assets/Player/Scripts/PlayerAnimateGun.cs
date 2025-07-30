@@ -171,7 +171,7 @@ namespace Player.Scripts
             if (gun == null)
                 return;
             
-            gun.localPosition = Vector3.SmoothDamp(gun.localPosition, targetPosition + offsetPosition, ref velocity, gunAnimationSmoothTime);
+            gun.localPosition = Vector3.SmoothDamp(gun.localPosition, targetPosition + offsetPosition, ref velocity, player.isAiming ? player.playerGun.CurrentWeapon.aimDownSightSpeed : gunAnimationSmoothTime);
         }
 
         private void IdleGun()
