@@ -16,19 +16,26 @@ MonoBehaviour:
     type: 3}
   lootPrefab: {fileID: 3677275250429599229, guid: 4ad191f6c1497b54db2d96f365241ab9,
     type: 3}
+  bulletDamage: 0
   bulletDistance: 250
-  startingAmmo: 12
-  reloadDuration: 1
   fireRate: 8
+  isRaycast: 1
+  isFullAuto: 0
+  startingAmmo: 30
+  reloadDuration: 1
+  isReloadingOnEmptyMag: 0
+  useSpreadShot: 0
+  bulletsPerSpread: 0
+  maxSpread: {x: 0, y: 0}
+  useBurstShot: 1
+  bulletsPerBurst: 3
+  timeBetweenBurstBullets: 0.05
   xRecoil: 0
-  yRecoil: 0.5
+  yRecoil: 1.5
   shotDuration: 0.15
   recoilSnappiness: 0.03
   recoilCancelSnappiness: 0.1
   recoilCancelPower: 1
   aimDownSightSpeed: 0.03
-  isRaycast: 1
-  isFullAuto: 0
   fovReductionOnAim: 30
-  fovReductionOnSprint: -10
-  fovReductionOnSlide: -30
+  bulletTrailOffset: {x: 0.2, y: -0.2, z: 1}

@@ -8,16 +8,20 @@ namespace Items.Weapons
         [Header("Prefabs")] 
         public GameObject weaponPrefab;
         public GameObject lootPrefab;
-        
+
         [Space] [Header("Stats")] 
+        public float bulletDamage;
         public float bulletDistance;
-        public int startingAmmo;
         public float fireRate;
-        public float reloadDuration;
         
         [Space]
         public bool isRaycast;
         public bool isFullAuto;
+        
+        [Space] [Header("Reload")]
+        public int startingAmmo;
+        public float reloadDuration;
+        public bool isReloadingOnEmptyMag;
 
         [Space] [Header("Spread Shot")]
         public bool useSpreadShot;
@@ -40,5 +44,8 @@ namespace Items.Weapons
         [Space] [Header("Aim Down Sight")]
         public float aimDownSightSpeed;
         public float fovReductionOnAim;
+
+        [Space] [Header("Bullet Trails")] 
+        public Vector3 bulletTrailOffset;
     }
 }

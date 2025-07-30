@@ -473,7 +473,7 @@ MonoBehaviour:
   - {fileID: 2589173951740334879, guid: 73c4b86a979a61745b626fbcdfe33d1c, type: 3}
   - {fileID: 2589173951740334879, guid: 31f3fc6c62f3f3c4da56342a8af39543, type: 3}
   - {fileID: 2589173951740334879, guid: 8f7c841dad7c03a4689831492c360165, type: 3}
-  muzzlePositionHip: {x: 23, y: 23, z: 0}
+  muzzlePositionHip: {x: -150, y: 200, z: 0}
   muzzlePositionAim: {x: -33.6, y: 10, z: 0}
 --- !u!114 &165464532628759666
 MonoBehaviour:

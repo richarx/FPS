@@ -18,8 +18,16 @@ MonoBehaviour:
     type: 3}
   bulletDistance: 250
   startingAmmo: 32
-  reloadDuration: 1.5
   fireRate: 8
+  reloadDuration: 1.5
+  isRaycast: 1
+  isFullAuto: 1
+  useSpreadShot: 0
+  bulletsPerSpread: 0
+  maxSpread: {x: 0, y: 0}
+  useBurstShot: 0
+  bulletsPerBurst: 0
+  timeBetweenBurstBullets: 0
   xRecoil: 1
   yRecoil: 3
   shotDuration: 0.15
@@ -27,8 +35,5 @@ MonoBehaviour:
   recoilCancelSnappiness: 0.15
   recoilCancelPower: 1
   aimDownSightSpeed: 0.1
-  isRaycast: 1
-  isFullAuto: 1
   fovReductionOnAim: 20
-  fovReductionOnSprint: -10
-  fovReductionOnSlide: -30
+  bulletTrailOffset: {x: 0.5, y: -0.4, z: 1}

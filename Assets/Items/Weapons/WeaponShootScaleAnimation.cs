@@ -36,8 +36,8 @@ namespace Items.Weapons
             float timer = 0.0f;
             while (timer <= duration)
             {
-                sizeDelta.x = SampleCurveAtTime(player.isAiming ? hipCurveX : aimCurveX, timer);
-                sizeDelta.y = SampleCurveAtTime(player.isAiming ? hipCurveY : aimCurveY, timer);
+                sizeDelta.x = SampleCurveAtTime(player.isAiming ? aimCurveX : hipCurveX, timer);
+                sizeDelta.y = SampleCurveAtTime(player.isAiming ? aimCurveY : hipCurveY, timer);
                 graphics.localScale = sizeDelta;
                 yield return null;
                 timer += Time.deltaTime;

@@ -373,27 +373,27 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1.3
-      inSlope: 2.5
-      outSlope: 2.5
+      value: 1.1
+      inSlope: 0.5000001
+      outSlope: 0.5000001
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 0.2
-      value: 1.8
-      inSlope: 1.25
-      outSlope: 1.25
+      value: 1.2
+      inSlope: 0.25000006
+      outSlope: 0.25000006
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 0.6
-      value: 1.8
-      inSlope: -1
-      outSlope: -1
+      value: 1.2
+      inSlope: -0.2500001
+      outSlope: -0.2500001
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -401,8 +401,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: -2
-      outSlope: -2
+      inSlope: -0.5000002
+      outSlope: -0.5000002
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -415,27 +415,27 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1.3
-      inSlope: 2.5
-      outSlope: 2.5
+      value: 1.1
+      inSlope: 0.5000001
+      outSlope: 0.5000001
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 0.2
-      value: 1.8
-      inSlope: 1.25
-      outSlope: 1.25
+      value: 1.2
+      inSlope: 0.25000006
+      outSlope: 0.25000006
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 0.6
-      value: 1.8
-      inSlope: -1
-      outSlope: -1
+      value: 1.2
+      inSlope: -0.2500001
+      outSlope: -0.2500001
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -443,8 +443,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: -2
-      outSlope: -2
+      inSlope: -0.5000002
+      outSlope: -0.5000002
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -473,8 +473,8 @@ MonoBehaviour:
   - {fileID: 2589173951740334879, guid: 73c4b86a979a61745b626fbcdfe33d1c, type: 3}
   - {fileID: 2589173951740334879, guid: 31f3fc6c62f3f3c4da56342a8af39543, type: 3}
   - {fileID: 2589173951740334879, guid: 8f7c841dad7c03a4689831492c360165, type: 3}
-  muzzlePositionHip: {x: -251, y: 27, z: 0}
-  muzzlePositionAim: {x: -17, y: 164, z: 0}
+  muzzlePositionHip: {x: -400, y: 250, z: 0}
+  muzzlePositionAim: {x: 0, y: -50, z: 0}
 --- !u!114 &165464532628759666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -489,10 +489,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunShotFirst: {fileID: 0}
   gunShot:
-  - {fileID: 8300000, guid: 4fe46a25abf438f4895b5f568fb24c77, type: 3}
-  - {fileID: 8300000, guid: ada28cbb2026b6e45ba9e8a41f84ec5d, type: 3}
-  - {fileID: 8300000, guid: 7e8dd9e9bcb5bfa48a7fd1009c523fcd, type: 3}
-  - {fileID: 8300000, guid: dde6a2fffcf057941bcc187897211ff7, type: 3}
+  - {fileID: 8300000, guid: 3bd900f933c020c42a6ac9cb7c93f3aa, type: 3}
+  - {fileID: 8300000, guid: cf2059970a01c4f48845be52fd637455, type: 3}
+  - {fileID: 8300000, guid: bc444528fc0df7c4c9baed44d692718b, type: 3}
+  - {fileID: 8300000, guid: c651d7841b03ab545b124b169be95d07, type: 3}
   gunShotTail: {fileID: 0}
   shotVolume: 0.1
   emptyMag:

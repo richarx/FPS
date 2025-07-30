@@ -25,6 +25,11 @@ namespace Player.Scripts
         {
             player = GetComponent<PlayerStateMachine>();
             player.playerGun.OnSwapWeapon.AddListener((_) => currentAmmo = GetMaxAmmo());
+            player.playerShootGun.OnShootEmptyMag.AddListener(() =>
+            {
+                if (player.playerGun.CurrentWeapon.isReloadingOnEmptyMag)
+                    ReloadGun();
+            });
             currentAmmo = GetMaxAmmo();
         }
 

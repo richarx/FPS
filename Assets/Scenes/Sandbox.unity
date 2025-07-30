@@ -11101,6 +11101,22 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 164.6
       objectReference: {fileID: 0}
+    - target: {fileID: 7748040577495489036, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: trailPrefab
+      value: 
+      objectReference: {fileID: 8661089665445619896, guid: d7b34030dd8c46e4c90a26b688b4f9fe,
+        type: 3}
+    - target: {fileID: 7748040577495489036, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: trailHipOffset.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7748040577495489036, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: trailHipOffset.z
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 9029753958373732987, guid: 99fc002cf63d7f94984a5a14526de63a,
         type: 3}
       propertyPath: m_LocalPosition.x
