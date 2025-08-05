@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Player.Scripts
 {
-    public class PlayerAnimateGun : MonoBehaviour
+    public class AnimateGun : MonoBehaviour
     {
         [SerializeField] private RectTransform gun;
         
@@ -71,7 +71,10 @@ namespace Player.Scripts
             Vector3 position = player.isAiming ? adsPosition : hipPosition;
             gun.localPosition = position + reloadPosition;
             
-            player.playerShootGun.OnShootEmptyMag.AddListener(() => shakeTimer = emptyGunShakeDuration);
+            if (isAkimbo)
+                player.playerShootGun.OnShootAkimboEmptyMag.AddListener(() => shakeTimer = emptyGunShakeDuration);
+            else
+                player.playerShootGun.OnShootEmptyMag.AddListener(() => shakeTimer = emptyGunShakeDuration);
             
             player.playerJump.OnJump.AddListener(() => { offsetPosition.y = -jumpImpulsePower; });
             player.playerJump.OnGroundedChanged.AddListener((isGrounded, impactPower) =>
@@ -90,7 +93,7 @@ namespace Player.Scripts
 
             bool isGrounded = player.playerJump.isGrounded;
 
-            if (player.isReloading || player.isLocked)
+            if (IsReloading() || player.isLocked)
                 HideGun();
             else if (player.isAiming)
                 AimDownSight();
@@ -112,6 +115,14 @@ namespace Player.Scripts
 
             UpdateLateralPosition();
             ApplyMovement();
+        }
+
+        private bool IsReloading()
+        {
+            if (isAkimbo)
+                return player.playerAmmo.isAkimboReloading;
+            else
+                return player.playerAmmo.isMainReloading;
         }
 
         private void Shake()

@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: -7157460677866168803}
   - component: {fileID: -3264863930934573023}
   - component: {fileID: 165464532628759666}
+  - component: {fileID: -8828112497134812360}
   m_Layer: 5
   m_Name: BR
   m_TagString: Untagged
@@ -218,6 +219,7 @@ MonoBehaviour:
   reloadPosition: {x: 0, y: -1000, z: 0}
   hipPosition: {x: 578.3, y: -364.4, z: 0}
   adsPosition: {x: 29.1, y: -174.3, z: 0}
+  isAkimbo: 0
 --- !u!114 &6838287278619560013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519,6 +521,18 @@ MonoBehaviour:
   adsClick:
   - {fileID: 8300000, guid: 00daf27cf59c5114789ba5b050891999, type: 3}
   - {fileID: 8300000, guid: d4c4d62fc2d3ee341b3b31680846c465, type: 3}
+--- !u!114 &-8828112497134812360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3602875748352308952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e46a9e4b749c9af4dbb569f088449012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4612231220481304816
 GameObject:
   m_ObjectHideFlags: 0

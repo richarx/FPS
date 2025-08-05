@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Player.Scripts;
 using SFX;
@@ -38,25 +39,28 @@ namespace Items.Weapons
         private PlayerStateMachine player;
         private float lastShotTimestamp = -1.0f;
         private AudioSource lastTail = null;
+
+        private bool isAkimbo;
         
         private void Start()
         {
             player = PlayerStateMachine.instance;
+
+            isAkimbo = GetComponent<AnimateGun>().isAkimbo;
             
-            player.playerShootGun.OnShoot.AddListener(PlayGunShotSound);
-            player.playerShootGun.OnShootEmptyMag.AddListener(() => SFXManager.instance.PlayRandomSFX(emptyMag));
-            player.playerAmmo.OnStartReloading.AddListener(() =>
+            if (isAkimbo)
             {
-                SFXManager.instance.PlayRandomSFX(ejectMag);
-                SFXManager.instance.PlayRandomSFX(insertMag, delay:insertDelay);
-                SFXManager.instance.PlayRandomSFX(cockGun, delay:reloadCockDelay);
-            });
-            player.playerGun.OnSwapWeapon.AddListener((_) =>
+                player.playerShootGun.OnShootAkimbo.AddListener(PlayGunShotSound);
+                player.playerShootGun.OnShootAkimboEmptyMag.AddListener(() => SFXManager.instance.PlayRandomSFX(emptyMag));
+            }
+            else
             {
-                SFXManager.instance.PlayRandomSFX(equipWeapon);
-                SFXManager.instance.PlayRandomSFX(equipWeapon_2, delay:equipWeapon_2_Delay);
-                SFXManager.instance.PlayRandomSFX(cockGun, delay:equipWeaponCockDelay);
-            });
+                player.playerShootGun.OnShoot.AddListener(PlayGunShotSound);
+                player.playerShootGun.OnShootEmptyMag.AddListener(() => SFXManager.instance.PlayRandomSFX(emptyMag));
+            }
+
+            player.playerAmmo.OnStartReloading.AddListener(PlayReloadSound);
+            player.playerGun.OnSwapWeapon.AddListener((_) => PlaySwapSound());
             player.playerAiming.OnChangeAimState.AddListener((isAiming) =>
             {
                 if (isAiming && player.playerGun.hasWeapon && !player.isLocked)
@@ -77,6 +81,29 @@ namespace Items.Weapons
                 lastTail = SFXManager.instance.PlaySFX(gunShotTail, tailVolume);
             
             lastShotTimestamp = Time.time;
+        }
+
+        private void PlayReloadSound(bool isRight, bool isLeft)
+        {
+            if ((isRight && !isAkimbo) || (isLeft && isAkimbo))
+            {
+                SFXManager.instance.PlayRandomSFX(ejectMag);
+                SFXManager.instance.PlayRandomSFX(insertMag, delay:insertDelay);
+                SFXManager.instance.PlayRandomSFX(cockGun, delay:reloadCockDelay);
+            }
+        }
+
+        private void PlaySwapSound()
+        {
+            SFXManager.instance.PlayRandomSFX(equipWeapon);
+            SFXManager.instance.PlayRandomSFX(equipWeapon_2, delay:equipWeapon_2_Delay);
+            SFXManager.instance.PlayRandomSFX(cockGun, delay:equipWeaponCockDelay);
+        }
+
+        private void OnDestroy()
+        {
+            player.playerAmmo.OnStartReloading.RemoveListener(PlayReloadSound);
+            player.playerGun.OnSwapWeapon.RemoveListener((_) => PlaySwapSound());
         }
     }
 }

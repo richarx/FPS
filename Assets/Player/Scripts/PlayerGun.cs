@@ -11,7 +11,9 @@ namespace Player.Scripts
         [SerializeField] private Transform gunPivot;
         
         [HideInInspector] public UnityEvent<GameObject> OnSwapWeapon = new UnityEvent<GameObject>();
+        [HideInInspector] public UnityEvent<GameObject> OnDropWeapon = new UnityEvent<GameObject>();
         [HideInInspector] public UnityEvent<GameObject> OnEquipAkimboWeapon = new UnityEvent<GameObject>();
+        [HideInInspector] public UnityEvent<GameObject> OnDropAkimboWeapon = new UnityEvent<GameObject>();
 
         private PlayerShootGun playerShootGun;
         private PlayerData playerData;
@@ -83,6 +85,7 @@ namespace Player.Scripts
 
         private void DropGun(WeaponData weaponData)
         {
+            OnDropWeapon?.Invoke(gunPivot.GetChild(0).gameObject);
             SpawnGunLoot(weaponData);
             ClearGunPivot();
         }
@@ -101,9 +104,13 @@ namespace Player.Scripts
         {
             SpawnGunLoot(primaryWeapon);
             hasAkimbo = false;
+
+            GameObject gun = gunPivot.GetChild(1).gameObject;
+            
+            OnDropAkimboWeapon?.Invoke(gun);
             
             if (gunPivot.childCount > 1)
-                Destroy(gunPivot.GetChild(1).gameObject);
+                Destroy(gun);
         }
 
         private void SwapWeapons()
@@ -129,7 +136,7 @@ namespace Player.Scripts
             Transform newWeapon = Instantiate(weaponData.weaponPrefab, Vector3.zero, Quaternion.identity, gunPivot).transform;
             newWeapon.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
             newWeapon.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
-            newWeapon.GetComponent<PlayerAnimateGun>().isAkimbo = true;
+            newWeapon.GetComponent<AnimateGun>().isAkimbo = true;
             OnEquipAkimboWeapon?.Invoke(newWeapon.gameObject);
         }
 

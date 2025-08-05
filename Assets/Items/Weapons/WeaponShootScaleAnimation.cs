@@ -22,14 +22,19 @@ namespace Items.Weapons
         {
             player = PlayerStateMachine.instance;
             
-            player.playerShootGun.OnShoot.AddListener(() =>
-            {
-                StopAllCoroutines();
-                StartCoroutine(TriggerScaling());
-            });
+            if (GetComponent<AnimateGun>().isAkimbo)
+                player.playerShootGun.OnShootAkimbo.AddListener(TriggerScaling);
+            else
+                player.playerShootGun.OnShoot.AddListener(TriggerScaling);
         }
 
-        private IEnumerator TriggerScaling()
+        private void TriggerScaling()
+        {
+            StopAllCoroutines();
+            StartCoroutine(TriggerScalingCoroutine());
+        }
+
+        private IEnumerator TriggerScalingCoroutine()
         {
             Vector3 sizeDelta = Vector3.one;
 

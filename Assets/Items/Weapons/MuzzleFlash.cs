@@ -17,20 +17,26 @@ namespace Items.Weapons
 
         private Light flash;
         private Transform muzzleFlashHolder;
-        
+
         private void Start()
         {
             PlayerStateMachine player = PlayerStateMachine.instance;
-            
-            player.playerShootGun.OnShoot.AddListener(TriggerMuzzleFlash);
-            player.playerAiming.OnChangeAimState.AddListener((isAiming) =>
-            {
-                muzzlePivot.localPosition = isAiming ? muzzlePositionAim : muzzlePositionHip;
-            });
+
+            if (GetComponent<AnimateGun>().isAkimbo)
+                player.playerShootGun.OnShootAkimbo.AddListener(TriggerMuzzleFlash);
+            else
+                player.playerShootGun.OnShoot.AddListener(TriggerMuzzleFlash);
+
+            player.playerAiming.OnChangeAimState.AddListener(AssignMuzzlePosition);
             
             flash = player.muzzleFlashLight;
             muzzleFlashHolder = player.muzzleFlashHolder;
-            muzzlePivot.localPosition = muzzlePositionHip;
+            AssignMuzzlePosition(false);
+        }
+
+        private void AssignMuzzlePosition(bool isAiming)
+        {
+            muzzlePivot.localPosition = isAiming ? muzzlePositionAim : muzzlePositionHip;
         }
 
         private void TriggerMuzzleFlash()

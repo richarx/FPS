@@ -18,23 +18,35 @@ namespace Items.Weapons
         private RectTransform gun;
 
         private Vector3 velocity;
+
+        private bool isAkimbo;
         
         private void Start()
         {
             player = PlayerStateMachine.instance;
             gun = GetComponent<RectTransform>();
+
+            isAkimbo = GetComponent<AnimateGun>().isAkimbo;
             
-            player.playerShootGun.OnShoot.AddListener(() =>
-            {
-                if (!player.isAiming)
-                {
-                    StopAllCoroutines();
-                    StartCoroutine(TriggerKickback());
-                }
-            });
+            if (isAkimbo)
+                player.playerShootGun.OnShootAkimbo.AddListener(TriggerKickback);
+            else
+                player.playerShootGun.OnShoot.AddListener(TriggerKickback);
+
+            if (isAkimbo)
+                direction.x *= -1.0f;
         }
 
-        private IEnumerator TriggerKickback()
+        private void TriggerKickback()
+        {
+            if (!player.isAiming)
+            {
+                StopAllCoroutines();
+                StartCoroutine(TriggerKickbackCoroutine());
+            }
+        }
+
+        private IEnumerator TriggerKickbackCoroutine()
         {
             while (position.magnitude <= force - 0.1f)
             {

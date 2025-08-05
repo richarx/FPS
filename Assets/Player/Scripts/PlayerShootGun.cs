@@ -20,6 +20,7 @@ namespace Player.Scripts
         [HideInInspector] public UnityEvent OnShoot = new UnityEvent();
         [HideInInspector] public UnityEvent OnShootAkimbo = new UnityEvent();
         [HideInInspector] public UnityEvent OnShootEmptyMag = new UnityEvent();
+        [HideInInspector] public UnityEvent OnShootAkimboEmptyMag = new UnityEvent();
         [HideInInspector] public UnityEvent<Vector3, SurfaceData.SurfaceType> OnHit = new UnityEvent<Vector3, SurfaceData.SurfaceType>();
 
         private PlayerStateMachine player;
@@ -89,10 +90,12 @@ namespace Player.Scripts
             else
                 lastLeftShotTimestamp = Time.time;
             
-            if (player.playerAmmo.IsEmpty)
+            if (player.playerAmmo.IsGunEmpty(!isRight))
             {
-                if ((isRight && PlayerInputs.GetRightTrigger()) || (!isRight && PlayerInputs.GetLeftTrigger()))
+                if (isRight && PlayerInputs.GetRightTrigger())
                     OnShootEmptyMag?.Invoke();
+                if (!isRight && PlayerInputs.GetLeftTrigger())
+                    OnShootAkimboEmptyMag?.Invoke();
             }
             else
                 StartCoroutine(ShootDependingOnWeapon(isRight));
@@ -102,7 +105,7 @@ namespace Player.Scripts
         {
             WeaponData data = player.playerGun.CurrentWeapon;
 
-            int shotsCount = data.useBurstShot ? Mathf.Min(player.playerAmmo.CurrentAmmo, data.bulletsPerBurst) : 1;
+            int shotsCount = data.useBurstShot ? Mathf.Min(player.playerAmmo.GetCurrentAmmo(!isRight), data.bulletsPerBurst) : 1;
             int bulletsCount = data.useSpreadShot ? data.bulletsPerSpread : 1;
 
             for (int i = 0; i < shotsCount; i++)
@@ -113,7 +116,6 @@ namespace Player.Scripts
                 }
                 
                 player.playerGunKickback.Kickback();
-                player.playerAmmo.ConsumeAmmo();
                 
                 if (isRight)
                     OnShoot?.Invoke();

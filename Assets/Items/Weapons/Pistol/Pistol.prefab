@@ -226,6 +226,7 @@ GameObject:
   - component: {fileID: -7229053722826005333}
   - component: {fileID: 2269024688017213260}
   - component: {fileID: 8342076552351021558}
+  - component: {fileID: 1597695438793518782}
   m_Layer: 5
   m_Name: Pistol
   m_TagString: Untagged
@@ -295,6 +296,7 @@ MonoBehaviour:
   reloadPosition: {x: 0, y: -600, z: 0}
   hipPosition: {x: 500, y: -400, z: 0}
   adsPosition: {x: 53, y: -180, z: 0}
+  isAkimbo: 0
 --- !u!114 &4452324259985227484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -594,6 +596,18 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 33db9d1f871974443b62d3b4649c77a8, type: 3}
   adsClick:
   - {fileID: 8300000, guid: 94ee927b497fe27478924f0b96e5460d, type: 3}
+--- !u!114 &1597695438793518782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3602875748352308952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e46a9e4b749c9af4dbb569f088449012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3700819000467180912
 GameObject:
   m_ObjectHideFlags: 0

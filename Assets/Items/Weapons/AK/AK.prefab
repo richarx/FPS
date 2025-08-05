@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: -7157460677866168803}
   - component: {fileID: -3264863930934573023}
   - component: {fileID: 165464532628759666}
+  - component: {fileID: -8463451893069898545}
   m_Layer: 5
   m_Name: AK
   m_TagString: Untagged
@@ -218,6 +219,7 @@ MonoBehaviour:
   reloadPosition: {x: 0, y: -600, z: 0}
   hipPosition: {x: 480.2, y: -312.3, z: 0}
   adsPosition: {x: 0, y: -0.2, z: 0}
+  isAkimbo: 0
 --- !u!114 &6838287278619560013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -525,6 +527,18 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 33db9d1f871974443b62d3b4649c77a8, type: 3}
   adsClick:
   - {fileID: 8300000, guid: 86407fc586a068046afceaa3b1747d0e, type: 3}
+--- !u!114 &-8463451893069898545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3602875748352308952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e46a9e4b749c9af4dbb569f088449012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4612231220481304816
 GameObject:
   m_ObjectHideFlags: 0
