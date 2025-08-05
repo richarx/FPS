@@ -10,11 +10,30 @@ namespace Player.Scripts
     {
         [HideInInspector] public UnityEvent<bool> OnChangeAimState = new UnityEvent<bool>();
 
-        [HideInInspector] public bool isAiming;
-        
+        private bool isAiming;
+        public bool IsAiming => isAiming && !playerGun.HasAkimbo;
+
+        private PlayerGun playerGun;
+
+        private void Start()
+        {
+            playerGun = GetComponent<PlayerGun>();
+            playerGun.OnEquipAkimboWeapon.AddListener((_) =>
+            {
+                if (isAiming)
+                {
+                    isAiming = false;
+                    OnChangeAimState?.Invoke(isAiming);
+                }
+            });
+        }
+
         private void Update()
         {
             if (PauseMenu.instance.IsPaused)
+                return;
+            
+            if (playerGun.HasAkimbo)
                 return;
             
             if (isAiming != PlayerInputs.GetLeftTrigger(isHeld: true))

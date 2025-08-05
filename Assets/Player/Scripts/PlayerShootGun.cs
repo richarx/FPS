@@ -18,6 +18,7 @@ namespace Player.Scripts
         [SerializeField] private TrailRenderer trailPrefab;
         
         [HideInInspector] public UnityEvent OnShoot = new UnityEvent();
+        [HideInInspector] public UnityEvent OnShootAkimbo = new UnityEvent();
         [HideInInspector] public UnityEvent OnShootEmptyMag = new UnityEvent();
         [HideInInspector] public UnityEvent<Vector3, SurfaceData.SurfaceType> OnHit = new UnityEvent<Vector3, SurfaceData.SurfaceType>();
 
@@ -26,11 +27,17 @@ namespace Player.Scripts
         public Vector3 shootingPosition => shootingPivot.position;
         public Vector3 shootingDirection => shootingPivot.forward;
         public Vector3 rightDirection => shootingPivot.right;
+
+        public bool isShooting => isShootingRight || isShootingLeft;
         
-        public bool isShooting => player.playerGun.hasWeapon && Time.time - lastShotTimestamp <= player.playerGun.CurrentWeapon.shotDuration;
+        private bool isShootingRight => player.playerGun.hasWeapon && Time.time - lastRightShotTimestamp <= player.playerGun.CurrentWeapon.shotDuration;
+        private bool isShootingLeft => player.playerGun.hasWeapon && Time.time - lastLeftShotTimestamp <= player.playerGun.CurrentWeapon.shotDuration;
         
-        private float lastShotTimestamp;
-        private bool isInputReset = true;
+        private float lastRightShotTimestamp;
+        private bool isRightInputReset = true;
+        
+        private float lastLeftShotTimestamp;
+        private bool isLeftInputReset = true;
 
         private float unlockPlayerTimestamp = -1.0f;
         private bool isLocked => unlockPlayerTimestamp > 0.0f;
@@ -56,30 +63,42 @@ namespace Player.Scripts
             if (player.playerAmmo.isReloading || !player.playerGun.hasWeapon)
                 return;
 
-            if (CanShoot() && PlayerInputs.GetRightTrigger(isHeld: true))
+            if (CanShoot(true) && PlayerInputs.GetRightTrigger(isHeld: true))
             {
-                Shoot();
-                isInputReset = false;
+                Shoot(true);
+                isRightInputReset = false;
             }
             
-            if (!isInputReset && !PlayerInputs.GetRightTrigger(isHeld: true))
-                isInputReset = true;
+            if (player.playerGun.HasAkimbo && CanShoot(false) && PlayerInputs.GetLeftTrigger(isHeld: true))
+            {
+                Shoot(false);
+                isLeftInputReset = false;
+            }
+            
+            if (!isRightInputReset && !PlayerInputs.GetRightTrigger(isHeld: true))
+                isRightInputReset = true;
+            
+            if (!isLeftInputReset && !PlayerInputs.GetLeftTrigger(isHeld: true))
+                isLeftInputReset = true;
         }
         
-        private void Shoot()
+        private void Shoot(bool isRight)
         {
-            lastShotTimestamp = Time.time;
+            if (isRight)
+                lastRightShotTimestamp = Time.time;
+            else
+                lastLeftShotTimestamp = Time.time;
             
             if (player.playerAmmo.IsEmpty)
             {
-                if (PlayerInputs.GetRightTrigger())
+                if ((isRight && PlayerInputs.GetRightTrigger()) || (!isRight && PlayerInputs.GetLeftTrigger()))
                     OnShootEmptyMag?.Invoke();
             }
             else
-                StartCoroutine(ShootDependingOnWeapon());
+                StartCoroutine(ShootDependingOnWeapon(isRight));
         }
 
-        private IEnumerator ShootDependingOnWeapon()
+        private IEnumerator ShootDependingOnWeapon(bool isRight)
         {
             WeaponData data = player.playerGun.CurrentWeapon;
 
@@ -90,12 +109,16 @@ namespace Player.Scripts
             {
                 for (int j = 0; j < bulletsCount; j++)
                 {
-                    ShootRaycast(data.useSpreadShot && j > 0 ? ComputeSpreadShootingDirection(data) : shootingDirection);
+                    ShootRaycast(data.useSpreadShot && j > 0 ? ComputeSpreadShootingDirection(data) : shootingDirection, isRight);
                 }
                 
                 player.playerGunKickback.Kickback();
                 player.playerAmmo.ConsumeAmmo();
-                OnShoot?.Invoke();
+                
+                if (isRight)
+                    OnShoot?.Invoke();
+                else
+                    OnShootAkimbo?.Invoke();
 
                 if (data.useBurstShot)
                     yield return new WaitForSeconds(data.timeBetweenBurstBullets);
@@ -112,14 +135,14 @@ namespace Player.Scripts
             return (distancePosition - shootingPosition).normalized;
         }
 
-        private void ShootRaycast(Vector3 direction)
+        private void ShootRaycast(Vector3 direction, bool isRight)
         {
             float distance = player.playerGun.CurrentWeapon.bulletDistance;
             bool hit = Physics.Raycast(shootingPosition, direction, out RaycastHit hitInfo, distance, targetLayer);
 
             Damageable damageable = hit ? hitInfo.collider.GetComponent<Damageable>() : null;
 
-            StartCoroutine(ShootTrailRenderer(shootingPosition, direction, hit ? hitInfo.distance : distance, ComputeSurfaceType(hit, damageable != null), damageable));
+            StartCoroutine(ShootTrailRenderer(shootingPosition, direction, hit ? hitInfo.distance : distance, ComputeSurfaceType(hit, damageable != null), damageable, isRight));
         }
 
         private SurfaceData.SurfaceType ComputeSurfaceType(bool hasHit, bool hasHitEnemy)
@@ -133,13 +156,13 @@ namespace Player.Scripts
             return SurfaceData.SurfaceType.None;
         }
 
-        private IEnumerator ShootTrailRenderer(Vector3 startPosition, Vector3 direction, float distance, SurfaceData.SurfaceType surfaceType, Damageable damageable)
+        private IEnumerator ShootTrailRenderer(Vector3 startPosition, Vector3 direction, float distance, SurfaceData.SurfaceType surfaceType, Damageable damageable, bool isRight)
         {
             Vector3 targetPosition = startPosition + direction.normalized * distance;
             
             TrailRenderer trail = Instantiate(trailPrefab, startPosition, Quaternion.identity);
 
-            startPosition = ComputeTrailOffset(startPosition);
+            startPosition = ComputeTrailOffset(startPosition, isRight);
             
             float timer = 0.0f;
             float duration = trail.time;
@@ -160,25 +183,32 @@ namespace Player.Scripts
                 OnHit?.Invoke(targetPosition, surfaceType);
         }
 
-        private Vector3 ComputeTrailOffset(Vector3 position)
+        private Vector3 ComputeTrailOffset(Vector3 position, bool isRight)
         {
             if (player.isAiming)
                 return position + Vector3.down * 1;
 
             Vector3 offset = player.playerGun.CurrentWeapon.bulletTrailOffset;
+
+            float reverse = isRight ? 1.0f : -1.0f;
             
-            return position + shootingPivot.forward * offset.z + shootingPivot.right * offset.x + Vector3.up * offset.y;
+            Vector3 finalPosition = position + shootingPivot.forward * offset.z + shootingPivot.right * (reverse * offset.x) + Vector3.up * offset.y;
+
+            return finalPosition;
         }
         
-        private bool CanShoot()
+        private bool CanShoot(bool isRight)
         {
             if (!player.playerGun.hasWeapon)
                 return false;
-            
+
             if (player.playerGun.CurrentWeapon.isFullAuto)
-                return Time.time - lastShotTimestamp >= 1.0f / player.playerGun.CurrentWeapon.fireRate;
+            {
+                float timeStamp = isRight ? lastRightShotTimestamp : lastLeftShotTimestamp;
+                return Time.time - timeStamp >= 1.0f / player.playerGun.CurrentWeapon.fireRate;
+            }
             else
-                return isInputReset;
+                return isRight ? isRightInputReset : isLeftInputReset;
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Player.Scripts
             float xKickBack = Tools.RandomPositiveOrNegative(Tools.RandomAround(playerGun.CurrentWeapon.xRecoil, 0.3f));
             float yKickBack = Tools.RandomAround(playerGun.CurrentWeapon.yRecoil, 0.15f);
 
-            if (playerAiming.isAiming)
+            if (playerAiming.IsAiming)
             {
                 xKickBack *= 0.3f;
                 yKickBack *= 0.3f;

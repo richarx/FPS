@@ -11,6 +11,7 @@ namespace Player.Scripts
         [SerializeField] private Transform gunPivot;
         
         [HideInInspector] public UnityEvent<GameObject> OnSwapWeapon = new UnityEvent<GameObject>();
+        [HideInInspector] public UnityEvent<GameObject> OnEquipAkimboWeapon = new UnityEvent<GameObject>();
 
         private PlayerShootGun playerShootGun;
         private PlayerData playerData;
@@ -22,37 +23,37 @@ namespace Player.Scripts
 
         private WeaponData primaryWeapon;
         private WeaponData secondaryWeapon;
+
+        private bool hasAkimbo;
+        public bool HasAkimbo => hasAkimbo;
         
         private void Start()
         {
             playerShootGun = PlayerStateMachine.instance.playerShootGun;
             playerData = PlayerStateMachine.instance.playerData;
         }
-
-        private bool hasBeenCalledThisFrame;
-        private bool hasBeenCalledLastFrame;
+        
         private void Update()
         {
             if (hasSecondaryWeapon && PlayerInputs.GetNorthButton())
                 SwapWeapons();
 
             if (hasWeapon && PlayerInputs.GetDownArrow())
-            {
-                DropGun(primaryWeapon);
-                if (hasSecondaryWeapon)
-                {
-                    primaryWeapon = secondaryWeapon;
-                    secondaryWeapon = null;
-                    SwapWeaponsVisuals(primaryWeapon);
-                }
-                else
-                    primaryWeapon = null;
-            }
+                DropCurrentWeapon();
         }
         
         public void EquipNewWeapon(WeaponData weapon)
         {
-            if (hasSecondaryWeapon)
+            if (hasAkimbo)
+                DropAkimboGun();
+            
+            if (hasWeapon && weapon.weaponPrefab.name == primaryWeapon.weaponPrefab.name)
+            {
+                hasAkimbo = true;
+                DisplayAkimboVisuals(weapon);
+                return;
+            }
+            else if (hasSecondaryWeapon)
                 DropGun(primaryWeapon);
             else if (hasWeapon)
                 secondaryWeapon = primaryWeapon;
@@ -60,8 +61,33 @@ namespace Player.Scripts
             primaryWeapon = weapon;
             SwapWeaponsVisuals(weapon);
         }
+        
+        private void DropCurrentWeapon()
+        {
+            if (hasAkimbo)
+            {
+                DropAkimboGun();
+                return;
+            }
+            
+            DropGun(primaryWeapon);
+            if (hasSecondaryWeapon)
+            {
+                primaryWeapon = secondaryWeapon;
+                secondaryWeapon = null;
+                SwapWeaponsVisuals(primaryWeapon);
+            }
+            else
+                primaryWeapon = null;
+        }
 
         private void DropGun(WeaponData weaponData)
+        {
+            SpawnGunLoot(weaponData);
+            ClearGunPivot();
+        }
+
+        private void SpawnGunLoot(WeaponData weaponData)
         {
             Vector3 position = playerShootGun.shootingPosition;
             position += Vector3.up * playerData.throwWeaponHeightOffset;
@@ -69,25 +95,50 @@ namespace Player.Scripts
 
             Rigidbody rb = Instantiate(weaponData.lootPrefab, position, Quaternion.identity).GetComponent<Rigidbody>();
             rb.AddForce(playerShootGun.shootingDirection * playerData.throwWeaponForce, ForceMode.Impulse);
+        }
+        
+        private void DropAkimboGun()
+        {
+            SpawnGunLoot(primaryWeapon);
+            hasAkimbo = false;
             
-            if (gunPivot.childCount > 0)
-                Destroy(gunPivot.GetChild(0).gameObject);
+            if (gunPivot.childCount > 1)
+                Destroy(gunPivot.GetChild(1).gameObject);
         }
 
         private void SwapWeapons()
         {
+            if (hasAkimbo)
+                DropAkimboGun();
+            
             (secondaryWeapon, primaryWeapon) = (primaryWeapon, secondaryWeapon);
             SwapWeaponsVisuals(primaryWeapon);
         }
 
         private void SwapWeaponsVisuals(WeaponData weaponData)
         {
-            if (gunPivot.childCount > 0)
-                Destroy(gunPivot.GetChild(0).gameObject);
+            ClearGunPivot();
             
             Transform newWeapon = Instantiate(weaponData.weaponPrefab, Vector3.zero, Quaternion.identity, gunPivot).transform;
             newWeapon.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
             OnSwapWeapon?.Invoke(newWeapon.gameObject);
+        }
+        
+        private void DisplayAkimboVisuals(WeaponData weaponData)
+        {
+            Transform newWeapon = Instantiate(weaponData.weaponPrefab, Vector3.zero, Quaternion.identity, gunPivot).transform;
+            newWeapon.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+            newWeapon.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
+            newWeapon.GetComponent<PlayerAnimateGun>().isAkimbo = true;
+            OnEquipAkimboWeapon?.Invoke(newWeapon.gameObject);
+        }
+
+        private void ClearGunPivot()
+        {
+            for (int i = gunPivot.childCount - 1; i >= 0; i--)
+            {
+                Destroy(gunPivot.GetChild(i).gameObject);
+            }
         }
 
         public string ComputeTooltipText()

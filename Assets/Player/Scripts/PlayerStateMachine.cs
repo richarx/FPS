@@ -28,7 +28,7 @@ namespace Player.Scripts
         
         public Vector3 position => transform.position;
         public bool isShooting => playerShootGun.isShooting;
-        public bool isAiming => playerAiming.isAiming;
+        public bool isAiming => playerAiming.IsAiming;
         public bool isReloading => playerAmmo.isReloading;
         public bool isSliding => currentBehaviour.GetBehaviourType() == BehaviourType.Slide;
         public bool isLocked => currentBehaviour.GetBehaviourType() == BehaviourType.Locked || playerRun.IsSkippingFrame;

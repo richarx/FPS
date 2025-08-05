@@ -60,6 +60,8 @@ namespace Player.Scripts
         private float targetLateralPosition;
         private float lateralVelocity;
 
+        public bool isAkimbo;
+        
         private void Start()
         {
             offsetPosition = Vector3.zero;
