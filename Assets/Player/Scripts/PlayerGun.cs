@@ -1,5 +1,6 @@
 using Data;
 using Items.Weapons;
+using Tools_and_Scripts;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,23 +15,49 @@ namespace Player.Scripts
         private PlayerShootGun playerShootGun;
         private PlayerData playerData;
         
-        public bool hasWeapon => currentWeapon != null;
+        public bool hasWeapon => CurrentWeapon != null;
+        public bool hasSecondaryWeapon => secondaryWeapon != null;
+        
+        public WeaponData CurrentWeapon => primaryWeapon;
 
-        private WeaponData currentWeapon;
-        public WeaponData CurrentWeapon => currentWeapon;
-
+        private WeaponData primaryWeapon;
+        private WeaponData secondaryWeapon;
+        
         private void Start()
         {
             playerShootGun = PlayerStateMachine.instance.playerShootGun;
             playerData = PlayerStateMachine.instance.playerData;
         }
 
+        private bool hasBeenCalledThisFrame;
+        private bool hasBeenCalledLastFrame;
+        private void Update()
+        {
+            if (hasSecondaryWeapon && PlayerInputs.GetNorthButton())
+                SwapWeapons();
+
+            if (hasWeapon && PlayerInputs.GetDownArrow())
+            {
+                DropGun(primaryWeapon);
+                if (hasSecondaryWeapon)
+                {
+                    primaryWeapon = secondaryWeapon;
+                    secondaryWeapon = null;
+                    SwapWeaponsVisuals(primaryWeapon);
+                }
+                else
+                    primaryWeapon = null;
+            }
+        }
+        
         public void EquipNewWeapon(WeaponData weapon)
         {
-            if (currentWeapon != null)
-                DropGun(currentWeapon);
-            
-            currentWeapon = weapon;
+            if (hasSecondaryWeapon)
+                DropGun(primaryWeapon);
+            else if (hasWeapon)
+                secondaryWeapon = primaryWeapon;
+
+            primaryWeapon = weapon;
             SwapWeaponsVisuals(weapon);
         }
 
@@ -41,18 +68,33 @@ namespace Player.Scripts
             position += playerShootGun.rightDirection * playerData.throwWeaponSideOffset;
 
             Rigidbody rb = Instantiate(weaponData.lootPrefab, position, Quaternion.identity).GetComponent<Rigidbody>();
-            
             rb.AddForce(playerShootGun.shootingDirection * playerData.throwWeaponForce, ForceMode.Impulse);
+            
+            if (gunPivot.childCount > 0)
+                Destroy(gunPivot.GetChild(0).gameObject);
+        }
+
+        private void SwapWeapons()
+        {
+            (secondaryWeapon, primaryWeapon) = (primaryWeapon, secondaryWeapon);
+            SwapWeaponsVisuals(primaryWeapon);
         }
 
         private void SwapWeaponsVisuals(WeaponData weaponData)
         {
             if (gunPivot.childCount > 0)
                 Destroy(gunPivot.GetChild(0).gameObject);
-
+            
             Transform newWeapon = Instantiate(weaponData.weaponPrefab, Vector3.zero, Quaternion.identity, gunPivot).transform;
             newWeapon.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
             OnSwapWeapon?.Invoke(newWeapon.gameObject);
+        }
+
+        public string ComputeTooltipText()
+        {
+            if (hasWeapon && hasSecondaryWeapon)
+                return "Press $E$ to swap weapons";
+            return "Press $E$ to equip weapon";
         }
     }
 }

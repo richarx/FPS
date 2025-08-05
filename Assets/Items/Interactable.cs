@@ -89,8 +89,19 @@ namespace Items
 
         protected void CreateTooltip()
         {
-            if (tooltip == null && !string.IsNullOrEmpty(toolTipText))
-                tooltip = ToolTipManager.instance.DisplayToolTip(toolTipText);
+            if (tooltip == null)
+                tooltip = ToolTipManager.instance.DisplayToolTip(ComputeTooltipText());
+        }
+
+        protected string ComputeTooltipText()
+        {
+            if (itemType == ItemType.Weapon)
+                return PlayerStateMachine.instance.playerGun.ComputeTooltipText();
+            
+            if (string.IsNullOrEmpty(toolTipText))
+                return "Press $E$ to Interact";
+
+            return toolTipText;
         }
 
         protected void DestroyTooltip()

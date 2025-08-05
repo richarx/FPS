@@ -21,13 +21,13 @@ MonoBehaviour:
   fireRate: 8
   isRaycast: 1
   isFullAuto: 0
-  startingAmmo: 2
+  startingAmmo: 6
   reloadDuration: 0.5
   isReloadingOnEmptyMag: 1
   useSpreadShot: 1
   bulletsPerSpread: 10
   maxSpread: {x: 1, y: 1}
-  useBurstShot: 1
+  useBurstShot: 0
   bulletsPerBurst: 2
   timeBetweenBurstBullets: 0.1
   xRecoil: 1.5

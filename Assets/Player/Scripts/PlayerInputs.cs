@@ -96,21 +96,17 @@ namespace Tools_and_Scripts
             return mouse;
         }
 
-        public static bool GetNorthButton(bool isHeld = false, bool withBuffer = true)
+        public static bool GetNorthButton(bool isHeld = false)
         {
-            if (Gamepad.current == null)
-                return false;
+            bool gamepad = false;
+            bool mouse = false;
+
+            if (Gamepad.current != null)
+                gamepad = isHeld ? Gamepad.current.buttonNorth.isPressed : Gamepad.current.buttonNorth.wasPressedThisFrame;
+
+            mouse = Mouse.current.scroll.up.magnitude > 0.0f || Mouse.current.scroll.down.magnitude > 0.0f;
         
-            if (isHeld)
-                return Gamepad.current.buttonNorth.isPressed;
-
-            if (withBuffer && Time.time <= throwBufferTimeStamp)
-            {
-                throwBufferTimeStamp = -1.0f;
-                return true;
-            }
-
-            return Gamepad.current.buttonNorth.wasPressedThisFrame;
+            return gamepad || mouse;
         }
     
         public static bool GetEastButton(bool withBuffer = true, bool isHeld = false)
@@ -287,6 +283,30 @@ namespace Tools_and_Scripts
 
             return gamepad || keyboard;
         }
+        
+        private static bool wasDownArrowReset = true;
+        public static bool GetDownArrow()
+        {
+            bool gamepad = false;
+
+            if (Gamepad.current != null)
+            {
+                bool isPressed = Gamepad.current.dpad.ReadValue().y < 0;
+
+                if (wasDownArrowReset && isPressed)
+                {
+                    gamepad = true;
+                    wasDownArrowReset = false;
+                }
+
+                if (!isPressed)
+                    wasDownArrowReset = true;
+            }
+
+            bool keyboard = Keyboard.current.gKey.wasPressedThisFrame;
+
+            return gamepad || keyboard;
+        }
 
         public static bool GetSelectButton()
         {
@@ -327,10 +347,7 @@ namespace Tools_and_Scripts
         
             if (GetLeftShoulder(true, false))
                 guardBufferTimeStamp = Time.time + 0.2f;
-        
-            if (GetNorthButton(false, false))
-                throwBufferTimeStamp = Time.time + 0.2f;
-            
+
             if (GetRightTrigger(false, false))
                 shootBufferTimeStamp = Time.time + 0.2f;
         }
