@@ -93,7 +93,7 @@ namespace Player.Scripts
 
             bool isGrounded = player.playerJump.isGrounded;
 
-            if (IsReloading() || player.isLocked)
+            if (IsReloading() || player.isLocked || player.isScanning)
                 HideGun();
             else if (player.isAiming)
                 AimDownSight();

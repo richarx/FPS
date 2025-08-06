@@ -57,6 +57,12 @@ namespace Player.Scripts
                 return;
             }
 
+            if (PlayerInputs.GetRightArrow())
+            {
+                player.ChangeBehaviour(player.playerScanning);
+                return;
+            }
+
             if (isCrouchInputReset && PlayerInputs.GetEastButton(isHeld:true))
             {
                 if (player.IsMoving(player.playerData.slideVelocityThresholdToCrouch))

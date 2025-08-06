@@ -23,6 +23,7 @@ namespace Player.Scripts
         public PlayerCrouch playerCrouch = new PlayerCrouch();
         public PlayerSlide playerSlide = new PlayerSlide();
         public PlayerLocked playerLocked = new PlayerLocked();
+        public PlayerScanning playerScanning = new PlayerScanning();
 
         public IPlayerBehaviour currentBehaviour;
         
@@ -32,6 +33,7 @@ namespace Player.Scripts
         public bool isReloading => playerAmmo.isReloading;
         public bool isSliding => currentBehaviour.GetBehaviourType() == BehaviourType.Slide;
         public bool isLocked => currentBehaviour.GetBehaviourType() == BehaviourType.Locked || playerRun.IsSkippingFrame;
+        public bool isScanning => currentBehaviour.GetBehaviourType() == BehaviourType.Scanning;
 
         [HideInInspector] public Vector2 moveInput;
         [HideInInspector] public Vector3 moveVelocity;

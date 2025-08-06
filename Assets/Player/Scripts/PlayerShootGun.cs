@@ -204,6 +204,9 @@ namespace Player.Scripts
             if (!player.playerGun.hasWeapon)
                 return false;
 
+            if (player.isScanning)
+                return false;
+
             if (player.playerGun.CurrentWeapon.isFullAuto)
             {
                 float timeStamp = isRight ? lastRightShotTimestamp : lastLeftShotTimestamp;

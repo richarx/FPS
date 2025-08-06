@@ -7,7 +7,8 @@ namespace Player.Scripts
         Crouch,
         Slide,
         Slam,
-        Locked
+        Locked,
+        Scanning
     }
     
     public interface IPlayerBehaviour

@@ -434,6 +434,25 @@ public static class Tools
         if (deactivateOnEnd)
             target.gameObject.SetActive(false);
     }
+    
+    public static IEnumerator TweenScale(RectTransform target, float x, float y, float z, float duration, bool deactivateOnEnd = false)
+    {
+        target.gameObject.SetActive(true);
+        
+        Vector3 targetScale = new Vector3(x, y, z);
+        Vector3 velocity = Vector3.zero;
+        
+        while (Vector3.Distance(target.localScale, targetScale) >= 0.05f)
+        {
+            target.localScale = Vector3.SmoothDamp(target.localScale, targetScale, ref velocity, duration);
+            yield return null;
+        }
+
+        target.localScale = targetScale;
+        
+        if (deactivateOnEnd)
+            target.gameObject.SetActive(false);
+    }
 
     public static void RestoreTextColor(TextMeshProUGUI text)
     {

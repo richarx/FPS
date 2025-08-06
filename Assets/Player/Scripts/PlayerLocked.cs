@@ -24,6 +24,8 @@ namespace Player.Scripts
         
         public void StartBehaviour(PlayerStateMachine player, BehaviourType previous)
         {
+            Debug.Log("LOCKED");
+            
             if (lockState == LockState.Full)
             {
                 player.moveVelocity = Vector3.zero;
