@@ -22,6 +22,11 @@ namespace Player.Scripts
                 player.ChangeBehaviour(player.playerRun);
                 return;
             }
+
+            if (PlayerInputs.GetSouthButton())
+            {
+                player.scanner.TriggerNewScan();
+            }
         }
 
         public void FixedUpdateBehaviour(PlayerStateMachine player)

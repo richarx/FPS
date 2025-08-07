@@ -46,6 +46,7 @@ namespace Player.Scripts
         [HideInInspector] public PlayerAmmo playerAmmo;
         [HideInInspector] public PlayerShootGun playerShootGun;
         [HideInInspector] public PlayerGunKickback playerGunKickback;
+        [HideInInspector] public Scanner.Scanner scanner;
         
         private void Awake()
         {
@@ -56,6 +57,7 @@ namespace Player.Scripts
             playerAmmo = GetComponent<PlayerAmmo>();
             playerShootGun = GetComponent<PlayerShootGun>();
             playerGunKickback = GetComponent<PlayerGunKickback>();
+            scanner = GetComponent<Scanner.Scanner>();
 
             playerRun = new PlayerRun(this);
             playerJump = new PlayerJump(this);

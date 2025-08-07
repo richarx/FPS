@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Outline-Lit
+  m_Name: Outline-Lit-yellow
   m_Shader: {fileID: -6465566751694194690, guid: 81eb1fe8e23cbc9419784e0c9548c149,
     type: 3}
   m_Parent: {fileID: 0}
@@ -55,7 +55,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _OutlineThickness: 1.92
+    - _OutlineThickness: 0
+    - _ScrollSpeed: 0.3
     m_Colors:
-    - _OutlineColor: {r: 4.7079744, g: 4.538169, b: 0.06662216, a: 1}
+    - _OutlineColor: {r: 1.4142134, g: 1.1402559, b: 0, a: 1}
+    - _OutlineColor2: {r: 0.6037736, g: 0.31727296, b: 0, a: 1}
   m_BuildTextureStacks: []
