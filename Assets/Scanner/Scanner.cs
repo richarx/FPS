@@ -17,6 +17,9 @@ namespace Scanner
         [SerializeField] private float delayBetweenScanLines;
 
         public static UnityEvent<Vector3> OnPlayerSphereScan = new UnityEvent<Vector3>();
+        [HideInInspector] public UnityEvent OnScannerVisorAppear = new UnityEvent();
+        [HideInInspector] public UnityEvent OnScannerVisorDisappear = new UnityEvent();
+        [HideInInspector] public UnityEvent OnScannerVisorFullyDisappear = new UnityEvent();
 
         private float visorDisplayDuration = 0.1f;
 
@@ -45,6 +48,7 @@ namespace Scanner
         {
             StartCoroutine(Tools.TweenPosition(scanner, scanner.position.x, Screen.height, visorDisplayDuration));
             yield return Tools.TweenScale(scanner, 1.0f, 1.0f, 1.0f, visorDisplayDuration);
+            OnScannerVisorAppear?.Invoke();
             yield return Tools.TweenScale(center, 6.0f, 6.0f, 1.0f, visorDisplayDuration);
             Vector3 scanPosition = transform.position;
             OnPlayerSphereScan?.Invoke(scanPosition);
@@ -76,7 +80,9 @@ namespace Scanner
         
         private IEnumerator TriggerHideAnimation()
         {
+            OnScannerVisorDisappear?.Invoke();
             yield return Tools.TweenScale(center, 1.0f, 1.0f, 1.0f, visorDisplayDuration);
+            OnScannerVisorFullyDisappear?.Invoke();
             StartCoroutine(Tools.TweenPosition(scanner, scanner.position.x, Screen.height * 2.0f, visorDisplayDuration));
             yield return Tools.TweenScale(scanner, 1.0f, 0.4f, 1.0f, visorDisplayDuration);
         }

@@ -51,6 +51,7 @@ MonoBehaviour:
   fovReductionOnAim: 20
   fovReductionOnSprint: -10
   fovReductionOnSlide: -30
+  fovReductionOnScanner: 30
   standingCameraHeight: 2.5
   crouchedCameraHeight: 0.75
   slideCameraHeight: 0.25

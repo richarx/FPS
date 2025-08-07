@@ -23,6 +23,9 @@ namespace Data
         [Space] [Header("Camera Vignette")] 
         public float crouchVignetteIntensity;
         public float standingVignetteIntensity;
+        public float standingVignetteSmoothness;
+        public float scanVignetteIntensity;
+        public float scanVignetteSmoothness;
         public float vignetteIntensityTransitionDuration;
     }
 }

@@ -57,6 +57,7 @@ namespace Data
         public float fovReductionOnAim;
         public float fovReductionOnSprint;
         public float fovReductionOnSlide;
+        public float fovReductionOnScanner;
 
         [Space] [Header("Camera Height")]
         public float standingCameraHeight;

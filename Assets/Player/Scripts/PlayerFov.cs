@@ -18,13 +18,35 @@ namespace Player.Scripts
         private void Start()
         {
             player = PlayerStateMachine.instance;
-            player.playerAiming.OnChangeAimState.AddListener((isAiming) => ChangeFov(GetAimFov(isAiming)));
+            player.playerAiming.OnChangeAimState.AddListener((isAiming) =>
+            {
+                if (player.isScanning)
+                    ChangeFov(GetAimFov(isAiming) + player.playerData.fovReductionOnScanner);
+                else
+                    ChangeFov(GetAimFov(isAiming));
+            });
             
-            player.playerRun.OnStartSprinting.AddListener(() => ChangeFov(GetSprintFov()));
+            player.playerRun.OnStartSprinting.AddListener(() => ChangeFov(player.playerData.fovReductionOnSprint));
             player.playerRun.OnStopSprinting.AddListener(ResetFov);
             
-            player.playerSlide.OnStartSlide.AddListener((fromCrouch) => ChangeFov(GetSlideFov()));
+            player.playerSlide.OnStartSlide.AddListener((fromCrouch) => ChangeFov(player.playerData.fovReductionOnSlide));
             player.playerSlide.OnStopSlide.AddListener((toCrouch) => ResetFov());
+            
+            player.scanner.OnScannerVisorAppear.AddListener(() =>
+            {
+                if (player.isAiming)
+                    ChangeFov(GetAimFov(true) + player.playerData.fovReductionOnScanner);
+                else
+                    ChangeFov(player.playerData.fovReductionOnScanner);
+            });
+            player.scanner.OnScannerVisorDisappear.AddListener(() =>
+            {
+                if (player.isAiming)
+                    ChangeFov(GetAimFov(true));
+                else
+                    ResetFov();
+            });
+            
             currentTarget = mainCamera.fieldOfView;
         }
 

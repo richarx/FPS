@@ -28,9 +28,29 @@ namespace Player.Scripts
             player.playerCrouch.OnStopCrouch.AddListener((isToSlide) => HideVignette());
             player.playerSlide.OnStartSlide.AddListener((isFromCrouch) => DisplayVignette());
             player.playerSlide.OnStopSlide.AddListener((isToCrouch) => HideVignette());
+            player.scanner.OnScannerVisorAppear.AddListener(DisplayCircleVignette);
+            player.scanner.OnScannerVisorDisappear.AddListener(HideCircleVignette);
 
             if (isSetup)
                 vignette.intensity.value = vfxData.standingVignetteIntensity;
+        }
+
+        private void DisplayCircleVignette()
+        {
+            vignette.rounded.value = true;
+            vignette.smoothness.value = vfxData.scanVignetteSmoothness;
+            
+            StopAllCoroutines();
+            StartCoroutine(FadeVignette(vignette.intensity.value, vfxData.scanVignetteIntensity));
+        }
+        
+        private void HideCircleVignette()
+        {
+            vignette.rounded.value = false;
+            vignette.smoothness.value = vfxData.standingVignetteSmoothness;
+            
+            StopAllCoroutines();
+            StartCoroutine(FadeVignette(vignette.intensity.value, vfxData.standingVignetteIntensity));
         }
 
         private void DisplayVignette()

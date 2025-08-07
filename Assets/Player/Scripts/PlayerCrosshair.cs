@@ -19,6 +19,8 @@ namespace Player.Scripts
             player.playerAiming.OnChangeAimState.AddListener((isAiming) => SetCrosshairState(!isAiming && !DialogManager.instance.IsDialogDisplayed));
             DialogManager.OnDisplayDialog.AddListener((_) => SetCrosshairState(false));
             DialogManager.OnHideDialog.AddListener(() => SetCrosshairState(!player.isAiming));
+            player.playerScanning.OnStartScanning.AddListener(() =>SetCrosshairState(false));
+            player.scanner.OnScannerVisorFullyDisappear.AddListener(() =>SetCrosshairState(!player.isAiming));
         }
 
         private void SetCrosshairState(bool state)
