@@ -11187,6 +11187,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4091907694026905818, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: scanLinesCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4091907694026905818, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: scannerTerrainEffect
+      value: 
+      objectReference: {fileID: 4968444372250595183, guid: 6834a0bcbd3187b438fc26f1a3a201bd,
+        type: 3}
+    - target: {fileID: 4091907694026905818, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: delayBetweenScanLines
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5634914203544353321, guid: 99fc002cf63d7f94984a5a14526de63a,
         type: 3}
       propertyPath: m_Name

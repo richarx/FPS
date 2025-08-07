@@ -10,21 +10,23 @@ namespace Scanner
         [SerializeField] private RectTransform center;
         
         [Space]
-        [SerializeField] private float displayDuration;
-
-        [Space]
-        [SerializeField] private float hideDuration;
+        [SerializeField] private GameObject scannerTerrainEffect;
+        [SerializeField] private int scanLinesCount;
+        [SerializeField] private float delayBetweenScanLines;
         
-        private float startingHeight;
+        private float visorDisplayDuration = 0.1f;
+
+        private PlayerStateMachine player;
         
         private void Start()
         {
-            PlayerStateMachine.instance.playerScanning.OnStartScanning.AddListener(() =>
+            player = PlayerStateMachine.instance;
+            player.playerScanning.OnStartScanning.AddListener(() =>
             {
                 StopAllCoroutines();
                 StartCoroutine(TriggerDisplayAnimation());
             });
-            PlayerStateMachine.instance.playerScanning.OnStopScanning.AddListener(() =>
+            player.playerScanning.OnStopScanning.AddListener(() =>
             {
                 StopAllCoroutines();
                 StartCoroutine(TriggerHideAnimation());
@@ -35,16 +37,33 @@ namespace Scanner
 
         private IEnumerator TriggerDisplayAnimation()
         {
-            StartCoroutine(Tools.TweenPosition(scanner, scanner.position.x, Screen.height, displayDuration));
-            yield return Tools.TweenScale(scanner, 1.0f, 1.0f, 1.0f, displayDuration);
-            StartCoroutine(Tools.TweenScale(center, 6.0f, 6.0f, 1.0f, displayDuration));
+            StartCoroutine(Tools.TweenPosition(scanner, scanner.position.x, Screen.height, visorDisplayDuration));
+            yield return Tools.TweenScale(scanner, 1.0f, 1.0f, 1.0f, visorDisplayDuration);
+            yield return Tools.TweenScale(center, 6.0f, 6.0f, 1.0f, visorDisplayDuration);
+            yield return SpawnScanLines();
+        }
+
+        private IEnumerator SpawnScanLines()
+        {
+            for (int i = 0; i < scanLinesCount; i++)
+            {
+                GameObject scan = Instantiate(scannerTerrainEffect, transform.position, Quaternion.identity);
+
+                player.playerScanning.OnStopScanning.AddListener(() =>
+                {
+                    if (scan != null)
+                        Destroy(scan);
+                });
+                
+                yield return new WaitForSeconds(delayBetweenScanLines);
+            }
         }
         
         private IEnumerator TriggerHideAnimation()
         {
-            yield return Tools.TweenScale(center, 1.0f, 1.0f, 1.0f, displayDuration);
-            StartCoroutine(Tools.TweenPosition(scanner, scanner.position.x, Screen.height * 2.0f, hideDuration));
-            StartCoroutine(Tools.TweenScale(scanner, 1.0f, 0.4f, 1.0f, displayDuration));
+            yield return Tools.TweenScale(center, 1.0f, 1.0f, 1.0f, visorDisplayDuration);
+            StartCoroutine(Tools.TweenPosition(scanner, scanner.position.x, Screen.height * 2.0f, visorDisplayDuration));
+            yield return Tools.TweenScale(scanner, 1.0f, 0.4f, 1.0f, visorDisplayDuration);
         }
     }
 }

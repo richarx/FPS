@@ -8,7 +8,7 @@ namespace Player.Scripts
     {
         public UnityEvent OnStartScanning = new UnityEvent();
         public UnityEvent OnStopScanning = new UnityEvent();
-        
+
         public void StartBehaviour(PlayerStateMachine player, BehaviourType previous)
         {
             Debug.Log("SCANNING");

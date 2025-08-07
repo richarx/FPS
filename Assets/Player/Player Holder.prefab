@@ -949,8 +949,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scanner: {fileID: 8387149928963045364}
   center: {fileID: 953669936590175429}
-  displayDuration: 0.1
-  hideDuration: 0.1
+  scannerTerrainEffect: {fileID: 4968444372250595183, guid: 6834a0bcbd3187b438fc26f1a3a201bd,
+    type: 3}
+  scanLinesCount: 3
+  delayBetweenScanLines: 0.1
 --- !u!1 &1356615833815831405
 GameObject:
   m_ObjectHideFlags: 0
