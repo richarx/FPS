@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Items.Weapons;
 using SFX;
 using UnityEngine;
 

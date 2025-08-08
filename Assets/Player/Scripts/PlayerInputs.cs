@@ -1,4 +1,3 @@
-using Data;
 using Pause_Menu;
 using UnityEngine;
 using UnityEngine.InputSystem;

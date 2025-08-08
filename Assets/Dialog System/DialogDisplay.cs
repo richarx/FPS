@@ -1,12 +1,9 @@
 using System;
-using System.Collections;
 using Febucci.UI.Core;
 using Febucci.UI.Core.Parsing;
-using TMPro;
 using Tools_and_Scripts;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 namespace Dialog_System
 {

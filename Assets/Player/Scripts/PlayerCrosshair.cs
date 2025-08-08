@@ -16,7 +16,7 @@ namespace Player.Scripts
         private void Start()
         {
             player = PlayerStateMachine.instance;
-            player.playerAiming.OnChangeAimState.AddListener((isAiming) => SetCrosshairState(!isAiming && !DialogManager.instance.IsDialogDisplayed));
+            player.playerAiming.OnChangeAimState.AddListener((isAiming) => SetCrosshairState(!isAiming && !DialogManager.instance.IsDialogDisplayed && !player.isScanning));
             DialogManager.OnDisplayDialog.AddListener((_) => SetCrosshairState(false));
             DialogManager.OnHideDialog.AddListener(() => SetCrosshairState(!player.isAiming));
             player.playerScanning.OnStartScanning.AddListener(() =>SetCrosshairState(false));

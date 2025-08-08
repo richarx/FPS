@@ -271,6 +271,35 @@ public static class Tools
             sprite.gameObject.SetActive(false);
     }
     
+    public static IEnumerator Fade(List<Image> sprites, float duration, bool fadeIn, float maxFade = 1.0f, bool scaledTime = true, float delay = -1.0f)
+    {
+        float fade = fadeIn ? 0.0f : maxFade;
+        float timer = duration;
+        float increment = maxFade / timer;
+        Color color = sprites[0].color;
+
+        if (delay > 0.0f)
+            yield return new WaitForSeconds(delay);
+
+        while (timer > 0.0f)
+        {
+            color.a = fade;
+
+            foreach (Image sprite in sprites)
+                sprite.color = color;
+            
+            float delta = scaledTime ? Time.deltaTime : Time.unscaledDeltaTime;
+            fade += fadeIn ? delta * increment : -delta * increment;
+            timer -= delta;
+            
+            yield return null;
+        }
+        
+        color.a = fadeIn ? maxFade : 0.0f;
+        foreach (Image sprite in sprites)
+            sprite.color = color;
+    }
+    
     public static IEnumerator Fade(Light light, float duration, bool fadeIn, float maxFade = 1.0f, bool scaledTime = true)
     {
         float fade = fadeIn ? 0.0f : maxFade;
@@ -452,6 +481,18 @@ public static class Tools
         
         if (deactivateOnEnd)
             target.gameObject.SetActive(false);
+    }
+
+    public static List<Image> GetImagesFromRectTransforms(List<RectTransform> targets)
+    {
+        List<Image> images = new List<Image>();
+
+        foreach (RectTransform target in targets)
+        {
+            images.Add(target.GetComponent<Image>());
+        }
+
+        return images;
     }
 
     public static void RestoreTextColor(TextMeshProUGUI text)
