@@ -2395,7 +2395,6 @@ RectTransform:
   - {fileID: 5062966995987618091}
   - {fileID: 4401638910340844692}
   - {fileID: 3642820174064527340}
-  - {fileID: 7329615942673160696}
   m_Father: {fileID: 1314558256057577467}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2521,6 +2520,7 @@ RectTransform:
   m_LocalScale: {x: 5.893067, y: 5.893067, z: 5.893067}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7329615942673160696}
   - {fileID: 6244341129466566447}
   m_Father: {fileID: 8349161507964310560}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2546,6 +2546,9 @@ MonoBehaviour:
   sides: {fileID: 5062966995987618091}
   line: {fileID: 4401638910340844692}
   circle: {fileID: 3642820174064527340}
+  vhsEffect: {fileID: 7329615942673160696}
+  vhsMaterial: {fileID: 2100000, guid: 7429b0596511d6344a5ba340632ba293, type: 2}
+  vhsScrollSpeed: 0.3
 --- !u!1 &3116772498192541926
 GameObject:
   m_ObjectHideFlags: 0
@@ -5090,12 +5093,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6747294925746598930}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6244341129466566447}
+  m_Father: {fileID: 1314558256057577467}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6529,7 +6532,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 2435788952213136073}
-  m_PlaneDistance: 0.1
+  m_PlaneDistance: 1
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0

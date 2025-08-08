@@ -354,7 +354,6 @@ namespace Tools_and_Scripts
         private static float attackBufferTimeStamp = -1.0f;
         private static float jumpBufferTimeStamp = -1.0f;
         private static float guardBufferTimeStamp = -1.0f;
-        private static float throwBufferTimeStamp = -1.0f;
         private static float shootBufferTimeStamp = -1.0f;
     
         public static void UpdateInputBuffers()
@@ -381,7 +380,6 @@ namespace Tools_and_Scripts
             attackBufferTimeStamp = -1.0f;
             jumpBufferTimeStamp = -1.0f;
             guardBufferTimeStamp = -1.0f;
-            throwBufferTimeStamp = -1.0f;
             shootBufferTimeStamp = -1.0f;
         } 
     }
