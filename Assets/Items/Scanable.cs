@@ -7,6 +7,7 @@ namespace Items
     public class Scanable : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private Vector3 offset;
 
         private Material material;
         
@@ -51,10 +52,10 @@ namespace Items
             }
 
             if (hasBeenTriggered)
-                yield return ActivateOutline();
+                yield return ActivateOutlineCoroutine();
         }
 
-        private IEnumerator ActivateOutline()
+        private IEnumerator ActivateOutlineCoroutine()
         {
             float thickness = 0.0f;
             float velocity = 0.0f;
@@ -84,6 +85,21 @@ namespace Items
         {
             StopAllCoroutines();
             material.SetFloat(OutlineThickness, 0.0f);
+        }
+
+        public void ActivateOutline()
+        {
+            material.SetFloat(OutlineThickness, 5.0f);
+        }
+
+        public void DeactivateOutline()
+        {
+            material.SetFloat(OutlineThickness, 0.0f);
+        }
+
+        public Vector3 GetDisplayOffset()
+        {
+            return offset;
         }
     }
 }

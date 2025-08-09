@@ -1,5 +1,7 @@
 using Items;
+using Tools_and_Scripts;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Scanner
 {
@@ -7,8 +9,16 @@ namespace Scanner
     {
         [SerializeField] private Transform scanPivot;        
         [SerializeField] private LayerMask targetLayer;
+        [SerializeField] private float maxDistanceBeforeLosingTarget;
+
+        [HideInInspector] public UnityEvent OnScanNewTarget = new UnityEvent();
+        [HideInInspector] public UnityEvent OnLoseScanTarget = new UnityEvent();
         
         private ScannerCursor scannerCursor;
+
+        private Scanable currentTarget;
+        private Scanable CurrentTarget => currentTarget;
+        public bool HasTarget => currentTarget != null;
         
         public Vector3 scanPosition => scanPivot.position;
         public Vector3 scanDirection => scanPivot.forward;
@@ -22,6 +32,9 @@ namespace Scanner
         {
             if (scannerCursor.IsDisplayed)
                 ShootDetectionRay();
+
+            if (HasTarget && !IsInCursorRange(currentTarget))
+                LoseTarget();
         }
 
         private void ShootDetectionRay()
@@ -30,9 +43,45 @@ namespace Scanner
             bool hit = Physics.Raycast(scanPosition, scanDirection, out RaycastHit hitInfo, distance, targetLayer);
 
             Scanable scanable = hit ? hitInfo.collider.GetComponent<Scanable>() : null;
+
+            if (scanable != null && scanable != currentTarget && IsInCursorRange(scanable))
+                SetNewTarget(scanable);
+        }
+        
+        private bool IsInCursorRange(Scanable target)
+        {
+            return ComputeTargetDistance(target.transform.position + target.GetDisplayOffset()) < maxDistanceBeforeLosingTarget;
+        }
+
+        private float ComputeTargetDistance(Vector3 position)
+        {
+            Vector2 screenPosition = CameraScreenPosition.instance.WorldToScreen(position);
+            Vector2 center = CameraScreenPosition.instance.GetScreenCenterPosition();
+
+            float distance = (screenPosition - center).magnitude;
             
-            if (scanable != null)
-                Debug.Log($"Scan target : {scanable.gameObject.name}");
+            if (distance >= maxDistanceBeforeLosingTarget)
+                Debug.Log($"Lose current target - position : {screenPosition} / center : {center} / distance : {distance}");
+            
+            return distance;
+        }
+
+        private void SetNewTarget(Scanable scanable)
+        {
+            if (currentTarget != null)
+                currentTarget.DeactivateOutline();
+            
+            currentTarget = scanable;
+            currentTarget.ActivateOutline();
+            OnScanNewTarget?.Invoke();
+            Debug.Log($"Set new target : {scanable.gameObject.name}");
+        }
+        
+        private void LoseTarget()
+        {
+            currentTarget.DeactivateOutline();
+            currentTarget = null;
+            OnLoseScanTarget?.Invoke();
         }
     }
 }
