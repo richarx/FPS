@@ -17,9 +17,9 @@ namespace Scanner
         private ScannerCursor scannerCursor;
 
         private Scanable currentTarget;
-        private Scanable CurrentTarget => currentTarget;
+        public Scanable CurrentTarget => currentTarget;
         public bool HasTarget => currentTarget != null;
-        
+
         public Vector3 scanPosition => scanPivot.position;
         public Vector3 scanDirection => scanPivot.forward;
         

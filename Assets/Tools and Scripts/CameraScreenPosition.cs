@@ -32,5 +32,11 @@ namespace Tools_and_Scripts
         {
             return new Vector2(mainCamera.pixelWidth / 2.0f, mainCamera.pixelHeight / 2.0f);
         }
+
+        public Vector2 ScreenPointToLocalPointInRectangle(RectTransform rect, Vector2 position)
+        {
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(rect, position, mainCamera, out Vector2 result);
+            return result;
+        }
     }
 }
