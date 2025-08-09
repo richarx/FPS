@@ -58,12 +58,7 @@ namespace Scanner
             Vector2 screenPosition = CameraScreenPosition.instance.WorldToScreen(position);
             Vector2 center = CameraScreenPosition.instance.GetScreenCenterPosition();
 
-            float distance = (screenPosition - center).magnitude;
-            
-            if (distance >= maxDistanceBeforeLosingTarget)
-                Debug.Log($"Lose current target - position : {screenPosition} / center : {center} / distance : {distance}");
-            
-            return distance;
+            return (screenPosition - center).magnitude;
         }
 
         private void SetNewTarget(Scanable scanable)
@@ -74,7 +69,6 @@ namespace Scanner
             currentTarget = scanable;
             currentTarget.ActivateOutline();
             OnScanNewTarget?.Invoke();
-            Debug.Log($"Set new target : {scanable.gameObject.name}");
         }
         
         private void LoseTarget()

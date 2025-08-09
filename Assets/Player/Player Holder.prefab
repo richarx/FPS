@@ -2394,7 +2394,6 @@ RectTransform:
   - {fileID: 5329786050512264210}
   - {fileID: 5062966995987618091}
   - {fileID: 4401638910340844692}
-  - {fileID: 3642820174064527340}
   m_Father: {fileID: 1314558256057577467}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2524,6 +2523,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7329615942673160696}
+  - {fileID: 3642820174064527340}
   - {fileID: 6244341129466566447}
   - {fileID: 7910042985273318286}
   m_Father: {fileID: 8349161507964310560}
@@ -2545,7 +2545,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09fddbd5ec55b1f429e9778bd76cf434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holder: {fileID: 2808679052918418468}
   corners: {fileID: 5329786050512264210}
   sides: {fileID: 5062966995987618091}
   line: {fileID: 4401638910340844692}
@@ -2582,7 +2581,7 @@ MonoBehaviour:
   border: {fileID: 6028962200156527838}
   fillBorderDuration: 0.5
   background: {fileID: 5611282148678099816}
-  fadeBackgroundDuration: 0.3
+  fadeBackgroundDuration: 0.5
   backgroundMaxFade: 0.01
 --- !u!114 &7431227538894726185
 MonoBehaviour:
@@ -2600,6 +2599,13 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 256
+  maxDistanceBeforeLosingTarget: 150
+  OnScanNewTarget:
+    m_PersistentCalls:
+      m_Calls: []
+  OnLoseScanTarget:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3116772498192541926
 GameObject:
   m_ObjectHideFlags: 0
@@ -4281,7 +4287,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6244341129466566447}
+  m_Father: {fileID: 1314558256057577467}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5607,6 +5613,7 @@ GameObject:
   - component: {fileID: 8888515303180406854}
   - component: {fileID: 7419980228698442952}
   - component: {fileID: 2468336418197360075}
+  - component: {fileID: 7830381522778821963}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5747,6 +5754,18 @@ MonoBehaviour:
   amplitudeX: 0.15
   amplitudeY: 0.15
   frequency: 10
+--- !u!114 &7830381522778821963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6875059262381536214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2784bd3d6c0cfc44aad47d6ee856b1c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6891539445501985505
 GameObject:
   m_ObjectHideFlags: 0

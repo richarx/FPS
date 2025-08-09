@@ -7,9 +7,6 @@ namespace Scanner
 {
     public class ScannerCursor : MonoBehaviour
     {
-        [Space] 
-        [SerializeField] private GameObject holder;
-        
         [Space]
         [SerializeField] private RectTransform corners;
         [SerializeField] private RectTransform sides;
@@ -45,13 +42,13 @@ namespace Scanner
         private void Start()
         {
             player = PlayerStateMachine.instance;
-            
+
             player.scanner.OnScannerVisorAppear.AddListener(DisplayCursor);
             player.scanner.OnScannerVisorDisappear.AddListener(HideCursor);
 
             Color transparent = Color.white;
             transparent.a = 0.0f;
-            
+
             cornersImage = corners.GetComponent<Image>();
             cornersImage.color = transparent;
             sidesImage = sides.GetComponent<Image>();
@@ -62,8 +59,6 @@ namespace Scanner
             circleImage.color = transparent;
 
             lineStartingHeight = line.localPosition.y;
-            
-            holder.SetActive(false);
         }
 
         private void Update()
@@ -118,7 +113,6 @@ namespace Scanner
         {
             isDisplaying = true;
             yield return new WaitForSeconds(0.3f);
-            holder.SetActive(true);
             
             StartCoroutine(Tools.Fade(cornersImage, 0.3f, true, maxFade));
             corners.localScale = new Vector3(2.0f, 2.0f, 1.0f);
@@ -155,7 +149,6 @@ namespace Scanner
             StartCoroutine(Tools.Fade(sidesImage, 0.05f, false, maxFade));
             StartCoroutine(Tools.Fade(lineImage, 0.05f, false, maxFade));
             yield return Tools.Fade(circleImage, 0.05f, false, maxFade);
-            holder.SetActive(false);
             
             isDisplayed = false;
         }

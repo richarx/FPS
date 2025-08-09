@@ -10,6 +10,8 @@ namespace Items
         [SerializeField] private Vector3 offset;
 
         private Material material;
+
+        private bool isBeingScanned;
         
         private float currentDistance;
         private float maxDistance;
@@ -57,6 +59,9 @@ namespace Items
 
         private IEnumerator ActivateOutlineCoroutine()
         {
+            if (isBeingScanned)
+                yield break;
+            
             float thickness = 0.0f;
             float velocity = 0.0f;
             
@@ -72,6 +77,9 @@ namespace Items
 
             yield return new WaitForSeconds(1.5f - timer);
 
+            if (isBeingScanned)
+                yield break;
+            
             while (thickness > 0.0f)
             {
                 thickness = Mathf.SmoothDamp(thickness, -0.5f, ref velocity, 0.5f);
@@ -89,11 +97,13 @@ namespace Items
 
         public void ActivateOutline()
         {
+            isBeingScanned = true;
             material.SetFloat(OutlineThickness, 5.0f);
         }
 
         public void DeactivateOutline()
         {
+            isBeingScanned = false;
             material.SetFloat(OutlineThickness, 0.0f);
         }
 
