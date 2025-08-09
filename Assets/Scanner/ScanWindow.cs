@@ -1,4 +1,5 @@
 using Player.Scripts;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,9 @@ namespace Scanner
         [SerializeField] private Image background;
         [SerializeField] private float fadeBackgroundDuration;
         [SerializeField] private float backgroundMaxFade;
+
+        [Space] 
+        [SerializeField] private TextMeshProUGUI text;
 
         private ScannerDetector scannerDetector;
         private bool isDisplayed;
@@ -25,17 +29,23 @@ namespace Scanner
 
             border.MakeTransparent();
             background.MakeTransparent();
+            text.text = "";
         }
         
         private void Display()
         {
             if (isDisplayed)
+            {
+                text.text = scannerDetector.CurrentTarget.GetScanText();
                 return;
+            }
             
             StopAllCoroutines();
             border.MakeVisible();
             StartCoroutine(Tools.FillImage(border, fillBorderDuration, true));
             StartCoroutine(Tools.Fade(background, fadeBackgroundDuration, true, backgroundMaxFade, delay:fillBorderDuration / 2.0f));
+            text.text = scannerDetector.CurrentTarget.GetScanText();
+            Tools.RestoreTextColor(text);
             isDisplayed = true;
         }
 
@@ -46,7 +56,8 @@ namespace Scanner
             
             StopAllCoroutines();
             StartCoroutine(Tools.FillImage(border, fillBorderDuration, false));
-            StartCoroutine(Tools.Fade(background, 0.05f, false, backgroundMaxFade));
+            StartCoroutine(Tools.Fade(background, fadeBackgroundDuration, false, backgroundMaxFade));
+            StartCoroutine(Tools.Fade(text, 0.1f, false));
             isDisplayed = false;
         }
         
@@ -58,6 +69,7 @@ namespace Scanner
             StopAllCoroutines();
             StartCoroutine(Tools.Fade(border, 0.05f, false));
             StartCoroutine(Tools.Fade(background, 0.05f, false, backgroundMaxFade));
+            StartCoroutine(Tools.Fade(text, 0.05f, false));
             isDisplayed = false;
         }
     }

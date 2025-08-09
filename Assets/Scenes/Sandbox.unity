@@ -3034,11 +3034,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Loot_BR
       objectReference: {fileID: 0}
-    - target: {fileID: 6621779700828698090, guid: 4ad191f6c1497b54db2d96f365241ab9,
-        type: 3}
-      propertyPath: offset.y
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 7310002436268567212, guid: 4ad191f6c1497b54db2d96f365241ab9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4147,12 +4142,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58f4f4fef409cc04a9acc2d13a2e686f, type: 3}
---- !u!224 &675641707 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6244341129466566447, guid: 99fc002cf63d7f94984a5a14526de63a,
-    type: 3}
-  m_PrefabInstance: {fileID: 8637642417623603251}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &675993089
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4987,32 +4976,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2109517325}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &779435904 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3028269124843779379, guid: 99fc002cf63d7f94984a5a14526de63a,
-    type: 3}
-  m_PrefabInstance: {fileID: 8637642417623603251}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &779435905 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1314558256057577467, guid: 99fc002cf63d7f94984a5a14526de63a,
-    type: 3}
-  m_PrefabInstance: {fileID: 8637642417623603251}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &779435910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 779435904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33753a45098d56744b3851e01fe61e8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canvas: {fileID: 779435905}
-  cursor: {fileID: 675641707}
 --- !u!4 &780841045 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3263981953530383593, guid: 0b0315988d4640f4f8028117c16b74e1,
@@ -8334,6 +8297,17 @@ PrefabInstance:
       propertyPath: offset.y
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6621779700828698090, guid: 4ad191f6c1497b54db2d96f365241ab9,
+        type: 3}
+      propertyPath: scanText
+      value: 'Weapon type : Burst Rifle
+
+
+        Rate of Fire : 6.3
+
+        Damage
+        : 2.1'
+      objectReference: {fileID: 0}
     - target: {fileID: 7310002436268567212, guid: 4ad191f6c1497b54db2d96f365241ab9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9578,6 +9552,17 @@ PrefabInstance:
       propertyPath: offset.y
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4875320680550789267, guid: 8f2c91dcc1794ce4a942df3c29c2233b,
+        type: 3}
+      propertyPath: scanText
+      value: 'Weapon type : Shotgun
+
+
+        Rate of Fire : 6.3
+
+        Damage
+        : 2.1'
+      objectReference: {fileID: 0}
     - target: {fileID: 7310002436268567212, guid: 8f2c91dcc1794ce4a942df3c29c2233b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9714,6 +9699,17 @@ PrefabInstance:
       propertyPath: offset.y
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5967079672368819169, guid: 272e6002f7a491e448e1b89c6e18dc6e,
+        type: 3}
+      propertyPath: scanText
+      value: 'Weapon type : Pistol
+
+
+        Rate of Fire : 6.3
+
+        Damage :
+        2.1'
+      objectReference: {fileID: 0}
     - target: {fileID: 7570925612291194650, guid: 272e6002f7a491e448e1b89c6e18dc6e,
         type: 3}
       propertyPath: m_Name
@@ -9736,11 +9732,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Loot_Shotgun
-      objectReference: {fileID: 0}
-    - target: {fileID: 4875320680550789267, guid: 8f2c91dcc1794ce4a942df3c29c2233b,
-        type: 3}
-      propertyPath: offset.y
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7310002436268567212, guid: 8f2c91dcc1794ce4a942df3c29c2233b,
         type: 3}
@@ -10932,6 +10923,17 @@ PrefabInstance:
         type: 3}
       propertyPath: offset.y
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8336767667542064159, guid: 07e517e16897de84fa4d14fe7ed49acb,
+        type: 3}
+      propertyPath: scanText
+      value: 'Weapon type : Auto Rifle
+
+
+        Rate of Fire : 6.3
+
+        Damage
+        : 2.1'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12581,11 +12583,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8336767667542064159, guid: 07e517e16897de84fa4d14fe7ed49acb,
-        type: 3}
-      propertyPath: offset.y
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12717,11 +12714,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5967079672368819169, guid: 272e6002f7a491e448e1b89c6e18dc6e,
-        type: 3}
-      propertyPath: offset.y
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 7570925612291194650, guid: 272e6002f7a491e448e1b89c6e18dc6e,
         type: 3}
       propertyPath: m_Name
@@ -12823,11 +12815,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Holder
       objectReference: {fileID: 0}
-    - target: {fileID: 7431227538894726185, guid: 99fc002cf63d7f94984a5a14526de63a,
-        type: 3}
-      propertyPath: maxDistanceBeforeLosingTarget
-      value: 300
-      objectReference: {fileID: 0}
     - target: {fileID: 9029753958373732987, guid: 99fc002cf63d7f94984a5a14526de63a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12881,11 +12868,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3028269124843779379, guid: 99fc002cf63d7f94984a5a14526de63a,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 779435910}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99fc002cf63d7f94984a5a14526de63a, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

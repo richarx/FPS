@@ -251,7 +251,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 243413486556032759}
-  offset: {x: 0, y: 0.5, z: 0}
+  offset: {x: 0, y: 2, z: 0}
+  scanText: 'Weapon type : Shotgun
+
+
+    Rate of Fire : 6.3
+
+    Damage : 2.1'
 --- !u!1 &9093071990426674819
 GameObject:
   m_ObjectHideFlags: 0

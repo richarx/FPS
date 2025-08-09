@@ -388,3 +388,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 3560980293329221851}
+  offset: {x: 0, y: 2, z: 0}
+  scanText: 'Weapon type : Pistol
+
+
+    Rate of Fire : 6.3
+
+    Damage : 2.1'

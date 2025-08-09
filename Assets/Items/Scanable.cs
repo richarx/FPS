@@ -8,6 +8,7 @@ namespace Items
     {
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Vector3 offset;
+        [SerializeField] [TextArea] private string scanText;
 
         private Material material;
 
@@ -110,6 +111,11 @@ namespace Items
         public Vector3 GetDisplayOffset()
         {
             return offset;
+        }
+
+        public string GetScanText()
+        {
+            return scanText;
         }
     }
 }
