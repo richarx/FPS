@@ -12,10 +12,12 @@ namespace Player.Scripts
         private bool isAiming;
         public bool IsAiming => isAiming && !playerGun.HasAkimbo;
 
+        private PlayerStateMachine player;
         private PlayerGun playerGun;
 
         private void Start()
         {
+            player = PlayerStateMachine.instance;
             playerGun = GetComponent<PlayerGun>();
             playerGun.OnEquipAkimboWeapon.AddListener((_) =>
             {
@@ -32,7 +34,7 @@ namespace Player.Scripts
             if (PauseMenu.instance.IsPaused)
                 return;
             
-            if (playerGun.HasAkimbo)
+            if (playerGun.HasAkimbo && !player.isScanning)
                 return;
             
             if (isAiming != PlayerInputs.GetLeftTrigger(isHeld: true))

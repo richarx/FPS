@@ -10,7 +10,6 @@ namespace Items
 
         private Material material;
         
-        private Scanner.Scanner scanner;
         private float currentDistance;
         private float maxDistance;
         private static readonly int OutlineThickness = Shader.PropertyToID("_OutlineThickness");
@@ -19,7 +18,6 @@ namespace Items
         {
             Scanner.Scanner.OnPlayerSphereScan.AddListener(TriggerDisplay);
             PlayerStateMachine.instance.playerScanning.OnStopScanning.AddListener(ResetDisplay);
-            scanner = PlayerStateMachine.instance.scanner;
             material = spriteRenderer.material;
         }
 
@@ -30,9 +28,7 @@ namespace Items
             currentDistance = Vector3.Distance(scanPosition, transform.position);
             maxDistance = Scanner.Scanner.ScanSphereMaxDistance;
             
-            Debug.Log($"TriggerDisplay : {currentDistance} < {maxDistance}");
-            
-            if (currentDistance < maxDistance)
+           if (currentDistance < maxDistance)
                 StartCoroutine(TriggerDisplayCoroutine());
         }
 

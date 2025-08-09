@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Highlight_Yellow
+  m_Name: Highlight_TextBox
   m_Shader: {fileID: -6465566751694194690, guid: 8b13637ed326c7746ab99f028480c6bb,
     type: 3}
   m_Parent: {fileID: 0}
@@ -58,6 +58,6 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _HighlightColor: {r: 2.1185474, g: 1.7525157, b: 0, a: 1}
-    - _HighlightColor2: {r: 2.1185474, g: 0.49314055, b: 0, a: 1}
+    - _HighlightColor: {r: 2.828427, g: 2.3397462, b: 0, a: 1}
+    - _HighlightColor2: {r: 2.1185474, g: 1.0852432, b: 0, a: 1}
   m_BuildTextureStacks: []

@@ -419,6 +419,49 @@ public static class Tools
             timer -= Time.deltaTime;
         }
     }
+    
+    public static IEnumerator FillImage(Image image, float duration, bool fillIn, float maxFill = 1.0f, bool scaledTime = true)
+    {
+        float fill = fillIn ? 0.0f : maxFill;
+        float timer = duration;
+        float increment = maxFill / timer;
+
+        image.gameObject.SetActive(true);
+        
+        while (timer > 0.0f)
+        {
+            image.fillAmount = fill;
+            
+            float delta = scaledTime ? Time.deltaTime : Time.unscaledDeltaTime;
+            fill += fillIn ? delta * increment : -delta * increment;
+            timer -= delta;
+            
+            yield return null;
+        }
+        
+        image.fillAmount = fillIn ? maxFill : 0.0f;;
+        
+        if (!fillIn)
+            image.gameObject.SetActive(false);
+    }
+
+    public static Image MakeTransparent(this Image image)
+    {
+        Color transparent = Color.white;
+        transparent.a = 0.0f;
+        image.color = transparent;
+
+        return image;
+    }
+    
+    public static Image MakeVisible(this Image image)
+    {
+        Color visible = Color.white;
+        visible.a = 1.0f;
+        image.color = visible;
+
+        return image;
+    }
 
     public static IEnumerator Shake(Transform target, float duration, float intensity, bool horizontal = false, bool vertical = false)
     {

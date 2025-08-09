@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Player.Scripts;
 using UnityEngine;
@@ -16,10 +15,10 @@ namespace Scanner
         [SerializeField] private RectTransform sides;
         [SerializeField] private RectTransform line;
         [SerializeField] private RectTransform circle;
-        [SerializeField] private RectTransform vhsEffect;
-        [SerializeField] private Material vhsMaterial;
-        [SerializeField] private float vhsScrollSpeed;
+        [SerializeField] private float lineMoveSpeed;
 
+        private PlayerStateMachine player;
+        
         private Image cornersImage;
         private Image sidesImage;
         private Image lineImage;
@@ -29,10 +28,23 @@ namespace Scanner
 
         private bool isDisplaying;
         private bool isDisplayed;
+        public bool IsDisplayed => isDisplayed;
+        private bool animateDown;
         
+        private float lineStartingHeight;
+        private float liveVelocity;
+
+        private float lineMoveHeight => player.isAiming ? 8 : 11;
+        
+        private Vector3 lineTargetScale => player.isAiming ? Vector3.one * 0.65f : Vector3.one * 0.85f;
+        private Vector3 lineScaleVelocity;
+
+        private Vector3 cornerTargetScale => player.isAiming ? Vector3.one * 0.8f : Vector3.one;
+        private Vector3 cornerScaleVelocity;
+
         private void Start()
         {
-            PlayerStateMachine player = PlayerStateMachine.instance;
+            player = PlayerStateMachine.instance;
             
             player.scanner.OnScannerVisorAppear.AddListener(DisplayCursor);
             player.scanner.OnScannerVisorDisappear.AddListener(HideCursor);
@@ -48,24 +60,52 @@ namespace Scanner
             lineImage.color = transparent;
             circleImage = circle.GetComponent<Image>();
             circleImage.color = transparent;
+
+            lineStartingHeight = line.localPosition.y;
             
             holder.SetActive(false);
-            vhsEffect.gameObject.SetActive(false);
         }
 
         private void Update()
         {
-            if (isDisplaying || isDisplayed)
+            if (isDisplayed)
             {
-                AnimateVhsEffect();
+                AnimateLineHeight();
+                AnimateScale();
             }
         }
 
-        private void AnimateVhsEffect()
+        private void AnimateScale()
         {
-            Vector2 offset = vhsMaterial.mainTextureOffset;
-            offset.y += vhsScrollSpeed * Time.deltaTime;
-            vhsMaterial.mainTextureOffset = offset;
+            Vector3 scale = corners.localScale;
+            scale = Vector3.SmoothDamp(scale, cornerTargetScale, ref cornerScaleVelocity, 0.1f);
+            corners.localScale = scale;
+            
+            scale = line.localScale;
+            scale = Vector3.SmoothDamp(scale, lineTargetScale, ref lineScaleVelocity, 0.1f);
+            line.localScale = scale;
+        }
+
+        private void AnimateLineHeight()
+        {
+            Vector3 position = line.localPosition;
+            
+            if (animateDown)
+            {
+                if (position.y < lineStartingHeight - lineMoveHeight)
+                    animateDown = false;
+                else
+                    position.y = Mathf.SmoothDamp(position.y, lineStartingHeight - lineMoveHeight - 0.5f, ref liveVelocity, lineMoveSpeed);
+            }
+            else
+            {
+                if (position.y > lineStartingHeight + lineMoveHeight)
+                    animateDown = true;
+                else
+                    position.y = Mathf.SmoothDamp(position.y, lineStartingHeight + lineMoveHeight + 0.5f, ref liveVelocity, lineMoveSpeed);
+            }
+
+            line.localPosition = position;
         }
 
         private void DisplayCursor()
@@ -77,19 +117,19 @@ namespace Scanner
         private IEnumerator DisplayCursorCoroutine()
         {
             isDisplaying = true;
-            vhsEffect.gameObject.SetActive(true);
             yield return new WaitForSeconds(0.3f);
             holder.SetActive(true);
             
             StartCoroutine(Tools.Fade(cornersImage, 0.3f, true, maxFade));
             corners.localScale = new Vector3(2.0f, 2.0f, 1.0f);
-            yield return Tools.TweenScale(corners, 0.8f, 0.8f, 1.0f, 0.2f);
-            yield return Tools.TweenScale(corners, 1.0f, 1.0f, 1.0f, 0.1f);
+            yield return Tools.TweenScale(corners, cornerTargetScale.x - 0.2f, cornerTargetScale.y - 0.2f, 1.0f, 0.2f);
+            yield return Tools.TweenScale(corners, cornerTargetScale.x, cornerTargetScale.y, 1.0f, 0.1f);
             
             StartCoroutine(Tools.Fade(sidesImage, 0.3f, true, maxFade));
             sides.localScale = new Vector3(2.0f, 2.0f, 1.0f);
             StartCoroutine(Tools.TweenScale(sides, 1.0f, 1.0f, 1.0f, 0.5f));
             
+            line.localPosition = new Vector3(line.localPosition.x, lineStartingHeight, 0.0f);
             StartCoroutine(Tools.Fade(lineImage, 0.3f, true, maxFade));
             line.localScale = new Vector3(0.0f, 1.0f, 1.0f);
             yield return Tools.TweenScale(line, 1.0f, 1.0f, 1.0f, 0.5f);
@@ -116,13 +156,8 @@ namespace Scanner
             StartCoroutine(Tools.Fade(lineImage, 0.05f, false, maxFade));
             yield return Tools.Fade(circleImage, 0.05f, false, maxFade);
             holder.SetActive(false);
-            vhsEffect.gameObject.SetActive(false);
+            
             isDisplayed = false;
-        }
-
-        private void OnDestroy()
-        {
-            vhsMaterial.mainTextureOffset = Vector2.zero;
         }
     }
 }
