@@ -22,7 +22,9 @@ namespace Items
         {
             Scanner.Scanner.OnPlayerSphereScan.AddListener(TriggerDisplay);
             PlayerStateMachine.instance.playerScanning.OnStopScanning.AddListener(ResetDisplay);
-            material = spriteRenderer.material;
+            
+            if (spriteRenderer != null)
+                material = spriteRenderer.material;
         }
 
         private void TriggerDisplay(Vector3 scanPosition)
