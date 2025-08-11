@@ -4,44 +4,43 @@ using UnityEngine.Events;
 
 namespace Player.Scripts
 {
-    public class PlayerScanning : IPlayerBehaviour
+    public class PlayerBackpack : IPlayerBehaviour
     {
-        public UnityEvent OnStartScanning = new UnityEvent();
-        public UnityEvent OnStopScanning = new UnityEvent();
-
+        public UnityEvent OnOpenBag = new UnityEvent();
+        public UnityEvent OnCloseBag = new UnityEvent();
+        
         public void StartBehaviour(PlayerStateMachine player, BehaviourType previous)
         {
-            Debug.Log("SCANNING");
-            OnStartScanning?.Invoke();
+            Debug.Log("BACKPACK");
+            
+            player.moveVelocity = Vector3.zero;
+            player.ApplyMovement();
+            
+            OnOpenBag?.Invoke();
         }
 
         public void UpdateBehaviour(PlayerStateMachine player)
         {
-            if (PlayerInputs.GetUpArrow())
+            if (PlayerInputs.GetStartButton())
             {
                 player.ChangeBehaviour(player.playerRun);
                 return;
-            }
-
-            if (PlayerInputs.GetSouthButton())
-            {
-                player.scanner.TriggerNewScan();
             }
         }
 
         public void FixedUpdateBehaviour(PlayerStateMachine player)
         {
-            player.playerRun.FixedUpdateBehaviour(player);
+            
         }
 
         public void StopBehaviour(PlayerStateMachine player, BehaviourType next)
         {
-            OnStopScanning?.Invoke();
+            OnCloseBag?.Invoke();
         }
 
         public BehaviourType GetBehaviourType()
         {
-            return BehaviourType.Scanning;
+            return BehaviourType.Backpack;
         }
     }
 }

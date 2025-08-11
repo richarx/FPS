@@ -8,7 +8,8 @@ namespace Player.Scripts
         Slide,
         Slam,
         Locked,
-        Scanning
+        Scanning,
+        Backpack
     }
     
     public interface IPlayerBehaviour

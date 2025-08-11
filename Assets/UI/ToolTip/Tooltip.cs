@@ -45,7 +45,7 @@ namespace UI.ToolTip
 
             if (blocs.Length != 3)
                 return text;
-
+            
             return $"{blocs[0]}<b><color=\"yellow\">{blocs[1]}</b></color>{blocs[2]}";
         }
 

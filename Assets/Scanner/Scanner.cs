@@ -46,9 +46,9 @@ namespace Scanner
         private IEnumerator TriggerDisplayAnimation()
         {
             StartCoroutine(Tools.TweenPosition(scanner, scanner.position.x, Screen.height, visorDisplayDuration));
-            yield return Tools.TweenScale(scanner, 1.0f, 1.0f, 1.0f, visorDisplayDuration);
+            yield return Tools.TweenLocalScale(scanner, 1.0f, 1.0f, 1.0f, visorDisplayDuration);
             OnScannerVisorAppear?.Invoke();
-            yield return Tools.TweenScale(center, 6.0f, 6.0f, 1.0f, visorDisplayDuration);
+            yield return Tools.TweenLocalScale(center, 6.0f, 6.0f, 1.0f, visorDisplayDuration);
             Vector3 scanPosition = transform.position;
             OnPlayerSphereScan?.Invoke(scanPosition);
             yield return SpawnScanLines(scanPosition);
@@ -80,10 +80,10 @@ namespace Scanner
         private IEnumerator TriggerHideAnimation()
         {
             OnScannerVisorDisappear?.Invoke();
-            yield return Tools.TweenScale(center, 1.0f, 1.0f, 1.0f, visorDisplayDuration);
+            yield return Tools.TweenLocalScale(center, 1.0f, 1.0f, 1.0f, visorDisplayDuration);
             OnScannerVisorFullyDisappear?.Invoke();
             StartCoroutine(Tools.TweenPosition(scanner, scanner.position.x, Screen.height * 2.0f, visorDisplayDuration));
-            yield return Tools.TweenScale(scanner, 1.0f, 0.4f, 1.0f, visorDisplayDuration);
+            yield return Tools.TweenLocalScale(scanner, 1.0f, 0.4f, 1.0f, visorDisplayDuration);
         }
     }
 }

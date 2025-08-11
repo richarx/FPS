@@ -183,19 +183,15 @@ namespace Tools_and_Scripts
     
         public static bool GetLeftShoulder(bool isHeld = false, bool withBuffer = true)
         {
-            if (Gamepad.current == null)
-                return false;
+            bool gamepad = false;
+            bool mouse = false;
         
-            if (isHeld)
-                return Gamepad.current.leftShoulder.isPressed;
+            if (Gamepad.current != null)
+                gamepad = isHeld ? Gamepad.current.leftShoulder.isPressed : Gamepad.current.leftShoulder.wasPressedThisFrame;
+
+            mouse = isHeld ? Keyboard.current.aKey.isPressed : Keyboard.current.aKey.wasPressedThisFrame;
         
-            if (withBuffer && Time.time <= guardBufferTimeStamp)
-            {
-                guardBufferTimeStamp = -1.0f;
-                return true;
-            }
-        
-            return Gamepad.current.leftShoulder.wasPressedThisFrame;
+            return mouse || gamepad;
         }
     
         public static bool GetRightShoulder(bool isHeld = false)
@@ -258,6 +254,30 @@ namespace Tools_and_Scripts
             bool keyboard = isHeld ? Keyboard.current.leftShiftKey.isPressed : Keyboard.current.leftShiftKey.wasPressedThisFrame;
             return keyboard;
         }
+        
+        private static bool wasLeftArrowReset = true;
+        public static bool GetLeftArrow()
+        {
+            bool gamepad = false;
+
+            if (Gamepad.current != null)
+            {
+                bool isPressed = Gamepad.current.dpad.ReadValue().x < 0;
+
+                if (wasLeftArrowReset && isPressed)
+                {
+                    gamepad = true;
+                    wasLeftArrowReset = false;
+                }
+
+                if (!isPressed)
+                    wasLeftArrowReset = true;
+            }
+
+            bool keyboard = Keyboard.current.gKey.wasPressedThisFrame;
+
+            return gamepad || keyboard;
+        }
 
         private static bool wasUpArrowReset = true;
         public static bool GetUpArrow()
@@ -278,7 +298,7 @@ namespace Tools_and_Scripts
                     wasUpArrowReset = true;
             }
 
-            bool keyboard = Keyboard.current.fKey.wasPressedThisFrame;
+            bool keyboard = Keyboard.current.xKey.wasPressedThisFrame;
 
             return gamepad || keyboard;
         }
@@ -302,7 +322,7 @@ namespace Tools_and_Scripts
                     wasDownArrowReset = true;
             }
 
-            bool keyboard = Keyboard.current.gKey.wasPressedThisFrame;
+            bool keyboard = Keyboard.current.bKey.wasPressedThisFrame;
 
             return gamepad || keyboard;
         }
@@ -326,20 +346,23 @@ namespace Tools_and_Scripts
                     wasRightArrowReset = true;
             }
 
-            bool keyboard = Keyboard.current.xKey.wasPressedThisFrame;
+            bool keyboard = Keyboard.current.fKey.wasPressedThisFrame;
 
             return gamepad || keyboard;
         }
 
-        public static bool GetSelectButton()
+        public static bool GetStartButton()
         {
-            if (Gamepad.current == null)
-                return false;
+            bool gamepad = false;
+            bool keyBoard = Keyboard.current.bKey.wasPressedThisFrame || Keyboard.current.iKey.wasPressedThisFrame;
+
+            if (Gamepad.current != null)
+                gamepad = Gamepad.current.startButton.wasPressedThisFrame;
         
-            return Gamepad.current.selectButton.wasPressedThisFrame;
+            return gamepad || keyBoard;
         }
         
-        public static bool GetStartButton()
+        public static bool GetSelectButton()
         {
             bool gamepad = false;
             bool keyBoard = Keyboard.current.tabKey.wasPressedThisFrame || Keyboard.current.escapeKey.wasPressedThisFrame;

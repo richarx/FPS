@@ -17,27 +17,43 @@ namespace Player.Scripts
         
         private void Start()
         {
-            playerData = PlayerStateMachine.instance.playerData;
+            PlayerStateMachine player = PlayerStateMachine.instance;
+            playerData = player.playerData;
             
-            PlayerStateMachine.instance.playerCrouch.OnStartCrouch.AddListener((fromSlide) =>
+            player.playerBackpack.OnOpenBag.AddListener(() =>
+            {
+                Debug.Log("Open Bag");
+                isCrouched = true;
+                isSlide = false;
+                currentTarget = ComputeTargetPosition();
+            });
+            player.playerBackpack.OnCloseBag.AddListener(() =>
+            {
+                isCrouched = false;
+                isSlide = false;
+                currentTarget = ComputeTargetPosition();
+            });
+            
+            player.playerCrouch.OnStartCrouch.AddListener((fromSlide) =>
             {
                 isCrouched = true;
                 isSlide = false;
                 currentTarget = ComputeTargetPosition();
             });
-            PlayerStateMachine.instance.playerSlide.OnStartSlide.AddListener((fromCrouch) =>
+            player.playerSlide.OnStartSlide.AddListener((fromCrouch) =>
             {
                 isCrouched = true;
                 isSlide = true;
                 currentTarget = ComputeTargetPosition();
             });
-            PlayerStateMachine.instance.playerCrouch.OnStopCrouch.AddListener((toSlide) =>
+            
+            player.playerCrouch.OnStopCrouch.AddListener((toSlide) =>
             {
                 isCrouched = toSlide;
                 isSlide = false;
                 currentTarget = ComputeTargetPosition();
             });
-            PlayerStateMachine.instance.playerSlide.OnStopSlide.AddListener((toCrouch) =>
+            player.playerSlide.OnStopSlide.AddListener((toCrouch) =>
             {
                 isCrouched = toCrouch;
                 isSlide = false;
@@ -55,6 +71,8 @@ namespace Player.Scripts
                 height = playerData.slideCameraHeight;
             else if (isCrouched)
                 height = playerData.crouchedCameraHeight;
+            
+            Debug.Log($"Is Crouched : {isCrouched} => {height}");
             
             return new Vector3(0.0f, height, 0.0f);
         }

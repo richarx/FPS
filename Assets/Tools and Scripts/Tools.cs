@@ -507,7 +507,49 @@ public static class Tools
             target.gameObject.SetActive(false);
     }
     
-    public static IEnumerator TweenScale(RectTransform target, float x, float y, float z, float duration, bool deactivateOnEnd = false)
+    public static IEnumerator TweenLocalPosition(Transform target, float x, float y, float duration, bool deactivateOnEnd = false)
+    {
+        target.gameObject.SetActive(true);
+
+        Vector3 localPosition = target.localPosition;
+        Vector3 targetPosition = new Vector3(x, y, localPosition.z);
+        Vector3 direction = (targetPosition - localPosition).normalized;
+        targetPosition += direction * 0.1f;
+        
+        Vector3 velocity = Vector3.zero;
+
+        while (Vector3.Distance(target.localPosition, targetPosition) >= 0.15f)
+        {
+            target.localPosition = Vector3.SmoothDamp(target.localPosition, targetPosition, ref velocity, duration);
+            yield return null;
+        }
+
+        target.localPosition = new Vector3(x, y, localPosition.z);
+        
+        if (deactivateOnEnd)
+            target.gameObject.SetActive(false);
+    }
+    
+    public static IEnumerator TweenLocalScale(RectTransform target, float x, float y, float z, float duration, bool deactivateOnEnd = false)
+    {
+        target.gameObject.SetActive(true);
+        
+        Vector3 targetScale = new Vector3(x, y, z);
+        Vector3 velocity = Vector3.zero;
+        
+        while (Vector3.Distance(target.localScale, targetScale) >= 0.05f)
+        {
+            target.localScale = Vector3.SmoothDamp(target.localScale, targetScale, ref velocity, duration);
+            yield return null;
+        }
+
+        target.localScale = targetScale;
+        
+        if (deactivateOnEnd)
+            target.gameObject.SetActive(false);
+    }
+    
+    public static IEnumerator TweenLocalScale(Transform target, float x, float y, float z, float duration, bool deactivateOnEnd = false)
     {
         target.gameObject.SetActive(true);
         

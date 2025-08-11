@@ -40,7 +40,7 @@ namespace Player.Scripts
             if (hasSecondaryWeapon && PlayerInputs.GetNorthButton())
                 SwapWeapons();
 
-            if (hasWeapon && PlayerInputs.GetDownArrow())
+            if (hasWeapon && PlayerInputs.GetLeftArrow())
                 DropCurrentWeapon();
         }
         

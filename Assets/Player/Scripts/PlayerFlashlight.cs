@@ -11,7 +11,7 @@ namespace Player.Scripts
         
         private void Update()
         {
-            if (PlayerInputs.GetUpArrow())
+            if (PlayerInputs.GetRightArrow())
                 ToggleFlashlight();
         }
 

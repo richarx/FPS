@@ -4541,6 +4541,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b0315988d4640f4f8028117c16b74e1, type: 3}
+--- !u!4 &724850029 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4310431032860102821, guid: 99fc002cf63d7f94984a5a14526de63a,
+    type: 3}
+  m_PrefabInstance: {fileID: 8637642417623603251}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &731102889 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5291959691871055534, guid: 4f6122b02aea27540b60ee221b7415e5,
@@ -12814,6 +12820,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player Holder
+      objectReference: {fileID: 0}
+    - target: {fileID: 7648072432988658304, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: holder
+      value: 
+      objectReference: {fileID: 724850029}
+    - target: {fileID: 7648072432988658304, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: blackScreenMaxFade
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 9029753958373732987, guid: 99fc002cf63d7f94984a5a14526de63a,
         type: 3}

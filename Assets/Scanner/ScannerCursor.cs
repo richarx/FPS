@@ -158,22 +158,22 @@ namespace Scanner
             StartCoroutine(Tools.Fade(cornersImage, 0.3f, true, maxFade));
             corners.localScale = new Vector3(2.0f, 2.0f, 1.0f);
             Vector3 cornerScale = ComputeCornerScale();
-            yield return Tools.TweenScale(corners, cornerScale.x - 0.2f, cornerScale.y - 0.2f, 1.0f, 0.2f);
-            yield return Tools.TweenScale(corners, cornerScale.x, cornerScale.y, 1.0f, 0.1f);
+            yield return Tools.TweenLocalScale(corners, cornerScale.x - 0.2f, cornerScale.y - 0.2f, 1.0f, 0.2f);
+            yield return Tools.TweenLocalScale(corners, cornerScale.x, cornerScale.y, 1.0f, 0.1f);
             
             StartCoroutine(Tools.Fade(sidesImage, 0.3f, true, maxFade));
             sides.localScale = new Vector3(2.0f, 2.0f, 1.0f);
-            StartCoroutine(Tools.TweenScale(sides, 1.0f, 1.0f, 1.0f, 0.5f));
+            StartCoroutine(Tools.TweenLocalScale(sides, 1.0f, 1.0f, 1.0f, 0.5f));
             
             line.localPosition = new Vector3(line.localPosition.x, lineStartingHeight, 0.0f);
             StartCoroutine(Tools.Fade(lineImage, 0.3f, true, maxFade));
             line.localScale = new Vector3(0.0f, 1.0f, 1.0f);
-            yield return Tools.TweenScale(line, 1.0f, 1.0f, 1.0f, 0.5f);
+            yield return Tools.TweenLocalScale(line, 1.0f, 1.0f, 1.0f, 0.5f);
             
             yield return Tools.Fade(circleImage, 0.1f, true, maxFade);
             circle.localScale = new Vector3(2.0f, 2.0f, 1.0f);
-            yield return Tools.TweenScale(circle, 0.8f, 0.8f, 1.0f, 0.1f);
-            yield return Tools.TweenScale(circle, 1.0f, 1.0f, 1.0f, 0.1f);
+            yield return Tools.TweenLocalScale(circle, 0.8f, 0.8f, 1.0f, 0.1f);
+            yield return Tools.TweenLocalScale(circle, 1.0f, 1.0f, 1.0f, 0.1f);
 
             isDisplaying = false;
             isDisplayed = true;

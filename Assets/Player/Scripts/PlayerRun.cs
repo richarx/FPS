@@ -57,9 +57,15 @@ namespace Player.Scripts
                 return;
             }
 
-            if (PlayerInputs.GetRightArrow())
+            if (PlayerInputs.GetUpArrow())
             {
                 player.ChangeBehaviour(player.playerScanning);
+                return;
+            }
+            
+            if (PlayerInputs.GetStartButton())
+            {
+                player.ChangeBehaviour(player.playerBackpack);
                 return;
             }
 

@@ -58,11 +58,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: times SDF
+  m_Name: times SDF White
   m_EditorClassIdentifier: 
-  hashCode: -231190377
+  hashCode: 1636748806
   material: {fileID: 3658190146811858363}
-  materialHashCode: -731798825
+  materialHashCode: -1569816090
   m_Version: 1.1.0
   m_SourceFontFileGUID: 199a7ea6d13b3fc42a949504e63d0296
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 199a7ea6d13b3fc42a949504e63d0296,
@@ -2746,7 +2746,7 @@ Material:
     m_Colors:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _EnvMatrixRotation: {r: 0, g: 0, b: 0, a: 0}
-    - _FaceColor: {r: 4, g: 3.9679084, b: 0, a: 1}
+    - _FaceColor: {r: 0.7490195, g: 0.7490195, b: 0.7490195, a: 1}
     - _GlowColor: {r: 0, g: 1, b: 0, a: 0.5}
     - _MaskCoord: {r: 0, g: 0, b: 32767, a: 32767}
     - _OutlineColor: {r: 0.055424526, g: 0.054064013, b: 0.00653591, a: 1}

@@ -1,3 +1,4 @@
+using Backpack;
 using Data;
 using Pause_Menu;
 using Tools_and_Scripts;
@@ -13,7 +14,8 @@ namespace Player.Scripts
         public SurfaceData surfaceData;
         public Transform muzzleFlashHolder;
         public Light muzzleFlashLight;
-        
+        public BackpackDisplay backpackDisplay;
+
         public static PlayerStateMachine instance;
 
         // Behaviour States
@@ -24,6 +26,7 @@ namespace Player.Scripts
         public PlayerSlide playerSlide = new PlayerSlide();
         public PlayerLocked playerLocked = new PlayerLocked();
         public PlayerScanning playerScanning = new PlayerScanning();
+        public PlayerBackpack playerBackpack = new PlayerBackpack();
 
         public IPlayerBehaviour currentBehaviour;
         
