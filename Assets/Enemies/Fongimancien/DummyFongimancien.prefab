@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 3907590639452446328}
   - component: {fileID: 8129043686605612853}
   - component: {fileID: 8318542441220227151}
+  - component: {fileID: 8521895864435960777}
   m_Layer: 6
   m_Name: DummyFongimancien
   m_TagString: Untagged
@@ -318,3 +319,18 @@ MonoBehaviour:
   ignoreForGroundCollision:
     serializedVersion: 2
     m_Bits: 127
+--- !u!114 &8521895864435960777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2898402158565811358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0a758347dad634da0ccfa1bb2da88a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnTrigger:
+    m_PersistentCalls:
+      m_Calls: []

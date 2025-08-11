@@ -36,6 +36,7 @@ namespace Player.Scripts
             switch (registeredItem.type)
             {
                 case Interactable.ItemType.Loot:
+                    registeredItem.Interact();
                     break;
                 case Interactable.ItemType.Weapon:
                     playerGun.EquipNewWeapon(registeredItem.GetComponent<LootWeapon>().GetWeaponData());

@@ -27,7 +27,7 @@ namespace Items
         
         protected override bool CanInteract()
         {
-            return rb.velocity.magnitude <= 1.5f;
+            return rb == null || rb.velocity.magnitude <= 1.5f;
         }
         
         protected override void SetItemDisplay(bool isInteractable)
