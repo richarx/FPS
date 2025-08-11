@@ -15,8 +15,7 @@ namespace Player.Scripts
         [HideInInspector] public UnityEvent<GameObject> OnEquipAkimboWeapon = new UnityEvent<GameObject>();
         [HideInInspector] public UnityEvent<GameObject> OnDropAkimboWeapon = new UnityEvent<GameObject>();
 
-        private PlayerShootGun playerShootGun;
-        private PlayerData playerData;
+        private PlayerStateMachine player;
         
         public bool hasWeapon => CurrentWeapon != null;
         public bool hasSecondaryWeapon => secondaryWeapon != null;
@@ -31,12 +30,14 @@ namespace Player.Scripts
         
         private void Start()
         {
-            playerShootGun = PlayerStateMachine.instance.playerShootGun;
-            playerData = PlayerStateMachine.instance.playerData;
+            player = PlayerStateMachine.instance;
         }
         
         private void Update()
         {
+            if (player.isBackpackOpen)
+                return;
+            
             if (hasSecondaryWeapon && PlayerInputs.GetNorthButton())
                 SwapWeapons();
 
@@ -92,12 +93,12 @@ namespace Player.Scripts
 
         private void SpawnGunLoot(WeaponData weaponData)
         {
-            Vector3 position = playerShootGun.shootingPosition;
-            position += Vector3.up * playerData.throwWeaponHeightOffset;
-            position += playerShootGun.rightDirection * playerData.throwWeaponSideOffset;
+            Vector3 position = player.playerShootGun.shootingPosition;
+            position += Vector3.up * player.playerData.throwWeaponHeightOffset;
+            position += player.playerShootGun.rightDirection * player.playerData.throwWeaponSideOffset;
 
             Rigidbody rb = Instantiate(weaponData.lootPrefab, position, Quaternion.identity).GetComponent<Rigidbody>();
-            rb.AddForce(playerShootGun.shootingDirection * playerData.throwWeaponForce, ForceMode.Impulse);
+            rb.AddForce(player.playerShootGun.shootingDirection * player.playerData.throwWeaponForce, ForceMode.Impulse);
         }
         
         private void DropAkimboGun()

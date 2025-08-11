@@ -44,23 +44,27 @@ namespace Backpack
 
         private void Update()
         {
-            if (isDisplayed && PlayerInputs.GetRightShoulder())
+            if (!isDisplayed)
+                return;
+            
+            if (PlayerInputs.GetMenuUp())
                 SwitchPocket(1);
-            if (isDisplayed && PlayerInputs.GetLeftShoulder())
-                SwitchPocket(-1);
+            if (PlayerInputs.GetMenuDown())
+                SwitchPocket(2);
+            if (PlayerInputs.GetMenuLeft())
+                SwitchPocket(3);
+            if (PlayerInputs.GetMenuRight())
+                SwitchPocket(4);
         }
         
         private void SwitchPocket(int next)
         {
-            previousPocket = currentPocket;
-            currentPocket += next;
-
-            if (currentPocket > 4)
-                currentPocket = 1;
-
-            if (currentPocket < 1)
-                currentPocket = 4;
+            if (next == currentPocket)
+                return;
             
+            previousPocket = currentPocket;
+            currentPocket = next;
+
             StopAllCoroutines();
             StartCoroutine(UpdatePocketDisplay());
         }

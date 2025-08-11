@@ -22,7 +22,6 @@ namespace Player.Scripts
             
             player.playerBackpack.OnOpenBag.AddListener(() =>
             {
-                Debug.Log("Open Bag");
                 isCrouched = true;
                 isSlide = false;
                 currentTarget = ComputeTargetPosition();
@@ -71,8 +70,6 @@ namespace Player.Scripts
                 height = playerData.slideCameraHeight;
             else if (isCrouched)
                 height = playerData.crouchedCameraHeight;
-            
-            Debug.Log($"Is Crouched : {isCrouched} => {height}");
             
             return new Vector3(0.0f, height, 0.0f);
         }

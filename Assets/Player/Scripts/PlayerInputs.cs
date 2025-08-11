@@ -350,6 +350,98 @@ namespace Tools_and_Scripts
 
             return gamepad || keyboard;
         }
+        
+        public static bool GetMenuLeft()
+        {
+            bool gamepad = false;
+
+            if (Gamepad.current != null)
+            {
+                bool isPressed = Gamepad.current.dpad.ReadValue().x < 0;
+
+                if (wasLeftArrowReset && isPressed)
+                {
+                    gamepad = true;
+                    wasLeftArrowReset = false;
+                }
+
+                if (!isPressed)
+                    wasLeftArrowReset = true;
+            }
+
+            bool keyboard = Keyboard.current.aKey.wasPressedThisFrame || Keyboard.current.qKey.wasPressedThisFrame;
+
+            return gamepad || keyboard;
+        }
+        
+        public static bool GetMenuUp()
+        {
+            bool gamepad = false;
+
+            if (Gamepad.current != null)
+            {
+                bool isPressed = Gamepad.current.dpad.ReadValue().y > 0;
+
+                if (wasUpArrowReset && isPressed)
+                {
+                    gamepad = true;
+                    wasUpArrowReset = false;
+                }
+
+                if (!isPressed)
+                    wasUpArrowReset = true;
+            }
+
+            bool keyboard = Keyboard.current.zKey.wasPressedThisFrame || Keyboard.current.wKey.wasPressedThisFrame;
+
+            return gamepad || keyboard;
+        }
+
+        public static bool GetMenuRight()
+        {
+            bool gamepad = false;
+
+            if (Gamepad.current != null)
+            {
+                bool isPressed = Gamepad.current.dpad.ReadValue().x > 0;
+
+                if (wasRightArrowReset && isPressed)
+                {
+                    gamepad = true;
+                    wasRightArrowReset = false;
+                }
+
+                if (!isPressed)
+                    wasRightArrowReset = true;
+            }
+
+            bool keyboard = Keyboard.current.dKey.wasPressedThisFrame;
+
+            return gamepad || keyboard;
+        }
+        
+        public static bool GetMenuDown()
+        {
+            bool gamepad = false;
+
+            if (Gamepad.current != null)
+            {
+                bool isPressed = Gamepad.current.dpad.ReadValue().y < 0;
+
+                if (wasDownArrowReset && isPressed)
+                {
+                    gamepad = true;
+                    wasDownArrowReset = false;
+                }
+
+                if (!isPressed)
+                    wasDownArrowReset = true;
+            }
+
+            bool keyboard = Keyboard.current.sKey.wasPressedThisFrame;
+
+            return gamepad || keyboard;
+        }
 
         public static bool GetStartButton()
         {

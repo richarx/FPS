@@ -1,3 +1,4 @@
+using System;
 using Tools_and_Scripts;
 using UnityEngine;
 
@@ -7,11 +8,18 @@ namespace Player.Scripts
     {
         [SerializeField] private Light flashLight;
 
-        private bool isTurnedOn;
+        private PlayerStateMachine player;
         
+        private bool isTurnedOn;
+
+        private void Start()
+        {
+            player = PlayerStateMachine.instance;
+        }
+
         private void Update()
         {
-            if (PlayerInputs.GetRightArrow())
+            if (!player.isBackpackOpen && PlayerInputs.GetRightArrow())
                 ToggleFlashlight();
         }
 

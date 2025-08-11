@@ -37,6 +37,7 @@ namespace Player.Scripts
         public bool isSliding => currentBehaviour.GetBehaviourType() == BehaviourType.Slide;
         public bool isLocked => currentBehaviour.GetBehaviourType() == BehaviourType.Locked || playerRun.IsSkippingFrame;
         public bool isScanning => currentBehaviour.GetBehaviourType() == BehaviourType.Scanning;
+        public bool isBackpackOpen => currentBehaviour.GetBehaviourType() == BehaviourType.Backpack;
 
         [HideInInspector] public Vector2 moveInput;
         [HideInInspector] public Vector3 moveVelocity;
