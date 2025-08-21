@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Player.Scripts;
 using Tools_and_Scripts;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Backpack
@@ -15,6 +16,8 @@ namespace Backpack
         [SerializeField] private Transform shadow;
         [SerializeField] private Image blackScreen;
         [SerializeField] private List<Transform> lookTargets;
+
+        public UnityEvent<int> OnSwitchPocketTarget = new UnityEvent<int>(); 
 
         private Animator backpackAnimator;
 
@@ -67,6 +70,8 @@ namespace Backpack
 
             StopAllCoroutines();
             StartCoroutine(UpdatePocketDisplay());
+            
+            OnSwitchPocketTarget?.Invoke(currentPocket);
         }
 
         private IEnumerator UpdatePocketDisplay()
