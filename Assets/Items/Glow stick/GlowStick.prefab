@@ -68,6 +68,7 @@ GameObject:
   - component: {fileID: 6604393759048699528}
   - component: {fileID: 4856816545958564169}
   - component: {fileID: 7417572373303640926}
+  - component: {fileID: 3336409531129887057}
   m_Layer: 8
   m_Name: GlowStick
   m_TagString: Untagged
@@ -208,6 +209,19 @@ MonoBehaviour:
   spriteRenderer: {fileID: 544687687954206865}
   offset: {x: 0, y: 1.5, z: 0}
   scanText: Glow Stick -
+--- !u!114 &3336409531129887057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819337320378300425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b5b205b921a16c49b5e0b0ef4372bf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: daabde06e22c1274ab622aabe1fbc7cc, type: 2}
 --- !u!1 &5176802039544453631
 GameObject:
   m_ObjectHideFlags: 0

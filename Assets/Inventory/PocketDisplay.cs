@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Player.Scripts;
 using UnityEngine;
@@ -7,6 +8,14 @@ namespace Inventory
 {
     public class PocketDisplay : MonoBehaviour
     {
+        public enum Pocket
+        {
+            tools,
+            component,
+            ammo,
+            medicine
+        }
+        
         [SerializeField] private Transform componentPocket;
         [SerializeField] private Transform toolsPocket;
         [SerializeField] private Transform ammoPocket;
@@ -38,7 +47,7 @@ namespace Inventory
 
         private IEnumerator DisplayPocketCoroutine()
         {
-            currentPocket = ComputePocket(1);
+            currentPocket = ComputePocket(Pocket.tools);
 
             yield return new WaitForSeconds(displayDelay);
             
@@ -46,19 +55,19 @@ namespace Inventory
             FadePocket(currentPocket, true);
         }
 
-        private void UpdatePocket(int pocketIndex)
+        private void UpdatePocket(Pocket pocket)
         {
             StopAllCoroutines();
-            StartCoroutine(UpdatePocketCoroutine(pocketIndex));
+            StartCoroutine(UpdatePocketCoroutine(pocket));
         }
 
-        private IEnumerator UpdatePocketCoroutine(int pocketIndex)
+        private IEnumerator UpdatePocketCoroutine(Pocket pocket)
         {
             FadePocket(currentPocket, false);
             yield return new WaitForSeconds(fadeDuration);
             
             currentPocket.gameObject.SetActive(false);
-            currentPocket = ComputePocket(pocketIndex);
+            currentPocket = ComputePocket(pocket);
             currentPocket.gameObject.SetActive(true);
             
             FadePocket(currentPocket, true);
@@ -78,18 +87,21 @@ namespace Inventory
             }    
         }
         
-        private Transform ComputePocket(int pocketIndex)
+        private Transform ComputePocket(Pocket pocket)
         {
-            if (pocketIndex == 1)
-                return componentPocket;
-            if (pocketIndex == 2)
-                return toolsPocket;
-            if (pocketIndex == 3)
-                return ammoPocket;
-            if (pocketIndex == 4)
-                return medicinePocket;
-
-            return componentPocket;
+            switch (pocket)
+            {
+                case Pocket.component:
+                    return componentPocket;
+                case Pocket.tools:
+                    return toolsPocket;
+                case Pocket.ammo:
+                    return ammoPocket;
+                case Pocket.medicine:
+                    return medicinePocket;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(pocket), pocket, null);
+            }
         }
     }
 }

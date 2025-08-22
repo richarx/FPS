@@ -236,6 +236,7 @@ GameObject:
   - component: {fileID: 436844689106670539}
   - component: {fileID: 4923513253472067088}
   - component: {fileID: 2416214671935334336}
+  - component: {fileID: 3565685360004105099}
   m_Layer: 8
   m_Name: MediumAmmoLoot
   m_TagString: Untagged
@@ -382,3 +383,16 @@ MonoBehaviour:
 
 
     - Shotgun'
+--- !u!114 &3565685360004105099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9196064851890574969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b5b205b921a16c49b5e0b0ef4372bf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: dfff593299209994296195e4a598e4e7, type: 2}

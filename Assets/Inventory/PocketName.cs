@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using Player.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static Inventory.PocketDisplay;
 
 namespace Inventory
 {
@@ -29,22 +31,22 @@ namespace Inventory
             text.gameObject.SetActive(true);
             line.gameObject.SetActive(true);
             
-            text.text = ComputePocketName(1);
+            text.text = ComputePocketName(Pocket.tools);
             StopAllCoroutines();
             StartCoroutine(Tools.Fade(text, fadeDuration, true));
             StartCoroutine(Tools.Fade(line, fadeDuration, true));
         }
 
-        private void UpdatePocketName(int pocketIndex)
+        private void UpdatePocketName(Pocket pocket)
         {
             StopAllCoroutines();
-            StartCoroutine(UpdatePocketNameCoroutine(pocketIndex));
+            StartCoroutine(UpdatePocketNameCoroutine(pocket));
         }
 
-        private IEnumerator UpdatePocketNameCoroutine(int pocketIndex)
+        private IEnumerator UpdatePocketNameCoroutine(Pocket pocket)
         {
             yield return Tools.Fade(text, fadeDuration, false);
-            text.text = ComputePocketName(pocketIndex);
+            text.text = ComputePocketName(pocket);
             yield return Tools.Fade(text, fadeDuration, true);
         }
         
@@ -55,18 +57,21 @@ namespace Inventory
             StartCoroutine(Tools.Fade(line, fadeDuration, false));
         }
 
-        private string ComputePocketName(int pocketIndex)
+        private string ComputePocketName(Pocket pocket)
         {
-            if (pocketIndex == 1)
-                return "Components Pocket";
-            if (pocketIndex == 2)
-                return "Tools Pocket";
-            if (pocketIndex == 3)
-                return "Ammo Pocket";
-            if (pocketIndex == 4)
-                return "Medicine Pocket";
-
-            return $"Error wrong index : {pocketIndex}";
+            switch (pocket)
+            {
+                case Pocket.component:
+                    return "Components Pocket";
+                case Pocket.tools:
+                    return "Tools Pocket";
+                case Pocket.ammo:
+                    return "Ammo Pocket";
+                case Pocket.medicine:
+                    return "Medicine Pocket";
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(pocket), pocket, null);
+            }
         }
     }
 }

@@ -236,6 +236,7 @@ GameObject:
   - component: {fileID: 159373151874852520}
   - component: {fileID: 8012626376077370546}
   - component: {fileID: 3722673447328411261}
+  - component: {fileID: 1211531682673981187}
   m_Layer: 8
   m_Name: HealthPack
   m_TagString: Untagged
@@ -376,3 +377,16 @@ MonoBehaviour:
   spriteRenderer: {fileID: 24318993308352628}
   offset: {x: 0, y: 1.5, z: 0}
   scanText: Health Pack -
+--- !u!114 &1211531682673981187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4598101608816778367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b5b205b921a16c49b5e0b0ef4372bf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: f9ce1899b9c3c9940a104f82c2ea44f3, type: 2}

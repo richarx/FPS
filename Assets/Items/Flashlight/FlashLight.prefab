@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6120609517887867320}
   - component: {fileID: 8162626238878553282}
   - component: {fileID: 5201347328904739938}
+  - component: {fileID: 3086233230757635175}
   m_Layer: 8
   m_Name: FlashLight
   m_TagString: Untagged
@@ -155,6 +156,19 @@ MonoBehaviour:
   spriteRenderer: {fileID: 8509397002454834251}
   offset: {x: 0, y: 1.5, z: 0}
   scanText: Flashlight -
+--- !u!114 &3086233230757635175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628563254115162755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b5b205b921a16c49b5e0b0ef4372bf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: b06d439eb77610b4380d66d2a97e1ad3, type: 2}
 --- !u!1 &3669738830944117849
 GameObject:
   m_ObjectHideFlags: 0

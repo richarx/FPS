@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Player.Scripts;
@@ -6,6 +5,7 @@ using Tools_and_Scripts;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using static Inventory.PocketDisplay;
 
 namespace Backpack
 {
@@ -17,13 +17,13 @@ namespace Backpack
         [SerializeField] private Image blackScreen;
         [SerializeField] private List<Transform> lookTargets;
 
-        public UnityEvent<int> OnSwitchPocketTarget = new UnityEvent<int>(); 
+        public UnityEvent<Pocket> OnSwitchPocketTarget = new UnityEvent<Pocket>(); 
 
         private Animator backpackAnimator;
 
         private bool isDisplayed;
-        private int previousPocket = 1;
-        private int currentPocket = 1;
+        private Pocket previousPocket = Pocket.tools;
+        private Pocket currentPocket = Pocket.tools;
         
         private void Start()
         {
@@ -51,16 +51,16 @@ namespace Backpack
                 return;
             
             if (PlayerInputs.GetMenuUp())
-                SwitchPocket(1);
+                SwitchPocket(Pocket.tools);
             if (PlayerInputs.GetMenuDown())
-                SwitchPocket(2);
+                SwitchPocket(Pocket.component);
             if (PlayerInputs.GetMenuLeft())
-                SwitchPocket(3);
+                SwitchPocket(Pocket.ammo);
             if (PlayerInputs.GetMenuRight())
-                SwitchPocket(4);
+                SwitchPocket(Pocket.medicine);
         }
         
-        private void SwitchPocket(int next)
+        private void SwitchPocket(Pocket next)
         {
             if (next == currentPocket)
                 return;
@@ -76,9 +76,9 @@ namespace Backpack
 
         private IEnumerator UpdatePocketDisplay()
         {
-            backpackAnimator.Play($"Close_{previousPocket}");
+            backpackAnimator.Play($"Close_{(int)previousPocket + 1}");
             yield return new WaitForSeconds(0.16f);
-            backpackAnimator.Play($"Open_{currentPocket}");
+            backpackAnimator.Play($"Open_{(int)currentPocket + 1}");
         }
 
         public float displayDelay;
@@ -90,8 +90,8 @@ namespace Backpack
         {
             yield return new WaitForSeconds(displayDelay);
             
-            previousPocket = 1;
-            currentPocket = 1;
+            previousPocket = Pocket.tools;
+            currentPocket = Pocket.tools;
             
             backpack.gameObject.SetActive(true);
             shadow.gameObject.SetActive(true);
@@ -136,7 +136,7 @@ namespace Backpack
 
         public Transform GetCurrentLookTarget()
         {
-            return isDisplayed ? lookTargets[currentPocket - 1] : null;
+            return isDisplayed ? lookTargets[(int)currentPocket] : null;
         }
     }
 }

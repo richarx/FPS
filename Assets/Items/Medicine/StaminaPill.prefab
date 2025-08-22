@@ -152,6 +152,7 @@ GameObject:
   - component: {fileID: 7323765201643954223}
   - component: {fileID: 1914464165272519854}
   - component: {fileID: 2772744401479799599}
+  - component: {fileID: 5844202914074403423}
   m_Layer: 8
   m_Name: StaminaPill
   m_TagString: Untagged
@@ -292,6 +293,19 @@ MonoBehaviour:
   spriteRenderer: {fileID: 4315623323723635820}
   offset: {x: 0, y: 1.5, z: 0}
   scanText: Stamina Pill -
+--- !u!114 &5844202914074403423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2322357351127240715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b5b205b921a16c49b5e0b0ef4372bf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: 991cec7716dd3f141b654c954e1b2cad, type: 2}
 --- !u!1 &4140879926817767982
 GameObject:
   m_ObjectHideFlags: 0

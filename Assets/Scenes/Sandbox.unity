@@ -10540,22 +10540,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Loot_BR (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 6621779700828698090, guid: 4ad191f6c1497b54db2d96f365241ab9,
-        type: 3}
-      propertyPath: offset.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6621779700828698090, guid: 4ad191f6c1497b54db2d96f365241ab9,
-        type: 3}
-      propertyPath: scanText
-      value: 'Weapon type : Burst Rifle
-
-
-        Rate of Fire : 6.3
-
-        Damage
-        : 2.1'
-      objectReference: {fileID: 0}
     - target: {fileID: 7310002436268567212, guid: 4ad191f6c1497b54db2d96f365241ab9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12288,22 +12272,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Loot_Shotgun (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 4875320680550789267, guid: 8f2c91dcc1794ce4a942df3c29c2233b,
-        type: 3}
-      propertyPath: offset.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4875320680550789267, guid: 8f2c91dcc1794ce4a942df3c29c2233b,
-        type: 3}
-      propertyPath: scanText
-      value: 'Weapon type : Shotgun
-
-
-        Rate of Fire : 6.3
-
-        Damage
-        : 2.1'
-      objectReference: {fileID: 0}
     - target: {fileID: 7310002436268567212, guid: 8f2c91dcc1794ce4a942df3c29c2233b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12434,22 +12402,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5967079672368819169, guid: 272e6002f7a491e448e1b89c6e18dc6e,
-        type: 3}
-      propertyPath: offset.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5967079672368819169, guid: 272e6002f7a491e448e1b89c6e18dc6e,
-        type: 3}
-      propertyPath: scanText
-      value: 'Weapon type : Pistol
-
-
-        Rate of Fire : 6.3
-
-        Damage :
-        2.1'
       objectReference: {fileID: 0}
     - target: {fileID: 7570925612291194650, guid: 272e6002f7a491e448e1b89c6e18dc6e,
         type: 3}
@@ -13926,22 +13878,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8336767667542064159, guid: 07e517e16897de84fa4d14fe7ed49acb,
-        type: 3}
-      propertyPath: offset.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8336767667542064159, guid: 07e517e16897de84fa4d14fe7ed49acb,
-        type: 3}
-      propertyPath: scanText
-      value: 'Weapon type : Auto Rifle
-
-
-        Rate of Fire : 6.3
-
-        Damage
-        : 2.1'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

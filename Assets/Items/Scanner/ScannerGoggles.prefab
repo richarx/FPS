@@ -152,6 +152,7 @@ GameObject:
   - component: {fileID: 2419269846243298657}
   - component: {fileID: 7369289492641329918}
   - component: {fileID: 6992915084734813245}
+  - component: {fileID: -3252877192549528814}
   m_Layer: 8
   m_Name: ScannerGoggles
   m_TagString: Untagged
@@ -292,6 +293,19 @@ MonoBehaviour:
   spriteRenderer: {fileID: 2545436561954898731}
   offset: {x: 0, y: 1.5, z: 0}
   scanText: Scanner Goggles -
+--- !u!114 &-3252877192549528814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8183679142640383953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b5b205b921a16c49b5e0b0ef4372bf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: ae2e414bee34f4745bcb13db5c95401c, type: 2}
 --- !u!1 &8349210546738062854
 GameObject:
   m_ObjectHideFlags: 0

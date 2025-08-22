@@ -236,6 +236,7 @@ GameObject:
   - component: {fileID: 43621401146452306}
   - component: {fileID: 4931522516230063965}
   - component: {fileID: 8267776643907671793}
+  - component: {fileID: -693455370292477686}
   m_Layer: 8
   m_Name: LightAmmoLoot
   m_TagString: Untagged
@@ -384,3 +385,16 @@ MonoBehaviour:
     - Pistol
 
     - Auto Rifle'
+--- !u!114 &-693455370292477686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6864929615723020135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b5b205b921a16c49b5e0b0ef4372bf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: 0eb0877d1f9bd5c41bcba2a4c23282a4, type: 2}
