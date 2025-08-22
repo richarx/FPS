@@ -7,7 +7,7 @@ using static Backpack.BackpackStorage;
 
 namespace Inventory
 {
-    public class PocketDisplay : MonoBehaviour
+    public class InventoryDisplay : MonoBehaviour
     {
         [SerializeField] private Transform componentPocket;
         [SerializeField] private Transform toolsPocket;
