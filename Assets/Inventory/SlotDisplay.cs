@@ -1,9 +1,9 @@
-using System.Collections;
+using Backpack;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Backpack
+namespace Inventory
 {
     public class SlotDisplay : MonoBehaviour
     {

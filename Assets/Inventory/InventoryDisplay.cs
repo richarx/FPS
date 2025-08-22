@@ -3,7 +3,7 @@ using System.Collections;
 using Backpack;
 using Player.Scripts;
 using UnityEngine;
-using static Backpack.BackpackStorage;
+using static Inventory.BackpackStorage;
 
 namespace Inventory
 {

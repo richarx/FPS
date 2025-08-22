@@ -5,7 +5,7 @@ using Tools_and_Scripts;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using static Backpack.BackpackStorage;
+using static Inventory.BackpackStorage;
 
 namespace Backpack
 {

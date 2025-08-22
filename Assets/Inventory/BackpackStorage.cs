@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Inventory;
 using Items;
 using UnityEngine;
 
-namespace Backpack
+namespace Inventory
 {
     public class PocketItem
     {
