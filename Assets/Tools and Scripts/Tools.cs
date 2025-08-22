@@ -385,6 +385,8 @@ public static class Tools
             text.color = tmp;
             yield break;
         }
+        
+        text.gameObject.SetActive(true);
 
         float fade = fadeIn ? 0.0f : maxFade;
         float timer = duration;
@@ -402,6 +404,9 @@ public static class Tools
             
             yield return null;
         }
+        
+        if (!fadeIn)
+            text.gameObject.SetActive(false);
         
         color.a = fadeIn ? maxFade : 0.0f;
         text.color = color;

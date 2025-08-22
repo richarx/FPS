@@ -23,6 +23,8 @@ namespace Backpack
         private List<PocketItem> pocketItems;
         private int maxSlotCount;
 
+        public IReadOnlyCollection<PocketItem> GetPocketItems => pocketItems.AsReadOnly();
+
         public bool isFull => pocketItems.Count + 1 >= maxSlotCount;
 
         public bool CanStoreItem(ItemData newItem)
@@ -42,11 +44,14 @@ namespace Backpack
         
         public void StoreItem(ItemData newItem)
         {
+            Debug.Log($"Store Item : {newItem.itemName}");
+            
             if (newItem.canBeStacked)
             {
                 PocketItem pocketItem = pocketItems.Find((i) => i.item == newItem);
                 if (pocketItem != null)
                 {
+                    Debug.Log("Store Item : item incremented");
                     pocketItem.count += 1;
                     return;
                 }
@@ -56,11 +61,12 @@ namespace Backpack
                 return;
             
             pocketItems.Add(new PocketItem(newItem));
+            Debug.Log("Store Item : item added");
         }
 
         public PocketStorage(int slotCount)
         {
-            pocketItems = new List<PocketItem>(slotCount);
+            pocketItems = new List<PocketItem>();
             maxSlotCount = slotCount;
         }
     }

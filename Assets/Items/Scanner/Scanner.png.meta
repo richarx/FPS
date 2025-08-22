@@ -113,12 +113,12 @@ TextureImporter:
       name: Scanner_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 4
         y: 0
-        width: 48
+        width: 30
         height: 32
       alignment: 9
-      pivot: {x: 0.394, y: 0.216}
+      pivot: {x: 0.5, y: 0.216}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -134,12 +134,12 @@ TextureImporter:
       name: Scanner_1
       rect:
         serializedVersion: 2
-        x: 48
+        x: 50
         y: 0
-        width: 48
+        width: 34
         height: 32
       alignment: 9
-      pivot: {x: 0.394, y: 0.216}
+      pivot: {x: 0.5, y: 0.216}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

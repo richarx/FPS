@@ -1,35 +1,37 @@
 using System;
 using System.Collections;
+using Backpack;
 using Player.Scripts;
 using UnityEngine;
-using UnityEngine.UI;
 using static Backpack.BackpackStorage;
 
 namespace Inventory
 {
     public class InventoryDisplay : MonoBehaviour
     {
-        [SerializeField] private Transform componentPocket;
-        [SerializeField] private Transform toolsPocket;
-        [SerializeField] private Transform ammoPocket;
-        [SerializeField] private Transform medicinePocket;
-        [SerializeField] private float fadeDuration;
+        [SerializeField] private PocketDisplay componentPocket;
+        [SerializeField] private PocketDisplay toolsPocket;
+        [SerializeField] private PocketDisplay ammoPocket;
+        [SerializeField] private PocketDisplay medicinePocket;
         [SerializeField] private float displayDelay;
 
-        private Transform currentPocket;
+        private BackpackStorage backpackStorage;
+        
+        private PocketDisplay currentPocket;
         
         private void Start()
         {
             PlayerStateMachine player = PlayerStateMachine.instance;
+            backpackStorage = player.backpackStorage;
             
             player.playerBackpack.OnOpenBag.AddListener(DisplayPocket);
-            player.backpackDisplay.OnSwitchPocketTarget.AddListener(UpdatePocket);
-            player.playerBackpack.OnCloseBag.AddListener(HidePocketName);
+            player.backpackDisplay.OnSwitchPocketTarget.AddListener(SwitchPocket);
+            player.playerBackpack.OnCloseBag.AddListener(HidePocket);
             
-            componentPocket.gameObject.SetActive(false);
-            toolsPocket.gameObject.SetActive(false);
-            ammoPocket.gameObject.SetActive(false);
-            medicinePocket.gameObject.SetActive(false);
+            componentPocket.HideInstant();
+            toolsPocket.HideInstant();
+            ammoPocket.HideInstant();
+            medicinePocket.HideInstant();
         }
 
         private void DisplayPocket()
@@ -41,46 +43,27 @@ namespace Inventory
         private IEnumerator DisplayPocketCoroutine()
         {
             currentPocket = ComputePocket(Pocket.tools);
-
+            currentPocket.Setup(backpackStorage.GetPocketStorage(Pocket.tools).GetPocketItems);
             yield return new WaitForSeconds(displayDelay);
-            
-            currentPocket.gameObject.SetActive(true);
-            FadePocket(currentPocket, true);
+            currentPocket.Display();
         }
 
-        private void UpdatePocket(Pocket pocket)
+        private void SwitchPocket(Pocket pocket)
         {
             StopAllCoroutines();
-            StartCoroutine(UpdatePocketCoroutine(pocket));
-        }
-
-        private IEnumerator UpdatePocketCoroutine(Pocket pocket)
-        {
-            FadePocket(currentPocket, false);
-            yield return new WaitForSeconds(fadeDuration);
-            
-            currentPocket.gameObject.SetActive(false);
+            currentPocket.Hide();
             currentPocket = ComputePocket(pocket);
-            currentPocket.gameObject.SetActive(true);
-            
-            FadePocket(currentPocket, true);
+            currentPocket.Setup(backpackStorage.GetPocketStorage(pocket).GetPocketItems);
+            currentPocket.Display();
         }
         
-        private void HidePocketName()
+        private void HidePocket()
         {
             StopAllCoroutines();
-            FadePocket(currentPocket, false);
+            currentPocket.Hide();
         }
 
-        private void FadePocket(Transform pocket, bool fade)
-        {
-            for (int i = 0; i < pocket.childCount; i++)
-            {
-                StartCoroutine(Tools.Fade(pocket.GetChild(i).GetComponent<Image>(), fadeDuration, fade, maxFade: i == 0 ? 0.2f : 0.8f));
-            }    
-        }
-        
-        private Transform ComputePocket(Pocket pocket)
+        private PocketDisplay ComputePocket(Pocket pocket)
         {
             switch (pocket)
             {
