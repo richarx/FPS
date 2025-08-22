@@ -3,19 +3,12 @@ using System.Collections;
 using Player.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
+using static Backpack.BackpackStorage;
 
 namespace Inventory
 {
     public class PocketDisplay : MonoBehaviour
     {
-        public enum Pocket
-        {
-            tools,
-            component,
-            ammo,
-            medicine
-        }
-        
         [SerializeField] private Transform componentPocket;
         [SerializeField] private Transform toolsPocket;
         [SerializeField] private Transform ammoPocket;

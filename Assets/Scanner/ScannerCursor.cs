@@ -24,7 +24,6 @@ namespace Scanner
 
         private float maxFade = 1.0f;
 
-        private bool isDisplaying;
         private bool isDisplayed;
         public bool IsDisplayed => isDisplayed;
         private bool animateDown;
@@ -152,7 +151,6 @@ namespace Scanner
 
         private IEnumerator DisplayCursorCoroutine()
         {
-            isDisplaying = true;
             yield return new WaitForSeconds(0.3f);
             
             StartCoroutine(Tools.Fade(cornersImage, 0.3f, true, maxFade));
@@ -175,7 +173,6 @@ namespace Scanner
             yield return Tools.TweenLocalScale(circle, 0.8f, 0.8f, 1.0f, 0.1f);
             yield return Tools.TweenLocalScale(circle, 1.0f, 1.0f, 1.0f, 0.1f);
 
-            isDisplaying = false;
             isDisplayed = true;
         }
 

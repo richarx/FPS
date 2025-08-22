@@ -1,4 +1,4 @@
-using Inventory;
+using Backpack;
 using UnityEngine;
 
 namespace Items
@@ -9,7 +9,7 @@ namespace Items
         public string itemName;
         [TextArea(10, 15)] public string description;
         public Sprite icon;
-        public PocketDisplay.Pocket pocket;
+        public BackpackStorage.Pocket pocket;
         public bool canBeStacked;
     }
 }

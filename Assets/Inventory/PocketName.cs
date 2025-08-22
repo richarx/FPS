@@ -4,7 +4,7 @@ using Player.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static Inventory.PocketDisplay;
+using static Backpack.BackpackStorage;
 
 namespace Inventory
 {
