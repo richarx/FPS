@@ -25,6 +25,9 @@ namespace Player.Scripts
 
         private void Update()
         {
+            if (player.isLocked || player.isScanning || player.isBackpackOpen)
+                return;
+            
             if (PlayerInputs.GetDownArrow())
                 EquipTool(glowStick);
             
