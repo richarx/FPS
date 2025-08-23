@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: GlowStick
   description: this is a description
+  inHandPrefab: {fileID: 6947178736295614624, guid: 6ef86ae0e592fae47825047d16953013,
+    type: 3}
   icon: {fileID: -2133660816, guid: c3991599324a6ed45bbefd81d39e8f61, type: 3}
   pocket: 0
   canBeStacked: 1

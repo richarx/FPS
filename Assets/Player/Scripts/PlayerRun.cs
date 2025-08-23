@@ -26,7 +26,7 @@ namespace Player.Scripts
                     CancelSprint();
             });
             player.playerShootGun.OnShoot.AddListener(CancelSprint);
-            player.playerAmmo.OnStartReloading.AddListener((_,_) => CancelSprint());
+            player.playerAmmo.OnStartReloading.AddListener(CancelSprint);
         }
         
         public void StartBehaviour(PlayerStateMachine player, BehaviourType previous)

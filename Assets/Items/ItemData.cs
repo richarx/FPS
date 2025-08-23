@@ -9,6 +9,7 @@ namespace Items
     {
         public string itemName;
         [TextArea(10, 15)] public string description;
+        public GameObject inHandPrefab;
         public Sprite icon;
         public BackpackStorage.Pocket pocket;
         public bool canBeStacked;

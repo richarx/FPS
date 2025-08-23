@@ -8,67 +8,46 @@ namespace Player.Scripts
 {
     public class PlayerAmmo : MonoBehaviour
     {
-        [HideInInspector] public UnityEvent<bool, bool> OnRefillAmmo = new UnityEvent<bool, bool>();
-        [HideInInspector] public UnityEvent<bool, bool> OnStartReloading = new UnityEvent<bool, bool>();
-        [HideInInspector] public UnityEvent<bool, bool> OnStopReloading = new UnityEvent<bool, bool>();
+        [HideInInspector] public UnityEvent<bool> OnRefillAmmo = new UnityEvent<bool>();
+        [HideInInspector] public UnityEvent OnStartReloading = new UnityEvent();
+        [HideInInspector] public UnityEvent<bool> OnStopReloading = new UnityEvent<bool>();
         
         private PlayerStateMachine player;
 
-        private WeaponAmmo mainWeaponAmmo;
-        private WeaponAmmo akimboAmmo;
+        private WeaponAmmo weaponAmmo;
         
-        private float startMainReloadTimestamp;
-        private float startAkimboReloadTimestamp;
+        private float startReloadTimestamp;
 
-        [HideInInspector] public bool isMainReloading;
-        [HideInInspector] public bool isAkimboReloading;
-        
-        public bool isReloading => isMainReloading || isAkimboReloading;
+        public bool isReloading;
 
         private void Start()
         {
             player = GetComponent<PlayerStateMachine>();
-            player.playerGun.OnSwapWeapon.AddListener((weapon) => RegisterNewWeapon(weapon, false));
-            player.playerGun.OnEquipAkimboWeapon.AddListener((weapon) => RegisterNewWeapon(weapon, true));
-            player.playerGun.OnDropWeapon.AddListener((weapon) => mainWeaponAmmo = null);
-            player.playerGun.OnDropAkimboWeapon.AddListener((weapon) => akimboAmmo = null);
+            player.playerGun.OnSwapWeapon.AddListener(RegisterNewWeapon);
+            player.playerGun.OnDropWeapon.AddListener(() => weaponAmmo = null);
 
-            player.playerShootGun.OnShoot.AddListener(() =>ConsumeAmmo(false));
-            player.playerShootGun.OnShootAkimbo.AddListener(() =>ConsumeAmmo(true));
+            player.playerShootGun.OnShoot.AddListener(ConsumeAmmo);
             player.playerShootGun.OnShootEmptyMag.AddListener(() =>
             {
                 if (player.playerGun.CurrentWeapon.isReloadingOnEmptyMag)
-                    ReloadGun(true, false);
-            });
-            player.playerShootGun.OnShootAkimboEmptyMag.AddListener(() =>
-            {
-                if (player.playerGun.CurrentWeapon.isReloadingOnEmptyMag)
-                    ReloadGun(false, true);
+                    ReloadGun();
             });
         }
 
-        private void RegisterNewWeapon(GameObject weapon, bool isAkimbo)
+        private void RegisterNewWeapon(GameObject weapon)
         {
-            if (isAkimbo)
-            {
-                akimboAmmo = weapon.GetComponent<WeaponAmmo>();
-                akimboAmmo.RefillAmmo(GetMaxAmmo());
-            }
-            else
-            {
-                mainWeaponAmmo = weapon.GetComponent<WeaponAmmo>();
-                mainWeaponAmmo.RefillAmmo(GetMaxAmmo());
-            }
+            weaponAmmo = weapon.GetComponent<WeaponAmmo>();
+            weaponAmmo.RefillAmmo(GetMaxAmmo());
         }
         
-        public int GetCurrentAmmo(bool isAkimbo)
+        public int GetCurrentAmmo()
         {
-            return isAkimbo ? akimboAmmo.CurrentAmmo : mainWeaponAmmo.CurrentAmmo;
+            return weaponAmmo.CurrentAmmo;
         }
 
-        public bool IsGunEmpty(bool isAkimbo)
+        public bool IsGunEmpty()
         {
-            return isAkimbo ? akimboAmmo.IsEmpty : mainWeaponAmmo.IsEmpty;
+            return weaponAmmo.IsEmpty;
         }
 
         private void Update()
@@ -81,51 +60,33 @@ namespace Player.Scripts
             if (!CanReload())
                 return;
             
-            if (PlayerInputs.GetWestButton())
-                ReloadGun(player.playerGun.hasWeapon, player.playerGun.HasAkimbo);
+            if (player.playerGun.hasWeapon && PlayerInputs.GetWestButton())
+                ReloadGun();
         }
 
         private bool CanReload()
         {
-            if (!player.playerGun.hasWeapon)
+            if (!player.playerGun.hasWeapon || player.playerArms.currentArmType != PlayerArms.ArmType.Weapon)
                 return false;
-
-            if (!player.playerGun.HasAkimbo)
-                return !isMainReloading;
-
-            return !isMainReloading || !isAkimboReloading;
+            return !isReloading;
         }
 
         private void CheckEndOfReload()
         {
-            if (isMainReloading && Time.time - startMainReloadTimestamp >= player.playerGun.CurrentWeapon.reloadDuration)
+            if (isReloading && Time.time - startReloadTimestamp >= player.playerGun.CurrentWeapon.reloadDuration)
             {
-                isMainReloading = false;
-                RefillAmmo(true, false);
-                OnStopReloading?.Invoke(true, false);
-            }
-            
-            if (isAkimboReloading && Time.time - startAkimboReloadTimestamp >= player.playerGun.CurrentWeapon.reloadDuration)
-            {
-                isAkimboReloading = false;
-                RefillAmmo(false, true);
-                OnStopReloading?.Invoke(false, true);
+                isReloading = false;
+                RefillAmmo(true);
+                OnStopReloading?.Invoke(true);
             }
         }
         
-        private void ReloadGun(bool mainGun, bool akimbo)
+        private void ReloadGun()
         {
-            if (mainGun)
-            {
-                startMainReloadTimestamp = Time.time;
-                isMainReloading = true;
-            }
-            if (akimbo)
-            {
-                startAkimboReloadTimestamp = Time.time;
-                isAkimboReloading = true;
-            }
-            OnStartReloading?.Invoke(mainGun, akimbo);
+            startReloadTimestamp = Time.time;
+            isReloading = true;
+            
+            OnStartReloading?.Invoke();
         }
 
         private int GetMaxAmmo()
@@ -133,22 +94,17 @@ namespace Player.Scripts
             return player.playerGun.hasWeapon ? player.playerGun.CurrentWeapon.startingAmmo : 0;
         }
 
-        public void ConsumeAmmo(bool isAkimbo)
+        public void ConsumeAmmo()
         {
-            if (isAkimbo)
-                akimboAmmo.ConsumeAmmo();
-            else
-                mainWeaponAmmo.ConsumeAmmo();
+            weaponAmmo.ConsumeAmmo();
         }
 
-        public void RefillAmmo(bool mainGun, bool akimbo)
+        public void RefillAmmo(bool mainGun)
         {
             if (mainGun)
-                mainWeaponAmmo.RefillAmmo(GetMaxAmmo());
-            if (akimbo)
-                akimboAmmo.RefillAmmo(GetMaxAmmo());
+                weaponAmmo.RefillAmmo(GetMaxAmmo());
             
-            OnRefillAmmo?.Invoke(mainGun, akimbo);
+            OnRefillAmmo?.Invoke(mainGun);
         }
     }
 }

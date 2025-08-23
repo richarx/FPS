@@ -902,6 +902,8 @@ GameObject:
   - component: {fileID: 3664766614239933051}
   - component: {fileID: 4091907694026905818}
   - component: {fileID: 5882946385504412818}
+  - component: {fileID: 2254208308396873832}
+  - component: {fileID: 8490571574213577333}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1005,6 +1007,7 @@ MonoBehaviour:
   playerGunKickback: {fileID: 0}
   scanner: {fileID: 0}
   backpackStorage: {fileID: 0}
+  playerArms: {fileID: 0}
 --- !u!114 &8612742982520950148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1017,17 +1020,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 989528b061ca06241906e387d8eb82e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunPivot: {fileID: 3079031492957271179}
   OnSwapWeapon:
     m_PersistentCalls:
       m_Calls: []
   OnDropWeapon:
-    m_PersistentCalls:
-      m_Calls: []
-  OnEquipAkimboWeapon:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDropAkimboWeapon:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &6076765881001960936
@@ -1110,8 +1106,7 @@ MonoBehaviour:
   OnStopReloading:
     m_PersistentCalls:
       m_Calls: []
-  isMainReloading: 0
-  isAkimboReloading: 0
+  isReloading: 0
 --- !u!114 &4989331124679090616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1212,13 +1207,7 @@ MonoBehaviour:
   OnShoot:
     m_PersistentCalls:
       m_Calls: []
-  OnShootAkimbo:
-    m_PersistentCalls:
-      m_Calls: []
   OnShootEmptyMag:
-    m_PersistentCalls:
-      m_Calls: []
-  OnShootAkimboEmptyMag:
     m_PersistentCalls:
       m_Calls: []
   OnHit:
@@ -1276,6 +1265,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc71c61c68c5f9840ab8232dbfe98e0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2254208308396873832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236258945342678793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d664acc7c164854b983d23501232a67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armsPivot: {fileID: 3079031492957271179}
+  throwArmsPrefab: {fileID: 3602875748352308952, guid: 83cc00098c81d8744b21bed7d79fefe2,
+    type: 3}
+--- !u!114 &8490571574213577333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236258945342678793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a8c0f8f4fe6fa4f8be43b3d349c43a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  glowStick: {fileID: 11400000, guid: daabde06e22c1274ab622aabe1fbc7cc, type: 2}
 --- !u!1 &1344401461930698543
 GameObject:
   m_ObjectHideFlags: 0

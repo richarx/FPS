@@ -19,22 +19,12 @@ namespace Items.Weapons
 
         private Vector3 velocity;
 
-        private bool isAkimbo;
-        
         private void Start()
         {
             player = PlayerStateMachine.instance;
             gun = GetComponent<RectTransform>();
-
-            isAkimbo = GetComponent<AnimateGun>().isAkimbo;
             
-            if (isAkimbo)
-                player.playerShootGun.OnShootAkimbo.AddListener(TriggerKickback);
-            else
-                player.playerShootGun.OnShoot.AddListener(TriggerKickback);
-
-            if (isAkimbo)
-                direction.x *= -1.0f;
+            player.playerShootGun.OnShoot.AddListener(TriggerKickback);
         }
 
         private void TriggerKickback()

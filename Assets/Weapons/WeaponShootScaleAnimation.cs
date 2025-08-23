@@ -20,11 +20,7 @@ namespace Items.Weapons
         private void Start()
         {
             player = PlayerStateMachine.instance;
-            
-            if (GetComponent<AnimateGun>().isAkimbo)
-                player.playerShootGun.OnShootAkimbo.AddListener(TriggerScaling);
-            else
-                player.playerShootGun.OnShoot.AddListener(TriggerScaling);
+            player.playerShootGun.OnShoot.AddListener(TriggerScaling);
         }
 
         private void TriggerScaling()

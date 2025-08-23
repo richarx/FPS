@@ -21,11 +21,8 @@ namespace Items.Weapons
         private void Start()
         {
             PlayerStateMachine player = PlayerStateMachine.instance;
-
-            if (GetComponent<AnimateGun>().isAkimbo)
-                player.playerShootGun.OnShootAkimbo.AddListener(TriggerMuzzleFlash);
-            else
-                player.playerShootGun.OnShoot.AddListener(TriggerMuzzleFlash);
+            
+            player.playerShootGun.OnShoot.AddListener(TriggerMuzzleFlash);
 
             player.playerAiming.OnChangeAimState.AddListener(AssignMuzzlePosition);
             

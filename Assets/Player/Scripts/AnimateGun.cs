@@ -60,8 +60,6 @@ namespace Player.Scripts
         private float targetLateralPosition;
         private float lateralVelocity;
 
-        public bool isAkimbo;
-        
         private void Start()
         {
             offsetPosition = Vector3.zero;
@@ -71,10 +69,7 @@ namespace Player.Scripts
             Vector3 position = player.isAiming ? adsPosition : hipPosition;
             gun.localPosition = position + reloadPosition;
             
-            if (isAkimbo)
-                player.playerShootGun.OnShootAkimboEmptyMag.AddListener(() => shakeTimer = emptyGunShakeDuration);
-            else
-                player.playerShootGun.OnShootEmptyMag.AddListener(() => shakeTimer = emptyGunShakeDuration);
+            player.playerShootGun.OnShootEmptyMag.AddListener(() => shakeTimer = emptyGunShakeDuration);
             
             player.playerJump.OnJump.AddListener(() => { offsetPosition.y = -jumpImpulsePower; });
             player.playerJump.OnGroundedChanged.AddListener((isGrounded, impactPower) =>
@@ -86,7 +81,7 @@ namespace Player.Scripts
 
         private void Update()
         {
-            if (!player.playerGun.hasWeapon)
+            if (player.playerArms.currentArmType == PlayerArms.ArmType.Empty)
                 return;
             
             UpdateTimers();
@@ -119,10 +114,7 @@ namespace Player.Scripts
 
         private bool IsReloading()
         {
-            if (isAkimbo)
-                return player.playerAmmo.isAkimboReloading;
-            else
-                return player.playerAmmo.isMainReloading;
+            return player.playerAmmo.isReloading;
         }
 
         private void Shake()

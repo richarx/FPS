@@ -10,7 +10,7 @@ namespace Player.Scripts
         [HideInInspector] public UnityEvent<bool> OnChangeAimState = new UnityEvent<bool>();
 
         private bool isAiming;
-        public bool IsAiming => isAiming && !playerGun.HasAkimbo;
+        public bool IsAiming => isAiming;
 
         private PlayerStateMachine player;
         private PlayerGun playerGun;
@@ -19,22 +19,11 @@ namespace Player.Scripts
         {
             player = PlayerStateMachine.instance;
             playerGun = GetComponent<PlayerGun>();
-            playerGun.OnEquipAkimboWeapon.AddListener((_) =>
-            {
-                if (isAiming)
-                {
-                    isAiming = false;
-                    OnChangeAimState?.Invoke(isAiming);
-                }
-            });
         }
 
         private void Update()
         {
             if (PauseMenu.instance.IsPaused)
-                return;
-            
-            if (playerGun.HasAkimbo && !player.isScanning)
                 return;
             
             if (isAiming != PlayerInputs.GetLeftTrigger(isHeld: true))
