@@ -54,6 +54,7 @@ namespace Player.Scripts
         [HideInInspector] public Scanner.Scanner scanner;
         [HideInInspector] public BackpackStorage backpackStorage;
         [HideInInspector] public PlayerArms playerArms;
+        [HideInInspector] public PlayerTools playerTools;
         
         private void Awake()
         {
@@ -67,6 +68,7 @@ namespace Player.Scripts
             scanner = GetComponent<Scanner.Scanner>();
             backpackStorage = GetComponent<BackpackStorage>();
             playerArms = GetComponent<PlayerArms>();
+            playerTools = GetComponent<PlayerTools>();
 
             playerRun = new PlayerRun(this);
             playerJump = new PlayerJump(this);

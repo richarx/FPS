@@ -1,12 +1,15 @@
 using Items;
 using Tools_and_Scripts;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Player.Scripts
 {
     public class PlayerTools : MonoBehaviour
     {
         [SerializeField] private ItemData glowStick;
+
+        [HideInInspector] public UnityEvent OnThrowItem = new UnityEvent();
         
         private PlayerStateMachine player;
 
@@ -37,6 +40,7 @@ namespace Player.Scripts
         private void ThrowItem()
         {
             Debug.Log("Throw Item");
+            OnThrowItem?.Invoke();
         }
 
         private bool CanThrow()
