@@ -50,6 +50,8 @@ namespace Weapons.Throw
         private float offsetVelocity;
         
         private float lastThrowTimestamp;
+
+        private bool isUnEquipping;
         
         private void Start()
         {
@@ -61,6 +63,8 @@ namespace Weapons.Throw
             hand.localPosition = targetPosition + reloadPosition;
             
             player.playerTools.OnThrowItem.AddListener(OnThrow);
+            
+            player.playerArms.OnUnEquipTool.AddListener(() => isUnEquipping = true);
             
             player.playerJump.OnJump.AddListener(() => { offsetPosition.y = -jumpImpulsePower; });
             player.playerJump.OnGroundedChanged.AddListener((isGrounded, impactPower) =>
@@ -81,7 +85,7 @@ namespace Weapons.Throw
             bool isThrowing = IsThrowing();
             bool isReloadingThrow = Time.time - lastThrowTimestamp >= 0.3f && Time.time - lastThrowTimestamp <= 0.6f;
             
-            if (isReloadingThrow || player.isLocked || player.isScanning || player.isBackpackOpen)
+            if (isReloadingThrow || isUnEquipping || player.isLocked || player.isScanning || player.isBackpackOpen)
                 Hide();
             else if (isThrowing)
                 ThrowItem();

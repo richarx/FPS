@@ -14,6 +14,7 @@ namespace Player.Scripts
         private PlayerStateMachine player;
 
         private Transform currentTool;
+        private ItemData currentItemData;
 
         private bool isInputReset;
         private float lastThrowTimestamp;
@@ -27,9 +28,14 @@ namespace Player.Scripts
         {
             if (player.isLocked || player.isScanning || player.isBackpackOpen)
                 return;
-            
+
             if (PlayerInputs.GetDownArrow())
-                EquipTool(glowStick);
+            {
+                if (currentItemData == glowStick)
+                    UnEquipTool(); 
+                else 
+                    EquipTool(glowStick);
+            }
             
             if (CanThrow() && PlayerInputs.GetRightTrigger(isHeld: true))
             {
@@ -61,7 +67,14 @@ namespace Player.Scripts
 
         private void EquipTool(ItemData item)
         {
+            currentItemData = item;
             currentTool = player.playerArms.EquipThrowTool(item);
+        }
+
+        private void UnEquipTool()
+        {
+            currentItemData = null;
+            player.playerArms.UnEquipThrowTool();
         }
     }
 }

@@ -23,12 +23,21 @@ namespace Player.Scripts
         private void Start()
         {
             player = PlayerStateMachine.instance;
+            
+            player.playerArms.OnResetArms.AddListener(() =>
+            {
+                if (hasWeapon)
+                    SwapWeaponsVisuals(primaryWeapon);
+            });
         }
         
         private void Update()
         {
             if (player.isBackpackOpen)
                 return;
+
+            if (hasWeapon && player.playerArms.currentArmType == PlayerArms.ArmType.Throw && PlayerInputs.GetNorthButton())
+                SwapWeaponsVisuals(primaryWeapon);
             
             if (hasSecondaryWeapon && PlayerInputs.GetNorthButton())
                 SwapWeapons();
