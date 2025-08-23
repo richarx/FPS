@@ -49,6 +49,9 @@ namespace Weapons.Throw
 
             hand.sprite = regular;
             thumb.SetActive(true);
+
+            yield return new WaitForSeconds(0.2f);
+            
             pivot.SetActive(true);
         }
     }

@@ -16,6 +16,7 @@ namespace Player.Scripts
         private Transform currentTool;
 
         private bool isInputReset;
+        private float lastThrowTimestamp;
         
         private void Start()
         {
@@ -40,6 +41,7 @@ namespace Player.Scripts
         private void ThrowItem()
         {
             Debug.Log("Throw Item");
+            lastThrowTimestamp = Time.time;
             OnThrowItem?.Invoke();
         }
 
@@ -48,6 +50,9 @@ namespace Player.Scripts
             if (player.playerArms.currentArmType != PlayerArms.ArmType.Throw)
                 return false;
 
+            if (lastThrowTimestamp > 0.0f && Time.time - lastThrowTimestamp <= 1.0f)
+                return false;
+            
             return isInputReset;
         }
 

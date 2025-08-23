@@ -79,8 +79,9 @@ namespace Weapons.Throw
 
             bool isGrounded = player.playerJump.isGrounded;
             bool isThrowing = IsThrowing();
+            bool isReloadingThrow = Time.time - lastThrowTimestamp >= 0.3f && Time.time - lastThrowTimestamp <= 0.6f;
             
-            if (player.isLocked || player.isScanning || player.isBackpackOpen)
+            if (isReloadingThrow || player.isLocked || player.isScanning || player.isBackpackOpen)
                 Hide();
             else if (isThrowing)
                 ThrowItem();
