@@ -1,56 +1,206 @@
-using System.Collections;
 using Player.Scripts;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Weapons.Throw
 {
     public class AnimateThrow : MonoBehaviour
     {
-        [SerializeField] private GameObject thumb;
-        [SerializeField] private GameObject pivot;
-        [SerializeField] private Image hand;
+        [SerializeField] private RectTransform hand;
         
         [Space]
-        [SerializeField] private Sprite regular;
+        [SerializeField] private float throwImpulsePower;
         
         [Space]
-        [SerializeField] private Sprite throw_1;
-        [SerializeField] private float delay_1;
+        [SerializeField] private float jumpImpulsePower;
+        [SerializeField] private float landingImpulsePower;
+        [SerializeField] private float fallOffsetPower;
         
         [Space]
-        [SerializeField] private Sprite throw_2;
-        [SerializeField] private float delay_2;
+        [SerializeField] private float slideShakePowerX;
+        [SerializeField] private float slideShakePowerY;
+        
+        [Space]
+        public float gunAnimationCosSpeed;
+        public float gunAnimationCosSpeedSprinting;
+        public float gunAnimationSinSpeed;
+        public float gunAnimationSinSpeedSprinting;
+        
+        [Space]
+        public float gunAnimationDistance;
+        public float gunAnimationDistanceSprinting;
+        public float gunAnimationSmoothTime;
+        
+        [Space]
+        public float gunAnimationIdleDistance;
+        public float gunAnimationIdleSpeed;
+
+        [Space]
+        public Vector3 reloadPosition;
+        public Vector3 hipPosition;
         
         private PlayerStateMachine player;
+
+        private float sinTimer = 0.0f;
+        private float cosTimer = 0.0f;
+        private float idleTimer = 0.0f;
+        
+        private Vector3 targetPosition;
+        private Vector3 offsetPosition;
+        private Vector3 velocity;
+        private float offsetVelocity;
+        
+        private float lastThrowTimestamp;
         
         private void Start()
         {
+            offsetPosition = Vector3.zero;
+            
             player = PlayerStateMachine.instance;
             
-            player.playerTools.OnThrowItem.AddListener(TriggerAnimation);
+            targetPosition = hipPosition;
+            hand.localPosition = targetPosition + reloadPosition;
+            
+            player.playerTools.OnThrowItem.AddListener(OnThrow);
+            
+            player.playerJump.OnJump.AddListener(() => { offsetPosition.y = -jumpImpulsePower; });
+            player.playerJump.OnGroundedChanged.AddListener((isGrounded, impactPower) =>
+            {
+                if (isGrounded)
+                    offsetPosition.y = -landingImpulsePower * impactPower;
+            });
+        }
+        
+        private void Update()
+        {
+            if (player.playerArms.currentArmType != PlayerArms.ArmType.Throw)
+                return;
+            
+            UpdateTimers();
+
+            bool isGrounded = player.playerJump.isGrounded;
+            bool isThrowing = IsThrowing();
+            
+            if (player.isLocked || player.isScanning || player.isBackpackOpen)
+                Hide();
+            else if (isThrowing)
+                ThrowItem();
+            else if (player.isSliding)
+                Slide();
+            else if (player.IsMoving() && isGrounded)
+                Running();
+            else if (isGrounded)
+                Idle();
+            else
+                targetPosition = hipPosition;
+
+            if (!isThrowing)
+                Jump(isGrounded);
+
+            ApplyMovement();
         }
 
-        private void TriggerAnimation()
+        private void OnThrow()
         {
-            StopAllCoroutines();
-            StartCoroutine(TriggerAnimationCoroutine());
+            lastThrowTimestamp = Time.time;
+            offsetPosition.y = throwImpulsePower;
         }
 
-        private IEnumerator TriggerAnimationCoroutine()
+        private void ThrowItem()
         {
-            thumb.SetActive(false);
-            pivot.SetActive(false);
-            
-            hand.sprite = throw_1;
-            yield return new WaitForSeconds(delay_1);
-            
-            hand.sprite = throw_2;
-            yield return new WaitForSeconds(delay_2);
+            offsetPosition.y = Mathf.SmoothDamp(offsetPosition.y, 0.0f, ref offsetVelocity, 0.3f);
+        }
 
-            hand.sprite = regular;
-            thumb.SetActive(true);
-            pivot.SetActive(true);
+        private bool IsThrowing()
+        {
+            return Time.time - lastThrowTimestamp <= 0.3f;
+        }
+
+        private void UpdateTimers()
+        {
+            sinTimer += Time.deltaTime * gunAnimationSinSpeed * (player.playerRun.isSprinting ? gunAnimationSinSpeedSprinting : 1.0f);
+            cosTimer += Time.deltaTime * gunAnimationCosSpeed * (player.playerRun.isSprinting ? gunAnimationCosSpeedSprinting : 1.0f);
+            idleTimer += Time.deltaTime * gunAnimationIdleSpeed;
+            
+            if (sinTimer >= 360.0f)
+                sinTimer -= 360.0f;
+
+            if (cosTimer >= 360.0f)
+                cosTimer -= 360.0f;
+            
+            if (idleTimer >= 360.0f)
+                idleTimer -= 360.0f;
+        }
+        
+        private void ApplyMovement()
+        {
+            if (hand == null)
+                return;
+            
+            hand.localPosition = Vector3.SmoothDamp(hand.localPosition, targetPosition + offsetPosition, ref velocity, ComputeSpeed());
+        }
+
+        private float ComputeSpeed()
+        {
+            if (player.isReloading || player.isLocked)
+                return gunAnimationSmoothTime;
+            else if (player.isAiming)
+                return player.playerGun.CurrentWeapon.aimDownSightSpeed;
+
+            return gunAnimationSmoothTime;
+        }
+
+        private void Slide()
+        {
+            Vector3 position = Random.insideUnitCircle.ToVector3();
+            position.x *= slideShakePowerX;
+            position.y *= slideShakePowerY;
+
+            targetPosition = hipPosition + position;
+        }
+
+        private void Jump(bool isGrounded)
+        {
+            if (!isGrounded && Time.time - player.playerJump.lastJumpTimeStamp <= 0.3f)
+            {
+                offsetPosition.y = Mathf.SmoothDamp(offsetPosition.y, 0.0f, ref offsetVelocity, 0.3f);
+            }
+            else if (!isGrounded && player.moveVelocity.y <= 0.0f)
+            {
+                offsetPosition.y = fallOffsetPower;
+            }
+            else if (isGrounded && Time.time - player.playerJump.lastLandingTimeStamp <= 0.3f)
+            {
+                offsetPosition.y = Mathf.SmoothDamp(offsetPosition.y, 0.0f, ref offsetVelocity, 0.3f);
+            }
+            else if (player.moveVelocity.y <= 0.0f)
+            {
+                offsetPosition = Vector3.zero;
+            }
+        }
+        
+        private void Idle()
+        {
+            float y = Mathf.Cos(Tools.DegreeToRadian(idleTimer)) * gunAnimationIdleDistance;
+            targetPosition = hipPosition + new Vector3(0.0f, y, 0.0f);
+        }
+        
+        private void Hide()
+        {
+            targetPosition = hipPosition + reloadPosition;
+        }
+
+        private void Running()
+        {
+            float x = Mathf.Sin(Tools.DegreeToRadian(sinTimer)) * gunAnimationDistance;
+            float y = Mathf.Cos(Tools.DegreeToRadian(cosTimer)) * gunAnimationDistance;
+
+            if (player.playerRun.isSprinting)
+            {
+                x *= gunAnimationDistanceSprinting;
+                y *= gunAnimationDistanceSprinting;
+            }
+
+            targetPosition = hipPosition + new Vector3(x, y, 0.0f);
         }
     }
 }

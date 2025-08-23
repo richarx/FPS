@@ -206,7 +206,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8550891669866144094}
   - component: {fileID: 1557802902202225317}
-  - component: {fileID: 3584556795204453537}
+  - component: {fileID: 9013943737582499516}
   - component: {fileID: 8059869361893750138}
   - component: {fileID: 1869455988627790975}
   m_Layer: 5
@@ -244,7 +244,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3602875748352308952}
   m_CullTransparentMesh: 1
---- !u!114 &3584556795204453537
+--- !u!114 &9013943737582499516
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -253,10 +253,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3602875748352308952}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddfe95708d2e700488cbaff6f7a25438, type: 3}
+  m_Script: {fileID: 11500000, guid: 5611554def34e354894e3fc6017acc41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gun: {fileID: 8665616392978318309}
+  hand: {fileID: 8665616392978318309}
+  throwImpulsePower: 250
   jumpImpulsePower: 400
   landingImpulsePower: 15
   fallOffsetPower: 100
@@ -273,11 +274,8 @@ MonoBehaviour:
   gunAnimationLateralSmoothTime: 0.5
   gunAnimationIdleDistance: 40
   gunAnimationIdleSpeed: 100
-  emptyGunShakeDuration: 0.2
-  emptyGunShakePower: 200
   reloadPosition: {x: 0, y: -600, z: 0}
   hipPosition: {x: 500, y: -400, z: 0}
-  adsPosition: {x: 500, y: -400, z: 0}
 --- !u!114 &8059869361893750138
 MonoBehaviour:
   m_ObjectHideFlags: 0

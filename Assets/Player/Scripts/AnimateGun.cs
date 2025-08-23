@@ -81,7 +81,7 @@ namespace Player.Scripts
 
         private void Update()
         {
-            if (player.playerArms.currentArmType == PlayerArms.ArmType.Empty)
+            if (player.playerArms.currentArmType != PlayerArms.ArmType.Weapon)
                 return;
             
             UpdateTimers();
