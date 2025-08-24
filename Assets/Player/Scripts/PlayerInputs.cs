@@ -310,7 +310,7 @@ namespace Tools_and_Scripts
 
             if (Gamepad.current != null)
             {
-                bool isPressed = Gamepad.current.dpad.ReadValue().y < 0;
+                bool isPressed = Gamepad.current.dpad.down.wasPressedThisFrame;
 
                 if (wasDownArrowReset && isPressed)
                 {

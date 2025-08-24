@@ -39,6 +39,8 @@ namespace Items.Weapons
         private float lastShotTimestamp = -1.0f;
         private AudioSource lastTail = null;
 
+        private bool isSetup;
+        
         private void Start()
         {
             player = PlayerStateMachine.instance;
@@ -53,6 +55,8 @@ namespace Items.Weapons
                 if (isAiming && player.playerGun.hasWeapon && !player.isLocked && !player.isScanning)
                     SFXManager.instance.PlayRandomSFX(adsClick);
             });
+
+            isSetup = true;
         }
         
         private void PlayGunShotSound()
@@ -86,6 +90,9 @@ namespace Items.Weapons
 
         private void OnDestroy()
         {
+            if (!isSetup)
+                return;
+            
             player.playerAmmo.OnStartReloading.RemoveListener(PlayReloadSound);
             player.playerGun.OnSwapWeapon.RemoveListener((_) => PlaySwapSound());
         }

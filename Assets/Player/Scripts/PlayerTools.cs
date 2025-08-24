@@ -49,8 +49,6 @@ namespace Player.Scripts
 
         private void ThrowItem()
         {
-            Debug.Log("Throw Item");
-
             Vector3 direction = player.playerShootGun.shootingDirection.normalized;
             Vector3 finalPosition = player.playerShootGun.shootingPosition + direction;
             GameObject item = Instantiate(currentItemData.thrownPrefab, finalPosition, Quaternion.identity);
