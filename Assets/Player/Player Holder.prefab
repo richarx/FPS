@@ -1008,6 +1008,7 @@ MonoBehaviour:
   scanner: {fileID: 0}
   backpackStorage: {fileID: 0}
   playerArms: {fileID: 0}
+  playerTools: {fileID: 0}
 --- !u!114 &8612742982520950148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1280,6 +1281,12 @@ MonoBehaviour:
   armsPivot: {fileID: 3079031492957271179}
   throwArmsPrefab: {fileID: 3602875748352308952, guid: 83cc00098c81d8744b21bed7d79fefe2,
     type: 3}
+  OnUnEquipTool:
+    m_PersistentCalls:
+      m_Calls: []
+  OnResetArms:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &8490571574213577333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1293,6 +1300,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   glowStick: {fileID: 11400000, guid: daabde06e22c1274ab622aabe1fbc7cc, type: 2}
+  OnThrowItem:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1344401461930698543
 GameObject:
   m_ObjectHideFlags: 0
@@ -3086,6 +3096,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tooltipPivot: {fileID: 5757878026784750988}
   tooltipPrefab: {fileID: 5204685021062012214, guid: 58fd019bc365fd44dba3d9055fc034f7,
+    type: 3}
+  gameplayTooltipPrefab: {fileID: -4810834556694927385, guid: 4fb932d278500174daddb61fa240a72e,
     type: 3}
 --- !u!1 &2808679052918418468
 GameObject:

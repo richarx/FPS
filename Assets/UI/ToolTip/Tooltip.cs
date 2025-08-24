@@ -8,7 +8,7 @@ namespace UI.ToolTip
         [SerializeField] private float fadeInDuration;
         [SerializeField] private float fadeOutDuration;
         
-        private TextMeshProUGUI textMeshProUGUI;
+        protected TextMeshProUGUI textMeshProUGUI;
         
         private bool isHiding;
         private float destroyTimer = -1.0f;
@@ -30,7 +30,7 @@ namespace UI.ToolTip
                 Hide();
         }
 
-        private string ComputeTooltipText(string text)
+        protected string ComputeTooltipText(string text)
         {
             if (text.Contains("$"))
                 text = AddColorToText(text);

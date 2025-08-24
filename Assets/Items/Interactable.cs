@@ -14,7 +14,6 @@ namespace Items
             Trigger
         }
 
-        [SerializeField] private string toolTipText;
         [SerializeField] private ItemType itemType;
         public ItemType type => itemType;
         
@@ -89,19 +88,18 @@ namespace Items
 
         protected void CreateTooltip()
         {
+            string tooltipText = ComputeTooltipText();
+
             if (tooltip == null)
-                tooltip = ToolTipManager.instance.DisplayToolTip(ComputeTooltipText());
+                tooltip = ToolTipManager.instance.DisplayGameplayToolTip($"Press $R1$ {tooltipText}", $"Press $E$ {tooltipText}");
         }
 
-        protected string ComputeTooltipText()
+        private string ComputeTooltipText()
         {
             if (itemType == ItemType.Weapon)
                 return PlayerStateMachine.instance.playerGun.ComputeTooltipText();
-            
-            if (string.IsNullOrEmpty(toolTipText))
-                return "Press $E$ to Interact";
 
-            return toolTipText;
+            return "to interact";
         }
 
         protected void DestroyTooltip()

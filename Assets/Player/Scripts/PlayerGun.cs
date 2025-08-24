@@ -104,8 +104,8 @@ namespace Player.Scripts
         public string ComputeTooltipText()
         {
             if (hasWeapon && hasSecondaryWeapon)
-                return "Press $E$ to swap weapons";
-            return "Press $E$ to equip weapon";
+                return "to swap weapons";
+            return "to equip weapon";
         }
     }
 }

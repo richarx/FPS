@@ -269,6 +269,8 @@ namespace Tools_and_Scripts
                 
             if (gamepadInput.magnitude <= 0.15f)
                 return Vector2.zero;
+            
+            RegisterInputType(InputType.Gamepad);
 
             return gamepadInput;
         }
@@ -290,6 +292,8 @@ namespace Tools_and_Scripts
             
             gamepad.x *= joystickSensitivityX * sensibilityMultiplier * Time.deltaTime;
             gamepad.y *= joystickSensitivityY * sensibilityMultiplier * Time.deltaTime;
+            
+            RegisterInputType(InputType.Gamepad);
             
             return gamepad;
         }
