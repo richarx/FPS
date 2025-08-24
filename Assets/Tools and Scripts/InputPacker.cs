@@ -1,5 +1,6 @@
 using Pause_Menu;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
@@ -121,6 +122,8 @@ namespace Tools_and_Scripts
     
     public class InputPacker
     {
+        public static UnityEvent<InputType> OnChangeInputType = new UnityEvent<InputType>();
+        
         private InputPackage previousPackage = new InputPackage();
 
         private bool wasGamepadUsed;
@@ -147,6 +150,9 @@ namespace Tools_and_Scripts
 
             inputs.lastInputType = ComputeLastInputTypeUsed();
 
+            if (inputs.lastInputType != previousPackage.lastInputType)
+                OnChangeInputType?.Invoke(inputs.lastInputType);
+            
             previousPackage = inputs;
 
             return inputs;
