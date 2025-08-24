@@ -1,3 +1,4 @@
+using Pause_Menu;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -31,8 +32,14 @@ namespace Tools_and_Scripts
     public class InputPackage
     {
         public InputType lastInputType;
+        
+        public Vector2 GetMove => lastInputType == InputType.Gamepad ? gamepadMove : keyboardMove;
+        public Vector2 GetLook => lastInputType == InputType.Gamepad ? gamepadLook : keyboardLook;
 
         //Gamepad
+        public Vector2 gamepadMove;
+        public Vector2 gamepadLook;
+        
         public InputData eastButton;
         public InputData northButton;
         public InputData westButton;
@@ -56,6 +63,9 @@ namespace Tools_and_Scripts
         public InputData selectButton;
         
         //Keyboard
+        public Vector2 keyboardMove;
+        public Vector2 keyboardLook;
+        
         public InputData leftMouse;
         public InputData rightMouse;
         public InputData middleMouse;
@@ -81,6 +91,9 @@ namespace Tools_and_Scripts
 
         private bool wasGamepadUsed;
         private bool wasKeyboardUsed;
+
+        private float joystickSensitivityX => PauseMenu.instance.joystickXSensitivity;
+        private float joystickSensitivityY => PauseMenu.instance.joystickXSensitivity;
         
         public InputPackage ComputeInputPackage()
         {
@@ -89,7 +102,8 @@ namespace Tools_and_Scripts
 
             InputPackage inputs = new InputPackage();
             
-            inputs = ComputeGamepadInput(inputs);
+            if (Gamepad.current != null)
+                inputs = ComputeGamepadInput(inputs);
             inputs = ComputeKeyboardInput(inputs);
 
             inputs.lastInputType = ComputeLastInputTypeUsed();
@@ -98,19 +112,12 @@ namespace Tools_and_Scripts
 
             return inputs;
         }
-
-        private InputType ComputeLastInputTypeUsed()
-        {
-            if (wasGamepadUsed)
-                return InputType.Gamepad;
-            if (wasKeyboardUsed)
-                return InputType.Keyboard;
-            
-            return previousPackage.lastInputType;
-        }
-
+        
         private InputPackage ComputeKeyboardInput(InputPackage inputs)
         {
+            inputs.keyboardMove = ComputeKeyboardMove();
+            inputs.keyboardLook = ComputeKeyboardLook();
+            
             inputs.leftMouse = ComputeKeyboardInput(Mouse.current.leftButton, previousPackage.leftMouse.lastPressTimestamp);
             inputs.rightMouse = ComputeKeyboardInput(Mouse.current.rightButton, previousPackage.rightMouse.lastPressTimestamp);
             inputs.middleMouse = ComputeMiddleMouse(previousPackage.middleMouse.lastPressTimestamp);
@@ -131,9 +138,12 @@ namespace Tools_and_Scripts
             
             return inputs;
         }
-
+        
         private InputPackage ComputeGamepadInput(InputPackage inputs)
         {
+            inputs.gamepadMove = ComputeLeftJoystick();
+            inputs.gamepadLook = ComputeRightJoystick();
+            
             inputs.eastButton = ComputeGamepadButtonInput(Gamepad.current.buttonEast, previousPackage.eastButton.lastPressTimestamp);
             inputs.northButton = ComputeGamepadButtonInput(Gamepad.current.buttonNorth, previousPackage.northButton.lastPressTimestamp);
             inputs.westButton = ComputeGamepadButtonInput(Gamepad.current.buttonWest, previousPackage.westButton.lastPressTimestamp);
@@ -159,6 +169,93 @@ namespace Tools_and_Scripts
             return inputs;
         }
 
+        private Vector2 ComputeKeyboardMove()
+        {
+            Vector2 keyBoardInput = Vector2.zero;
+            
+            if (Keyboard.current.zKey.isPressed || Keyboard.current.wKey.isPressed)
+                keyBoardInput.y += 1;
+            
+            if (Keyboard.current.sKey.isPressed)
+                keyBoardInput.y -= 1;
+            
+            if (Keyboard.current.qKey.isPressed || Keyboard.current.aKey.isPressed)
+                keyBoardInput.x -= 1;
+            
+            if (Keyboard.current.dKey.isPressed)
+                keyBoardInput.x += 1;
+
+            return keyBoardInput.normalized;
+        }
+
+        private Vector2 ComputeKeyboardLook()
+        {
+            Vector2 mouse = Vector2.zero;
+            float sensibilityMultiplier = Application.isEditor ? 5.0f : 1.0f;
+            
+            mouse.x = Input.GetAxisRaw("Mouse X");
+            mouse.y = Input.GetAxisRaw("Mouse Y");
+
+            if (mouse.magnitude > 0.0f)
+                mouse *= PauseMenu.instance.mouseSensitivity * sensibilityMultiplier * Time.deltaTime;
+
+            return mouse;
+        }
+
+        private Vector2 ComputeLeftJoystick()
+        {
+            Vector2 gamepadInput = new Vector2(Gamepad.current.leftStick.x.ReadValue(), Gamepad.current.leftStick.y.ReadValue());
+
+            if (Mathf.Abs(gamepadInput.x) <= 0.15f)
+                gamepadInput.x = 0.0f;
+        
+            if (Mathf.Abs(gamepadInput.y) <= 0.15f)
+                gamepadInput.y = 0.0f;
+                
+            if (gamepadInput.magnitude <= 0.15f)
+                return Vector2.zero;
+
+            return gamepadInput;
+        }
+
+        private Vector2 ComputeRightJoystick()
+        {
+            float sensibilityMultiplier = Application.isEditor ? 5.0f : 1.0f;
+            
+            Vector2 gamepad = new Vector2(Gamepad.current.rightStick.x.ReadValue(), Gamepad.current.rightStick.y.ReadValue());
+                
+            if (Mathf.Abs(gamepad.x) <= 0.15f)
+                gamepad.x = 0.0f;
+            
+            if (Mathf.Abs(gamepad.y) <= 0.15f)
+                gamepad.y = 0.0f;
+
+            if (gamepad.magnitude <= 0.15f)
+                return Vector2.zero;
+            
+            gamepad.x *= joystickSensitivityX * sensibilityMultiplier * Time.deltaTime;
+            gamepad.y *= joystickSensitivityY * sensibilityMultiplier * Time.deltaTime;
+            
+            return gamepad;
+        }
+        
+        private InputData ComputeMiddleMouse(float lastPressTimestamp)
+        {
+            bool isPressed = Mouse.current.scroll.up.magnitude > 0.0f || Mouse.current.scroll.down.magnitude > 0.0f;
+            
+            InputData input = new InputData();
+            
+            input.wasPressedThisFrame = isPressed;
+            input.isPressed = isPressed;
+
+            input.lastPressTimestamp = input.wasPressedThisFrame ? Time.time : lastPressTimestamp;
+            
+            if (input.wasPressedThisFrame)
+                RegisterInputType(InputType.Keyboard);
+
+            return input;
+        }
+        
         private InputData ComputeGamepadButtonInput(ButtonControl button, float lastPressTimestamp)
         {
             return ComputeButtonInput(button, lastPressTimestamp, InputType.Gamepad);
@@ -198,29 +295,22 @@ namespace Tools_and_Scripts
             return input;
         }
 
-        private InputData ComputeMiddleMouse(float lastPressTimestamp)
-        {
-            bool isPressed = Mouse.current.scroll.up.magnitude > 0.0f || Mouse.current.scroll.down.magnitude > 0.0f;
-            
-            InputData input = new InputData();
-            
-            input.wasPressedThisFrame = isPressed;
-            input.isPressed = isPressed;
-
-            input.lastPressTimestamp = input.wasPressedThisFrame ? Time.time : lastPressTimestamp;
-            
-            if (input.wasPressedThisFrame)
-                RegisterInputType(InputType.Keyboard);
-
-            return input;
-        }
-        
         private void RegisterInputType(InputType inputType)
         {
             if (inputType == InputType.Gamepad)
                 wasGamepadUsed = true;
             else if (inputType == InputType.Keyboard)
                 wasKeyboardUsed = true;
+        }
+        
+        private InputType ComputeLastInputTypeUsed()
+        {
+            if (wasGamepadUsed)
+                return InputType.Gamepad;
+            if (wasKeyboardUsed)
+                return InputType.Keyboard;
+            
+            return previousPackage.lastInputType;
         }
     }
 }
