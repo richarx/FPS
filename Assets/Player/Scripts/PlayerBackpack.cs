@@ -21,7 +21,7 @@ namespace Player.Scripts
 
         public void UpdateBehaviour(PlayerStateMachine player)
         {
-            if (PlayerInputs.GetStartButton())
+            if (player.inputPackage.GetBackpack.wasPressedThisFrame)
             {
                 player.ChangeBehaviour(player.playerRun);
                 return;

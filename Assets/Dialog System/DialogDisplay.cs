@@ -1,6 +1,7 @@
 using System;
 using Febucci.UI.Core;
 using Febucci.UI.Core.Parsing;
+using Player.Scripts;
 using Tools_and_Scripts;
 using UnityEngine;
 using UnityEngine.Events;
@@ -14,6 +15,8 @@ namespace Dialog_System
         
         [HideInInspector] public UnityEvent OnReachDialogEnd = new UnityEvent();
 
+        private PlayerStateMachine player;
+        
         private string[] dialoguesLines;
         private bool hasLines => dialoguesLines.Length > 0;
         
@@ -32,6 +35,8 @@ namespace Dialog_System
     
         private void Start()
         {
+            player = PlayerStateMachine.instance;
+
             typewriter.onMessage.AddListener(OnMessage);
         }
 
@@ -58,10 +63,10 @@ namespace Dialog_System
 
         private bool CheckContinueInput()
         {
-            if (PlayerInputs.GetRightTrigger(isHeld: false, withBuffer: false))
+            if (player.inputPackage.GetShoot.wasPressedThisFrame)
                 return true;
 
-            if (PlayerInputs.GetSouthButton(isHeld: false, withBuffer: false))
+            if (player.inputPackage.southButton.wasPressedThisFrame)
                 return true;
 
             return false;

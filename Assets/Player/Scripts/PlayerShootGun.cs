@@ -57,13 +57,13 @@ namespace Player.Scripts
             if (player.playerAmmo.isReloading || !player.playerGun.hasWeapon)
                 return;
 
-            if (CanShoot() && PlayerInputs.GetRightTrigger(isHeld: true))
+            if (CanShoot() && player.inputPackage.GetShoot.isPressed)
             {
                 Shoot();
                 isInputReset = false;
             }
             
-            if (!isInputReset && !PlayerInputs.GetRightTrigger(isHeld: true))
+            if (!isInputReset && !player.inputPackage.GetShoot.isPressed)
                 isInputReset = true;
         }
         
@@ -73,7 +73,7 @@ namespace Player.Scripts
             
             if (player.playerAmmo.IsGunEmpty())
             {
-                if (PlayerInputs.GetRightTrigger())
+                if (player.inputPackage.GetShoot.wasPressedThisFrame)
                     OnShootEmptyMag?.Invoke();
             }
             else

@@ -1,5 +1,3 @@
-using System;
-using Tools_and_Scripts;
 using UnityEngine;
 
 namespace Player.Scripts
@@ -19,7 +17,7 @@ namespace Player.Scripts
 
         private void Update()
         {
-            if (!player.isBackpackOpen && PlayerInputs.GetRightArrow())
+            if (!player.isBackpackOpen && player.inputPackage.GetToolRight.WasPressedWithBuffer())
                 ToggleFlashlight();
         }
 

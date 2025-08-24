@@ -29,7 +29,7 @@ namespace Player.Scripts
             if (player.isLocked || player.isScanning || player.isBackpackOpen)
                 return;
 
-            if (PlayerInputs.GetDownArrow())
+            if (player.inputPackage.GetToolDown.WasPressedWithBuffer())
             {
                 if (currentItemData == glowStick)
                     UnEquipTool(); 
@@ -37,13 +37,13 @@ namespace Player.Scripts
                     EquipTool(glowStick);
             }
             
-            if (CanThrow() && PlayerInputs.GetRightTrigger(isHeld: true))
+            if (CanThrow() && player.inputPackage.GetShoot.isPressed)
             {
                 ThrowItem();
                 isInputReset = false;
             }
             
-            if (!isInputReset && !PlayerInputs.GetRightTrigger(isHeld: true))
+            if (!isInputReset && !player.inputPackage.GetShoot.isPressed)
                 isInputReset = true;
         }
 

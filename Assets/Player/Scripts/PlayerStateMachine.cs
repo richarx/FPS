@@ -55,6 +55,9 @@ namespace Player.Scripts
         [HideInInspector] public BackpackStorage backpackStorage;
         [HideInInspector] public PlayerArms playerArms;
         [HideInInspector] public PlayerTools playerTools;
+
+        [HideInInspector] public InputPacker inputPacker = new InputPacker();
+        [HideInInspector] public InputPackage inputPackage; 
         
         private void Awake()
         {
@@ -85,11 +88,12 @@ namespace Player.Scripts
         
         private void Update()
         {
+            inputPackage = inputPacker.ComputeInputPackage();
+            
             if (PauseMenu.instance.IsPaused)
                 return;
             
-            PlayerInputs.UpdateInputBuffers();
-            moveInput = PlayerInputs.GetMoveDirection();
+            moveInput = inputPackage.GetMove;
             
             currentBehaviour.UpdateBehaviour(this);
         }

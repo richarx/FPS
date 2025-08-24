@@ -39,7 +39,7 @@ namespace Player.Scripts
             if (previous == BehaviourType.Locked)
             {
                 isSkippingFrame = true;
-                PlayerInputs.ResetInputBuffers();
+                player.inputPacker.ResetBuffers();
             }
         }
 
@@ -51,25 +51,25 @@ namespace Player.Scripts
                 return;
             }
             
-            if (player.playerJump.CanJump() && PlayerInputs.GetSouthButton())
+            if (player.playerJump.CanJump() && player.inputPackage.GetJump.WasPressedWithBuffer())
             {
                 player.playerJump.StartJump(player);
                 return;
             }
 
-            if (PlayerInputs.GetUpArrow())
+            if (player.inputPackage.GetToolUp.wasPressedThisFrame)
             {
                 player.ChangeBehaviour(player.playerScanning);
                 return;
             }
             
-            if (PlayerInputs.GetStartButton())
+            if (player.inputPackage.GetBackpack.wasPressedThisFrame)
             {
                 player.ChangeBehaviour(player.playerBackpack);
                 return;
             }
 
-            if (isCrouchInputReset && PlayerInputs.GetEastButton(isHeld:true))
+            if (isCrouchInputReset && player.inputPackage.GetCrouch.isPressed)
             {
                 if (player.IsMoving(player.playerData.slideVelocityThresholdToCrouch))
                     player.ChangeBehaviour(player.playerSlide);
@@ -81,14 +81,14 @@ namespace Player.Scripts
 
             HandleSprint(player);
 
-            isCrouchInputReset = isCrouchInputReset || !PlayerInputs.GetEastButton(withBuffer:false, isHeld:true);
+            isCrouchInputReset = isCrouchInputReset || !player.inputPackage.GetCrouch.isPressed;
         }
 
         private bool isJoystickSprint;
         public void HandleSprint(PlayerStateMachine player)
         {
-            bool sprintInputJoystick = PlayerInputs.GetLeftStickClick();
-            bool sprintInputKeyboard = PlayerInputs.GetLeftShift(true);
+            bool sprintInputJoystick = player.inputPackage.leftStickButton.wasPressedThisFrame;
+            bool sprintInputKeyboard = player.inputPackage.shiftKey.isPressed;
 
             bool sprintInput = (sprintInputJoystick || isJoystickSprint) || sprintInputKeyboard;
 

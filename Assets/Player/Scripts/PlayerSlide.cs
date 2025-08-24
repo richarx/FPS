@@ -26,13 +26,13 @@ namespace Player.Scripts
 
         public void UpdateBehaviour(PlayerStateMachine player)
         {
-            if (player.playerJump.CanJump() && PlayerInputs.GetSouthButton())
+            if (player.playerJump.CanJump() && player.inputPackage.GetJump.WasPressedWithBuffer())
             {
                 player.playerJump.StartJump(player);
                 return;
             }
             
-            if (wasInputReset && PlayerInputs.GetEastButton())
+            if (wasInputReset && player.inputPackage.GetCrouch.wasPressedThisFrame)
             {
                 player.ChangeBehaviour(player.playerRun);
                 return;

@@ -17,13 +17,13 @@ namespace Player.Scripts
 
         public void UpdateBehaviour(PlayerStateMachine player)
         {
-            if (PlayerInputs.GetUpArrow())
+            if (player.inputPackage.GetToolUp.wasPressedThisFrame)
             {
                 player.ChangeBehaviour(player.playerRun);
                 return;
             }
 
-            if (PlayerInputs.GetSouthButton())
+            if (player.inputPackage.GetToolDown.wasPressedThisFrame)
             {
                 player.scanner.TriggerNewScan();
             }

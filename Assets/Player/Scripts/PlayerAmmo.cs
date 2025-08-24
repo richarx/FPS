@@ -60,7 +60,7 @@ namespace Player.Scripts
             if (!CanReload())
                 return;
             
-            if (player.playerGun.hasWeapon && PlayerInputs.GetWestButton())
+            if (player.playerGun.hasWeapon && player.inputPackage.GetReload.WasPressedWithBuffer())
                 ReloadGun();
         }
 

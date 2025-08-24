@@ -31,69 +31,108 @@ namespace Tools_and_Scripts
 
     public class InputPackage
     {
-        public InputType lastInputType;
+        public InputType lastInputType = InputType.Keyboard;
         
+        //Game specific gamepad/keyboard bindings
         public Vector2 GetMove => lastInputType == InputType.Gamepad ? gamepadMove : keyboardMove;
         public Vector2 GetLook => lastInputType == InputType.Gamepad ? gamepadLook : keyboardLook;
 
-        //Gamepad
+        public InputData GetJump => lastInputType == InputType.Gamepad ? southButton : spaceKey;
+        public InputData GetCrouch => lastInputType == InputType.Gamepad ? eastButton : ctrlKey;
+        
+        public InputData GetShoot => lastInputType == InputType.Gamepad ? rightTrigger : leftMouse;
+        public InputData GetAim => lastInputType == InputType.Gamepad ? leftTrigger : rightMouse;
+        public InputData GetReload => lastInputType == InputType.Gamepad ? westButton : rKey;
+        public InputData GetSwapWeapon => lastInputType == InputType.Gamepad ? northButton : middleMouse;
+        
+        public InputData GetBackpack => lastInputType == InputType.Gamepad ? startButton : bKey;
+        
+        public InputData GetMenuLeft => lastInputType == InputType.Gamepad ? leftArrowButton : leftKey;
+        public InputData GetMenuUp => lastInputType == InputType.Gamepad ? upArrowButton : upKey;
+        public InputData GetMenuRight => lastInputType == InputType.Gamepad ? rightArrowButton : rightKey;
+        public InputData GetMenuDown => lastInputType == InputType.Gamepad ? downArrowButton : downKey;
+        
+        public InputData GetToolLeft => lastInputType == InputType.Gamepad ? leftArrowButton : key_4;
+        public InputData GetToolUp => lastInputType == InputType.Gamepad ? upArrowButton : key_1;
+        public InputData GetToolRight => lastInputType == InputType.Gamepad ? rightArrowButton : key_2;
+        public InputData GetToolDown => lastInputType == InputType.Gamepad ? downArrowButton : key_3;
+
+        public InputData GetSettingsMenu => lastInputType == InputType.Gamepad ? selectButton : tabKey;
+        public InputData GetInteract => lastInputType == InputType.Gamepad ? rightShoulder : eKey;
+
+        //Gamepad raw
         public Vector2 gamepadMove;
         public Vector2 gamepadLook;
         
-        public InputData eastButton;
-        public InputData northButton;
-        public InputData westButton;
-        public InputData southButton;
+        public InputData eastButton = new InputData();
+        public InputData northButton = new InputData();
+        public InputData westButton = new InputData();
+        public InputData southButton = new InputData();
         
-        public InputData leftArrowButton;
-        public InputData upArrowButton;
-        public InputData rightArrowButton;
-        public InputData downArrowButton;
+        public InputData leftArrowButton = new InputData();
+        public InputData upArrowButton = new InputData();
+        public InputData rightArrowButton = new InputData();
+        public InputData downArrowButton = new InputData();
 
-        public InputData leftStickButton;
-        public InputData rightStickButton;
+        public InputData leftStickButton = new InputData();
+        public InputData rightStickButton = new InputData();
         
-        public InputData leftShoulder;
-        public InputData rightShoulder;
+        public InputData leftShoulder = new InputData();
+        public InputData rightShoulder = new InputData();
         
-        public InputData leftTrigger;
-        public InputData rightTrigger;
+        public InputData leftTrigger = new InputData();
+        public InputData rightTrigger = new InputData();
 
-        public InputData startButton;
-        public InputData selectButton;
+        public InputData startButton = new InputData();
+        public InputData selectButton = new InputData();
         
-        //Keyboard
+        //Keyboard raw
         public Vector2 keyboardMove;
         public Vector2 keyboardLook;
-        
-        public InputData leftMouse;
-        public InputData rightMouse;
-        public InputData middleMouse;
 
-        public InputData leftKey;
-        public InputData upKey;
-        public InputData rightKey;        
-        public InputData downKey;        
+        public InputData spaceKey = new InputData();
         
-        public InputData shiftKey;
+        public InputData leftMouse = new InputData();
+        public InputData rightMouse = new InputData();
+        public InputData middleMouse = new InputData();
+
+        public InputData leftKey = new InputData();
+        public InputData upKey = new InputData();
+        public InputData rightKey = new InputData();
+        public InputData downKey = new InputData();
         
-        public InputData bKey;
-        public InputData eKey;
-        public InputData fKey;
-        public InputData gKey;
-        public InputData iKey;
-        public InputData xKey;
+        public InputData shiftKey = new InputData();
+        public InputData tabKey = new InputData();
+        public InputData ctrlKey = new InputData();
+        
+        public InputData key_1 = new InputData();
+        public InputData key_2 = new InputData();
+        public InputData key_3 = new InputData();
+        public InputData key_4 = new InputData();
+
+        public InputData bKey = new InputData();
+        public InputData eKey = new InputData();
+        public InputData fKey = new InputData();
+        public InputData gKey = new InputData();
+        public InputData iKey = new InputData();
+        public InputData rKey = new InputData();
+        public InputData xKey = new InputData();
     }
     
     public class InputPacker
     {
-        private InputPackage previousPackage;
+        private InputPackage previousPackage = new InputPackage();
 
         private bool wasGamepadUsed;
         private bool wasKeyboardUsed;
 
         private float joystickSensitivityX => PauseMenu.instance.joystickXSensitivity;
         private float joystickSensitivityY => PauseMenu.instance.joystickXSensitivity;
+
+        public void ResetBuffers()
+        {
+            previousPackage = new InputPackage();
+        }
         
         public InputPackage ComputeInputPackage()
         {
@@ -118,6 +157,8 @@ namespace Tools_and_Scripts
             inputs.keyboardMove = ComputeKeyboardMove();
             inputs.keyboardLook = ComputeKeyboardLook();
             
+            inputs.spaceKey = ComputeKeyboardInput(Keyboard.current.spaceKey, previousPackage.spaceKey.lastPressTimestamp);
+            
             inputs.leftMouse = ComputeKeyboardInput(Mouse.current.leftButton, previousPackage.leftMouse.lastPressTimestamp);
             inputs.rightMouse = ComputeKeyboardInput(Mouse.current.rightButton, previousPackage.rightMouse.lastPressTimestamp);
             inputs.middleMouse = ComputeMiddleMouse(previousPackage.middleMouse.lastPressTimestamp);
@@ -128,12 +169,20 @@ namespace Tools_and_Scripts
             inputs.downKey = ComputeKeyboardInput(Keyboard.current.sKey, previousPackage.downKey.lastPressTimestamp);
             
             inputs.shiftKey = ComputeKeyboardInput(Keyboard.current.leftShiftKey, previousPackage.shiftKey.lastPressTimestamp);
+            inputs.tabKey = ComputeKeyboardInput(Keyboard.current.tabKey, previousPackage.tabKey.lastPressTimestamp);
+            inputs.ctrlKey = ComputeKeyboardInput(Keyboard.current.leftCtrlKey, previousPackage.ctrlKey.lastPressTimestamp);
+
+            inputs.key_1 = ComputeDualKeyboardInput(Keyboard.current.digit1Key, Keyboard.current.numpad1Key, previousPackage.key_1.lastPressTimestamp);
+            inputs.key_2 = ComputeDualKeyboardInput(Keyboard.current.digit2Key, Keyboard.current.numpad2Key, previousPackage.key_2.lastPressTimestamp);
+            inputs.key_3 = ComputeDualKeyboardInput(Keyboard.current.digit3Key, Keyboard.current.numpad3Key, previousPackage.key_3.lastPressTimestamp);
+            inputs.key_4 = ComputeDualKeyboardInput(Keyboard.current.digit4Key, Keyboard.current.numpad4Key, previousPackage.key_4.lastPressTimestamp);
             
             inputs.bKey = ComputeKeyboardInput(Keyboard.current.bKey, previousPackage.bKey.lastPressTimestamp);
             inputs.eKey = ComputeKeyboardInput(Keyboard.current.eKey, previousPackage.eKey.lastPressTimestamp);
             inputs.fKey = ComputeKeyboardInput(Keyboard.current.fKey, previousPackage.fKey.lastPressTimestamp);
             inputs.gKey = ComputeKeyboardInput(Keyboard.current.gKey, previousPackage.gKey.lastPressTimestamp);
             inputs.iKey = ComputeKeyboardInput(Keyboard.current.iKey, previousPackage.iKey.lastPressTimestamp);
+            inputs.rKey = ComputeKeyboardInput(Keyboard.current.rKey, previousPackage.rKey.lastPressTimestamp);
             inputs.xKey = ComputeKeyboardInput(Keyboard.current.xKey, previousPackage.xKey.lastPressTimestamp);
             
             return inputs;

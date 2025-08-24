@@ -81,7 +81,7 @@ namespace Player.Scripts
             
             if (player.isAiming)
             {
-                Vector2 lookDirection = PlayerInputs.GetAimingDirectionWithSensibility();
+                Vector2 lookDirection = player.inputPackage.GetLook;
                 lookDirection *= Time.deltaTime;
                 lookDirection *= PauseMenu.instance.aimSensitivityMultiplier;
                 Vector3 delta = transform.right * lookDirection.x + Vector3.up * lookDirection.y;
@@ -103,7 +103,7 @@ namespace Player.Scripts
 
         private void FollowMouse()
         {
-            Vector2 lookDirection = PlayerInputs.GetAimingDirectionWithSensibility();
+            Vector2 lookDirection = player.inputPackage.GetLook;
             lookDirection *= Time.deltaTime;
 
             if (player.isAiming)

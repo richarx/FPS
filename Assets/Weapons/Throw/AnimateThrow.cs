@@ -141,17 +141,7 @@ namespace Weapons.Throw
             if (hand == null)
                 return;
             
-            hand.localPosition = Vector3.SmoothDamp(hand.localPosition, targetPosition + offsetPosition, ref velocity, ComputeSpeed());
-        }
-
-        private float ComputeSpeed()
-        {
-            if (player.isReloading || player.isLocked)
-                return gunAnimationSmoothTime;
-            else if (player.isAiming)
-                return player.playerGun.CurrentWeapon.aimDownSightSpeed;
-
-            return gunAnimationSmoothTime;
+            hand.localPosition = Vector3.SmoothDamp(hand.localPosition, targetPosition + offsetPosition, ref velocity, gunAnimationSmoothTime);
         }
 
         private void Slide()

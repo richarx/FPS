@@ -26,7 +26,7 @@ namespace Player.Scripts
             if (PauseMenu.instance.IsPaused)
                 return;
             
-            if (isAiming != PlayerInputs.GetLeftTrigger(isHeld: true))
+            if (isAiming != player.inputPackage.GetAim.isPressed)
             {
                 isAiming = !isAiming;
                 OnChangeAimState?.Invoke(isAiming);

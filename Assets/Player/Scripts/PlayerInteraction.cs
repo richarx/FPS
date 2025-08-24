@@ -1,15 +1,14 @@
 using System;
-using Backpack;
 using Inventory;
 using Items;
 using Pause_Menu;
-using Tools_and_Scripts;
 using UnityEngine;
 
 namespace Player.Scripts
 {
     public class PlayerInteraction : MonoBehaviour
     {
+        private PlayerStateMachine player;
         private PlayerGun playerGun;
         private BackpackStorage backpackStorage;
         
@@ -17,6 +16,7 @@ namespace Player.Scripts
 
         private void Start()
         {
+            player = PlayerStateMachine.instance;
             playerGun = GetComponent<PlayerGun>();
             backpackStorage = GetComponent<BackpackStorage>();
         }
@@ -26,7 +26,7 @@ namespace Player.Scripts
             if (PauseMenu.instance.IsPaused)
                 return;
             
-            if (PlayerInputs.GetRightShoulder() && registeredItem != null)
+            if (player.inputPackage.GetInteract.WasPressedWithBuffer() && registeredItem != null)
                 InteractWithItem();
         }
 

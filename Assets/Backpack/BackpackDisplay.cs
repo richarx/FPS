@@ -21,6 +21,8 @@ namespace Backpack
 
         private Animator backpackAnimator;
 
+        private PlayerStateMachine player;
+
         private bool isDisplayed;
         private Pocket previousPocket = Pocket.tools;
         private Pocket currentPocket = Pocket.tools;
@@ -29,7 +31,7 @@ namespace Backpack
         {
             backpackAnimator = backpack.GetComponent<Animator>();
             
-            PlayerStateMachine player = PlayerStateMachine.instance;
+            player = PlayerStateMachine.instance;
             player.playerBackpack.OnOpenBag.AddListener(() =>
             {
                 StopAllCoroutines();
@@ -50,13 +52,13 @@ namespace Backpack
             if (!isDisplayed)
                 return;
             
-            if (PlayerInputs.GetMenuUp())
+            if (player.inputPackage.GetMenuUp.wasPressedThisFrame)
                 SwitchPocket(Pocket.tools);
-            if (PlayerInputs.GetMenuDown())
+            if (player.inputPackage.GetMenuDown.wasPressedThisFrame)
                 SwitchPocket(Pocket.component);
-            if (PlayerInputs.GetMenuLeft())
+            if (player.inputPackage.GetMenuLeft.wasPressedThisFrame)
                 SwitchPocket(Pocket.ammo);
-            if (PlayerInputs.GetMenuRight())
+            if (player.inputPackage.GetMenuRight.wasPressedThisFrame)
                 SwitchPocket(Pocket.medicine);
         }
         

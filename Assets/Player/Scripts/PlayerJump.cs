@@ -55,13 +55,13 @@ namespace Player.Scripts
 
         public void UpdateBehaviour(PlayerStateMachine player)
         {
-            if (!jumpToConsume && CanJump() && PlayerInputs.GetSouthButton())
+            if (!jumpToConsume && CanJump() && player.inputPackage.GetJump.WasPressedWithBuffer())
             {
                 StartJump(player);
                 return;
             }
 
-            if (PlayerInputs.GetEastButton())
+            if (player.inputPackage.GetCrouch.WasPressedWithBuffer())
             {
                 player.ChangeBehaviour(player.playerSlam);
                 return;
@@ -182,7 +182,7 @@ namespace Player.Scripts
         
         private void HandleJump(PlayerStateMachine player)
         {
-            if (canBeEndedEarly && !endedJumpEarly && !isGrounded && !PlayerInputs.GetSouthButton(true, false) && player.rb.velocity.y > 0)
+            if (canBeEndedEarly && !endedJumpEarly && !isGrounded && !player.inputPackage.GetJump.isPressed && player.rb.velocity.y > 0)
                 endedJumpEarly = true;
 
             if (!jumpToConsume)

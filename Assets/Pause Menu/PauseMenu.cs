@@ -52,7 +52,7 @@ namespace Pause_Menu
 
         private void Update()
         {
-            if (PlayerInputs.GetSelectButton())
+            if (player.inputPackage.GetSettingsMenu.wasPressedThisFrame)
             {
                 isPaused = !isPaused;
                 

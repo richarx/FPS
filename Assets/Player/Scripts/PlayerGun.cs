@@ -36,13 +36,13 @@ namespace Player.Scripts
             if (player.isBackpackOpen)
                 return;
 
-            if (hasWeapon && player.playerArms.currentArmType == PlayerArms.ArmType.Throw && PlayerInputs.GetNorthButton())
+            if (hasWeapon && player.playerArms.currentArmType == PlayerArms.ArmType.Throw && player.inputPackage.GetSwapWeapon.WasPressedWithBuffer())
                 SwapWeaponsVisuals(primaryWeapon);
             
-            if (hasSecondaryWeapon && PlayerInputs.GetNorthButton())
+            if (hasSecondaryWeapon && player.inputPackage.GetSwapWeapon.WasPressedWithBuffer())
                 SwapWeapons();
 
-            if (hasWeapon && PlayerInputs.GetLeftArrow())
+            if (hasWeapon && player.inputPackage.GetToolLeft.WasPressedWithBuffer())
                 DropCurrentWeapon();
         }
         
