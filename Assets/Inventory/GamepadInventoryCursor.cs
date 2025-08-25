@@ -19,10 +19,6 @@ namespace Inventory
             inventoryCursor = GetComponent<InventoryCursor>();
             inventoryDisplay = GetComponent<InventoryDisplay>();
             player = PlayerStateMachine.instance;
-            
-            //player.playerBackpack.OnOpenBag.AddListener(DisplayPocket);
-            //player.backpackDisplay.OnSwitchPocketTarget.AddListener(SwitchPocket);
-            //player.playerBackpack.OnCloseBag.AddListener(HidePocket);
         }
 
         private void Update()
