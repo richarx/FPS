@@ -19,12 +19,10 @@ namespace Inventory
         
         public void Setup(IReadOnlyCollection<PocketItem> items)
         {
-            Debug.Log("Setup !");
             for (int i = 0; i < slots.Count; i++)
             {
-                string tmp = i < items.Count ? items.ElementAt(i).item.itemName : "empty";
-                Debug.Log($"Setup : {tmp}");
                 slots[i].Setup(i < items.Count ? items.ElementAt(i) : null);
+                slots[i].GetComponent<SlotMouseDetection>().SetSlotIndex(i);
             }
         }
         

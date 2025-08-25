@@ -1,4 +1,3 @@
-using System;
 using Player.Scripts;
 using Tools_and_Scripts;
 using UnityEngine;
@@ -21,10 +20,20 @@ namespace Inventory
             inventoryCursor = GetComponent<InventoryCursor>();
             inventoryDisplay = GetComponent<InventoryDisplay>();
             player = PlayerStateMachine.instance;
+         
+            SlotMouseDetection.OnSlotMouseOver.AddListener(MoveCursorToSlot);
             
             pointer.gameObject.SetActive(false);
         }
-        
+
+        private void MoveCursorToSlot(RectTransform slot, int slotIndex)
+        {
+            if (!player.isBackpackOpen || player.inputPackage.lastInputType != InputType.Keyboard)
+                return;
+            
+            inventoryCursor.SetTargetPosition(slot, slotIndex);
+        }
+
         private void Update()
         {
             if (!player.isBackpackOpen || player.inputPackage.lastInputType != InputType.Keyboard)

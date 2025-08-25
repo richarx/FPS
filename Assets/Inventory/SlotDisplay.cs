@@ -1,4 +1,3 @@
-using Backpack;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,8 +11,11 @@ namespace Inventory
         [SerializeField] private TextMeshProUGUI text; 
         [SerializeField] private float fadeDuration;
 
+        private bool isDisplayed;
         private bool hasItem;
-        
+
+        public bool IsDisplayed => isDisplayed;
+
         public void Setup(PocketItem item)
         {
             hasItem = item != null;
@@ -26,7 +28,8 @@ namespace Inventory
         public void Display()
         {
             StopAllCoroutines();
-         
+
+            isDisplayed = true;
             StartCoroutine(Tools.Fade(background, fadeDuration, true, 0.8f));
             StartCoroutine(Tools.Fade(icon, fadeDuration, true, 0.8f));
             StartCoroutine(Tools.Fade(text, fadeDuration, true, 0.8f));
@@ -36,6 +39,7 @@ namespace Inventory
         {
             StopAllCoroutines();
          
+            isDisplayed = false;
             StartCoroutine(Tools.Fade(background, fadeDuration, false, 0.8f));
             StartCoroutine(Tools.Fade(icon, fadeDuration, false, 0.8f));
             StartCoroutine(Tools.Fade(text, fadeDuration, false, 0.8f));
@@ -44,6 +48,8 @@ namespace Inventory
         public void HideInstant()
         {
             StopAllCoroutines();
+            
+            isDisplayed = false;
             background.gameObject.SetActive(false);
             icon.gameObject.SetActive(false);
             text.gameObject.SetActive(false);
