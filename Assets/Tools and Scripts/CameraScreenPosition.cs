@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Tools_and_Scripts
 {
@@ -37,6 +38,11 @@ namespace Tools_and_Scripts
         {
             RectTransformUtility.ScreenPointToLocalPointInRectangle(rect, position, mainCamera, out Vector2 result);
             return result;
+        }
+        
+        public Vector2 GetMousePosition(RectTransform rect)
+        {
+            return ScreenPointToLocalPointInRectangle(rect, Mouse.current.position.value);
         }
     }
 }

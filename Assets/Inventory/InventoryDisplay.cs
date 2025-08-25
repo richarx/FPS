@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
-using Backpack;
 using Player.Scripts;
 using UnityEngine;
+using UnityEngine.Events;
 using static Inventory.BackpackStorage;
 
 namespace Inventory
@@ -15,9 +15,12 @@ namespace Inventory
         [SerializeField] private PocketDisplay medicinePocket;
         [SerializeField] private float displayDelay;
 
+        public UnityEvent OnDisplayNewPocket = new UnityEvent();
+        
         private BackpackStorage backpackStorage;
         
         private PocketDisplay currentPocket;
+        public PocketDisplay CurrentPocket => currentPocket;
         
         private void Start()
         {
@@ -27,6 +30,8 @@ namespace Inventory
             player.playerBackpack.OnOpenBag.AddListener(DisplayPocket);
             player.backpackDisplay.OnSwitchPocketTarget.AddListener(SwitchPocket);
             player.playerBackpack.OnCloseBag.AddListener(HidePocket);
+            
+            currentPocket = ComputePocket(Pocket.tools);
             
             componentPocket.HideInstant();
             toolsPocket.HideInstant();
@@ -46,6 +51,7 @@ namespace Inventory
             currentPocket.Setup(backpackStorage.GetPocketStorage(Pocket.tools).GetPocketItems);
             yield return new WaitForSeconds(displayDelay);
             currentPocket.Display();
+            OnDisplayNewPocket?.Invoke();
         }
 
         private void SwitchPocket(Pocket pocket)
@@ -55,6 +61,7 @@ namespace Inventory
             currentPocket = ComputePocket(pocket);
             currentPocket.Setup(backpackStorage.GetPocketStorage(pocket).GetPocketItems);
             currentPocket.Display();
+            OnDisplayNewPocket?.Invoke();
         }
         
         private void HidePocket()
@@ -63,7 +70,7 @@ namespace Inventory
             currentPocket.Hide();
         }
 
-        private PocketDisplay ComputePocket(Pocket pocket)
+        public PocketDisplay ComputePocket(Pocket pocket)
         {
             switch (pocket)
             {

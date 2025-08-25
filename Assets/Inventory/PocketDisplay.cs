@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Backpack;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +10,13 @@ namespace Inventory
         [SerializeField] private List<SlotDisplay> slots;
         [SerializeField] private Image background;
         [SerializeField] private float fadeDuration;
+        [SerializeField] private int width;
+        [SerializeField] private int height;
 
+        public List<SlotDisplay> Slots => slots;
+        public int Width => width;
+        public int Height => height;
+        
         public void Setup(IReadOnlyCollection<PocketItem> items)
         {
             Debug.Log("Setup !");
