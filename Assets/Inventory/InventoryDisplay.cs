@@ -15,7 +15,7 @@ namespace Inventory
         [SerializeField] private PocketDisplay medicinePocket;
         [SerializeField] private float displayDelay;
 
-        public UnityEvent OnDisplayNewPocket = new UnityEvent();
+        [HideInInspector] public UnityEvent OnDisplayNewPocket = new UnityEvent();
         
         private BackpackStorage backpackStorage;
         

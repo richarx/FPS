@@ -4,6 +4,8 @@ namespace Player.Scripts
 {
     public class ResetPlayerPosition : MonoBehaviour
     {
+        [SerializeField] private float killHeight;
+    
         private PlayerStateMachine player;
         private Vector3 startingPosition;
         
@@ -15,7 +17,7 @@ namespace Player.Scripts
 
         private void Update()
         {
-            if (player.position.y <= -200.0f)
+            if (player.position.y <= killHeight)
                 player.transform.position = startingPosition;
         }
     }
