@@ -4974,9 +4974,6 @@ MonoBehaviour:
   - {fileID: 1779118699351901453}
   - {fileID: 8317547017078159356}
   - {fileID: 4939479989181019099}
-  OnSwitchPocketTarget:
-    m_PersistentCalls:
-      m_Calls: []
   displayDelay: 0.3
   displayDuration: 0.1
   shadowDisplayDelay: 0.06
@@ -5522,9 +5519,8 @@ GameObject:
   - component: {fileID: 4524133793470630710}
   - component: {fileID: 7609398244241524226}
   - component: {fileID: 1881655192568238256}
-  - component: {fileID: 2479304763623071503}
-  - component: {fileID: 1158997699709033958}
   - component: {fileID: 8099228061389979905}
+  - component: {fileID: 6207239098378227487}
   m_Layer: 0
   m_Name: BackpackMenu
   m_TagString: Untagged
@@ -5609,32 +5605,6 @@ MonoBehaviour:
   cursor: {fileID: 2694635824685835686}
   smoothTime: 0.1
   currentSlotIndex: 0
---- !u!114 &2479304763623071503
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4069042743379476793}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d55710c2bc5da9418e86402eaa3bea6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1158997699709033958
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4069042743379476793}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4de3a9bc930a714f87bcf7579d95f16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canvas: {fileID: 8349161507964310560}
-  pointer: {fileID: 2567301468791798593}
 --- !u!114 &8099228061389979905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5650,6 +5620,28 @@ MonoBehaviour:
   inputDisplay: {fileID: 8100515165562449018}
   gamepadDisplay: {fileID: 601416501777866652}
   keyboardDisplay: {fileID: 2772671599655059046}
+--- !u!114 &6207239098378227487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4069042743379476793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4607554a39a21a245b3f9069f5aeb3e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnSwitchPocketTarget:
+    m_PersistentCalls:
+      m_Calls: []
+  player: {fileID: 0}
+  canvas: {fileID: 8349161507964310560}
+  pointer: {fileID: 2567301468791798593}
+  backpackDisplay: {fileID: 7648072432988658304}
+  inventoryDisplay: {fileID: 0}
+  inventoryCursor: {fileID: 0}
+  currentPocket: 0
 --- !u!1 &4337539847417498818
 GameObject:
   m_ObjectHideFlags: 0
