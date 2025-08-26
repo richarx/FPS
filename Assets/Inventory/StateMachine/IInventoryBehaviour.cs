@@ -19,9 +19,9 @@ namespace Inventory.StateMachine
     
     public interface IInventoryBehaviour
     {
-        public void StartBehaviour(InventoryStateMachine player, InventoryBehaviourType previous);
-        public void UpdateBehaviour(InventoryStateMachine player);
-        public void StopBehaviour(InventoryStateMachine player, InventoryBehaviourType next);
+        public void StartBehaviour(InventoryStateMachine inventory, InventoryBehaviourType previous);
+        public void UpdateBehaviour(InventoryStateMachine inventory);
+        public void StopBehaviour(InventoryStateMachine inventory, InventoryBehaviourType next);
         public InventoryBehaviourType GetBehaviourType();
     }
 }

@@ -39,7 +39,7 @@ namespace Dialog_System
         {
             ComputePositions();
             textMeshPro.text = "";
-            Tools.RestoreTextColor(textMeshPro);
+            Tools.SetTextColor(textMeshPro);
             dialogBox.gameObject.SetActive(true);
             StartCoroutine(Tools.Fade(boxImage, animationDuration, true, boxOpacity));
             

@@ -33,6 +33,7 @@ namespace Inventory.StateMachine
         public InventoryCloseInventory closeInventory = new InventoryCloseInventory();
         public InventoryGamepadMove gamepadMove = new InventoryGamepadMove();
         public InventoryKeyboardMove keyboardMove;
+        public InventoryGamepadGrab gamepadGrab = new InventoryGamepadGrab();
         
         public IInventoryBehaviour currentBehaviour;
 
@@ -63,9 +64,17 @@ namespace Inventory.StateMachine
                 return;
             
             (bool isPocketChangeRequested, Pocket targetPocket) = pocketSwitcher.CheckForPocketInput();
-            
+
             if (isPocketChangeRequested)
+            {
                 SwitchPocket(targetPocket);
+
+                if (currentBehaviour.GetBehaviourType() != InventoryBehaviourType.MoveGamepad)
+                {
+                    ChangeToMovementBehaviour();
+                    return;
+                }
+            }
             
             currentBehaviour.UpdateBehaviour(this);
         }
@@ -107,9 +116,19 @@ namespace Inventory.StateMachine
             ChangeBehaviour(player.inputPackage.lastInputType == InputType.Gamepad ? gamepadMove : keyboardMove);
         }
         
+        public void ChangeToGrabBehaviour()
+        {
+            ChangeBehaviour(player.inputPackage.lastInputType == InputType.Gamepad ? gamepadGrab : keyboardMove);
+        }
+        
         public Transform GetCurrentLookTarget()
         {
             return isDisplayed ? backpackDisplay.lookTargets[(int)currentPocket] : null;
+        }
+
+        public SlotDisplay GetCurrentDisplaySlot()
+        {
+            return inventoryDisplay.ComputePocket(currentPocket).Slots[inventoryCursor.currentSlotIndex];
         }
     }
 }

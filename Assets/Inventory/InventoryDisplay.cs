@@ -72,7 +72,7 @@ namespace Inventory
             isDisplayed = false;
         }
 
-        private PocketDisplay ComputePocket(Pocket pocket)
+        public PocketDisplay ComputePocket(Pocket pocket)
         {
             switch (pocket)
             {
@@ -87,6 +87,11 @@ namespace Inventory
                 default:
                     throw new ArgumentOutOfRangeException(nameof(pocket), pocket, null);
             }
+        }
+
+        public void SwapItems(Pocket pocket, int firstIndex, int secondIndex, PocketItem firstData, PocketItem secondData)
+        {
+            ComputePocket(pocket).SwapItems(firstIndex, secondIndex, firstData, secondData);
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Items;
 using UnityEngine;
 
@@ -9,26 +10,25 @@ namespace Inventory
     {
         public ItemData item;
         public int count;
+        public bool isEmpty => item == null;
 
         public PocketItem(ItemData data)
         {
             item = data;
-            count = 1;
+            count = isEmpty ? 0 : 1;
         }
     }
     
     public class PocketStorage
     {
         private List<PocketItem> pocketItems;
-        private int maxSlotCount;
 
         public IReadOnlyCollection<PocketItem> GetPocketItems => pocketItems.AsReadOnly();
 
-        public bool isFull => pocketItems.Count + 1 >= maxSlotCount;
 
         public bool CanStoreItem(ItemData newItem)
         {
-            if (!isFull)
+            if (!IsFull())
                 return true;
             
             if (newItem.canBeStacked)
@@ -40,7 +40,17 @@ namespace Inventory
 
             return false;
         }
-        
+
+        private bool IsFull()
+        {
+            return ComputeItemCount() >= pocketItems.Count;
+        }
+
+        private int ComputeItemCount()
+        {
+            return pocketItems.Count((p) => p.isEmpty == false);
+        }
+
         public void StoreItem(ItemData newItem)
         {
             Debug.Log($"Store Item : {newItem.itemName}");
@@ -55,18 +65,34 @@ namespace Inventory
                     return;
                 }
             }
-            
-            if (isFull)
+
+            if (IsFull())
+            {
+                Debug.Log("Store Item : Bag is full");
                 return;
+            }
+
+            PocketItem item = pocketItems.Find((p) => p.isEmpty);
+            item.item = newItem;
+            item.count = 1;
             
-            pocketItems.Add(new PocketItem(newItem));
             Debug.Log("Store Item : item added");
         }
 
         public PocketStorage(int slotCount)
         {
             pocketItems = new List<PocketItem>();
-            maxSlotCount = slotCount;
+
+            for (int i = 0; i < slotCount; i++)
+            {
+                pocketItems.Add(new PocketItem(null));
+            }
+        }
+
+        public (PocketItem, PocketItem) SwapItems(int first, int second)
+        {
+            (pocketItems[first], pocketItems[second]) = (pocketItems[second], pocketItems[first]);
+            return (pocketItems[first], pocketItems[second]);
         }
     }
     
@@ -118,6 +144,11 @@ namespace Inventory
                 default:
                     throw new ArgumentOutOfRangeException(nameof(pocket), pocket, null);
             }
+        }
+
+        public (PocketItem, PocketItem) SwapItems(Pocket pocket, int first, int second)
+        {
+            return GetPocketStorage(pocket).SwapItems(first, second);
         }
     }
 }

@@ -20,10 +20,17 @@ namespace Inventory.StateMachine
                 inventory.ChangeBehaviour(inventory.keyboardMove);
                 return;
             }
+
+            if (inventory.GetCurrentDisplaySlot().HasItem && inventory.player.inputPackage.southButton.wasPressedThisFrame)
+            {
+                inventory.ChangeToGrabBehaviour();
+                return;
+            }
+            
             CheckPlayerMove(inventory);
         }
 
-        private void CheckPlayerMove(InventoryStateMachine inventory)
+        public void CheckPlayerMove(InventoryStateMachine inventory)
         {
             Vector2 move = inventory.player.inputPackage.GetMove;
 

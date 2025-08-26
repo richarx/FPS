@@ -584,12 +584,23 @@ public static class Tools
 
         return images;
     }
+    
+    public static Image SetImageColor(Image image, float alpha = 1.0f)
+    {
+        Color color = image.color;
+        color.a = alpha;
+        image.color = color;
 
-    public static void RestoreTextColor(TextMeshProUGUI text)
+        return image;
+    }
+
+    public static TextMeshProUGUI SetTextColor(TextMeshProUGUI text, float alpha = 1.0f)
     {
         Color color = text.color;
-        color.a = 1.0f;
+        color.a = alpha;
         text.color = color;
+
+        return text;
     }
     
     public static Vector3 LerpVector3(Vector3 start, Vector3 end, float t)

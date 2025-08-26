@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Items;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,7 +22,7 @@ namespace Inventory
         {
             for (int i = 0; i < slots.Count; i++)
             {
-                slots[i].Setup(i < items.Count ? items.ElementAt(i) : null);
+                slots[i].Setup(i < items.Count ? items.ElementAt(i) : null, SlotDisplay.SlotState.Normal);
                 slots[i].GetComponent<SlotMouseDetection>().SetSlotIndex(i);
             }
         }
@@ -51,6 +52,12 @@ namespace Inventory
             
             foreach (SlotDisplay slot in slots)
                 slot.HideInstant();
+        }
+
+        public void SwapItems(int firstIndex, int secondIndex, PocketItem firstData, PocketItem secondData)
+        {
+            slots[firstIndex].Setup(firstData, SlotDisplay.SlotState.Normal);
+            slots[secondIndex].Setup(secondData, SlotDisplay.SlotState.Normal);
         }
     }
 }

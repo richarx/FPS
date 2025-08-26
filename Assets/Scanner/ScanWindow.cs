@@ -45,7 +45,7 @@ namespace Scanner
             StartCoroutine(Tools.FillImage(border, fillBorderDuration, true));
             StartCoroutine(Tools.Fade(background, fadeBackgroundDuration, true, backgroundMaxFade, delay:fillBorderDuration / 2.0f));
             text.text = scannerDetector.CurrentTarget.GetScanText();
-            Tools.RestoreTextColor(text);
+            Tools.SetTextColor(text);
             isDisplayed = true;
         }
 
