@@ -1,14 +1,10 @@
-using Tools_and_Scripts;
+using Inventory.StateMachine;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Player.Scripts
 {
     public class PlayerBackpack : IPlayerBehaviour
     {
-        public UnityEvent OnOpenBag = new UnityEvent();
-        public UnityEvent OnCloseBag = new UnityEvent();
-        
         public void StartBehaviour(PlayerStateMachine player, BehaviourType previous)
         {
             Debug.Log("BACKPACK");
@@ -16,7 +12,7 @@ namespace Player.Scripts
             player.moveVelocity = Vector3.zero;
             player.ApplyMovement();
             
-            OnOpenBag?.Invoke();
+            InventoryStateMachine.instance.OpenBackpack();
         }
 
         public void UpdateBehaviour(PlayerStateMachine player)
@@ -35,7 +31,7 @@ namespace Player.Scripts
 
         public void StopBehaviour(PlayerStateMachine player, BehaviourType next)
         {
-            OnCloseBag?.Invoke();
+            InventoryStateMachine.instance.CloseBackpack();
         }
 
         public BehaviourType GetBehaviourType()

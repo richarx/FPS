@@ -1,4 +1,4 @@
-using System;
+using Inventory.StateMachine;
 using Player.Scripts;
 using Tools_and_Scripts;
 using UnityEngine;
@@ -12,6 +12,7 @@ namespace Inventory
         [SerializeField] private GameObject keyboardDisplay;
         
         private PlayerStateMachine player;
+        private InventoryStateMachine inventory;
 
         private Vector3 leftCornerPosition = new Vector3(-730.0f, -340.0f, 0.0f);
         private Vector3 rightCornerPosition = new Vector3(730.0f, -340.0f, 0.0f);
@@ -25,10 +26,11 @@ namespace Inventory
         private void Start()
         {
             player = PlayerStateMachine.instance;
+            inventory = InventoryStateMachine.instance;
             
-            player.playerBackpack.OnOpenBag.AddListener(DisplayPocket);
-            player.backpackDisplay.OnSwitchPocketTarget.AddListener(SwitchPocket);
-            player.playerBackpack.OnCloseBag.AddListener(HidePocket);
+            inventory.openBackpack.OnOpenBackpack.AddListener(DisplayInputs);
+            inventory.OnSwitchPocketTarget.AddListener(SwitchPocket);
+            inventory.closeBackpack.OnCloseBackpack.AddListener(HideInputs);
             InputPacker.OnChangeInputType.AddListener(SetCorrectInputType);
             
             inputDisplay.gameObject.SetActive(false);
@@ -50,13 +52,13 @@ namespace Inventory
                 isRightCorner = true;
         }
 
-        private void DisplayPocket()
+        private void DisplayInputs()
         {
             inputDisplay.gameObject.SetActive(true);
             SetCorrectInputType(player.inputPackage.lastInputType);
         }
 
-        private void HidePocket()
+        private void HideInputs()
         {
             inputDisplay.gameObject.SetActive(false);
         }

@@ -1,4 +1,5 @@
 using Data;
+using Inventory.StateMachine;
 using UnityEngine;
 
 namespace Player.Scripts
@@ -17,16 +18,17 @@ namespace Player.Scripts
         
         private void Start()
         {
+            InventoryStateMachine inventory = InventoryStateMachine.instance;
             PlayerStateMachine player = PlayerStateMachine.instance;
             playerData = player.playerData;
             
-            player.playerBackpack.OnOpenBag.AddListener(() =>
+            inventory.openBackpack.OnOpenBackpack.AddListener(() =>
             {
                 isCrouched = true;
                 isSlide = false;
                 currentTarget = ComputeTargetPosition();
             });
-            player.playerBackpack.OnCloseBag.AddListener(() =>
+            inventory.closeBackpack.OnCloseBackpack.AddListener(() =>
             {
                 isCrouched = false;
                 isSlide = false;

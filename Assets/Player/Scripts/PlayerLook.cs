@@ -1,3 +1,4 @@
+using Inventory.StateMachine;
 using Pause_Menu;
 using Tools_and_Scripts;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace Player.Scripts
         public Transform orientation;
 
         private PlayerStateMachine player;
+        private InventoryStateMachine inventory;
         
         [HideInInspector] public float xRotation;
         [HideInInspector] public float yRotation;
@@ -20,6 +22,7 @@ namespace Player.Scripts
         private void Start()
         {
             player = PlayerStateMachine.instance;
+            inventory = InventoryStateMachine.instance;
             
             Mouse.current.WarpCursorPosition(new Vector2(Screen.width / 2, Screen.height / 2));
             Cursor.lockState = CursorLockMode.Locked;
@@ -38,7 +41,7 @@ namespace Player.Scripts
 
         private void LookAtBackpack()
         {
-            Transform target = player.backpackDisplay.GetCurrentLookTarget();
+            Transform target = inventory.GetCurrentLookTarget();
 
             if (target == null)
             {

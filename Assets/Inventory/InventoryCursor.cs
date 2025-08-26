@@ -1,4 +1,5 @@
 using System.Collections;
+using Inventory.StateMachine;
 using Player.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,10 +30,11 @@ namespace Inventory
             cursorImage = cursor.GetComponent<Image>();
             
             PlayerStateMachine player = PlayerStateMachine.instance;
+            InventoryStateMachine inventory = InventoryStateMachine.instance;
             
-            player.playerBackpack.OnOpenBag.AddListener(DisplayCursor);
+            inventory.openBackpack.OnOpenBackpack.AddListener(DisplayCursor);
             inventoryDisplay.OnDisplayNewPocket.AddListener(SwitchPocket);
-            player.playerBackpack.OnCloseBag.AddListener(HideCursor);
+            inventory.closeBackpack.OnCloseBackpack.AddListener(HideCursor);
             
             cursor.gameObject.SetActive(false);
         }

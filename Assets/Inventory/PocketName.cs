@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using Player.Scripts;
+using Inventory.StateMachine;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,11 +16,11 @@ namespace Inventory
 
         private void Start()
         {
-            PlayerStateMachine player = PlayerStateMachine.instance;
+            InventoryStateMachine inventory = InventoryStateMachine.instance;
             
-            player.playerBackpack.OnOpenBag.AddListener(DisplayPocketName);
-            player.backpackDisplay.OnSwitchPocketTarget.AddListener(UpdatePocketName);
-            player.playerBackpack.OnCloseBag.AddListener(HidePocketName);
+            inventory.openBackpack.OnOpenBackpack.AddListener(DisplayPocketName);
+            inventory.OnSwitchPocketTarget.AddListener(UpdatePocketName);
+            inventory.closeBackpack.OnCloseBackpack.AddListener(HidePocketName);
             
             text.gameObject.SetActive(false);
             line.gameObject.SetActive(false);
