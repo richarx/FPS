@@ -23,7 +23,7 @@ namespace Inventory
     {
         private List<PocketItem> pocketItems;
 
-        public IReadOnlyCollection<PocketItem> GetPocketItems => pocketItems.AsReadOnly();
+        public List<PocketItem> GetPocketItems => pocketItems;
 
 
         public bool CanStoreItem(ItemData newItem)

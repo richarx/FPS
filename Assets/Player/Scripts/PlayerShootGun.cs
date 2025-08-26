@@ -44,7 +44,7 @@ namespace Player.Scripts
 
         private void Update()
         {
-            if (PauseMenu.instance.IsPaused || player.isLocked)
+            if (PauseMenu.instance.IsPaused || player.isLocked || player.isBackpackOpen)
                 return;
 
             if (isLocked)

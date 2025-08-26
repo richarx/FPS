@@ -6,6 +6,7 @@ namespace Inventory.StateMachine
     public class InventoryKeyboardMove : IInventoryBehaviour
     {
         private bool isPointerDisplayed;
+        public bool IsPointerDisplayed => isPointerDisplayed;
         
         public InventoryKeyboardMove(InventoryStateMachine inventory)
         {
@@ -25,6 +26,17 @@ namespace Inventory.StateMachine
                 return;
             }
             
+            if (inventory.GetCurrentDisplaySlot().HasItem && inventory.player.inputPackage.leftMouse.wasPressedThisFrame)
+            {
+                inventory.ChangeToGrabBehaviour();
+                return;
+            }
+
+            MakePointerFollowCursor(inventory);
+        }
+
+        public void MakePointerFollowCursor(InventoryStateMachine inventory)
+        {
             inventory.pointer.anchoredPosition = CameraScreenPosition.instance.GetMousePosition(inventory.canvas);
         }
         
@@ -36,14 +48,14 @@ namespace Inventory.StateMachine
             inventory.inventoryCursor.SetTargetPosition(slot, slotIndex);
         }
         
-        private void DisplayPointer(InventoryStateMachine inventory)
+        public void DisplayPointer(InventoryStateMachine inventory)
         {
             isPointerDisplayed = true;
             Cursor.lockState = CursorLockMode.Confined;
             inventory.pointer.gameObject.SetActive(true);
         }
 
-        private void HidePointer(InventoryStateMachine inventory)
+        public void HidePointer(InventoryStateMachine inventory)
         {
             isPointerDisplayed = false;
             Cursor.lockState = CursorLockMode.Locked;

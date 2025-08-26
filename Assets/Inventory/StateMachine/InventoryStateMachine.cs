@@ -3,6 +3,7 @@ using Player.Scripts;
 using Tools_and_Scripts;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 using static Inventory.BackpackStorage;
 
 namespace Inventory.StateMachine
@@ -18,6 +19,8 @@ namespace Inventory.StateMachine
         public RectTransform canvas;
         public RectTransform pointer;
         public BackpackDisplay backpackDisplay;
+        public Image itemPickedUp;
+        [HideInInspector] public RectTransform itemPickedUpRect;
         [HideInInspector] public InventoryDisplay inventoryDisplay;
         [HideInInspector] public InventoryCursor inventoryCursor;
         [HideInInspector] public PocketSwitcher pocketSwitcher;
@@ -34,6 +37,7 @@ namespace Inventory.StateMachine
         public InventoryGamepadMove gamepadMove = new InventoryGamepadMove();
         public InventoryKeyboardMove keyboardMove;
         public InventoryGamepadGrab gamepadGrab = new InventoryGamepadGrab();
+        public InventoryKeyboardGrab keyboardGrab = new InventoryKeyboardGrab();
         
         public IInventoryBehaviour currentBehaviour;
 
@@ -51,6 +55,7 @@ namespace Inventory.StateMachine
             inventoryDisplay = GetComponent<InventoryDisplay>();
             inventoryCursor = GetComponent<InventoryCursor>();
             pocketSwitcher = new PocketSwitcher();
+            itemPickedUpRect = itemPickedUp.GetComponent<RectTransform>();
             
             currentBehaviour = hidden;
             currentBehaviour.StartBehaviour(this, InventoryBehaviourType.Hidden);
@@ -118,7 +123,7 @@ namespace Inventory.StateMachine
         
         public void ChangeToGrabBehaviour()
         {
-            ChangeBehaviour(player.inputPackage.lastInputType == InputType.Gamepad ? gamepadGrab : keyboardMove);
+            ChangeBehaviour(player.inputPackage.lastInputType == InputType.Gamepad ? gamepadGrab : keyboardGrab);
         }
         
         public Transform GetCurrentLookTarget()
@@ -129,6 +134,11 @@ namespace Inventory.StateMachine
         public SlotDisplay GetCurrentDisplaySlot()
         {
             return inventoryDisplay.ComputePocket(currentPocket).Slots[inventoryCursor.currentSlotIndex];
+        }
+        
+        public PocketItem GetCurrentStorageSlot()
+        {
+            return player.backpackStorage.GetPocketStorage(currentPocket).GetPocketItems[inventoryCursor.currentSlotIndex];
         }
     }
 }
