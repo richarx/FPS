@@ -29,7 +29,6 @@ namespace Inventory
             inventoryDisplay = GetComponent<InventoryDisplay>();
             cursorImage = cursor.GetComponent<Image>();
             
-            PlayerStateMachine player = PlayerStateMachine.instance;
             InventoryStateMachine inventory = InventoryStateMachine.instance;
             
             inventory.openBackpack.OnOpenBackpack.AddListener(DisplayCursor);

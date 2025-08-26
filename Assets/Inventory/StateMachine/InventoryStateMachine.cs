@@ -15,11 +15,14 @@ namespace Inventory.StateMachine
 
         [HideInInspector] public PlayerStateMachine player;
 
+        public RectTransform canvas;
+        public RectTransform pointer;
         public BackpackDisplay backpackDisplay;
         [HideInInspector] public InventoryDisplay inventoryDisplay;
+        [HideInInspector] public InventoryCursor inventoryCursor;
         [HideInInspector] public PocketSwitcher pocketSwitcher;
 
-        public Pocket currentPocket = Pocket.tools;
+        [HideInInspector] public Pocket currentPocket = Pocket.tools;
 
         public bool isDisplayed => currentBehaviour.GetBehaviourType() != InventoryBehaviourType.Hidden;
 
@@ -29,7 +32,7 @@ namespace Inventory.StateMachine
         public InventoryOpenInventory openInventory = new InventoryOpenInventory();
         public InventoryCloseInventory closeInventory = new InventoryCloseInventory();
         public InventoryGamepadMove gamepadMove = new InventoryGamepadMove();
-        public InventoryKeyboardMove keyboardMove = new InventoryKeyboardMove();
+        public InventoryKeyboardMove keyboardMove;
         
         public IInventoryBehaviour currentBehaviour;
 
@@ -42,11 +45,16 @@ namespace Inventory.StateMachine
         {
             player = PlayerStateMachine.instance;
             
+            keyboardMove = new InventoryKeyboardMove(instance);
+            
             inventoryDisplay = GetComponent<InventoryDisplay>();
+            inventoryCursor = GetComponent<InventoryCursor>();
             pocketSwitcher = new PocketSwitcher();
             
             currentBehaviour = hidden;
             currentBehaviour.StartBehaviour(this, InventoryBehaviourType.Hidden);
+            
+            pointer.gameObject.SetActive(false);
         }
         
         private void Update()

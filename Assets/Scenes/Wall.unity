@@ -11557,6 +11557,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 242002348}
   m_SourcePrefab: {fileID: 100100000, guid: 047cc399d5f561b48902e8632947324a, type: 3}
+--- !u!224 &2006262786 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8349161507964310560, guid: 99fc002cf63d7f94984a5a14526de63a,
+    type: 3}
+  m_PrefabInstance: {fileID: 8637642417623603251}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2012598103
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12216,6 +12222,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 527535929}
   m_PrefabAsset: {fileID: 0}
+--- !u!224 &2112794707 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2567301468791798593, guid: 99fc002cf63d7f94984a5a14526de63a,
+    type: 3}
+  m_PrefabInstance: {fileID: 8637642417623603251}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2113933363 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000013765492046, guid: 721671003a026be4fb47107988831b38,
@@ -12638,7 +12650,7 @@ PrefabInstance:
     - target: {fileID: 1881655192568238256, guid: 99fc002cf63d7f94984a5a14526de63a,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2479304763623071503, guid: 99fc002cf63d7f94984a5a14526de63a,
         type: 3}
@@ -12700,7 +12712,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2479304763623071503, guid: 99fc002cf63d7f94984a5a14526de63a, type: 3}
+    - {fileID: 1158997699709033958, guid: 99fc002cf63d7f94984a5a14526de63a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -12743,8 +12757,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   player: {fileID: 0}
+  canvas: {fileID: 2006262786}
+  pointer: {fileID: 2112794707}
   backpackDisplay: {fileID: 8637642417623603253}
   inventoryDisplay: {fileID: 0}
+  inventoryCursor: {fileID: 0}
   currentPocket: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
