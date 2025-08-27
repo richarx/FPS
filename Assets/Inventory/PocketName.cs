@@ -14,9 +14,11 @@ namespace Inventory
         [SerializeField] private Image line;
         [SerializeField] private float fadeDuration;
 
+        private InventoryStateMachine inventory;
+        
         private void Start()
         {
-            InventoryStateMachine inventory = InventoryStateMachine.instance;
+            inventory = InventoryStateMachine.instance;
             
             inventory.openBackpack.OnOpenBackpack.AddListener(DisplayPocketName);
             inventory.OnSwitchPocketTarget.AddListener(UpdatePocketName);
@@ -31,7 +33,7 @@ namespace Inventory
             text.gameObject.SetActive(true);
             line.gameObject.SetActive(true);
             
-            text.text = ComputePocketName(Pocket.tools);
+            text.text = ComputePocketName(inventory.currentPocket);
             StopAllCoroutines();
             StartCoroutine(Tools.Fade(text, fadeDuration, true));
             StartCoroutine(Tools.Fade(line, fadeDuration, true));
