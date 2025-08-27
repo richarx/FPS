@@ -19,6 +19,8 @@ namespace Inventory
         
         private RectTransform targetPosition;
         private bool hasTarget => targetPosition != null;
+
+        public RectTransform Cursor => cursor;
         
         private Vector3 velocity;
 

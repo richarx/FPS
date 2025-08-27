@@ -14,6 +14,10 @@ namespace Inventory.StateMachine
             startingSlotIndex = inventory.inventoryCursor.currentSlotIndex;
             grabbedSlot = inventory.GetCurrentDisplaySlot();
             grabbedSlot.SetState(SlotDisplay.SlotState.Grabbed);
+            
+            inventory.itemPickedUpRect.localPosition = inventory.inventoryCursor.Cursor.localPosition;
+            inventory.itemPickedUp.gameObject.SetActive(true);
+            inventory.itemPickedUp.sprite = inventory.GetCurrentStorageSlot().item.icon;
 
             hasSkippedAFrame = false;
         }
@@ -44,6 +48,7 @@ namespace Inventory.StateMachine
             hasSkippedAFrame = true;
             
             inventory.gamepadMove.CheckPlayerMove(inventory);
+            inventory.itemPickedUpRect.localPosition = inventory.inventoryCursor.Cursor.localPosition;
         }
 
         private void SwapItems(InventoryStateMachine inventory)
@@ -55,6 +60,7 @@ namespace Inventory.StateMachine
         public void StopBehaviour(InventoryStateMachine inventory, InventoryBehaviourType next)
         {
             grabbedSlot.SetState(SlotDisplay.SlotState.Normal);
+            inventory.itemPickedUp.gameObject.SetActive(false);
         }
 
         public InventoryBehaviourType GetBehaviourType()

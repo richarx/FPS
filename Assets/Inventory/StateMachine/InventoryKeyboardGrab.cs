@@ -17,6 +17,7 @@ namespace Inventory.StateMachine
             grabbedSlot = inventory.GetCurrentDisplaySlot();
             grabbedSlot.SetState(SlotDisplay.SlotState.Grabbed);
             
+            inventory.itemPickedUpRect.anchoredPosition = CameraScreenPosition.instance.GetMousePosition(inventory.canvas);
             inventory.itemPickedUp.gameObject.SetActive(true);
             inventory.itemPickedUp.sprite = inventory.GetCurrentStorageSlot().item.icon;
         }
