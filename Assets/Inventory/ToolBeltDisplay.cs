@@ -58,5 +58,10 @@ namespace Inventory
                 slot.Hide();
             }
         }
+
+        public SlotDisplay GetToolBeltSlot(int index)
+        {
+            return slots[index];
+        }
     }
 }

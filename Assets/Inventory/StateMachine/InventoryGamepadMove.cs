@@ -35,6 +35,12 @@ namespace Inventory.StateMachine
                 return;
             }
             
+            if (slotHasItem && inventory.player.inputPackage.westButton.wasPressedThisFrame)
+            {
+                inventory.ChangeToEquipBehaviour();
+                return;
+            }
+            
             CheckPlayerMove(inventory);
         }
 

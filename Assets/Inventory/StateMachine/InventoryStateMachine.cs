@@ -26,6 +26,7 @@ namespace Inventory.StateMachine
         [HideInInspector] public InventoryCursor inventoryCursor;
         [HideInInspector] public PocketSwitcher pocketSwitcher;
         [HideInInspector] public ToolBelt toolBelt;
+        [HideInInspector] public ToolBeltDisplay toolBeltDisplay;
 
         [HideInInspector] public Pocket currentPocket = Pocket.tools;
 
@@ -42,6 +43,7 @@ namespace Inventory.StateMachine
         public InventoryKeyboardGrab keyboardGrab = new InventoryKeyboardGrab();
         public InventoryGamepadThrow gamepadThrow = new InventoryGamepadThrow();
         public InventoryKeyboardThrow keyboardThrow = new InventoryKeyboardThrow();
+        public InventoryGamepadEquip gamepadEquip = new InventoryGamepadEquip();
         
         public IInventoryBehaviour currentBehaviour;
 
@@ -61,6 +63,7 @@ namespace Inventory.StateMachine
             inventoryDisplay = GetComponent<InventoryDisplay>();
             inventoryCursor = GetComponent<InventoryCursor>();
             toolBelt = GetComponent<ToolBelt>();
+            toolBeltDisplay = GetComponent<ToolBeltDisplay>();
             pocketSwitcher = new PocketSwitcher();
             itemPickedUpRect = itemPickedUp.GetComponent<RectTransform>();
             
@@ -144,6 +147,11 @@ namespace Inventory.StateMachine
         public void ChangeToThrowBehaviour()
         {
             ChangeBehaviour(player.inputPackage.lastInputType == InputType.Gamepad ? gamepadThrow : keyboardThrow);
+        }
+        
+        public void ChangeToEquipBehaviour()
+        {
+            ChangeBehaviour(player.inputPackage.lastInputType == InputType.Gamepad ? gamepadEquip : keyboardThrow);
         }
         
         public Transform GetCurrentLookTarget()
