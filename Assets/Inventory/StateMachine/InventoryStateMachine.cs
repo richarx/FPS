@@ -25,6 +25,7 @@ namespace Inventory.StateMachine
         [HideInInspector] public InventoryDisplay inventoryDisplay;
         [HideInInspector] public InventoryCursor inventoryCursor;
         [HideInInspector] public PocketSwitcher pocketSwitcher;
+        [HideInInspector] public ToolBelt toolBelt;
 
         [HideInInspector] public Pocket currentPocket = Pocket.tools;
 
@@ -59,6 +60,7 @@ namespace Inventory.StateMachine
             
             inventoryDisplay = GetComponent<InventoryDisplay>();
             inventoryCursor = GetComponent<InventoryCursor>();
+            toolBelt = GetComponent<ToolBelt>();
             pocketSwitcher = new PocketSwitcher();
             itemPickedUpRect = itemPickedUp.GetComponent<RectTransform>();
             
