@@ -19,6 +19,8 @@ namespace Inventory
         [SerializeField] private TextMeshProUGUI text; 
         [SerializeField] private float fadeDuration;
 
+        private SlotDeleteAnimation slotDeleteAnimation;
+        
         private SlotState currentState = SlotState.Normal;
         
         private bool isDisplayed;
@@ -27,14 +29,20 @@ namespace Inventory
         public bool IsDisplayed => isDisplayed;
         public bool HasItem => hasItem;
 
+        private void Start()
+        {
+            slotDeleteAnimation = GetComponent<SlotDeleteAnimation>();
+        }
+
         public void Setup(PocketItem item, SlotState newState)
         {
             hasItem = item != null && !item.isEmpty;
             bool hasCount = hasItem && item!.item.canBeStacked && item.count > 1;
             
+            icon.gameObject.SetActive(hasItem);
             text.text = hasCount ? item.count.ToString() : "";
             icon.sprite = hasItem ? item!.item.icon : null;
-            
+
             SetState(newState);
         }
         
@@ -44,7 +52,8 @@ namespace Inventory
 
             isDisplayed = true;
             StartCoroutine(Tools.Fade(background, fadeDuration, true, 0.8f));
-            StartCoroutine(Tools.Fade(icon, fadeDuration, true, 0.8f));
+            if (hasItem)
+                StartCoroutine(Tools.Fade(icon, fadeDuration, true, 0.8f));
             StartCoroutine(Tools.Fade(text, fadeDuration, true, 0.8f));
         }
 
@@ -54,7 +63,8 @@ namespace Inventory
          
             isDisplayed = false;
             StartCoroutine(Tools.Fade(background, fadeDuration, false, 0.8f));
-            StartCoroutine(Tools.Fade(icon, fadeDuration, false, 0.8f));
+            if (hasItem)
+                StartCoroutine(Tools.Fade(icon, fadeDuration, false, 0.8f));
             StartCoroutine(Tools.Fade(text, fadeDuration, false, 0.8f));
         }
 
@@ -73,28 +83,39 @@ namespace Inventory
             if (newState == currentState)
                 return;
 
+            DisplaySlotFromState(currentState, newState);
             currentState = newState;
-            DisplaySlotFromState(currentState);
         }
 
-        private void DisplaySlotFromState(SlotState slotState)
+        private void DisplaySlotFromState(SlotState previous, SlotState next)
         {
-            switch (slotState)
+            switch (previous)
             {
                 case SlotState.Normal:
+                    break;
+                case SlotState.Grabbed:
                     icon = Tools.SetImageColor(icon, 0.8f);
                     text = Tools.SetTextColor(text, 0.8f);
+                    break;
+                case SlotState.Deleting:
+                    slotDeleteAnimation.StopAnimation();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(next), next, null);
+            }
+            switch (next)
+            {
+                case SlotState.Normal:
                     break;
                 case SlotState.Grabbed:
                     icon = Tools.SetImageColor(icon, 0.3f);
                     text = Tools.SetTextColor(text, 0.3f);
                     break;
                 case SlotState.Deleting:
-                    icon = Tools.SetImageColor(icon, 0.8f);
-                    text = Tools.SetTextColor(text, 0.8f);
+                    slotDeleteAnimation.StartAnimation();
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(slotState), slotState, null);
+                    throw new ArgumentOutOfRangeException(nameof(next), next, null);
             }
         }
     }

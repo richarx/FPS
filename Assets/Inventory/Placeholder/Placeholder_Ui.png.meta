@@ -114,11 +114,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 304
+        y: 560
         width: 256
         height: 160
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -134,12 +134,12 @@ TextureImporter:
       name: Placeholder_Ui_1
       rect:
         serializedVersion: 2
-        x: 17
-        y: 140
-        width: 50
-        height: 50
+        x: 13
+        y: 392
+        width: 58
+        height: 58
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -147,6 +147,27 @@ TextureImporter:
       bones: []
       spriteID: 49eb3d4414189ff45a5118ca244f805e
       internalID: 806048150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Placeholder_Ui_2
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 136
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be9eec81fe7857544b6c9b8465975a41
+      internalID: 1238942706
       vertices: []
       indices: 
       edges: []
@@ -164,6 +185,7 @@ TextureImporter:
     nameFileIdTable:
       Placeholder_Ui_0: 543026318
       Placeholder_Ui_1: 806048150
+      Placeholder_Ui_2: 1238942706
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

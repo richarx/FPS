@@ -1,7 +1,11 @@
+using UnityEngine.Events;
+
 namespace Inventory.StateMachine
 {
     public class InventoryCloseInventory : IInventoryBehaviour
     {
+        public UnityEvent OnCloseInventory = new UnityEvent();
+        
         public void StartBehaviour(InventoryStateMachine inventory, InventoryBehaviourType previous)
         {
             inventory.inventoryDisplay.HidePocket();
@@ -14,6 +18,7 @@ namespace Inventory.StateMachine
 
         public void StopBehaviour(InventoryStateMachine inventory, InventoryBehaviourType next)
         {
+            OnCloseInventory?.Invoke();
         }
 
         public InventoryBehaviourType GetBehaviourType()

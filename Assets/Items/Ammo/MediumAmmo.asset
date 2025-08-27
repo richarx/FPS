@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: MediumAmmo
   description: this is a description
+  inHandPrefab: {fileID: 0}
+  thrownPrefab: {fileID: 0}
+  lootPrefab: {fileID: 9196064851890574969, guid: dfcf6e7ef4e6b65419133788c54f33e3,
+    type: 3}
   icon: {fileID: -446967490, guid: a5054a3fed29305419e6e560f3cb454c, type: 3}
   pocket: 2
   canBeStacked: 1

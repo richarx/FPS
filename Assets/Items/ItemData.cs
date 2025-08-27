@@ -11,6 +11,7 @@ namespace Items
         [TextArea(10, 15)] public string description;
         public GameObject inHandPrefab;
         public GameObject thrownPrefab;
+        public GameObject lootPrefab;
         public Sprite icon;
         public BackpackStorage.Pocket pocket;
         public bool canBeStacked;

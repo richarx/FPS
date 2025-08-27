@@ -80,7 +80,7 @@ namespace Items
         
         protected virtual void SetItemDisplay(bool isInteractable)
         {
-            if (isInteractable)
+            if (isInteractable && !PlayerStateMachine.instance.isBackpackOpen)
                 CreateTooltip();
             else
                 DestroyTooltip();

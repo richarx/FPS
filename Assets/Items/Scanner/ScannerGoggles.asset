@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: ScannerGoggles
   description: this is a description
+  inHandPrefab: {fileID: 0}
+  thrownPrefab: {fileID: 0}
+  lootPrefab: {fileID: 8183679142640383953, guid: 1d5b59750fef4374d9b4328304dd2ecd,
+    type: 3}
   icon: {fileID: 142867323, guid: 7ea9857276678bc44be6886711cf1816, type: 3}
   pocket: 0
   canBeStacked: 0

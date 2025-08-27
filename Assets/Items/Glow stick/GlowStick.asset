@@ -18,6 +18,8 @@ MonoBehaviour:
     type: 3}
   thrownPrefab: {fileID: 3799035332037067735, guid: 57053284354d6ed4194361763b06d88a,
     type: 3}
+  lootPrefab: {fileID: 1819337320378300425, guid: 42c03b8bc264bf9449418fd78703b0b8,
+    type: 3}
   icon: {fileID: -2133660816, guid: c3991599324a6ed45bbefd81d39e8f61, type: 3}
   pocket: 0
   canBeStacked: 1

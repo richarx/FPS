@@ -30,7 +30,7 @@ namespace Inventory
             
             inventory.openBackpack.OnOpenBackpack.AddListener(DisplayInputs);
             inventory.OnSwitchPocketTarget.AddListener(SwitchPocket);
-            inventory.closeBackpack.OnCloseBackpack.AddListener(HideInputs);
+            inventory.closeInventory.OnCloseInventory.AddListener(HideInputs);
             InputPacker.OnChangeInputType.AddListener(SetCorrectInputType);
             
             inputDisplay.gameObject.SetActive(false);

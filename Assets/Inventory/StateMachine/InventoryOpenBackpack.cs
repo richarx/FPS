@@ -15,7 +15,10 @@ namespace Inventory.StateMachine
         public void UpdateBehaviour(InventoryStateMachine inventory)
         {
             if (inventory.backpackDisplay.IsDisplayed)
+            {
+                inventory.backpackDisplay.SwitchPocket(inventory.currentPocket, inventory.currentPocket);
                 inventory.ChangeBehaviour(inventory.openInventory);
+            }
         }
 
         public void StopBehaviour(InventoryStateMachine inventory, InventoryBehaviourType next)

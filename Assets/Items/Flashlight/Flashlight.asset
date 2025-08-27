@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Flashlight
   description: this is a description
+  inHandPrefab: {fileID: 0}
+  thrownPrefab: {fileID: 0}
+  lootPrefab: {fileID: 1628563254115162755, guid: 0c423a3b11c25f34290c9057668c23de,
+    type: 3}
   icon: {fileID: 685586899, guid: d83a2f1af3a39e347aa0820d37e1847a, type: 3}
   pocket: 0
   canBeStacked: 0

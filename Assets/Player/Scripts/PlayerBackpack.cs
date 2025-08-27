@@ -17,11 +17,7 @@ namespace Player.Scripts
 
         public void UpdateBehaviour(PlayerStateMachine player)
         {
-            if (player.inputPackage.GetBackpack.wasPressedThisFrame)
-            {
-                player.ChangeBehaviour(player.playerRun);
-                return;
-            }
+            
         }
 
         public void FixedUpdateBehaviour(PlayerStateMachine player)
@@ -31,7 +27,6 @@ namespace Player.Scripts
 
         public void StopBehaviour(PlayerStateMachine player, BehaviourType next)
         {
-            InventoryStateMachine.instance.CloseBackpack();
         }
 
         public BehaviourType GetBehaviourType()

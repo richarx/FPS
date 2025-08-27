@@ -48,7 +48,7 @@ namespace Inventory
         private IEnumerator DisplayPocketCoroutine(Pocket pocket)
         {
             currentPocket = ComputePocket(pocket);
-            currentPocket.Setup(backpackStorage.GetPocketStorage(Pocket.tools).GetPocketItems);
+            currentPocket.Setup(backpackStorage.GetPocketStorage(pocket).GetPocketItems);
             yield return new WaitForSeconds(displayDelay);
             currentPocket.Display();
             OnDisplayNewPocket?.Invoke();

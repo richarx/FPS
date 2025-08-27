@@ -33,10 +33,10 @@ namespace Backpack
             StartCoroutine(DisplayBackpack());
         }
         
-        public void CloseBackpack()
+        public void CloseBackpack(Pocket current)
         {
             StopAllCoroutines();
-            StartCoroutine(HideBackpack());
+            StartCoroutine(HideBackpack(current));
         }
         
         public void SwitchPocket(Pocket current, Pocket next)
@@ -47,8 +47,11 @@ namespace Backpack
 
         private IEnumerator UpdatePocketDisplay(Pocket current, Pocket next)
         {
-            backpackAnimator.Play($"Close_{(int)current + 1}");
-            yield return new WaitForSeconds(0.16f);
+            if (current != next)
+            {
+                backpackAnimator.Play($"Close_{(int)current + 1}");
+                yield return new WaitForSeconds(0.16f);
+            }
             backpackAnimator.Play($"Open_{(int)next + 1}");
         }
 
@@ -81,17 +84,19 @@ namespace Backpack
 
             StartCoroutine(Tools.Fade(blackScreen, 0.3f, true, blackScreenMaxFade));
 
+            yield return new WaitForSeconds(Mathf.Max(0.1f, displayDuration - shadowDisplayDelay - squeezeDelay + 0.1f));
+            
             holder.SetParent(null);
             backpackAnimator.Play("Open_1");
             isDisplayed = true;
         }
 
         public float hideDelay;
-        private IEnumerator HideBackpack()
+        private IEnumerator HideBackpack(Pocket current)
         {
             holder.SetParent(transform);
 
-            backpackAnimator.Play("Close_1");
+            backpackAnimator.Play($"Close_{(int)current + 1}");
 
             StartCoroutine(Tools.Fade(blackScreen, 0.1f, false, blackScreenMaxFade));
             StartCoroutine(Tools.TweenLocalPosition(shadow, 0.0f, -1.0f, 0.05f, true));

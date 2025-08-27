@@ -1,4 +1,5 @@
 using Backpack;
+using Items;
 using Player.Scripts;
 using Tools_and_Scripts;
 using UnityEngine;
@@ -38,9 +39,13 @@ namespace Inventory.StateMachine
         public InventoryKeyboardMove keyboardMove;
         public InventoryGamepadGrab gamepadGrab = new InventoryGamepadGrab();
         public InventoryKeyboardGrab keyboardGrab = new InventoryKeyboardGrab();
+        public InventoryGamepadThrow gamepadThrow = new InventoryGamepadThrow();
+        public InventoryKeyboardThrow keyboardThrow = new InventoryKeyboardThrow();
         
         public IInventoryBehaviour currentBehaviour;
 
+        private bool hasSkippedAFrame;
+        
         private void Awake()
         {
             instance = this;
@@ -67,6 +72,13 @@ namespace Inventory.StateMachine
         {
             if (!isDisplayed)
                 return;
+
+            if (hasSkippedAFrame && player.inputPackage.GetBackpack.wasPressedThisFrame)
+            {
+                CloseBackpack();
+                return;   
+            }
+            hasSkippedAFrame = true;
             
             (bool isPocketChangeRequested, Pocket targetPocket) = pocketSwitcher.CheckForPocketInput();
 
@@ -98,6 +110,7 @@ namespace Inventory.StateMachine
 
         public void OpenBackpack()
         {
+            hasSkippedAFrame = false;
             ChangeBehaviour(openBackpack);
         }
 
@@ -126,9 +139,20 @@ namespace Inventory.StateMachine
             ChangeBehaviour(player.inputPackage.lastInputType == InputType.Gamepad ? gamepadGrab : keyboardGrab);
         }
         
+        public void ChangeToThrowBehaviour()
+        {
+            ChangeBehaviour(player.inputPackage.lastInputType == InputType.Gamepad ? gamepadThrow : keyboardThrow);
+        }
+        
         public Transform GetCurrentLookTarget()
         {
-            return isDisplayed ? backpackDisplay.lookTargets[(int)currentPocket] : null;
+            if (!isDisplayed || currentBehaviour.GetBehaviourType() == InventoryBehaviourType.OpenBackpack)
+                return null;
+
+            if (!backpackDisplay.IsDisplayed || currentBehaviour.GetBehaviourType() == InventoryBehaviourType.CloseBackpack)
+                return backpackDisplay.lookTargets[0];
+            else
+                return backpackDisplay.lookTargets[(int)currentPocket];
         }
 
         public SlotDisplay GetCurrentDisplaySlot()
@@ -139,6 +163,15 @@ namespace Inventory.StateMachine
         public PocketItem GetCurrentStorageSlot()
         {
             return player.backpackStorage.GetPocketStorage(currentPocket).GetPocketItems[inventoryCursor.currentSlotIndex];
+        }
+
+        public void ThrowItem(ItemData item)
+        {
+            Vector3 position = player.playerShootGun.shootingPosition;
+            //position += Vector3.up * player.playerData.throwWeaponHeightOffset;
+
+            Rigidbody rb = Instantiate(item.lootPrefab, position, Quaternion.identity).GetComponent<Rigidbody>();
+            rb.AddForce(player.playerShootGun.shootingDirection * 20.0f, ForceMode.Impulse);
         }
     }
 }

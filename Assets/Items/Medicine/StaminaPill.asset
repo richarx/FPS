@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: StaminaPill
   description: this is a description
+  inHandPrefab: {fileID: 0}
+  thrownPrefab: {fileID: 0}
+  lootPrefab: {fileID: 2322357351127240715, guid: 92d8c7f51410fd642877026ffdf1c50d,
+    type: 3}
   icon: {fileID: 1196530457, guid: 6bdc6041533c1994998fc40b718ad5f9, type: 3}
   pocket: 3
   canBeStacked: 1

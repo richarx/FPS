@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: LightAmmo
   description: this is a description
+  inHandPrefab: {fileID: 0}
+  thrownPrefab: {fileID: 0}
+  lootPrefab: {fileID: 6864929615723020135, guid: 0193e2c4a34865e4eaea855b6c5a4635,
+    type: 3}
   icon: {fileID: 1141479532, guid: a5054a3fed29305419e6e560f3cb454c, type: 3}
   pocket: 2
   canBeStacked: 1

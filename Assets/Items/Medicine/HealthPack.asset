@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: HealthPack
   description: this is a description
+  inHandPrefab: {fileID: 0}
+  thrownPrefab: {fileID: 0}
+  lootPrefab: {fileID: 4598101608816778367, guid: 3adc6ebe5e649b140ad8da8d0d1bf86e,
+    type: 3}
   icon: {fileID: -1409160573, guid: 6bdc6041533c1994998fc40b718ad5f9, type: 3}
   pocket: 3
   canBeStacked: 1

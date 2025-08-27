@@ -35,7 +35,7 @@ namespace Inventory
             
             inventory.openBackpack.OnOpenBackpack.AddListener(DisplayCursor);
             inventoryDisplay.OnDisplayNewPocket.AddListener(SwitchPocket);
-            inventory.closeBackpack.OnCloseBackpack.AddListener(HideCursor);
+            inventory.closeInventory.OnCloseInventory.AddListener(HideCursor);
             
             cursor.gameObject.SetActive(false);
         }

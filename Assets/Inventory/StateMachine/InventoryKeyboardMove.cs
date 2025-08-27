@@ -26,9 +26,17 @@ namespace Inventory.StateMachine
                 return;
             }
             
-            if (inventory.GetCurrentDisplaySlot().HasItem && inventory.player.inputPackage.leftMouse.wasPressedThisFrame)
+            bool slotHasItem = inventory.GetCurrentDisplaySlot().HasItem;
+            
+            if (slotHasItem && inventory.player.inputPackage.leftMouse.wasPressedThisFrame)
             {
                 inventory.ChangeToGrabBehaviour();
+                return;
+            }
+            
+            if (slotHasItem && inventory.player.inputPackage.fKey.wasPressedThisFrame)
+            {
+                inventory.ChangeToThrowBehaviour();
                 return;
             }
 

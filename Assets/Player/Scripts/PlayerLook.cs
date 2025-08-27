@@ -1,6 +1,5 @@
 using Inventory.StateMachine;
 using Pause_Menu;
-using Tools_and_Scripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -45,8 +44,7 @@ namespace Player.Scripts
 
             if (target == null)
             {
-                xRotation += 100.0f * Time.deltaTime;
-                xRotation = Mathf.Clamp(xRotation, -90.0f, 30.0f);
+                xRotation = Mathf.MoveTowards(xRotation, 30.0f, 360.0f * Time.deltaTime);
 
                 transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
                 orientation.rotation = Quaternion.Euler(0, yRotation, 0);

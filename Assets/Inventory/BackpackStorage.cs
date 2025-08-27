@@ -94,6 +94,12 @@ namespace Inventory
             (pocketItems[first], pocketItems[second]) = (pocketItems[second], pocketItems[first]);
             return (pocketItems[first], pocketItems[second]);
         }
+
+        public void RemoveItem(int slotIndex)
+        {
+            pocketItems[slotIndex].item = null;
+            pocketItems[slotIndex].count = 0;
+        }
     }
     
     public class BackpackStorage : MonoBehaviour
@@ -128,6 +134,16 @@ namespace Inventory
         {
             GetPocketStorage(item.pocket).StoreItem(item);
         }
+        
+        public (PocketItem, PocketItem) SwapItems(Pocket pocket, int first, int second)
+        {
+            return GetPocketStorage(pocket).SwapItems(first, second);
+        }
+
+        public void RemoveItem(Pocket pocket, int slotIndex)
+        {
+            GetPocketStorage(pocket).RemoveItem(slotIndex);
+        }
 
         public PocketStorage GetPocketStorage(Pocket pocket)
         {
@@ -146,9 +162,9 @@ namespace Inventory
             }
         }
 
-        public (PocketItem, PocketItem) SwapItems(Pocket pocket, int first, int second)
+        public ItemData GetItem(Pocket pocket, int slotIndex)
         {
-            return GetPocketStorage(pocket).SwapItems(first, second);
+            return GetPocketStorage(pocket).GetPocketItems[slotIndex].item;
         }
     }
 }

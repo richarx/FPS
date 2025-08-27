@@ -20,7 +20,7 @@ namespace Inventory
             
             inventory.openBackpack.OnOpenBackpack.AddListener(DisplayPocketName);
             inventory.OnSwitchPocketTarget.AddListener(UpdatePocketName);
-            inventory.closeBackpack.OnCloseBackpack.AddListener(HidePocketName);
+            inventory.closeInventory.OnCloseInventory.AddListener(HidePocketName);
             
             text.gameObject.SetActive(false);
             line.gameObject.SetActive(false);

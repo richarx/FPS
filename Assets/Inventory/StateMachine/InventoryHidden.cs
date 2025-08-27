@@ -2,15 +2,16 @@ namespace Inventory.StateMachine
 {
     public class InventoryHidden : IInventoryBehaviour
     {
-        public void StartBehaviour(InventoryStateMachine player, InventoryBehaviourType previous)
+        public void StartBehaviour(InventoryStateMachine inventory, InventoryBehaviourType previous)
+        {
+            inventory.player.ChangeBehaviour(inventory.player.playerRun);
+        }
+
+        public void UpdateBehaviour(InventoryStateMachine inventory)
         {
         }
 
-        public void UpdateBehaviour(InventoryStateMachine player)
-        {
-        }
-
-        public void StopBehaviour(InventoryStateMachine player, InventoryBehaviourType next)
+        public void StopBehaviour(InventoryStateMachine inventory, InventoryBehaviourType next)
         {
         }
 
