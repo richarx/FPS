@@ -181,13 +181,13 @@ namespace Inventory
 
         public ToolBeltSlot GetToolBeltSlot(int slotIndex)
         {
-            if (slotIndex == 1)
+            if (slotIndex == 0)
                 return slot_1;
-            else if (slotIndex == 2)
+            else if (slotIndex == 1)
                 return slot_2;
-            else if (slotIndex == 3)
+            else if (slotIndex == 2)
                 return slot_3;
-            else if (slotIndex == 4)
+            else if (slotIndex == 3)
                 return slot_4;
 
             return slot_1;
@@ -196,6 +196,13 @@ namespace Inventory
         public ItemData GetItem(Pocket pocket, int slotIndex)
         {
             return GetPocketStorage(pocket).GetPocketItems[slotIndex].item;
+        }
+
+        public void SwapToolBeltSlots(int first, int second)
+        {
+            PocketItem tmp = GetToolBeltSlot(first).pocketItem;
+            GetToolBeltSlot(first).pocketItem = GetToolBeltSlot(second).pocketItem;
+            GetToolBeltSlot(second).pocketItem = tmp;
         }
     }
 }

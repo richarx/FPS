@@ -16,7 +16,6 @@ namespace Inventory.StateMachine
         [HideInInspector] public UnityEvent<Pocket> OnSwitchPocketTarget = new UnityEvent<Pocket>();
         [HideInInspector] public UnityEvent<int> OnEquipItem = new UnityEvent<int>();
 
-
         [HideInInspector] public PlayerStateMachine player;
 
         public RectTransform canvas;
@@ -185,6 +184,13 @@ namespace Inventory.StateMachine
             Debug.Log($"Equip item : {startingSlotIndex} / {currentToolBeltSlotIndex}");
             player.backpackStorage.StoreItemInToolBelt(currentPocket, startingSlotIndex, currentToolBeltSlotIndex);
             OnEquipItem?.Invoke(currentToolBeltSlotIndex);
+        }
+
+        public void SwapToolBeltSlots(int startingSlotIndex)
+        {
+            player.backpackStorage.SwapToolBeltSlots(startingSlotIndex, inventoryCursor.currentSlotIndex);
+            OnEquipItem?.Invoke(startingSlotIndex);
+            OnEquipItem?.Invoke(inventoryCursor.currentSlotIndex);
         }
     }
 }
