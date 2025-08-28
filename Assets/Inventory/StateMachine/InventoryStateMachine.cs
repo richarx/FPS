@@ -173,7 +173,6 @@ namespace Inventory.StateMachine
         public void ThrowItem(ItemData item)
         {
             Vector3 position = player.playerShootGun.shootingPosition;
-            //position += Vector3.up * player.playerData.throwWeaponHeightOffset;
 
             Rigidbody rb = Instantiate(item.lootPrefab, position, Quaternion.identity).GetComponent<Rigidbody>();
             rb.AddForce(player.playerShootGun.shootingDirection * 20.0f, ForceMode.Impulse);
@@ -181,7 +180,6 @@ namespace Inventory.StateMachine
         
         public void EquipItem(int startingSlotIndex, int currentToolBeltSlotIndex)
         {
-            Debug.Log($"Equip item : {startingSlotIndex} / {currentToolBeltSlotIndex}");
             player.backpackStorage.StoreItemInToolBelt(currentPocket, startingSlotIndex, currentToolBeltSlotIndex);
             OnEquipItem?.Invoke(currentToolBeltSlotIndex);
         }

@@ -78,10 +78,12 @@ namespace Player.Scripts
 
             player.ApplyMovement();
             
-            if (landed)
+            if (player.playerLedgeGrab.DetectLedgeGrab(player))
+                player.ChangeBehaviour(player.playerLedgeGrab);
+            else if (landed)
                 player.ChangeBehaviour(player.playerRun);
         }
-        
+
         public bool CheckCollisions(PlayerStateMachine player)
         {
             bool groundHit = ShootDownRaycasts(player);

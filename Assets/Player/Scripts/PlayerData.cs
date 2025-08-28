@@ -15,6 +15,16 @@ namespace Data
         public float groundDeceleration;
         public float maxSlopeAngle;
         public float steepSlopeFallSpeed;
+
+        [Space] [Header("Ledge Grab")] 
+        public float ledgeDetectionStartingHeight;
+        public float ledgeDetectionMinDistance;
+        public float ledgeDetectionMaxDistance;
+        public float ledgeDetectionMinHeight;
+        public float ledgeDetectionMaxHeight;
+        public float ledgeStickForwardDistance;
+        public float climbTime;
+        public float climbForwardTime;
         
         [Space] [Header("Slide")] 
         public float slideTransitionSpeed;

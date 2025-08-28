@@ -9,7 +9,8 @@ namespace Player.Scripts
         Slam,
         Locked,
         Scanning,
-        Backpack
+        Backpack,
+        LedgeGrab
     }
     
     public interface IPlayerBehaviour

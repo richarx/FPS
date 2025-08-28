@@ -13,12 +13,7 @@ namespace Inventory.StateMachine
         {
             if (!inventory.keyboardMove.IsPointerDisplayed)
                 inventory.keyboardMove.DisplayPointer(inventory);
-            
-            Debug.Log($"Slot 1 : {inventory.player.backpackStorage.GetToolBeltSlot(0)}");
-            Debug.Log($"Slot 2 : {inventory.player.backpackStorage.GetToolBeltSlot(2)}");
-            Debug.Log($"Slot 3 : {inventory.player.backpackStorage.GetToolBeltSlot(3)}");
-            Debug.Log($"Slot 4 : {inventory.player.backpackStorage.GetToolBeltSlot(4)}");
-            
+
             startingSlotIndex = inventory.inventoryCursor.currentSlotIndex;
             grabbedSlot = inventory.toolBeltDisplay.GetToolBeltSlot(startingSlotIndex);
             grabbedSlot.SetState(SlotDisplay.SlotState.Grabbed);

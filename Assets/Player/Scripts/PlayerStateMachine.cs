@@ -27,6 +27,7 @@ namespace Player.Scripts
         public PlayerLocked playerLocked = new PlayerLocked();
         public PlayerScanning playerScanning = new PlayerScanning();
         public PlayerBackpack playerBackpack = new PlayerBackpack();
+        public PlayerLedgeGrab playerLedgeGrab = new PlayerLedgeGrab();
 
         public IPlayerBehaviour currentBehaviour;
         

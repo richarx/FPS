@@ -21,6 +21,14 @@ MonoBehaviour:
   groundDeceleration: 200
   maxSlopeAngle: 1000
   steepSlopeFallSpeed: 35
+  ledgeDetectionStartingHeight: 2
+  ledgeDetectionMinDistance: 0.1
+  ledgeDetectionMaxDistance: 1
+  ledgeDetectionMinHeight: 0.5
+  ledgeDetectionMaxHeight: 1
+  ledgeStickForwardDistance: 0.5
+  climbTime: 0.1
+  climbForwardTime: 0.1
   slideTransitionSpeed: 0.1
   slideVelocityThresholdToCrouch: 15
   slidePower: 45
