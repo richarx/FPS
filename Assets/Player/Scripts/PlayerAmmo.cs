@@ -52,7 +52,7 @@ namespace Player.Scripts
 
         private void Update()
         {
-            if (PauseMenu.instance.IsPaused)
+            if (PauseMenu.instance.IsPaused || player.isBackpackOpen)
                 return;
             
             CheckEndOfReload();

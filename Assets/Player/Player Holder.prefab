@@ -5731,7 +5731,6 @@ GameObject:
   - component: {fileID: 1881655192568238256}
   - component: {fileID: 8099228061389979905}
   - component: {fileID: 6207239098378227487}
-  - component: {fileID: 4443702294854674836}
   - component: {fileID: 8276896635640122390}
   m_Layer: 0
   m_Name: BackpackMenu
@@ -5857,23 +5856,8 @@ MonoBehaviour:
   itemPickedUpRect: {fileID: 0}
   inventoryDisplay: {fileID: 0}
   inventoryCursor: {fileID: 0}
-  toolBelt: {fileID: 0}
+  toolBeltDisplay: {fileID: 0}
   currentPocket: 0
---- !u!114 &4443702294854674836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4069042743379476793}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c15bc80b814151418767cb91b646d12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnEquipNewTool:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &8276896635640122390
 MonoBehaviour:
   m_ObjectHideFlags: 0

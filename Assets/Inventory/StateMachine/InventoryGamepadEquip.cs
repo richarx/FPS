@@ -1,11 +1,12 @@
-using System.Collections.Generic;
 using Tools_and_Scripts;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Inventory.StateMachine
 {
     public class InventoryGamepadEquip : IInventoryBehaviour
     {
+        
         private int startingSlotIndex;
         private SlotDisplay grabbedSlot;
 
@@ -22,9 +23,13 @@ namespace Inventory.StateMachine
             grabbedSlot = inventory.GetCurrentDisplaySlot();
             grabbedSlot.SetState(SlotDisplay.SlotState.Grabbed);
 
+            inventory.itemPickedUpRect.localPosition = inventory.inventoryCursor.Cursor.localPosition;
+            inventory.itemPickedUp.gameObject.SetActive(true);
+            inventory.itemPickedUp.sprite = inventory.GetCurrentStorageSlot().item.icon;
+
             currentToolBeltSlotIndex = 0;
             
-            inventory.inventoryCursor.SetTargetPosition(inventory.toolBeltDisplay.GetToolBeltSlot(currentToolBeltSlotIndex).GetComponent<RectTransform>(), startingSlotIndex);
+            inventory.inventoryCursor.SetTargetPosition(inventory.toolBeltDisplay.GetToolBeltSlot(currentToolBeltSlotIndex).GetComponent<RectTransform>(), startingSlotIndex, true);
             
             hasSkippedAFrame = false;
         }
@@ -46,14 +51,15 @@ namespace Inventory.StateMachine
 
             if (hasSkippedAFrame && inventory.player.inputPackage.southButton.wasPressedThisFrame)
             {
-                EquipItem(inventory);
+                inventory.EquipItem(startingSlotIndex, currentToolBeltSlotIndex);
                 inventory.ChangeToMovementBehaviour();
                 return;
             }
+                
+            hasSkippedAFrame = true;
 
             CheckPlayerMove(inventory);
-
-                hasSkippedAFrame = true;
+            inventory.itemPickedUpRect.localPosition = inventory.inventoryCursor.Cursor.localPosition;
         }
         
         public void CheckPlayerMove(InventoryStateMachine inventory)
@@ -70,7 +76,7 @@ namespace Inventory.StateMachine
         private void MoveCursor(InventoryStateMachine inventory, Vector2 move)
         {
             currentToolBeltSlotIndex = ComputeNextSlot(move, currentToolBeltSlotIndex);
-            inventory.inventoryCursor.SetTargetPosition(inventory.toolBeltDisplay.GetToolBeltSlot(currentToolBeltSlotIndex).GetComponent<RectTransform>(), startingSlotIndex);
+            inventory.inventoryCursor.SetTargetPosition(inventory.toolBeltDisplay.GetToolBeltSlot(currentToolBeltSlotIndex).GetComponent<RectTransform>(), startingSlotIndex, true);
         }
 
         private int ComputeNextSlot(Vector2 move, int currentIndex)
@@ -101,14 +107,11 @@ namespace Inventory.StateMachine
             return currentIndex;
         }
 
-        private void EquipItem(InventoryStateMachine inventory)
-        {
-            Debug.Log($"Equip item : {startingSlotIndex} / {currentToolBeltSlotIndex}");
-        }
-
         public void StopBehaviour(InventoryStateMachine inventory, InventoryBehaviourType next)
         {
             grabbedSlot.SetState(SlotDisplay.SlotState.Normal);
+            inventory.itemPickedUp.gameObject.SetActive(false);
+            inventory.inventoryCursor.SetTargetPosition(grabbedSlot.GetComponent<RectTransform>(), startingSlotIndex, false);
         }
 
         public InventoryBehaviourType GetBehaviourType()

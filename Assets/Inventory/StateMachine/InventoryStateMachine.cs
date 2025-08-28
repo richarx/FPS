@@ -14,6 +14,8 @@ namespace Inventory.StateMachine
         public static InventoryStateMachine instance;
         
         [HideInInspector] public UnityEvent<Pocket> OnSwitchPocketTarget = new UnityEvent<Pocket>();
+        [HideInInspector] public UnityEvent<int> OnEquipItem = new UnityEvent<int>();
+
 
         [HideInInspector] public PlayerStateMachine player;
 
@@ -25,7 +27,6 @@ namespace Inventory.StateMachine
         [HideInInspector] public InventoryDisplay inventoryDisplay;
         [HideInInspector] public InventoryCursor inventoryCursor;
         [HideInInspector] public PocketSwitcher pocketSwitcher;
-        [HideInInspector] public ToolBelt toolBelt;
         [HideInInspector] public ToolBeltDisplay toolBeltDisplay;
 
         [HideInInspector] public Pocket currentPocket = Pocket.tools;
@@ -44,6 +45,7 @@ namespace Inventory.StateMachine
         public InventoryGamepadThrow gamepadThrow = new InventoryGamepadThrow();
         public InventoryKeyboardThrow keyboardThrow = new InventoryKeyboardThrow();
         public InventoryGamepadEquip gamepadEquip = new InventoryGamepadEquip();
+        public InventoryKeyboardGrabToolBelt keyboardGrabToolBelt = new InventoryKeyboardGrabToolBelt();
         
         public IInventoryBehaviour currentBehaviour;
 
@@ -62,7 +64,6 @@ namespace Inventory.StateMachine
             
             inventoryDisplay = GetComponent<InventoryDisplay>();
             inventoryCursor = GetComponent<InventoryCursor>();
-            toolBelt = GetComponent<ToolBelt>();
             toolBeltDisplay = GetComponent<ToolBeltDisplay>();
             pocketSwitcher = new PocketSwitcher();
             itemPickedUpRect = itemPickedUp.GetComponent<RectTransform>();
@@ -148,12 +149,7 @@ namespace Inventory.StateMachine
         {
             ChangeBehaviour(player.inputPackage.lastInputType == InputType.Gamepad ? gamepadThrow : keyboardThrow);
         }
-        
-        public void ChangeToEquipBehaviour()
-        {
-            ChangeBehaviour(player.inputPackage.lastInputType == InputType.Gamepad ? gamepadEquip : keyboardThrow);
-        }
-        
+
         public Transform GetCurrentLookTarget()
         {
             if (!isDisplayed || currentBehaviour.GetBehaviourType() == InventoryBehaviourType.OpenBackpack)
@@ -182,6 +178,13 @@ namespace Inventory.StateMachine
 
             Rigidbody rb = Instantiate(item.lootPrefab, position, Quaternion.identity).GetComponent<Rigidbody>();
             rb.AddForce(player.playerShootGun.shootingDirection * 20.0f, ForceMode.Impulse);
+        }
+        
+        public void EquipItem(int startingSlotIndex, int currentToolBeltSlotIndex)
+        {
+            Debug.Log($"Equip item : {startingSlotIndex} / {currentToolBeltSlotIndex}");
+            player.backpackStorage.StoreItemInToolBelt(currentPocket, startingSlotIndex, currentToolBeltSlotIndex);
+            OnEquipItem?.Invoke(currentToolBeltSlotIndex);
         }
     }
 }

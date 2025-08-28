@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Items;
 using UnityEngine;
+using static Inventory.BackpackStorage;
 
 namespace Inventory
 {
@@ -101,6 +102,12 @@ namespace Inventory
             pocketItems[slotIndex].count = 0;
         }
     }
+
+    public class ToolBeltSlot
+    {
+        public PocketItem pocketItem;
+        public bool hasItem => pocketItem != null;
+    }
     
     public class BackpackStorage : MonoBehaviour
     {
@@ -116,6 +123,11 @@ namespace Inventory
         private PocketStorage components;
         private PocketStorage ammo;
         private PocketStorage medicine;
+
+        private ToolBeltSlot slot_1 = new ToolBeltSlot();
+        private ToolBeltSlot slot_2 = new ToolBeltSlot();
+        private ToolBeltSlot slot_3 = new ToolBeltSlot();
+        private ToolBeltSlot slot_4 = new ToolBeltSlot();
 
         private void Start()
         {
@@ -140,6 +152,11 @@ namespace Inventory
             return GetPocketStorage(pocket).SwapItems(first, second);
         }
 
+        public void StoreItemInToolBelt(Pocket pocket, int itemSlotIndex, int toolBeltIndex)
+        {
+            GetToolBeltSlot(toolBeltIndex).pocketItem = GetPocketStorage(pocket).GetPocketItems[itemSlotIndex];
+        }
+
         public void RemoveItem(Pocket pocket, int slotIndex)
         {
             GetPocketStorage(pocket).RemoveItem(slotIndex);
@@ -160,6 +177,20 @@ namespace Inventory
                 default:
                     throw new ArgumentOutOfRangeException(nameof(pocket), pocket, null);
             }
+        }
+
+        public ToolBeltSlot GetToolBeltSlot(int slotIndex)
+        {
+            if (slotIndex == 1)
+                return slot_1;
+            else if (slotIndex == 2)
+                return slot_2;
+            else if (slotIndex == 3)
+                return slot_3;
+            else if (slotIndex == 4)
+                return slot_4;
+
+            return slot_1;
         }
 
         public ItemData GetItem(Pocket pocket, int slotIndex)

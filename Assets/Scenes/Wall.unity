@@ -12632,10 +12632,40 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 221695386796443582, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: isToolBeltSLot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 463823451420432196, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: isToolBeltSLot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1690410167144419178, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: isToolBeltSLot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2599729369658728528, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -21.2
+      objectReference: {fileID: 0}
     - target: {fileID: 5634914203544353321, guid: 99fc002cf63d7f94984a5a14526de63a,
         type: 3}
       propertyPath: m_Name
       value: Player Holder
+      objectReference: {fileID: 0}
+    - target: {fileID: 7302613841618421615, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: isToolBeltSLot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8098377027583096505, guid: 99fc002cf63d7f94984a5a14526de63a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -22.40001
       objectReference: {fileID: 0}
     - target: {fileID: 9029753958373732987, guid: 99fc002cf63d7f94984a5a14526de63a,
         type: 3}
@@ -12688,7 +12718,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3000615253571393003, guid: 99fc002cf63d7f94984a5a14526de63a, type: 3}
+    - {fileID: 4744462234321254887, guid: 99fc002cf63d7f94984a5a14526de63a, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99fc002cf63d7f94984a5a14526de63a, type: 3}

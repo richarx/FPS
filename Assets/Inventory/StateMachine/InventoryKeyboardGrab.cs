@@ -7,7 +7,7 @@ namespace Inventory.StateMachine
     {
         private int startingSlotIndex;
         private SlotDisplay grabbedSlot;
-
+        
         public void StartBehaviour(InventoryStateMachine inventory, InventoryBehaviourType previous)
         {
             if (!inventory.keyboardMove.IsPointerDisplayed)
@@ -32,7 +32,9 @@ namespace Inventory.StateMachine
             
             if (!inventory.player.inputPackage.leftMouse.isPressed)
             {
-                if (startingSlotIndex != inventory.inventoryCursor.currentSlotIndex)
+                if (inventory.inventoryCursor.isToolBelt)
+                    inventory.EquipItem(startingSlotIndex, inventory.inventoryCursor.currentSlotIndex);
+                else if (CanSwapItems(inventory))
                     SwapItems(inventory);
                 
                 inventory.ChangeToMovementBehaviour();
@@ -42,6 +44,11 @@ namespace Inventory.StateMachine
             Vector3 position = CameraScreenPosition.instance.GetMousePosition(inventory.canvas);
             inventory.pointer.anchoredPosition = position;
             inventory.itemPickedUpRect.anchoredPosition = position;
+        }
+
+        private bool CanSwapItems(InventoryStateMachine inventory)
+        {
+            return startingSlotIndex != inventory.inventoryCursor.currentSlotIndex;
         }
         
         private void SwapItems(InventoryStateMachine inventory)

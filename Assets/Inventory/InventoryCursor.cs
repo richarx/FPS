@@ -1,6 +1,5 @@
 using System.Collections;
 using Inventory.StateMachine;
-using Player.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +11,7 @@ namespace Inventory
         [SerializeField] private float smoothTime;
 
         [HideInInspector] public int currentSlotIndex; 
+        [HideInInspector] public bool isToolBelt; 
         
         private InventoryDisplay inventoryDisplay;
 
@@ -74,10 +74,11 @@ namespace Inventory
             StartCoroutine(Tools.Fade(cursorImage, 0.2f, false));
         }
 
-        public void SetTargetPosition(RectTransform newPosition, int newSlotIndex)
+        public void SetTargetPosition(RectTransform newPosition, int newSlotIndex, bool isSlotOnToolBelt)
         {
             targetPosition = newPosition;
             currentSlotIndex = newSlotIndex;
+            isToolBelt = isSlotOnToolBelt;
         }
     }
 }

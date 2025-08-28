@@ -37,7 +37,7 @@ namespace Inventory.StateMachine
             
             if (slotHasItem && inventory.player.inputPackage.westButton.wasPressedThisFrame)
             {
-                inventory.ChangeToEquipBehaviour();
+                inventory.ChangeBehaviour(inventory.gamepadEquip);
                 return;
             }
             
@@ -61,7 +61,7 @@ namespace Inventory.StateMachine
             
             int nextSlot = ComputeNextSlot(move, inventory.inventoryCursor.currentSlotIndex, inventory.inventoryDisplay.CurrentPocket.Width, slots.Count);
             
-            inventory.inventoryCursor.SetTargetPosition(slots[nextSlot].GetComponent<RectTransform>(), nextSlot);
+            inventory.inventoryCursor.SetTargetPosition(slots[nextSlot].GetComponent<RectTransform>(), nextSlot, false);
         }
 
         private int ComputeNextSlot(Vector2 move, int currentIndex, int width, int slotCount)

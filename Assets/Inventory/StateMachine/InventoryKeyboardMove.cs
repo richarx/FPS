@@ -10,7 +10,7 @@ namespace Inventory.StateMachine
         
         public InventoryKeyboardMove(InventoryStateMachine inventory)
         {
-            SlotMouseDetection.OnSlotMouseOver.AddListener((rect, slotIndex) => MoveCursorToSlot(inventory, rect, slotIndex));
+            SlotMouseDetection.OnSlotMouseOver.AddListener((rect, slotIndex, isToolBeltSlot) => MoveCursorToSlot(inventory, rect, slotIndex, isToolBeltSlot));
         }
         
         public void StartBehaviour(InventoryStateMachine inventory, InventoryBehaviourType previous)
@@ -25,13 +25,22 @@ namespace Inventory.StateMachine
                 inventory.ChangeBehaviour(inventory.gamepadMove);
                 return;
             }
+
+            SlotDisplay currentSlot = inventory.GetCurrentDisplaySlot();
+            bool slotHasItem = currentSlot.HasItem;
             
-            bool slotHasItem = inventory.GetCurrentDisplaySlot().HasItem;
-            
-            if (slotHasItem && inventory.player.inputPackage.leftMouse.wasPressedThisFrame)
+            if (inventory.player.inputPackage.leftMouse.wasPressedThisFrame)
             {
-                inventory.ChangeToGrabBehaviour();
-                return;
+                if (inventory.inventoryCursor.isToolBelt)
+                {
+                    inventory.ChangeBehaviour(inventory.keyboardGrabToolBelt);
+                    return;
+                }
+                else if (slotHasItem)
+                {
+                    inventory.ChangeToGrabBehaviour();
+                    return;
+                }
             }
             
             if (slotHasItem && inventory.player.inputPackage.fKey.wasPressedThisFrame)
@@ -48,12 +57,15 @@ namespace Inventory.StateMachine
             inventory.pointer.anchoredPosition = CameraScreenPosition.instance.GetMousePosition(inventory.canvas);
         }
         
-        private void MoveCursorToSlot(InventoryStateMachine inventory, RectTransform slot, int slotIndex)
+        private void MoveCursorToSlot(InventoryStateMachine inventory, RectTransform slot, int slotIndex, bool isToolBeltSlot)
         {
             if (!inventory.player.isBackpackOpen || inventory.player.inputPackage.lastInputType != InputType.Keyboard)
                 return;
             
-            inventory.inventoryCursor.SetTargetPosition(slot, slotIndex);
+            if (!isToolBeltSlot && inventory.currentBehaviour.GetBehaviourType() == InventoryBehaviourType.EquipKeyboard)
+                return;
+            
+            inventory.inventoryCursor.SetTargetPosition(slot, slotIndex, isToolBeltSlot);
         }
         
         public void DisplayPointer(InventoryStateMachine inventory)

@@ -15,7 +15,6 @@ namespace Player.Scripts
         public SurfaceData surfaceData;
         public Transform muzzleFlashHolder;
         public Light muzzleFlashLight;
-        public BackpackDisplay backpackDisplay;
 
         public static PlayerStateMachine instance;
 

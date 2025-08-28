@@ -18,6 +18,7 @@ namespace Inventory
         [SerializeField] private Image background; 
         [SerializeField] private TextMeshProUGUI text; 
         [SerializeField] private float fadeDuration;
+        [SerializeField] private bool isToolBeltSLot;
 
         private SlotDeleteAnimation slotDeleteAnimation;
         
@@ -28,6 +29,7 @@ namespace Inventory
 
         public bool IsDisplayed => isDisplayed;
         public bool HasItem => hasItem;
+        public bool IsToolBeltSLot => isToolBeltSLot;
 
         private void Start()
         {

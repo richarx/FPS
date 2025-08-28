@@ -7,10 +7,10 @@ namespace Inventory
     {
         private SlotDisplay slotDisplay;
         private RectTransform rectTransform;
-        
+
         private int slotIndex;
 
-        public static UnityEvent<RectTransform, int> OnSlotMouseOver = new UnityEvent<RectTransform, int>();
+        public static UnityEvent<RectTransform, int, bool> OnSlotMouseOver = new UnityEvent<RectTransform, int, bool>();
 
         private void Start()
         {
@@ -21,7 +21,7 @@ namespace Inventory
         private void OnMouseEnter()
         {
             if (slotDisplay.IsDisplayed)
-                OnSlotMouseOver?.Invoke(rectTransform, slotIndex);
+                OnSlotMouseOver?.Invoke(rectTransform, slotIndex, slotDisplay.IsToolBeltSLot);
         }
 
         public void SetSlotIndex(int index)

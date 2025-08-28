@@ -22,18 +22,25 @@ namespace Inventory
             
             inventory.openBackpack.OnOpenBackpack.AddListener(DisplayToolBelt);
             inventory.closeInventory.OnCloseInventory.AddListener(HideToolBelt);
+            inventory.OnEquipItem.AddListener(EquipItem);
 
             title.gameObject.SetActive(false);
             line.gameObject.SetActive(false);
             background.gameObject.SetActive(false);
-            
-            foreach (SlotDisplay slot in slots)
+
+            for (int i = 0; i < slots.Count; i++)
             {
-                slot.Setup(null, SlotDisplay.SlotState.Normal);
-                slot.HideInstant();
+                slots[i].Setup(null, SlotDisplay.SlotState.Normal);
+                slots[i].HideInstant();
+                slots[i].GetComponent<SlotMouseDetection>().SetSlotIndex(i);
             }
         }
-        
+
+        private void EquipItem(int toolBeltSlotIndex)
+        {
+            slots[toolBeltSlotIndex].Setup(inventory.player.backpackStorage.GetToolBeltSlot(toolBeltSlotIndex).pocketItem ,SlotDisplay.SlotState.Normal);
+        }
+
         private void DisplayToolBelt()
         {
             StopAllCoroutines();
