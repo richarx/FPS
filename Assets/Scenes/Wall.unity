@@ -12924,12 +12924,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2254208308396873832, guid: 99fc002cf63d7f94984a5a14526de63a,
-        type: 3}
-      propertyPath: ledgeGrabArmsPrefab
-      value: 
-      objectReference: {fileID: 7666275297248279096, guid: 5d593748341ed21419d9ffd357dc1689,
-        type: 3}
     - target: {fileID: 5634914203544353321, guid: 99fc002cf63d7f94984a5a14526de63a,
         type: 3}
       propertyPath: m_Name

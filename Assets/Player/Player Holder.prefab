@@ -1482,6 +1482,7 @@ GameObject:
   - component: {fileID: 5882946385504412818}
   - component: {fileID: 2254208308396873832}
   - component: {fileID: 8490571574213577333}
+  - component: {fileID: 3197646235756229797}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1858,6 +1859,8 @@ MonoBehaviour:
   armsPivot: {fileID: 3079031492957271179}
   throwArmsPrefab: {fileID: 3602875748352308952, guid: 83cc00098c81d8744b21bed7d79fefe2,
     type: 3}
+  ledgeGrabArmsPrefab: {fileID: 7666275297248279096, guid: 5d593748341ed21419d9ffd357dc1689,
+    type: 3}
   OnUnEquipTool:
     m_PersistentCalls:
       m_Calls: []
@@ -1880,6 +1883,20 @@ MonoBehaviour:
   OnThrowItem:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3197646235756229797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236258945342678793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c3c4d6350312064d9a27e7e703ea75d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teleporterPrefab: {fileID: 2168022573606117280, guid: 4999c8a0d099ef54cbe6cd5be0aebef6,
+    type: 3}
 --- !u!1 &1344401461930698543
 GameObject:
   m_ObjectHideFlags: 0
