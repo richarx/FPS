@@ -13,11 +13,13 @@ namespace Player.Scripts
         {
             Empty,
             Weapon,
-            Throw
+            Throw,
+            LedgeGrab
         }
         
         [SerializeField] private Transform armsPivot;
         [SerializeField] private GameObject throwArmsPrefab;
+        [SerializeField] private GameObject ledgeGrabArmsPrefab;
 
         [HideInInspector] public UnityEvent OnUnEquipTool = new UnityEvent();
         [HideInInspector] public UnityEvent OnResetArms = new UnityEvent();
@@ -25,6 +27,7 @@ namespace Player.Scripts
         private Transform currentArms;
         public Transform CurrentArms => currentArms;
 
+        private ArmType previousArmType = ArmType.Empty;
         private ArmType armType = ArmType.Empty;
         public ArmType currentArmType => armType;
 
@@ -39,7 +42,7 @@ namespace Player.Scripts
             Transform newTool = newArms.GetComponent<HandHoldItem>().EquipItem(itemData);
 
             currentArms = newArms;
-            armType = ArmType.Throw;
+            SetArmType(ArmType.Throw);
 
             return newTool;
         }
@@ -70,7 +73,7 @@ namespace Player.Scripts
             newWeapon.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
 
             currentArms = newWeapon;
-            armType = ArmType.Weapon;
+            SetArmType(ArmType.Weapon);
 
             return newWeapon;
         }
@@ -83,7 +86,34 @@ namespace Player.Scripts
                 Destroy(armsPivot.GetChild(i).gameObject);
             }
 
-            armType = ArmType.Empty;
+            SetArmType(ArmType.Empty);
+        }
+
+        public void DisplayLedgeGrabArms()
+        {
+            StopAllCoroutines();
+            ClearPivot();
+            
+            Transform newArms = Instantiate(ledgeGrabArmsPrefab, Vector3.zero, Quaternion.identity, armsPivot).transform;
+            newArms.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+            
+            currentArms = newArms;
+            SetArmType(ArmType.LedgeGrab);
+        }
+
+        public void RemoveLedgeGrabArms()
+        {
+            if (currentArmType != ArmType.LedgeGrab)
+                return;
+            
+            ClearPivot();
+            OnResetArms?.Invoke();
+        }
+
+        private void SetArmType(ArmType newType)
+        {
+            previousArmType = currentArmType;
+            armType = newType;
         }
     }
 }

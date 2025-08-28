@@ -25,6 +25,8 @@ namespace Player.Scripts
             
             player.moveVelocity = Vector3.zero;
             player.ApplyMovement();
+
+            player.playerArms.DisplayLedgeGrabArms();
         }
 
         public void UpdateBehaviour(PlayerStateMachine player)
@@ -99,19 +101,20 @@ namespace Player.Scripts
 
             if (frontHit && hitForward.distance >= player.playerData.ledgeDetectionMinDistance)
             {
-                position += forward * (hitForward.distance + 0.3f);
-                position += Vector3.up * 2.0f;
-                bool downHit = Physics.Raycast(position, Vector3.down, out RaycastHit hitDown, player.playerData.ledgeDetectionMaxHeight + 2.0f, ~player.playerData.layersToIgnoreForGroundCheck);
+                Vector3 abovePosition = position;
+                abovePosition += forward * (hitForward.distance + 0.3f);
+                abovePosition += Vector3.up * 2.0f;
+                bool downHit = Physics.Raycast(abovePosition, Vector3.down, out RaycastHit hitDown, player.playerData.ledgeDetectionMaxHeight + 2.0f, ~player.playerData.layersToIgnoreForGroundCheck);
 
                 if (downHit && hitDown.distance >= player.playerData.ledgeDetectionMinHeight + 1.0f)
                 {
-                    position += Vector3.down * 2.5f;
-                    bool topHit = Physics.Raycast(position, Vector3.up, out RaycastHit hitUp, 3.2f, ~player.playerData.layersToIgnoreForGroundCheck);
+                    position += Vector3.up * 2.5f;
+                    bool topHit = Physics.Raycast(position, forward, out RaycastHit hitUp, hitForward.distance + 0.5f, ~player.playerData.layersToIgnoreForGroundCheck);
 
                     if (!topHit)
                     {
                         forwardDistance = hitForward.distance;
-                        height = position.y + 2.5f - hitDown.distance;
+                        height = abovePosition.y - hitDown.distance;
                         return true;
                     }
                 }
@@ -122,6 +125,7 @@ namespace Player.Scripts
 
         public void StopBehaviour(PlayerStateMachine player, BehaviourType next)
         {
+            player.playerArms.RemoveLedgeGrabArms();
         }
 
         public BehaviourType GetBehaviourType()

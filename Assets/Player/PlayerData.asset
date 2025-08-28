@@ -21,7 +21,7 @@ MonoBehaviour:
   groundDeceleration: 200
   maxSlopeAngle: 1000
   steepSlopeFallSpeed: 35
-  ledgeDetectionStartingHeight: 2
+  ledgeDetectionStartingHeight: 2.5
   ledgeDetectionMinDistance: 0.1
   ledgeDetectionMaxDistance: 1
   ledgeDetectionMinHeight: 0.5
