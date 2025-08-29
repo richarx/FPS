@@ -49,8 +49,6 @@ namespace Inventory.StateMachine
 
         [SerializeField] private float throwAwayItemPower;
 
-        private bool hasSkippedAFrame;
-        
         private void Awake()
         {
             instance = this;
@@ -79,16 +77,17 @@ namespace Inventory.StateMachine
             if (!isDisplayed)
                 return;
 
-            if (hasSkippedAFrame && player.inputPackage.GetBackpack.wasPressedThisFrame)
-            {
-                CloseBackpack();
-                return;   
-            }
-            hasSkippedAFrame = true;
+            bool isFullyDisplayed = currentBehaviour.GetBehaviourType() != InventoryBehaviourType.OpenBackpack &&
+                                    currentBehaviour.GetBehaviourType() != InventoryBehaviourType.OpenInventory;
 
-            if (currentBehaviour.GetBehaviourType() != InventoryBehaviourType.OpenBackpack &&
-                currentBehaviour.GetBehaviourType() != InventoryBehaviourType.OpenInventory)
+            if (isFullyDisplayed)
             {
+                if (player.inputPackage.GetBackpack.wasPressedThisFrame)
+                {
+                    CloseBackpack();
+                    return;   
+                }
+             
                 (bool isPocketChangeRequested, Pocket targetPocket) = pocketSwitcher.CheckForPocketInput();  
                                                                                               
                 if (isPocketChangeRequested)                                                                 
@@ -116,7 +115,6 @@ namespace Inventory.StateMachine
 
         public void OpenBackpack()
         {
-            hasSkippedAFrame = false;
             ChangeBehaviour(openBackpack);
         }
 
