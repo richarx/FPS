@@ -21,7 +21,7 @@ namespace Items
         private void Start()
         {
             Scanner.Scanner.OnPlayerSphereScan.AddListener(TriggerDisplay);
-            PlayerStateMachine.instance.playerScanning.OnStopScanning.AddListener(ResetDisplay);
+            PlayerStateMachine.instance.scanner.OnScannerVisorDisappear.AddListener(ResetDisplay);
             
             if (spriteRenderer != null)
                 material = spriteRenderer.material;

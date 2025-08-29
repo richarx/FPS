@@ -1,5 +1,5 @@
-using Backpack;
 using Inventory;
+using Player.Scripts;
 using UnityEngine;
 
 namespace Items
@@ -15,5 +15,6 @@ namespace Items
         public Sprite icon;
         public BackpackStorage.Pocket pocket;
         public bool canBeStacked;
+        public PlayerTools.ToolUsage toolUsage;
     }
 }

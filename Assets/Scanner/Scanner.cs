@@ -22,6 +22,8 @@ namespace Scanner
 
         private float visorDisplayDuration = 0.1f;
 
+        private bool isScanning;
+
         private PlayerStateMachine player;
         
         public const float ScanSphereMaxDistance = 200.0f;
@@ -29,18 +31,19 @@ namespace Scanner
         private void Start()
         {
             player = PlayerStateMachine.instance;
-            player.playerScanning.OnStartScanning.AddListener(() =>
-            {
-                StopAllCoroutines();
-                StartCoroutine(TriggerDisplayAnimation());
-            });
-            player.playerScanning.OnStopScanning.AddListener(() =>
-            {
-                StopAllCoroutines();
-                StartCoroutine(TriggerHideAnimation());
-            });
 
             scanner.position = new Vector3(scanner.position.x, Screen.height * 2.0f, 0.0f);
+        }
+
+        public void TriggerScanner()
+        {
+            StopAllCoroutines();
+            if (isScanning)
+                StartCoroutine(TriggerHideAnimation());
+            else
+                StartCoroutine(TriggerDisplayAnimation());
+
+            isScanning = !isScanning;
         }
         
         private IEnumerator TriggerDisplayAnimation()
@@ -67,7 +70,7 @@ namespace Scanner
             {
                 GameObject scan = Instantiate(scannerTerrainEffect, scanPosition, Quaternion.identity);
 
-                player.playerScanning.OnStopScanning.AddListener(() =>
+                player.scanner.OnScannerVisorDisappear.AddListener(() =>
                 {
                     if (scan != null)
                         Destroy(scan);

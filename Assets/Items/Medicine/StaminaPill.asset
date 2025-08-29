@@ -21,3 +21,4 @@ MonoBehaviour:
   icon: {fileID: 1196530457, guid: 6bdc6041533c1994998fc40b718ad5f9, type: 3}
   pocket: 3
   canBeStacked: 1
+  toolUsage: 4

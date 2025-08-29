@@ -20,8 +20,8 @@ namespace Player.Scripts
             VolumeProfile volumeProfile = volume.profile;
             isSetup = volumeProfile.TryGet<Bloom>(out bloom);
             
-            player.playerScanning.OnStartScanning.AddListener(() => SetBloomValue(5.0f));
-            player.playerScanning.OnStopScanning.AddListener(() => SetBloomValue(0.0f));
+            player.scanner.OnScannerVisorAppear.AddListener(() => SetBloomValue(5.0f));
+            player.scanner.OnScannerVisorDisappear.AddListener(() => SetBloomValue(0.0f));
         }
 
         private void SetBloomValue(float value)

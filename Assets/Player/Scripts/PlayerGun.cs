@@ -41,9 +41,6 @@ namespace Player.Scripts
             
             if (hasSecondaryWeapon && player.inputPackage.GetSwapWeapon.WasPressedWithBuffer())
                 SwapWeapons();
-
-            if (hasWeapon && player.inputPackage.GetToolLeft.WasPressedWithBuffer())
-                DropCurrentWeapon();
         }
         
         public void EquipNewWeapon(WeaponData weapon)

@@ -25,7 +25,6 @@ namespace Player.Scripts
         public PlayerCrouch playerCrouch = new PlayerCrouch();
         public PlayerSlide playerSlide = new PlayerSlide();
         public PlayerLocked playerLocked = new PlayerLocked();
-        public PlayerScanning playerScanning = new PlayerScanning();
         public PlayerBackpack playerBackpack = new PlayerBackpack();
         public PlayerLedgeGrab playerLedgeGrab = new PlayerLedgeGrab();
 

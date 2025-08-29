@@ -1,5 +1,6 @@
+using System;
+using Inventory;
 using Items;
-using Tools_and_Scripts;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,11 +8,21 @@ namespace Player.Scripts
 {
     public class PlayerTools : MonoBehaviour
     {
-        [SerializeField] private ItemData glowStick;
+        public enum ToolUsage
+        {
+            Scanner,
+            FlashLight,
+            Throw,
+            Equip,
+            None
+        }
 
         [HideInInspector] public UnityEvent OnThrowItem = new UnityEvent();
+
+        private int lastToolUsed = -1;
         
         private PlayerStateMachine player;
+        private PlayerFlashlight flashlight;
 
         private Transform currentTool;
         private ItemData currentItemData;
@@ -22,6 +33,7 @@ namespace Player.Scripts
         private void Start()
         {
             player = PlayerStateMachine.instance;
+            flashlight = GetComponent<PlayerFlashlight>();
         }
 
         private void Update()
@@ -29,13 +41,7 @@ namespace Player.Scripts
             if (player.isLocked || player.isScanning || player.isBackpackOpen)
                 return;
 
-            if (player.inputPackage.GetToolDown.WasPressedWithBuffer())
-            {
-                if (currentItemData == glowStick)
-                    UnEquipTool(); 
-                else 
-                    EquipTool(glowStick);
-            }
+            CheckToolInput();
             
             if (CanThrow() && player.inputPackage.GetShoot.isPressed)
             {
@@ -45,6 +51,61 @@ namespace Player.Scripts
             
             if (!isInputReset && !player.inputPackage.GetShoot.isPressed)
                 isInputReset = true;
+        }
+
+        private void CheckToolInput()
+        {
+            int direction = -1;
+            
+            if (player.inputPackage.GetToolLeft.WasPressedWithBuffer())
+                direction = 0;
+            if (player.inputPackage.GetToolUp.WasPressedWithBuffer())
+                direction = 1;
+            if (player.inputPackage.GetToolRight.WasPressedWithBuffer())
+                direction = 2;
+            if (player.inputPackage.GetToolDown.WasPressedWithBuffer())
+                direction = 3;
+
+            if (direction >= 0)
+            {
+                EquipToolInSlot(direction);
+            }
+        }
+
+        private void EquipToolInSlot(int index)
+        {
+            PocketItem pocketItem = player.backpackStorage.GetItem(BackpackStorage.Pocket.toolBelt, index);
+
+            if (pocketItem.isEmpty)
+                return;
+
+            bool isSameToolAsLastTime = index == lastToolUsed;
+            
+            switch (pocketItem.item.toolUsage)
+            {
+                case ToolUsage.Scanner:
+                    player.scanner.TriggerScanner();
+                    break;
+                case ToolUsage.FlashLight:
+                    flashlight.ToggleFlashlight();
+                    break;
+                case ToolUsage.Throw:
+                    if (isSameToolAsLastTime)
+                        UnEquipTool();
+                    else
+                        EquipTool(pocketItem.item, index);
+                    break;
+                case ToolUsage.Equip:
+                    if (isSameToolAsLastTime)
+                        UnEquipTool();
+                    else
+                        EquipTool(pocketItem.item, index);
+                    break;
+                case ToolUsage.None:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         private void ThrowItem()
@@ -69,16 +130,18 @@ namespace Player.Scripts
             return isInputReset;
         }
 
-        private void EquipTool(ItemData item)
+        private void EquipTool(ItemData item, int index)
         {
             currentItemData = item;
             currentTool = player.playerArms.EquipThrowTool(item);
+            lastToolUsed = index;
         }
 
         private void UnEquipTool()
         {
             currentItemData = null;
             player.playerArms.UnEquipThrowTool();
+            lastToolUsed = -1;
         }
     }
 }

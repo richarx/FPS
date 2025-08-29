@@ -57,12 +57,6 @@ namespace Player.Scripts
                 return;
             }
 
-            if (player.inputPackage.GetToolUp.wasPressedThisFrame)
-            {
-                player.ChangeBehaviour(player.playerScanning);
-                return;
-            }
-            
             if (player.inputPackage.GetBackpack.wasPressedThisFrame)
             {
                 player.ChangeBehaviour(player.playerBackpack);

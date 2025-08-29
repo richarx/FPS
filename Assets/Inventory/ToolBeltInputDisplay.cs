@@ -19,7 +19,6 @@ namespace Inventory
 
         private PlayerStateMachine player;
         private InputType currentInputType => player.inputPackage.lastInputType;
-        private Sprite targetSprite => currentInputType == InputType.Gamepad ? gamepadSprite : keyboardSprite;
         
         private void Start()
         {

@@ -53,10 +53,10 @@ namespace Tools_and_Scripts
         public InputData GetMenuRight => lastInputType == InputType.Gamepad ? rightArrowButton : rightKey;
         public InputData GetMenuDown => lastInputType == InputType.Gamepad ? downArrowButton : downKey;
         
-        public InputData GetToolLeft => lastInputType == InputType.Gamepad ? leftArrowButton : key_4;
-        public InputData GetToolUp => lastInputType == InputType.Gamepad ? upArrowButton : key_1;
-        public InputData GetToolRight => lastInputType == InputType.Gamepad ? rightArrowButton : key_2;
-        public InputData GetToolDown => lastInputType == InputType.Gamepad ? downArrowButton : key_3;
+        public InputData GetToolLeft => lastInputType == InputType.Gamepad ? leftArrowButton : key_1;
+        public InputData GetToolUp => lastInputType == InputType.Gamepad ? upArrowButton : key_2;
+        public InputData GetToolRight => lastInputType == InputType.Gamepad ? rightArrowButton : key_3;
+        public InputData GetToolDown => lastInputType == InputType.Gamepad ? downArrowButton : key_4;
 
         public InputData GetSettingsMenu => lastInputType == InputType.Gamepad ? selectButton : tabKey;
         public InputData GetInteract => lastInputType == InputType.Gamepad ? rightShoulder : eKey;

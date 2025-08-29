@@ -15,13 +15,7 @@ namespace Player.Scripts
             player = PlayerStateMachine.instance;
         }
 
-        private void Update()
-        {
-            if (!player.isBackpackOpen && player.inputPackage.GetToolRight.WasPressedWithBuffer())
-                ToggleFlashlight();
-        }
-
-        private void ToggleFlashlight()
+        public void ToggleFlashlight()
         {
             isTurnedOn = !isTurnedOn;
             
