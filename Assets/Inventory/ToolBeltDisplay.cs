@@ -9,10 +9,17 @@ namespace Inventory
 {
     public class ToolBeltDisplay : MonoBehaviour
     {
+        [SerializeField] private Transform toolBeltPivot;
         [SerializeField] private TextMeshProUGUI title;
         [SerializeField] private Image line;
         [SerializeField] private Image background;
         [SerializeField] private List<SlotDisplay> slots;
+        
+        private Vector3 leftCornerPosition = new Vector3(-700.0f, 350.0f, 0.0f);
+        private Vector3 rightCornerPosition = new Vector3(700.0f, 350.0f, 0.0f);
+        private bool isRightCorner = true;
+        private Vector3 targetPosition => isRightCorner ? rightCornerPosition : leftCornerPosition;
+        private Vector3 velocity;
         
         private InventoryStateMachine inventory;
         
@@ -23,6 +30,7 @@ namespace Inventory
             inventory.openBackpack.OnOpenBackpack.AddListener(DisplayToolBelt);
             inventory.closeInventory.OnCloseInventory.AddListener(HideToolBelt);
             BackpackStorage.OnUpdateSlot.AddListener(UpdateSlot);
+            inventory.OnSwitchPocketTarget.AddListener(SwitchPocket);
 
             title.gameObject.SetActive(false);
             line.gameObject.SetActive(false);
@@ -34,6 +42,22 @@ namespace Inventory
                 slots[i].HideInstant();
                 slots[i].GetComponent<SlotMouseDetection>().SetSlotIndex(i);
             }
+        }
+
+        private void Update()
+        {
+            if (!inventory.player.isBackpackOpen)
+                return;
+            
+            toolBeltPivot.localPosition = Vector3.SmoothDamp(toolBeltPivot.localPosition, targetPosition, ref velocity, 0.15f);
+        }
+
+        private void SwitchPocket(BackpackStorage.Pocket newPocket)
+        {
+            if (isRightCorner && newPocket == BackpackStorage.Pocket.ammo)
+                isRightCorner = false;
+            else if (!isRightCorner && newPocket == BackpackStorage.Pocket.medicine)
+                isRightCorner = true;
         }
 
         private void UpdateSlot(BackpackStorage.Pocket pocket, int index)

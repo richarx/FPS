@@ -1879,7 +1879,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1a8c0f8f4fe6fa4f8be43b3d349c43a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glowStick: {fileID: 11400000, guid: daabde06e22c1274ab622aabe1fbc7cc, type: 2}
   OnThrowItem:
     m_PersistentCalls:
       m_Calls: []
@@ -5751,6 +5750,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24d163c9805b19541ab845d1df4fff25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toolBeltPivot: {fileID: 7886939045436439746}
   title: {fileID: 4162276900799314699}
   line: {fileID: 9029966810745291323}
   background: {fileID: 3718500565835527247}
@@ -6545,7 +6545,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 681, y: 351}
+  m_AnchoredPosition: {x: 700, y: 350}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5026622767307207457
