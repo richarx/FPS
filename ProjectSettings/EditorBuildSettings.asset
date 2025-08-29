@@ -8,10 +8,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Wall.unity
     guid: f7518d62770fd384ba9c379899040f58
-  - enabled: 1
-    path: Assets/Scenes/_Old/Sandbox.unity
-    guid: f4b6353410d1f7344a75202cdecf919f
-  - enabled: 1
-    path: Assets/Scenes/_Old/Backroom.unity
-    guid: 4f5f703e2a0ea4643b07295343b433ac
   m_configObjects: {}
