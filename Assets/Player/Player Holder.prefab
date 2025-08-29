@@ -5728,9 +5728,6 @@ MonoBehaviour:
   OnSwitchPocketTarget:
     m_PersistentCalls:
       m_Calls: []
-  OnEquipItem:
-    m_PersistentCalls:
-      m_Calls: []
   player: {fileID: 0}
   canvas: {fileID: 8349161507964310560}
   pointer: {fileID: 2567301468791798593}
@@ -5741,6 +5738,7 @@ MonoBehaviour:
   inventoryCursor: {fileID: 0}
   toolBeltDisplay: {fileID: 0}
   currentPocket: 0
+  throwAwayItemPower: 8
 --- !u!114 &8276896635640122390
 MonoBehaviour:
   m_ObjectHideFlags: 0

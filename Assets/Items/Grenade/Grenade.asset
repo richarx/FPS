@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Grenade
   description: this is a description
+  inHandPrefab: {fileID: 0}
+  thrownPrefab: {fileID: 0}
+  lootPrefab: {fileID: 3494356238535686071, guid: 4662aa2bce57b19479cdbb54be43f05c,
+    type: 3}
   icon: {fileID: -242493956, guid: 1ea00be153fcc3e408c1d523dde12f9f, type: 3}
   pocket: 0
   canBeStacked: 1

@@ -36,17 +36,10 @@ namespace Inventory.StateMachine
 
             if (Time.time - startThrowAwayTimestamp >= timeToThrowAway)
             {
-                ThrowItemAway(inventory);
+                inventory.keyboardThrow.ThrowItemAway(inventory);
                 inventory.ChangeToMovementBehaviour();
                 return;
             }
-        }
-
-        private void ThrowItemAway(InventoryStateMachine inventory)
-        {
-            ItemData item = inventory.player.backpackStorage.GetItem(inventory.currentPocket, startingSlotIndex).item;
-            inventory.ThrowItem(item);
-            inventory.player.backpackStorage.RemoveItem(inventory.currentPocket, startingSlotIndex);
         }
 
         public void StopBehaviour(InventoryStateMachine inventory, InventoryBehaviourType next)

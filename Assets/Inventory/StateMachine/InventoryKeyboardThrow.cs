@@ -44,11 +44,17 @@ namespace Inventory.StateMachine
             inventory.keyboardMove.MakePointerFollowCursor(inventory);
         }
         
-        private void ThrowItemAway(InventoryStateMachine inventory)
+        public void ThrowItemAway(InventoryStateMachine inventory)
         {
-            ItemData item = inventory.player.backpackStorage.GetItem(inventory.currentPocket, startingSlotIndex).item;
-            inventory.ThrowItem(item);
-            inventory.player.backpackStorage.RemoveItem(inventory.currentPocket, startingSlotIndex);
+            bool isCursorOnToolBelt = inventory.inventoryCursor.isToolBelt;
+            BackpackStorage.Pocket pocket = isCursorOnToolBelt ? BackpackStorage.Pocket.toolBelt : inventory.currentPocket;
+            PocketItem item = inventory.player.backpackStorage.GetItem(pocket, startingSlotIndex);
+            
+            if (isCursorOnToolBelt)
+                inventory.player.backpackStorage.StoreItem(item.item, item.count);
+            else
+                inventory.ThrowItem(item.item);
+            inventory.player.backpackStorage.RemoveItem(pocket, startingSlotIndex);
         }
 
         public void StopBehaviour(InventoryStateMachine inventory, InventoryBehaviourType next)

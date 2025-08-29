@@ -16,7 +16,7 @@ namespace Inventory.StateMachine
         [HideInInspector] public UnityEvent<Pocket> OnSwitchPocketTarget = new UnityEvent<Pocket>();
 
         [HideInInspector] public PlayerStateMachine player;
-
+        
         public RectTransform canvas;
         public RectTransform pointer;
         public BackpackDisplay backpackDisplay;
@@ -46,6 +46,8 @@ namespace Inventory.StateMachine
         public InventoryKeyboardGrabToolBelt keyboardGrabToolBelt = new InventoryKeyboardGrabToolBelt();
         
         public IInventoryBehaviour currentBehaviour;
+
+        [SerializeField] private float throwAwayItemPower;
 
         private bool hasSkippedAFrame;
         
@@ -178,7 +180,7 @@ namespace Inventory.StateMachine
             Vector3 position = player.playerShootGun.shootingPosition;
 
             Rigidbody rb = Instantiate(item.lootPrefab, position, Quaternion.identity).GetComponent<Rigidbody>();
-            rb.AddForce(player.playerShootGun.shootingDirection * 20.0f, ForceMode.Impulse);
+            rb.AddForce((player.orientationPivot.forward + Vector3.up).normalized * throwAwayItemPower, ForceMode.Impulse);
         }
         
         public void EquipItem(int startingSlotIndex, int currentToolBeltSlotIndex)
