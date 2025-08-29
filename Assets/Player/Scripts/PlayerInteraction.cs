@@ -56,10 +56,11 @@ namespace Player.Scripts
 
         private void LootItem()
         {
-            ItemData item = registeredItem.GetComponent<LootItem>().GetItemData();
+            LootItem lootItem = registeredItem.GetComponent<LootItem>();
+            ItemData item = lootItem.GetItemData();
             if (backpackStorage.CanStoreItem(item))
             {
-                backpackStorage.StoreItem(item);
+                backpackStorage.StoreItem(item, lootItem.GetAmountLooted());
                 registeredItem.Interact();
             }
         }

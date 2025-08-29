@@ -87,7 +87,7 @@ namespace Player.Scripts
             Vector3 targetPosition = startingPosition;
             targetPosition += forward * (forwardDistance + 0.6f);
             
-            Vector3 finalPosition = Vector3.SmoothDamp(currentPosition, targetPosition, ref forwardVelocity, player.playerData.climbTime);
+            Vector3 finalPosition = Vector3.SmoothDamp(currentPosition, targetPosition, ref forwardVelocity, player.playerData.climbForwardTime);
 
             return finalPosition;
         }

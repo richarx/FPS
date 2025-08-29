@@ -46,8 +46,7 @@ namespace Inventory.StateMachine
         
         private void ThrowItemAway(InventoryStateMachine inventory)
         {
-            grabbedSlot.Setup(null, SlotDisplay.SlotState.Normal);
-            ItemData item = inventory.player.backpackStorage.GetItem(inventory.currentPocket, startingSlotIndex);
+            ItemData item = inventory.player.backpackStorage.GetItem(inventory.currentPocket, startingSlotIndex).item;
             inventory.ThrowItem(item);
             inventory.player.backpackStorage.RemoveItem(inventory.currentPocket, startingSlotIndex);
         }

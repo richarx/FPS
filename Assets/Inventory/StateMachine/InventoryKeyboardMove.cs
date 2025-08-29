@@ -26,8 +26,7 @@ namespace Inventory.StateMachine
                 return;
             }
 
-            SlotDisplay currentSlot = inventory.GetCurrentDisplaySlot();
-            bool slotHasItem = currentSlot.HasItem;
+            bool slotHasItem = !inventory.IsCurrentSlotEmpty();
             
             if (inventory.player.inputPackage.leftMouse.wasPressedThisFrame)
             {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Items;
 using UnityEngine;
-using static Inventory.BackpackStorage;
+using UnityEngine.Events;
 
 namespace Inventory
 {
@@ -52,7 +52,7 @@ namespace Inventory
             return pocketItems.Count((p) => p.isEmpty == false);
         }
 
-        public void StoreItem(ItemData newItem)
+        public (bool, int) StoreItem(ItemData newItem, int count)
         {
             Debug.Log($"Store Item : {newItem.itemName}");
             
@@ -62,22 +62,30 @@ namespace Inventory
                 if (pocketItem != null)
                 {
                     Debug.Log("Store Item : item incremented");
-                    pocketItem.count += 1;
-                    return;
+                    pocketItem.count += count;
+                    return (true, pocketItems.IndexOf(pocketItem));
                 }
             }
 
             if (IsFull())
             {
                 Debug.Log("Store Item : Bag is full");
-                return;
+                return (false, -1);
             }
 
             PocketItem item = pocketItems.Find((p) => p.isEmpty);
             item.item = newItem;
-            item.count = 1;
+            item.count = count;
             
             Debug.Log("Store Item : item added");
+            return (true, pocketItems.IndexOf(item));
+        }
+
+        public void StoreItemAtIndex(ItemData newItem, int count, int index)
+        {
+            PocketItem item = pocketItems[index];
+            item.item = newItem;
+            item.count = count;
         }
 
         public PocketStorage(int slotCount)
@@ -103,12 +111,6 @@ namespace Inventory
         }
     }
 
-    public class ToolBeltSlot
-    {
-        public PocketItem pocketItem;
-        public bool hasItem => pocketItem != null;
-    }
-    
     public class BackpackStorage : MonoBehaviour
     {
         public enum Pocket
@@ -116,18 +118,17 @@ namespace Inventory
             tools,
             component,
             ammo,
-            medicine
+            medicine,
+            toolBelt
         }
+
+        public static UnityEvent<Pocket, int> OnUpdateSlot = new UnityEvent<Pocket, int>();
         
         private PocketStorage tools;
         private PocketStorage components;
         private PocketStorage ammo;
         private PocketStorage medicine;
-
-        private ToolBeltSlot slot_1 = new ToolBeltSlot();
-        private ToolBeltSlot slot_2 = new ToolBeltSlot();
-        private ToolBeltSlot slot_3 = new ToolBeltSlot();
-        private ToolBeltSlot slot_4 = new ToolBeltSlot();
+        private PocketStorage toolBelt;
 
         private void Start()
         {
@@ -135,6 +136,7 @@ namespace Inventory
             components = new PocketStorage(6);
             ammo = new PocketStorage(6);
             medicine = new PocketStorage(6);
+            toolBelt = new PocketStorage(4);
         }
 
         public bool CanStoreItem(ItemData item)
@@ -142,24 +144,38 @@ namespace Inventory
             return GetPocketStorage(item.pocket).CanStoreItem(item);
         }
 
-        public void StoreItem(ItemData item)
+        public void StoreItem(ItemData item, int count)
         {
-            GetPocketStorage(item.pocket).StoreItem(item);
+            (bool wasItemStored, int slotIndex) = GetPocketStorage(item.pocket).StoreItem(item, count);
+            
+            if (wasItemStored)
+                OnUpdateSlot?.Invoke(item.pocket, slotIndex);
         }
         
-        public (PocketItem, PocketItem) SwapItems(Pocket pocket, int first, int second)
+        public void SwapItems(Pocket pocket, int first, int second)
         {
-            return GetPocketStorage(pocket).SwapItems(first, second);
-        }
-
-        public void StoreItemInToolBelt(Pocket pocket, int itemSlotIndex, int toolBeltIndex)
-        {
-            GetToolBeltSlot(toolBeltIndex).pocketItem = GetPocketStorage(pocket).GetPocketItems[itemSlotIndex];
+            GetPocketStorage(pocket).SwapItems(first, second);
+            OnUpdateSlot?.Invoke(pocket, first);
+            OnUpdateSlot?.Invoke(pocket, second);
         }
 
         public void RemoveItem(Pocket pocket, int slotIndex)
         {
             GetPocketStorage(pocket).RemoveItem(slotIndex);
+            OnUpdateSlot?.Invoke(pocket, slotIndex);
+        }
+
+        public void StoreItemInToolBelt(Pocket pocket, int pocketSlotIndex, int toolBeltSlotIndex)
+        {
+            PocketItem previousEquippedItem = GetItem(Pocket.toolBelt, toolBeltSlotIndex);
+            if (previousEquippedItem != null && !previousEquippedItem.isEmpty)
+                StoreItem(previousEquippedItem.item, previousEquippedItem.count);
+            
+            PocketItem item = GetItem(pocket, pocketSlotIndex);
+            GetPocketStorage(Pocket.toolBelt).StoreItemAtIndex(item.item, item.count, toolBeltSlotIndex);
+            OnUpdateSlot?.Invoke(Pocket.toolBelt, toolBeltSlotIndex);
+            
+            RemoveItem(pocket, pocketSlotIndex);
         }
 
         public PocketStorage GetPocketStorage(Pocket pocket)
@@ -174,35 +190,16 @@ namespace Inventory
                     return ammo;
                 case Pocket.medicine:
                     return medicine;
+                case Pocket.toolBelt:
+                    return toolBelt;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(pocket), pocket, null);
             }
         }
 
-        public ToolBeltSlot GetToolBeltSlot(int slotIndex)
+        public PocketItem GetItem(Pocket pocket, int slotIndex)
         {
-            if (slotIndex == 0)
-                return slot_1;
-            else if (slotIndex == 1)
-                return slot_2;
-            else if (slotIndex == 2)
-                return slot_3;
-            else if (slotIndex == 3)
-                return slot_4;
-
-            return slot_1;
-        }
-
-        public ItemData GetItem(Pocket pocket, int slotIndex)
-        {
-            return GetPocketStorage(pocket).GetPocketItems[slotIndex].item;
-        }
-
-        public void SwapToolBeltSlots(int first, int second)
-        {
-            PocketItem tmp = GetToolBeltSlot(first).pocketItem;
-            GetToolBeltSlot(first).pocketItem = GetToolBeltSlot(second).pocketItem;
-            GetToolBeltSlot(second).pocketItem = tmp;
+            return GetPocketStorage(pocket).GetPocketItems[slotIndex];
         }
     }
 }

@@ -52,11 +52,5 @@ namespace Inventory
             foreach (SlotDisplay slot in slots)
                 slot.HideInstant();
         }
-
-        public void SwapItems(int firstIndex, int secondIndex, PocketItem firstData, PocketItem secondData)
-        {
-            slots[firstIndex].Setup(firstData, SlotDisplay.SlotState.Normal);
-            slots[secondIndex].Setup(secondData, SlotDisplay.SlotState.Normal);
-        }
     }
 }

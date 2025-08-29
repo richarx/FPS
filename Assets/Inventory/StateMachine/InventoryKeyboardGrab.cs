@@ -33,7 +33,7 @@ namespace Inventory.StateMachine
             if (!inventory.player.inputPackage.leftMouse.isPressed)
             {
                 if (inventory.inventoryCursor.isToolBelt)
-                    inventory.EquipItem(startingSlotIndex, inventory.inventoryCursor.currentSlotIndex);
+                    inventory.EquipItem(grabbedSlot, startingSlotIndex, inventory.inventoryCursor.currentSlotIndex);
                 else if (CanSwapItems(inventory))
                     SwapItems(inventory);
                 
@@ -53,8 +53,7 @@ namespace Inventory.StateMachine
         
         private void SwapItems(InventoryStateMachine inventory)
         {
-            (PocketItem first, PocketItem second) = inventory.player.backpackStorage.SwapItems(inventory.currentPocket, startingSlotIndex, inventory.inventoryCursor.currentSlotIndex);
-            inventory.inventoryDisplay.SwapItems(inventory.currentPocket, startingSlotIndex, inventory.inventoryCursor.currentSlotIndex, first, second);
+            inventory.player.backpackStorage.SwapItems(inventory.currentPocket, startingSlotIndex, inventory.inventoryCursor.currentSlotIndex);
         }
 
         public void StopBehaviour(InventoryStateMachine inventory, InventoryBehaviourType next)

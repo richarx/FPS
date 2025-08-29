@@ -51,7 +51,7 @@ namespace Inventory.StateMachine
 
             if (hasSkippedAFrame && inventory.player.inputPackage.southButton.wasPressedThisFrame)
             {
-                inventory.EquipItem(startingSlotIndex, currentToolBeltSlotIndex);
+                inventory.EquipItem(grabbedSlot, startingSlotIndex, currentToolBeltSlotIndex);
                 inventory.ChangeToMovementBehaviour();
                 return;
             }

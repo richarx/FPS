@@ -17,7 +17,8 @@ namespace Inventory
         [SerializeField] private float displayDelay;
 
         [HideInInspector] public UnityEvent OnDisplayNewPocket = new UnityEvent();
-        
+
+        private PlayerStateMachine player;
         private BackpackStorage backpackStorage;
         
         private PocketDisplay currentPocket;
@@ -28,15 +29,27 @@ namespace Inventory
         
         private void Start()
         {
-            PlayerStateMachine player = PlayerStateMachine.instance;
+            player = PlayerStateMachine.instance;
             backpackStorage = player.backpackStorage;
             
             InventoryStateMachine.instance.OnSwitchPocketTarget.AddListener(SwitchPocket);
+            BackpackStorage.OnUpdateSlot.AddListener(UpdateSlot);
             
             componentPocket.HideInstant();
             toolsPocket.HideInstant();
             ammoPocket.HideInstant();
             medicinePocket.HideInstant();
+        }
+
+        private void UpdateSlot(Pocket pocket, int index)
+        {
+            if (!isDisplayed || pocket == Pocket.toolBelt)
+                return;
+            
+            PocketDisplay pocketDisplay = ComputePocket(pocket);
+
+            if (pocketDisplay == currentPocket)
+                pocketDisplay.Slots[index].Setup(backpackStorage.GetItem(pocket, index), SlotDisplay.SlotState.Normal);
         }
 
         public void DisplayPocket(Pocket pocket)
@@ -87,11 +100,6 @@ namespace Inventory
                 default:
                     throw new ArgumentOutOfRangeException(nameof(pocket), pocket, null);
             }
-        }
-
-        public void SwapItems(Pocket pocket, int firstIndex, int secondIndex, PocketItem firstData, PocketItem secondData)
-        {
-            ComputePocket(pocket).SwapItems(firstIndex, secondIndex, firstData, secondData);
         }
     }
 }

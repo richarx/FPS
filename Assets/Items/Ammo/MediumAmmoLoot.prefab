@@ -291,7 +291,6 @@ MonoBehaviour:
   OnTrigger:
     m_PersistentCalls:
       m_Calls: []
-  toolTipText: Press $E$ to Loot
   itemType: 0
   sr: {fileID: 8246894052788533704}
   sprite: {fileID: -446967490, guid: a5054a3fed29305419e6e560f3cb454c, type: 3}
@@ -396,3 +395,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: dfff593299209994296195e4a598e4e7, type: 2}
+  amountLooted: 20

@@ -21,7 +21,7 @@ namespace Inventory.StateMachine
                 return;
             }
 
-            bool slotHasItem = inventory.GetCurrentDisplaySlot().HasItem;
+            bool slotHasItem = !inventory.IsCurrentSlotEmpty();
 
             if (slotHasItem && inventory.player.inputPackage.southButton.wasPressedThisFrame)
             {

@@ -23,6 +23,7 @@ namespace Inventory
             inventory.openBackpack.OnOpenBackpack.AddListener(DisplayToolBelt);
             inventory.closeInventory.OnCloseInventory.AddListener(HideToolBelt);
             inventory.OnEquipItem.AddListener(EquipItem);
+            BackpackStorage.OnUpdateSlot.AddListener(UpdateSlot);
 
             title.gameObject.SetActive(false);
             line.gameObject.SetActive(false);
@@ -36,9 +37,18 @@ namespace Inventory
             }
         }
 
+        private void UpdateSlot(BackpackStorage.Pocket pocket, int index)
+        {
+            if (!inventory.player.isBackpackOpen)
+                return;
+            
+            if (pocket == BackpackStorage.Pocket.toolBelt)
+                slots[index].Setup(inventory.player.backpackStorage.GetItem(BackpackStorage.Pocket.toolBelt, index), SlotDisplay.SlotState.Normal);
+        }
+
         private void EquipItem(int toolBeltSlotIndex)
         {
-            slots[toolBeltSlotIndex].Setup(inventory.player.backpackStorage.GetToolBeltSlot(toolBeltSlotIndex).pocketItem ,SlotDisplay.SlotState.Normal);
+            slots[toolBeltSlotIndex].Setup(inventory.player.backpackStorage.GetItem(BackpackStorage.Pocket.toolBelt, toolBeltSlotIndex) ,SlotDisplay.SlotState.Normal);
         }
 
         private void DisplayToolBelt()

@@ -178,7 +178,7 @@ namespace Inventory.StateMachine
             rb.AddForce(player.playerShootGun.shootingDirection * 20.0f, ForceMode.Impulse);
         }
         
-        public void EquipItem(int startingSlotIndex, int currentToolBeltSlotIndex)
+        public void EquipItem(SlotDisplay grabbedSlot, int startingSlotIndex, int currentToolBeltSlotIndex)
         {
             player.backpackStorage.StoreItemInToolBelt(currentPocket, startingSlotIndex, currentToolBeltSlotIndex);
             OnEquipItem?.Invoke(currentToolBeltSlotIndex);
@@ -186,9 +186,16 @@ namespace Inventory.StateMachine
 
         public void SwapToolBeltSlots(int startingSlotIndex)
         {
-            player.backpackStorage.SwapToolBeltSlots(startingSlotIndex, inventoryCursor.currentSlotIndex);
+            player.backpackStorage.SwapItems(Pocket.toolBelt,startingSlotIndex, inventoryCursor.currentSlotIndex);
             OnEquipItem?.Invoke(startingSlotIndex);
             OnEquipItem?.Invoke(inventoryCursor.currentSlotIndex);
+        }
+
+        public bool IsCurrentSlotEmpty()
+        {
+            Pocket pocket = inventoryCursor.isToolBelt ? Pocket.toolBelt : currentPocket;
+            
+            return player.backpackStorage.GetItem(pocket, inventoryCursor.currentSlotIndex).isEmpty;
         }
     }
 }

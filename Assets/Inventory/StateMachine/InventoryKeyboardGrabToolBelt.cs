@@ -20,7 +20,7 @@ namespace Inventory.StateMachine
             
             inventory.itemPickedUpRect.anchoredPosition = CameraScreenPosition.instance.GetMousePosition(inventory.canvas);
             inventory.itemPickedUp.gameObject.SetActive(true);
-            inventory.itemPickedUp.sprite = inventory.player.backpackStorage.GetToolBeltSlot(startingSlotIndex).pocketItem.item.icon;
+            inventory.itemPickedUp.sprite = inventory.player.backpackStorage.GetItem(BackpackStorage.Pocket.toolBelt, startingSlotIndex).item.icon;
         }
 
         public void UpdateBehaviour(InventoryStateMachine inventory)
