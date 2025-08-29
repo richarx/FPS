@@ -21,7 +21,7 @@ namespace Inventory
         [SerializeField] private bool isToolBeltSLot;
 
         private SlotDeleteAnimation slotDeleteAnimation;
-        
+
         private SlotState currentState = SlotState.Normal;
         
         private bool isDisplayed;
@@ -41,7 +41,7 @@ namespace Inventory
             hasItem = item != null && !item.isEmpty;
             bool hasCount = hasItem && item!.item.canBeStacked && item.count > 1;
             
-            icon.gameObject.SetActive(hasItem);
+            icon.gameObject.SetActive(hasItem && isDisplayed);
             text.text = hasCount ? item.count.ToString() : "";
             icon.sprite = hasItem ? item!.item.icon : null;
 

@@ -33,7 +33,7 @@ namespace Inventory.StateMachine
             if (!inventory.player.inputPackage.leftMouse.isPressed)
             {
                 if (inventory.inventoryCursor.isToolBelt)
-                    inventory.EquipItem(grabbedSlot, startingSlotIndex, inventory.inventoryCursor.currentSlotIndex);
+                    inventory.EquipItem(startingSlotIndex, inventory.inventoryCursor.currentSlotIndex);
                 else if (CanSwapItems(inventory))
                     SwapItems(inventory);
                 

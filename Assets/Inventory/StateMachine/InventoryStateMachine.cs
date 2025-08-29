@@ -14,7 +14,6 @@ namespace Inventory.StateMachine
         public static InventoryStateMachine instance;
         
         [HideInInspector] public UnityEvent<Pocket> OnSwitchPocketTarget = new UnityEvent<Pocket>();
-        [HideInInspector] public UnityEvent<int> OnEquipItem = new UnityEvent<int>();
 
         [HideInInspector] public PlayerStateMachine player;
 
@@ -178,17 +177,14 @@ namespace Inventory.StateMachine
             rb.AddForce(player.playerShootGun.shootingDirection * 20.0f, ForceMode.Impulse);
         }
         
-        public void EquipItem(SlotDisplay grabbedSlot, int startingSlotIndex, int currentToolBeltSlotIndex)
+        public void EquipItem(int startingSlotIndex, int currentToolBeltSlotIndex)
         {
             player.backpackStorage.StoreItemInToolBelt(currentPocket, startingSlotIndex, currentToolBeltSlotIndex);
-            OnEquipItem?.Invoke(currentToolBeltSlotIndex);
         }
 
         public void SwapToolBeltSlots(int startingSlotIndex)
         {
             player.backpackStorage.SwapItems(Pocket.toolBelt,startingSlotIndex, inventoryCursor.currentSlotIndex);
-            OnEquipItem?.Invoke(startingSlotIndex);
-            OnEquipItem?.Invoke(inventoryCursor.currentSlotIndex);
         }
 
         public bool IsCurrentSlotEmpty()

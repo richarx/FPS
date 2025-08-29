@@ -31,10 +31,10 @@ namespace Inventory
         {
             player = PlayerStateMachine.instance;
             backpackStorage = player.backpackStorage;
-            
+
             InventoryStateMachine.instance.OnSwitchPocketTarget.AddListener(SwitchPocket);
             BackpackStorage.OnUpdateSlot.AddListener(UpdateSlot);
-            
+
             componentPocket.HideInstant();
             toolsPocket.HideInstant();
             ammoPocket.HideInstant();
