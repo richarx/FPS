@@ -50,6 +50,7 @@ namespace Inventory
         {
             pocketSwitchCount += 1;
             currentSlotIndex = 0;
+            isToolBelt = false;
             targetPosition = inventoryDisplay.CurrentPocket.Slots[0].GetComponent<RectTransform>();
             
             if (pocketSwitchCount <= 1)

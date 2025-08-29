@@ -35,7 +35,7 @@ namespace Inventory.StateMachine
                 return;
             }
             
-            if (slotHasItem && inventory.player.inputPackage.westButton.wasPressedThisFrame)
+            if (!inventory.inventoryCursor.isToolBelt && slotHasItem && inventory.player.inputPackage.westButton.wasPressedThisFrame)
             {
                 inventory.ChangeBehaviour(inventory.gamepadEquip);
                 return;
@@ -47,21 +47,46 @@ namespace Inventory.StateMachine
         public void CheckPlayerMove(InventoryStateMachine inventory)
         {
             Vector2 move = inventory.player.inputPackage.GetMove;
+            Vector2 moveToolBelt = inventory.player.inputPackage.GetLook;
+            bool isCurrentlyInToolBelt = inventory.inventoryCursor.isToolBelt;
 
-            if (canMove && move.magnitude > 0.15f)
+            if (canMove && moveToolBelt.magnitude > 0.15f)
             {
-                MoveCursor(inventory, move);
+                MoveCursorToToolBelt(inventory, moveToolBelt, isCurrentlyInToolBelt);
+                lastMoveTimestamp = Time.time;
+            }
+            else if (canMove && move.magnitude > 0.15f)
+            {
+                MoveCursor(inventory, move, isCurrentlyInToolBelt);
                 lastMoveTimestamp = Time.time;
             }
         }
-        
-        private void MoveCursor(InventoryStateMachine inventory, Vector2 move)
+
+        private void MoveCursorToToolBelt(InventoryStateMachine inventory, Vector2 move, bool isCurrentlyInToolBelt)
+        {
+            if (move.x > 0.2f && !isCurrentlyInToolBelt)
+            {
+                inventory.inventoryCursor.SetTargetPosition(inventory.toolBeltDisplay.GetToolBeltSlot(0).GetComponent<RectTransform>(), 0, true);
+            }
+            else if (move.x < -0.2f && isCurrentlyInToolBelt)
+            {
+                inventory.inventoryCursor.SetTargetPosition(inventory.inventoryDisplay.CurrentPocket.Slots[0].GetComponent<RectTransform>(), 0, false);
+            }
+        }
+
+        private void MoveCursor(InventoryStateMachine inventory, Vector2 move, bool isCurrentlyInToolBelt)
         {
             List<SlotDisplay> slots = inventory.inventoryDisplay.CurrentPocket.Slots;
+
+            int currentSlot = inventory.inventoryCursor.currentSlotIndex;
+            int pocketWidth = isCurrentlyInToolBelt ? 4 : inventory.inventoryDisplay.CurrentPocket.Width;
+            int pocketSlotCount = isCurrentlyInToolBelt ? 4 : slots.Count;
             
-            int nextSlot = ComputeNextSlot(move, inventory.inventoryCursor.currentSlotIndex, inventory.inventoryDisplay.CurrentPocket.Width, slots.Count);
+            int nextSlot = ComputeNextSlot(move, currentSlot, pocketWidth, pocketSlotCount);
+
+            RectTransform target = (isCurrentlyInToolBelt ? inventory.toolBeltDisplay.GetToolBeltSlot(nextSlot) : slots[nextSlot]).GetComponent<RectTransform>();
             
-            inventory.inventoryCursor.SetTargetPosition(slots[nextSlot].GetComponent<RectTransform>(), nextSlot, false);
+            inventory.inventoryCursor.SetTargetPosition(target, nextSlot, isCurrentlyInToolBelt);
         }
 
         private int ComputeNextSlot(Vector2 move, int currentIndex, int width, int slotCount)

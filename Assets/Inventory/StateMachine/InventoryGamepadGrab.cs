@@ -53,7 +53,8 @@ namespace Inventory.StateMachine
 
         private void SwapItems(InventoryStateMachine inventory)
         {
-            inventory.player.backpackStorage.SwapItems(inventory.currentPocket, startingSlotIndex, inventory.inventoryCursor.currentSlotIndex);
+            BackpackStorage.Pocket pocket = inventory.inventoryCursor.isToolBelt ? BackpackStorage.Pocket.toolBelt : inventory.currentPocket;
+            inventory.player.backpackStorage.SwapItems(pocket, startingSlotIndex, inventory.inventoryCursor.currentSlotIndex);
         }
 
         public void StopBehaviour(InventoryStateMachine inventory, InventoryBehaviourType next)

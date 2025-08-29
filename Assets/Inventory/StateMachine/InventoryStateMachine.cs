@@ -83,20 +83,20 @@ namespace Inventory.StateMachine
                 return;   
             }
             hasSkippedAFrame = true;
-            
-            (bool isPocketChangeRequested, Pocket targetPocket) = pocketSwitcher.CheckForPocketInput();
 
-            if (isPocketChangeRequested)
+            if (currentBehaviour.GetBehaviourType() != InventoryBehaviourType.OpenBackpack &&
+                currentBehaviour.GetBehaviourType() != InventoryBehaviourType.OpenInventory)
             {
-                SwitchPocket(targetPocket);
-
-                if (currentBehaviour.GetBehaviourType() != InventoryBehaviourType.MoveGamepad)
-                {
-                    ChangeToMovementBehaviour();
-                    return;
-                }
+                (bool isPocketChangeRequested, Pocket targetPocket) = pocketSwitcher.CheckForPocketInput();  
+                                                                                              
+                if (isPocketChangeRequested)                                                                 
+                {                                                                                            
+                    SwitchPocket(targetPocket);                                                              
+                    ChangeToMovementBehaviour();                                                             
+                    return;                                                                                  
+                }                                                                                            
             }
-            
+
             currentBehaviour.UpdateBehaviour(this);
         }
         
@@ -161,12 +161,16 @@ namespace Inventory.StateMachine
 
         public SlotDisplay GetCurrentDisplaySlot()
         {
-            return inventoryDisplay.ComputePocket(currentPocket).Slots[inventoryCursor.currentSlotIndex];
+            bool isCursorOnToolBelt = inventoryCursor.isToolBelt;
+            int index = inventoryCursor.currentSlotIndex;
+            return isCursorOnToolBelt ? toolBeltDisplay.GetToolBeltSlot(index) : inventoryDisplay.ComputePocket(currentPocket).Slots[index];
         }
         
         public PocketItem GetCurrentStorageSlot()
         {
-            return player.backpackStorage.GetPocketStorage(currentPocket).GetPocketItems[inventoryCursor.currentSlotIndex];
+            bool isCursorOnToolBelt = inventoryCursor.isToolBelt;
+            int index = inventoryCursor.currentSlotIndex;        
+            return player.backpackStorage.GetPocketStorage(isCursorOnToolBelt ? Pocket.toolBelt : currentPocket).GetPocketItems[index];
         }
 
         public void ThrowItem(ItemData item)

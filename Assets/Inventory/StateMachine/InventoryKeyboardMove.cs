@@ -28,14 +28,14 @@ namespace Inventory.StateMachine
 
             bool slotHasItem = !inventory.IsCurrentSlotEmpty();
             
-            if (inventory.player.inputPackage.leftMouse.wasPressedThisFrame)
+            if (slotHasItem && inventory.player.inputPackage.leftMouse.wasPressedThisFrame)
             {
                 if (inventory.inventoryCursor.isToolBelt)
                 {
                     inventory.ChangeBehaviour(inventory.keyboardGrabToolBelt);
                     return;
                 }
-                else if (slotHasItem)
+                else
                 {
                     inventory.ChangeToGrabBehaviour();
                     return;
