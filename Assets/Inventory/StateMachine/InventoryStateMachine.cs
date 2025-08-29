@@ -93,8 +93,8 @@ namespace Inventory.StateMachine
                                                                                               
                 if (isPocketChangeRequested)                                                                 
                 {                                                                                            
-                    SwitchPocket(targetPocket);                                                              
                     ChangeToMovementBehaviour();                                                             
+                    SwitchPocket(targetPocket);                                                              
                     return;                                                                                  
                 }                                                                                            
             }
