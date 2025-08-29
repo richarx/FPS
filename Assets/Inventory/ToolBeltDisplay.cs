@@ -48,8 +48,8 @@ namespace Inventory
         private void DisplayToolBelt()
         {
             StopAllCoroutines();
-            StartCoroutine(Tools.Fade(title, 0.2f, true));
-            StartCoroutine(Tools.Fade(line, 0.2f, true));
+            StartCoroutine(Tools.Fade(title, 0.5f, true));
+            StartCoroutine(Tools.Fade(line, 0.8f, true));
             StartCoroutine(Tools.Fade(background, 0.2f, true, 0.2f));
             
             foreach (SlotDisplay slot in slots)
