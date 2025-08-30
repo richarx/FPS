@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Player.Scripts
 {
     public class PlayerLedgeGrab : IPlayerBehaviour
     {
+        public UnityEvent OnLedgeGrab = new UnityEvent();
+        
         private Vector3 startingPosition;
         private float forwardDistance;
         private float height;
@@ -27,6 +30,8 @@ namespace Player.Scripts
             player.ApplyMovement();
 
             player.playerArms.DisplayLedgeGrabArms();
+            
+            OnLedgeGrab?.Invoke();
         }
 
         public void UpdateBehaviour(PlayerStateMachine player)

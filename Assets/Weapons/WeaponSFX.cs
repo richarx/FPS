@@ -52,7 +52,7 @@ namespace Items.Weapons
             player.playerGun.OnSwapWeapon.AddListener((_) => PlaySwapSound());
             player.playerAiming.OnChangeAimState.AddListener((isAiming) =>
             {
-                if (isAiming && player.playerGun.hasWeapon && !player.isLocked && !player.isScanning)
+                if (isAiming && player.playerGun.hasWeapon && !player.isLocked && !player.isScanning && !player.isBackpackOpen)
                     SFXManager.instance.PlayRandomSFX(adsClick);
             });
 
