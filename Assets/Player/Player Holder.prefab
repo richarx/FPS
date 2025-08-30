@@ -1634,11 +1634,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b50a5a178f2bdfd449384faabeca339a, type: 3}
   - {fileID: 8300000, guid: 7d28ef20f56758143a1c9cbde1a76377, type: 3}
   ledgeGrab:
-  - {fileID: 8300000, guid: 4077e37a53101254e8cda19ecaec1778, type: 3}
-  - {fileID: 8300000, guid: 0dce80aabedcbec4aa340614193c429a, type: 3}
-  - {fileID: 8300000, guid: 7f41af420368c5a4682e09d285fc4f87, type: 3}
-  - {fileID: 8300000, guid: e12b64a3f504fec4dacf7a694a73fa19, type: 3}
-  - {fileID: 8300000, guid: 0d460a15e7fe15e4997c2da59a1c7bde, type: 3}
+  - {fileID: 8300000, guid: bbc64bea01d711a4cb0ce19e6deaa762, type: 3}
+  - {fileID: 8300000, guid: b9a94782140e65d4da77b0f020934f05, type: 3}
+  loot:
+  - {fileID: 8300000, guid: 602c44f1c2cb29049b7e0f0689db6af8, type: 3}
+  - {fileID: 8300000, guid: 0fce8316aa6bbd84b9afe03f167ac986, type: 3}
+  - {fileID: 8300000, guid: 3c515b5d08fdc1547a151efc7e35dd2b, type: 3}
 --- !u!114 &6615129651493764458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1755,6 +1756,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7432698584fa64fa3884778e94a1cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnLootItem:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2392713915105528312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1865,6 +1869,8 @@ MonoBehaviour:
   throwArmsPrefab: {fileID: 3602875748352308952, guid: 83cc00098c81d8744b21bed7d79fefe2,
     type: 3}
   ledgeGrabArmsPrefab: {fileID: 7666275297248279096, guid: 5d593748341ed21419d9ffd357dc1689,
+    type: 3}
+  lootArmsPrefab: {fileID: 7666275297248279096, guid: e5e20a9e1155b25419db062fb94602b3,
     type: 3}
   OnUnEquipTool:
     m_PersistentCalls:

@@ -3,6 +3,7 @@ using Inventory;
 using Items;
 using Pause_Menu;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Player.Scripts
 {
@@ -11,6 +12,9 @@ namespace Player.Scripts
         private PlayerStateMachine player;
         private PlayerGun playerGun;
         private BackpackStorage backpackStorage;
+        private PlayerArms playerArms;
+
+        public UnityEvent OnLootItem = new UnityEvent();
         
         private Interactable registeredItem;
 
@@ -19,6 +23,7 @@ namespace Player.Scripts
             player = PlayerStateMachine.instance;
             playerGun = GetComponent<PlayerGun>();
             backpackStorage = GetComponent<BackpackStorage>();
+            playerArms = GetComponent<PlayerArms>();
         }
 
         private void Update()
@@ -62,6 +67,8 @@ namespace Player.Scripts
             {
                 backpackStorage.StoreItem(item, lootItem.GetAmountLooted());
                 registeredItem.Interact();
+                playerArms.DisplayLootArms();
+                OnLootItem?.Invoke();
             }
         }
 

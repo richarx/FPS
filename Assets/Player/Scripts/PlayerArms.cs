@@ -14,12 +14,14 @@ namespace Player.Scripts
             Empty,
             Weapon,
             Throw,
-            LedgeGrab
+            LedgeGrab,
+            Loot
         }
         
         [SerializeField] private Transform armsPivot;
         [SerializeField] private GameObject throwArmsPrefab;
         [SerializeField] private GameObject ledgeGrabArmsPrefab;
+        [SerializeField] private GameObject lootArmsPrefab;
 
         [HideInInspector] public UnityEvent OnUnEquipTool = new UnityEvent();
         [HideInInspector] public UnityEvent OnResetArms = new UnityEvent();
@@ -104,6 +106,27 @@ namespace Player.Scripts
         public void RemoveLedgeGrabArms()
         {
             if (currentArmType != ArmType.LedgeGrab)
+                return;
+            
+            ClearPivot();
+            OnResetArms?.Invoke();
+        }
+        
+        public void DisplayLootArms()
+        {
+            StopAllCoroutines();
+            ClearPivot();
+            
+            Transform newArms = Instantiate(lootArmsPrefab, Vector3.zero, Quaternion.identity, armsPivot).transform;
+            newArms.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+            
+            currentArms = newArms;
+            SetArmType(ArmType.Loot);
+        }
+
+        public void RemoveLootArms()
+        {
+            if (currentArmType != ArmType.Loot)
                 return;
             
             ClearPivot();

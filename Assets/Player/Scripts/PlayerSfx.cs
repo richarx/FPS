@@ -12,6 +12,7 @@ namespace Player.Scripts
         [SerializeField] private List<AudioClip> landingLight;
         [SerializeField] private List<AudioClip> slideStart;
         [SerializeField] private List<AudioClip> ledgeGrab;
+        [SerializeField] private List<AudioClip> loot;
 
         private const float wooshVolume = 0.01f;
 
@@ -33,6 +34,7 @@ namespace Player.Scripts
             });
             player.playerSlide.OnStartSlide.AddListener((_) => SFXManager.instance.PlayRandomSFX(slideStart, 0.03f));
             player.playerLedgeGrab.OnLedgeGrab.AddListener(() => SFXManager.instance.PlayRandomSFX(ledgeGrab));
+            player.GetComponent<PlayerInteraction>().OnLootItem.AddListener(() => SFXManager.instance.PlayRandomSFX(loot));
         }
     }
 }
