@@ -31,8 +31,8 @@ MonoBehaviour:
   climbForwardTime: 0.1
   slideTransitionSpeed: 0.1
   slideVelocityThresholdToCrouch: 15
-  slidePower: 45
-  slideFriction: 0.5
+  slidePower: 15
+  slideFriction: 0.9
   slideSteerAcceleration: 45
   slideGravity: -300
   slamMaxSpeed: 1000
@@ -42,7 +42,7 @@ MonoBehaviour:
   crouchMaxSpeedAiming: 5
   crouchAcceleration: 80
   crouchDeceleration: 150
-  maxJumpCount: 3
+  maxJumpCount: 2
   groundingForce: -10
   coyoteTime: 0.12
   jumpForce: 35

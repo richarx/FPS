@@ -60,12 +60,6 @@ namespace Player.Scripts
                 StartJump(player);
                 return;
             }
-
-            if (player.inputPackage.GetCrouch.WasPressedWithBuffer())
-            {
-                player.ChangeBehaviour(player.playerSlam);
-                return;
-            }
         }
 
         public void FixedUpdateBehaviour(PlayerStateMachine player)
