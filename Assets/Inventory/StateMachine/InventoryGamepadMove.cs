@@ -50,7 +50,7 @@ namespace Inventory.StateMachine
             Vector2 moveToolBelt = inventory.player.inputPackage.GetLook;
             bool isCurrentlyInToolBelt = inventory.inventoryCursor.isToolBelt;
 
-            if (canMove && moveToolBelt.magnitude > 0.15f)
+            if (canMove && moveToolBelt.magnitude > 0.2f)
             {
                 MoveCursorToToolBelt(inventory, moveToolBelt, isCurrentlyInToolBelt);
                 lastMoveTimestamp = Time.time;
@@ -64,11 +64,16 @@ namespace Inventory.StateMachine
 
         private void MoveCursorToToolBelt(InventoryStateMachine inventory, Vector2 move, bool isCurrentlyInToolBelt)
         {
-            if (move.x > 0.2f && !isCurrentlyInToolBelt)
+            bool isToolBeltOnTheRight = inventory.toolBeltDisplay.IsRightCorner;
+            bool isMovingRight = move.x > 0.2f;
+            bool isMovingLeft = move.x < -0.2f;
+            bool isMovingTowardToolBelt = (isMovingRight && isToolBeltOnTheRight) || (isMovingLeft && !isToolBeltOnTheRight);
+            
+            if (!isCurrentlyInToolBelt && isMovingTowardToolBelt)
             {
                 inventory.inventoryCursor.SetTargetPosition(inventory.toolBeltDisplay.GetToolBeltSlot(0).GetComponent<RectTransform>(), 0, true);
             }
-            else if (move.x < -0.2f && isCurrentlyInToolBelt)
+            else if (isCurrentlyInToolBelt && !isMovingTowardToolBelt)
             {
                 inventory.inventoryCursor.SetTargetPosition(inventory.inventoryDisplay.CurrentPocket.Slots[0].GetComponent<RectTransform>(), 0, false);
             }

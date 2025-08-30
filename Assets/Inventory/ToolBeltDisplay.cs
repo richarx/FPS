@@ -18,6 +18,7 @@ namespace Inventory
         private Vector3 leftCornerPosition = new Vector3(-700.0f, 350.0f, 0.0f);
         private Vector3 rightCornerPosition = new Vector3(700.0f, 350.0f, 0.0f);
         private bool isRightCorner = true;
+        public bool IsRightCorner => isRightCorner;
         private Vector3 targetPosition => isRightCorner ? rightCornerPosition : leftCornerPosition;
         private Vector3 velocity;
         
