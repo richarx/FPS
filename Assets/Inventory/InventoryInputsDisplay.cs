@@ -67,14 +67,13 @@ namespace Inventory
             inventory.openBackpack.OnOpenBackpack.AddListener(DisplayInputs);
             inventory.OnSwitchPocketTarget.AddListener(SwitchPocket);
             inventory.closeInventory.OnCloseInventory.AddListener(HideInputs);
-            //InputPacker.OnChangeInputType.AddListener(SetCorrectInputType);
             
             inputDisplay.gameObject.SetActive(false);
         }
 
         private void Update()
         {
-            if (!player.isBackpackOpen)
+            if (!player.isBackpackOpen || currentState == InventoryInputState.Hidden)
                 return;
 
             InventoryInputState state = ComputeState();

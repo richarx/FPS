@@ -36,7 +36,7 @@ namespace Inventory.StateMachine
 
             if (Time.time - startThrowAwayTimestamp >= timeToThrowAway)
             {
-                ThrowItemAway(inventory);
+                ThrowItemAway(inventory, startingSlotIndex);
                 inventory.ChangeToMovementBehaviour();
                 return;
             }
@@ -44,17 +44,17 @@ namespace Inventory.StateMachine
             inventory.keyboardMove.MakePointerFollowCursor(inventory);
         }
         
-        public void ThrowItemAway(InventoryStateMachine inventory)
+        public void ThrowItemAway(InventoryStateMachine inventory, int toolBeltIndex)
         {
             bool isCursorOnToolBelt = inventory.inventoryCursor.isToolBelt;
             BackpackStorage.Pocket pocket = isCursorOnToolBelt ? BackpackStorage.Pocket.toolBelt : inventory.currentPocket;
-            PocketItem item = inventory.player.backpackStorage.GetItem(pocket, startingSlotIndex);
+            PocketItem item = inventory.player.backpackStorage.GetItem(pocket, toolBeltIndex);
             
             if (isCursorOnToolBelt)
                 inventory.player.backpackStorage.StoreItem(item.item, item.count);
             else
                 inventory.ThrowItem(item.item);
-            inventory.player.backpackStorage.RemoveItem(pocket, startingSlotIndex);
+            inventory.player.backpackStorage.RemoveItem(pocket, toolBeltIndex);
         }
 
         public void StopBehaviour(InventoryStateMachine inventory, InventoryBehaviourType next)

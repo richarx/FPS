@@ -36,7 +36,7 @@ namespace Inventory.StateMachine
 
             if (Time.time - startThrowAwayTimestamp >= timeToThrowAway)
             {
-                inventory.keyboardThrow.ThrowItemAway(inventory);
+                inventory.keyboardThrow.ThrowItemAway(inventory, startingSlotIndex);
                 inventory.ChangeToMovementBehaviour();
                 return;
             }

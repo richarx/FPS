@@ -69,4 +69,4 @@ MonoBehaviour:
   aimSensitivityMultiplier: 0.3
   layersToIgnoreForGroundCheck:
     serializedVersion: 2
-    m_Bits: 382
+    m_Bits: 894
