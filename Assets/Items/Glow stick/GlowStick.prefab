@@ -206,6 +206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 544687687954206865}
+  targetBorderThickness: 5.5
   offset: {x: 0, y: 1.5, z: 0}
   scanText: Glow Stick -
 --- !u!114 &3336409531129887057

@@ -36,7 +36,9 @@ namespace Scanner
         {
             if (isDisplayed)
             {
+                Tools.SetTextColor(text);
                 text.text = scannerDetector.CurrentTarget.GetScanText();
+                Debug.Log($"Display 1 : {text.color.a} / {text.text}");
                 return;
             }
             
@@ -44,8 +46,9 @@ namespace Scanner
             border.MakeVisible();
             StartCoroutine(Tools.FillImage(border, fillBorderDuration, true));
             StartCoroutine(Tools.Fade(background, fadeBackgroundDuration, true, backgroundMaxFade, delay:fillBorderDuration / 2.0f));
-            text.text = scannerDetector.CurrentTarget.GetScanText();
             Tools.SetTextColor(text);
+            text.text = scannerDetector.CurrentTarget.GetScanText();
+            Debug.Log($"Display 2 : {text.color.a} / {text.text}");
             isDisplayed = true;
         }
 

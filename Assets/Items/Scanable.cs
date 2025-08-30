@@ -7,6 +7,7 @@ namespace Items
     public class Scanable : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private float targetBorderThickness;
         [SerializeField] private Vector3 offset;
         [SerializeField] [TextArea] private string scanText;
 
@@ -69,14 +70,14 @@ namespace Items
             float velocity = 0.0f;
             
             float timer = 0.0f;
-            while (thickness <= 5.0f)
+            while (thickness <= targetBorderThickness)
             {
-                thickness = Mathf.SmoothDamp(thickness, 5.5f, ref velocity, 0.1f);
+                thickness = Mathf.SmoothDamp(thickness, targetBorderThickness + 0.5f, ref velocity, 0.1f);
                 material.SetFloat(OutlineThickness, thickness);
                 yield return null;
                 timer += Time.deltaTime;
             }
-            material.SetFloat(OutlineThickness, 5.0f);
+            material.SetFloat(OutlineThickness, targetBorderThickness);
 
             yield return new WaitForSeconds(1.5f - timer);
 
@@ -101,7 +102,7 @@ namespace Items
         public void ActivateOutline()
         {
             isBeingScanned = true;
-            material.SetFloat(OutlineThickness, 5.0f);
+            material.SetFloat(OutlineThickness, targetBorderThickness);
         }
 
         public void DeactivateOutline()

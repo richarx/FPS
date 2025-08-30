@@ -290,6 +290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 2545436561954898731}
+  targetBorderThickness: 5.5
   offset: {x: 0, y: 1.5, z: 0}
   scanText: Scanner Goggles -
 --- !u!114 &-3252877192549528814

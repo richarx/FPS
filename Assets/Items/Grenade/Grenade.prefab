@@ -206,6 +206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 5104856962128891215}
+  targetBorderThickness: 5.5
   offset: {x: 0, y: 1.5, z: 0}
   scanText: Grenade -
 --- !u!114 &2516622870809391513

@@ -596,6 +596,9 @@ public static class Tools
 
     public static TextMeshProUGUI SetTextColor(TextMeshProUGUI text, float alpha = 1.0f)
     {
+        if (alpha > 0.0f)
+            text.gameObject.SetActive(true);
+        
         Color color = text.color;
         color.a = alpha;
         text.color = color;

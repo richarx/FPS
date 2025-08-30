@@ -148,7 +148,6 @@ MonoBehaviour:
   OnTrigger:
     m_PersistentCalls:
       m_Calls: []
-  toolTipText: Press $E$ to Interact
   itemType: 2
 --- !u!135 &997858128444649869
 SphereCollider:
@@ -576,6 +575,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 1747805263115396036}
+  targetBorderThickness: 5.5
   offset: {x: 0, y: 3, z: 0}
   scanText: 'Vending Machine -
 

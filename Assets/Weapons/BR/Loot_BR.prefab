@@ -154,7 +154,6 @@ MonoBehaviour:
   OnTrigger:
     m_PersistentCalls:
       m_Calls: []
-  toolTipText: Press $E$ to Equip
   itemType: 1
   sr: {fileID: 243413486556032759}
   sprite: {fileID: 21300000, guid: 10027666df04d1c449be8ee0264fa145, type: 3}
@@ -251,6 +250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 243413486556032759}
+  targetBorderThickness: 5.5
   offset: {x: 0, y: 2, z: 0}
   scanText: 'Weapon type : Burst Rifle
 
