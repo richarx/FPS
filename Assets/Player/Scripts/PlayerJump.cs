@@ -88,18 +88,18 @@ namespace Player.Scripts
             if (ceilingHit) 
                 player.moveVelocity.y = Mathf.Min(0, player.moveVelocity.y);
 
-            bool landed = !isGrounded && (groundHit || isWalkableSlope);
+            bool landed = !isGrounded && (groundHit || isWalkableSlope) && player.moveVelocity.y < 1.0f;
             bool startsBeingInTheAir = isGrounded && !groundHit && !isWalkableSlope;
             if (landed)
             {
-                landed = true;
+                Debug.Log($"{groundHit} / {isWalkableSlope} / {player.moveVelocity.y}");
                 isGrounded = true;
                 coyoteUsable = true;
                 endedJumpEarly = false;
                 RefillRemainingJumps(player.playerData);
                 lastLandingTimeStamp = Time.time;
                 OnGroundedChanged?.Invoke(true, Mathf.Abs(player.moveVelocity.y));
-                player.moveVelocity.y = player.playerData.groundingForce;
+                player.moveVelocity.y = 0.0f;
             }
             else if (startsBeingInTheAir)
             {
@@ -250,7 +250,7 @@ namespace Player.Scripts
 
             if (isGrounded && player.moveVelocity.y <= 0f)
             {
-                player.moveVelocity.y = player.playerData.groundingForce;
+                player.moveVelocity.y = 0.0f;//player.playerData.groundingForce;
             }
             else
             {

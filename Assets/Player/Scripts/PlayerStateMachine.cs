@@ -1,3 +1,4 @@
+using System;
 using Backpack;
 using Data;
 using Inventory;
@@ -100,8 +101,31 @@ namespace Player.Scripts
         private void FixedUpdate()
         {
             currentBehaviour.FixedUpdateBehaviour(this);
+            
+            PushPlayerOutOfGround();
         }
-        
+
+        private void LateUpdate()
+        {
+            
+        }
+
+        private void PushPlayerOutOfGround()
+        {
+           
+            Vector3 rayPosition = position + (Vector3.up * 1.5f);
+
+            if (Physics.Raycast(rayPosition, Vector3.down, out var hit, 1.6f, ~playerData.layersToIgnoreForGroundCheck))
+            {
+                float distanceToPush = 1.5f - hit.distance;
+                
+                if (distanceToPush > 0.0f)
+                {
+                    transform.position += Vector3.up * distanceToPush;
+                }
+            }
+        }
+
         public void ChangeBehaviour(IPlayerBehaviour newBehaviour)
         {
             if (newBehaviour == null || newBehaviour == currentBehaviour)
