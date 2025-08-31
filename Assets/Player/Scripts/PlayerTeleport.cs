@@ -20,9 +20,9 @@ namespace Player.Scripts
         private void Update()
         {
             if (Keyboard.current.tKey.wasPressedThisFrame)
-                DropTeleporter();
-            else if (Keyboard.current.yKey.wasPressedThisFrame)
                 Teleport();
+            else if (Keyboard.current.nKey.wasPressedThisFrame)
+                DropTeleporter();
         }
 
         private void Teleport()
